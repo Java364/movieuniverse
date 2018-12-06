@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.movieuniverse;
+package academy.softserve.movieuniverse;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

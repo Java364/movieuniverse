@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.movieuniverse.entity;
+package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

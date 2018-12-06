@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.movieuniverse;
+package academy.softserve.movieuniverse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

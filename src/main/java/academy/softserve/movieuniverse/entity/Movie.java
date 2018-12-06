@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.movieuniverse.entity;
+package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
