@@ -5,20 +5,21 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="trailers")
-public class Trailer extends AbstractEntity{
+@Table(name = "trailers")
+public class Trailer extends AbstractEntity {
 
-	@Column(name = "trailer_url")
-	private String trailerUrl;
-	
-	public Trailer() {}
+    @Column(name = "trailer_url")
+    private String trailerUrl;
 
-	public String getTrailerUrl() {
-		return trailerUrl;
-	}
+    public Trailer() {
+    }
 
-	public void setTrailerUrl(String trailerUrl) {
-		this.trailerUrl = trailerUrl;
-	}
+    public String getTrailerUrl() {
+        return trailerUrl;
+    }
+
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
+    }
 
 }

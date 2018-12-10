@@ -8,8 +8,10 @@ import java.time.LocalDate;
 public abstract class Person extends AbstractEntity {
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
+
     private LocalDate birthday;
 
     public String getFirstName() {

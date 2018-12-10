@@ -6,42 +6,43 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 @Embeddable
 public class MediaContent {
 
-	@OneToOne
-	@JoinColumn(name = "poster_id")
-	private Poster poster;
+    @OneToOne
+    @JoinColumn(name = "poster_id")
+    private Poster poster;
 
-	@OneToMany
-	@JoinColumn(name = "movie_id")
-	private List<Trailer> trailers;
+    @OneToMany
+    @JoinColumn(name = "movie_id")
+    private List<Trailer> trailers;
 
-	@OneToMany
-	private List<Image> gallery;
-		
-	public Poster getPoster() {
-		return poster;
-	}
+    @OneToMany
+    private List<Image> gallery;
 
-	public void setPoster(Poster poster) {
-		this.poster = poster;
-	}
+    public Poster getPoster() {
+        return poster;
+    }
 
-	public List<Trailer> getTrailers() {
-		return trailers;
-	}
+    public void setPoster(Poster poster) {
+        this.poster = poster;
+    }
 
-	public void setTrailers(List<Trailer> trailers) {
-		this.trailers = trailers;
-	}
+    public List<Trailer> getTrailers() {
+        return trailers;
+    }
 
-	public List<Image> getGallery() {
-		return gallery;
-	}
+    public void setTrailers(List<Trailer> trailers) {
+        this.trailers = trailers;
+    }
 
-	public void setGallery(List<Image> gallery) {
-		this.gallery = gallery;
-	}
+    public List<Image> getGallery() {
+        return gallery;
+    }
+
+    public void setGallery(List<Image> gallery) {
+        this.gallery = gallery;
+    }
 
 }

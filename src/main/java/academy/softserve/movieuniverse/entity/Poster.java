@@ -5,29 +5,29 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="posters")
-public class Poster extends AbstractEntity{
-	
-	@Column(name = "name_poster")
-	private String name;
-	
-	@Column(name = "image_url")
-	private String imageUrl;
-	
-	public String getName() {
-		return name;
-	}
+@Table(name = "posters")
+public class Poster extends AbstractEntity {
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Column(name = "name_poster")
+    private String name;
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
+    @Column(name = "image_url")
+    private String imageUrl;
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
 }

@@ -7,50 +7,51 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="links")
-public class Links extends AbstractEntity{
-	
-	@Column(name="link_name")
-	private String linkName;
-	
-	@Column(name="site_name")
-	private String siteName;
-	
-	@ManyToOne
-	@JoinColumn(name = "star_id")
-	private Star star;
+@Table(name = "links")
+public class Links extends AbstractEntity {
 
-	public Links() {}
+    @Column(name = "link_name")
+    private String linkName;
 
-	public Links(String linkName, String siteName, Star star) {
-		super();
-		this.linkName = linkName;
-		this.siteName = siteName;
-		this.star = star;
-	}
+    @Column(name = "site_name")
+    private String siteName;
 
-	public String getLinkName() {
-		return linkName;
-	}
+    @ManyToOne
+    @JoinColumn(name = "star_id")
+    private Star star;
 
-	public void setLinkName(String linkName) {
-		this.linkName = linkName;
-	}
+    public Links() {
+    }
 
-	public String getSiteName() {
-		return siteName;
-	}
+    public Links(String linkName, String siteName, Star star) {
+        super();
+        this.linkName = linkName;
+        this.siteName = siteName;
+        this.star = star;
+    }
 
-	public void setSiteName(String siteName) {
-		this.siteName = siteName;
-	}
+    public String getLinkName() {
+        return linkName;
+    }
 
-	public Star getStar() {
-		return star;
-	}
+    public void setLinkName(String linkName) {
+        this.linkName = linkName;
+    }
 
-	public void setStar(Star star) {
-		this.star = star;
-	}
+    public String getSiteName() {
+        return siteName;
+    }
+
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
+    }
+
+    public Star getStar() {
+        return star;
+    }
+
+    public void setStar(Star star) {
+        this.star = star;
+    }
 }
 

@@ -15,18 +15,19 @@ public class User extends Person {
 
     @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
     private List<UserReview> userReviews = new ArrayList<>();
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MovieMark> movieMarks = new ArrayList<>();
 
     public List<MovieMark> getMovieMarks() {
-		return movieMarks;
-	}
+        return movieMarks;
+    }
 
-	public void setMovieMarks(List<MovieMark> movieMarks) {
-		this.movieMarks = movieMarks;
-	}
+    public void setMovieMarks(List<MovieMark> movieMarks) {
+        this.movieMarks = movieMarks;
+    }
 
-	public String getEmail() {
+    public String getEmail() {
         return email;
     }
 

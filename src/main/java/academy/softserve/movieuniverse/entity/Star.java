@@ -12,115 +12,115 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="movie_stars")
+@Table(name = "movie_stars")
 public class Star extends Person {
-	
-	
-	@Column(name="star_biography")
-	private String biography;
-	
-	@Column(name="star_growth")
-	private Double growth;
-	
-	@Column(name="star_country")
-	private String countryOfBirth;
-	
-	@Column(name="star_city")
-	private String cityOfBirth;
-	
-	@OneToMany(mappedBy = "star")
+
+    @Column(name = "star_biography")
+    private String biography;
+
+    @Column(name = "star_growth")
+    private Double growth;
+
+    @Column(name = "star_country")
+    private String countryOfBirth;
+
+    @Column(name = "star_city")
+    private String cityOfBirth;
+
+    @OneToMany(mappedBy = "star")
     private List<StarActivityInFilms> roles = new ArrayList<StarActivityInFilms>();
-	
-	@OneToMany(mappedBy = "star")
-	private List<StarProfession> professions = new ArrayList<StarProfession>();
-	
-	@OneToMany(mappedBy = "star")
-	private List<Links> links = new ArrayList<Links>();
-	
-	@ManyToMany
-	@JoinTable(name = "star_movie", 
-	joinColumns = @JoinColumn(name =  "star_id"), 
-	inverseJoinColumns = @JoinColumn(name =  "movie_id"))
-	private List<Movie> movies = new ArrayList<Movie>();
-	
-	public Star() {}
 
-	public Star(String biography, Double growth, String countryOfBirth,
-			String cityOfBirth, List<StarActivityInFilms> roles,
-			List<StarProfession> professions, List<Links> links,
-			List<Movie> movies) {
-		super();
-		this.biography = biography;
-		this.growth = growth;
-		this.countryOfBirth = countryOfBirth;
-		this.cityOfBirth = cityOfBirth;
-		this.roles = roles;
-		this.professions = professions;
-		this.links = links;
-		this.movies = movies;
-	}
+    @OneToMany(mappedBy = "star")
+    private List<StarProfession> professions = new ArrayList<StarProfession>();
 
-	public String getBiography() {
-		return biography;
-	}
+    @OneToMany(mappedBy = "star")
+    private List<Links> links = new ArrayList<Links>();
 
-	public void setBiography(String biography) {
-		this.biography = biography;
-	}
+    @ManyToMany
+    @JoinTable(name = "star_movie",
+            joinColumns = @JoinColumn(name = "star_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    private List<Movie> movies = new ArrayList<Movie>();
 
-	public List<StarActivityInFilms> getRoles() {
-		return roles;
-	}
+    public Star() {
+    }
 
-	public void setRoles(List<StarActivityInFilms> roles) {
-		this.roles = roles;
-	}
+    public Star(String biography, Double growth, String countryOfBirth,
+                String cityOfBirth, List<StarActivityInFilms> roles,
+                List<StarProfession> professions, List<Links> links,
+                List<Movie> movies) {
+        super();
+        this.biography = biography;
+        this.growth = growth;
+        this.countryOfBirth = countryOfBirth;
+        this.cityOfBirth = cityOfBirth;
+        this.roles = roles;
+        this.professions = professions;
+        this.links = links;
+        this.movies = movies;
+    }
 
-	public Double getGrowth() {
-		return growth;
-	}
+    public String getBiography() {
+        return biography;
+    }
 
-	public void setGrowth(Double growth) {
-		this.growth = growth;
-	}
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
 
-	public List<Movie> getMovies() {
-		return movies;
-	}
+    public List<StarActivityInFilms> getRoles() {
+        return roles;
+    }
 
-	public void setMovies(List<Movie> movies) {
-		this.movies = movies;
-	}
+    public void setRoles(List<StarActivityInFilms> roles) {
+        this.roles = roles;
+    }
 
-	public List<Links> getLinks() {
-		return links;
-	}
+    public Double getGrowth() {
+        return growth;
+    }
 
-	public void setLinks(List<Links> links) {
-		this.links = links;
-	}
+    public void setGrowth(Double growth) {
+        this.growth = growth;
+    }
 
-	public String getCountryOfBirth() {
-		return countryOfBirth;
-	}
+    public List<Movie> getMovies() {
+        return movies;
+    }
 
-	public void setCountryOfBirth(String countryOfBirth) {
-		this.countryOfBirth = countryOfBirth;
-	}
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
 
-	public String getCityOfBirth() {
-		return cityOfBirth;
-	}
+    public List<Links> getLinks() {
+        return links;
+    }
 
-	public void setCityOfBirth(String cityOfBirth) {
-		this.cityOfBirth = cityOfBirth;
-	}
+    public void setLinks(List<Links> links) {
+        this.links = links;
+    }
 
-	public List<StarProfession> getProfessions() {
-		return professions;
-	}
+    public String getCountryOfBirth() {
+        return countryOfBirth;
+    }
 
-	public void setProfessions(List<StarProfession> professions) {
-		this.professions = professions;
-	}
+    public void setCountryOfBirth(String countryOfBirth) {
+        this.countryOfBirth = countryOfBirth;
+    }
+
+    public String getCityOfBirth() {
+        return cityOfBirth;
+    }
+
+    public void setCityOfBirth(String cityOfBirth) {
+        this.cityOfBirth = cityOfBirth;
+    }
+
+    public List<StarProfession> getProfessions() {
+        return professions;
+    }
+
+    public void setProfessions(List<StarProfession> professions) {
+        this.professions = professions;
+    }
 }
