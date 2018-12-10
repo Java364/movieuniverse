@@ -47,10 +47,23 @@ public class Movie extends AbstractEntity {
 
 	@OneToMany(mappedBy = "reviewedMovie", cascade = CascadeType.ALL)
 	List<UserReview> userReviews = new ArrayList<>();
+	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+	List<MovieMark> movieMarks = new ArrayList<>();
 
 	public Movie() {}
     
-    public List<StarActivityInFilms> getRoles() {
+	
+    public List<MovieMark> getMovieMarks() {
+		return movieMarks;
+	}
+
+
+	public void setMovieMarks(List<MovieMark> movieMarks) {
+		this.movieMarks = movieMarks;
+	}
+
+
+	public List<StarActivityInFilms> getRoles() {
 		return roles;
 	}
 
