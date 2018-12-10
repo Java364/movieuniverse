@@ -5,16 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="galeries")
-public class Galery extends AbstractEntity{
+@Table(name="images")
+public class Image extends AbstractEntity{
 
-	@Column(name = "name_galery")
+	@Column(name = "image_name")
 	private String name;
 	
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	public Galery() {}
+	public Image() {}
 
 	public String getName() {
 		return name;
