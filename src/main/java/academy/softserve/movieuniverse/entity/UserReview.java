@@ -17,7 +17,7 @@ public class UserReview extends AbstractEntity {
     private String text;
 
     @OneToMany(mappedBy = "userReview", cascade = CascadeType.ALL)
-    private List<CommentMark> commentMarks = new ArrayList<>();
+    private List<UserReviewMark> userReviewMarks = new ArrayList<>();
 
     public User getReviewer() {
         return reviewer;
@@ -46,12 +46,12 @@ public class UserReview extends AbstractEntity {
         return this;
     }
 
-    public List<CommentMark> getCommentMarks() {
-        return commentMarks;
+    public List<UserReviewMark> getUserReviewMarks() {
+        return userReviewMarks;
     }
 
-    public UserReview setCommentMarks(List<CommentMark> commentMarks) {
-        this.commentMarks = commentMarks;
+    public UserReview setUserReviewMarks(List<UserReviewMark> userReviewMarks) {
+        this.userReviewMarks = userReviewMarks;
         return this;
     }
 }

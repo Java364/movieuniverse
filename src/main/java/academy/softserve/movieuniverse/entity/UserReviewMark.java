@@ -6,8 +6,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "comment_mark")
-public class CommentMark extends AbstractEntity {
+@Table(name = "user_review_mark")
+public class UserReviewMark extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private UserReview userReview;
 
@@ -20,7 +20,7 @@ public class CommentMark extends AbstractEntity {
         return userReview;
     }
 
-    public CommentMark setUserReview(UserReview userReview) {
+    public UserReviewMark setUserReview(UserReview userReview) {
         this.userReview = userReview;
         return this;
     }
@@ -29,7 +29,7 @@ public class CommentMark extends AbstractEntity {
         return reviewer;
     }
 
-    public CommentMark setReviewer(User reviewer) {
+    public UserReviewMark setReviewer(User reviewer) {
         this.reviewer = reviewer;
         return this;
     }
@@ -38,7 +38,7 @@ public class CommentMark extends AbstractEntity {
         return liked;
     }
 
-    public CommentMark setLiked(boolean liked) {
+    public UserReviewMark setLiked(boolean liked) {
         this.liked = liked;
         return this;
     }
