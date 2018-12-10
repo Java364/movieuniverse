@@ -9,6 +9,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import javax.persistence.*;
+
 import java.time.Duration;
 import java.time.Year;
 import java.util.ArrayList;
@@ -42,7 +44,10 @@ public class Movie extends AbstractEntity {
 	joinColumns = @JoinColumn(name =  "movie_id"), 
 	inverseJoinColumns = @JoinColumn(name =  "star_id"))
 	private List<Star> stars = new ArrayList<Star>();
-	    
+
+	@OneToMany(mappedBy = "reviewedMovie", cascade = CascadeType.ALL)
+	List<UserReview> userReviews = new ArrayList<>();
+
 	public Movie() {}
     
     public List<StarActivityInFilms> getRoles() {
@@ -125,4 +130,12 @@ public class Movie extends AbstractEntity {
 		this.mediaContent = mediaContent;
 	}
 
+	public List<UserReview> getUserReviews() {
+		return userReviews;
+	}
+
+	public Movie setUserReviews(List<UserReview> userReviews) {
+		this.userReviews = userReviews;
+		return this;
+	}
 }
