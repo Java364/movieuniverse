@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import java.time.Duration;
 import java.time.Year;
 import java.util.ArrayList;
@@ -33,10 +35,33 @@ public class Movie extends AbstractEntity {
 	@JoinTable(name = "movies_countries", joinColumns = @JoinColumn(name = "movie_id"), 
 	inverseJoinColumns = @JoinColumn(name = "country_id"))
 	private List<Country> countries = new ArrayList<>();
+	@OneToMany(mappedBy = "movie")
+    private List<StarActivityInFilms> roles = new ArrayList<StarActivityInFilms>();
+    @ManyToMany
+	@JoinTable(name = "star_movie", 
+	joinColumns = @JoinColumn(name =  "movie_id"), 
+	inverseJoinColumns = @JoinColumn(name =  "star_id"))
+	private List<Star> stars = new ArrayList<Star>();
 	    
 	public Movie() {}
     
-    public List<Genre> getGenres() {
+    public List<StarActivityInFilms> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<StarActivityInFilms> roles) {
+		this.roles = roles;
+	}
+
+	public List<Star> getStars() {
+		return stars;
+	}
+
+	public void setStars(List<Star> stars) {
+		this.stars = stars;
+	}
+
+	public List<Genre> getGenres() {
 		return genres;
 	}
  
