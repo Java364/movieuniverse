@@ -1,24 +1,50 @@
 package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.Duration;
 import java.time.Year;
-import java.util.Objects;
-
+import java.util.ArrayList;
+import java.util.List;
 @Entity
 @Table(name="movies")
 public class Movie extends AbstractEntity {
 
-    @Column(name="movie_name")
+	@Column(name="movie_name")
     private String movieName;
     private Duration duration;
     @Column(columnDefinition = "SMALLINT")
     private Year year;
     private String description;
+    @Column(name = "age_limitation")
+    private String ageLimitation;
+    @Embedded
+    private MediaContent mediaContent;
+	@ManyToMany
+	@JoinTable(name = "movies_genres", joinColumns = @JoinColumn(name = "movie_id"), 
+	inverseJoinColumns = @JoinColumn(name = "genre_id"))
+	private List<Genre> genres = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(name = "movies_countries", joinColumns = @JoinColumn(name = "movie_id"), 
+	inverseJoinColumns = @JoinColumn(name = "country_id"))
+	private List<Country> countries = new ArrayList<>();
+	    
+	public Movie() {}
+    
+    public List<Genre> getGenres() {
+		return genres;
+	}
+ 
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
+	}
 
-    public String getMovieName() {
+	public String getMovieName() {
         return movieName;
     }
 
@@ -32,9 +58,6 @@ public class Movie extends AbstractEntity {
 
     public void setDuration(Duration duration) {
         this.duration = duration;
-    }
-
-    public Movie() {
     }
 
     public Year getYear() {
@@ -53,29 +76,28 @@ public class Movie extends AbstractEntity {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "movieName='" + movieName + '\'' +
-                ", duration=" + duration +
-                ", year=" + year +
-                ", description='" + description + '\'' +
-                "} " + super.toString();
-    }
+	public String getAgeLimitation() {
+		return ageLimitation;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Movie movie = (Movie) o;
-        return Objects.equals(movieName, movie.movieName) &&
-                Objects.equals(duration, movie.duration) &&
-                Objects.equals(year, movie.year) &&
-                Objects.equals(description, movie.description);
-    }
+	public void setAgeLimitation(String ageLimitation) {
+		this.ageLimitation = ageLimitation;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(movieName, duration, year, description);
-    }
+	public List<Country> getCountries() {
+		return countries;
+	}
+
+	public void setCountries(List<Country> countries) {
+		this.countries = countries;
+	}
+
+	public MediaContent getMediaContent() {
+		return mediaContent;
+	}
+
+	public void setMediaContent(MediaContent mediaContent) {
+		this.mediaContent = mediaContent;
+	}
+
 }
