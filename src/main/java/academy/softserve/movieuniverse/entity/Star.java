@@ -22,7 +22,7 @@ public class Star extends Person {
     private Double growth;
 
     @Column(name = "star_country")
-    private String countryOfBirth;
+    private String countryOfBirth; //TODO Country
 
     @Column(name = "star_city")
     private String cityOfBirth;

@@ -13,9 +13,9 @@ public class StarActivityInFilms extends AbstractEntity {
     @JoinColumn(name = "star_id")
     private Star star;
 
-    @ManyToOne
+    @ManyToOne //one to many
     @JoinColumn(name = "profession_id")
-    private StarProfession profession;
+    private StarProfession profession; //TODO List
 
     @ManyToOne
     @JoinColumn(name = "movie_id")

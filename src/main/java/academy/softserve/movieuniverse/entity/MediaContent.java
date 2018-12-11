@@ -18,8 +18,9 @@ public class MediaContent {
     @JoinColumn(name = "movie_id")
     private List<Trailer> trailers;
 
-    @OneToMany
-    private List<Image> gallery;
+    @OneToOne
+    @JoinColumn(name = "gallery_id")
+    private Gallery gallery;
 
     public Poster getPoster() {
         return poster;
@@ -37,12 +38,12 @@ public class MediaContent {
         this.trailers = trailers;
     }
 
-    public List<Image> getGallery() {
-        return gallery;
-    }
+	public Gallery getGallery() {
+		return gallery;
+	}
 
-    public void setGallery(List<Image> gallery) {
-        this.gallery = gallery;
-    }
+	public void setGallery(Gallery gallery) {
+		this.gallery = gallery;
+	}
 
 }
