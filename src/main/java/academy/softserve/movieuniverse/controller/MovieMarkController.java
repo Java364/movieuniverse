@@ -1,5 +1,8 @@
 package academy.softserve.movieuniverse.controller;
 
-public class MovieMarkController {
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+public class MovieMarkController {
+	
 }
