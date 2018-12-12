@@ -1,5 +1,7 @@
 package academy.softserve.movieuniverse.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,11 @@ public class CountryService {
 		return country;
 	}
 	
-	public Country getCountry (Long id) {
+	public List<Country> findAllCountry() {
+		return countryRepository.findAll();
+	}
+	
+	public Country findCountryById(Long id) {
 		
 		return countryRepository.getOne(id);
 	}

@@ -15,30 +15,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.repository.CountryRepository;
+import academy.softserve.movieuniverse.service.CountryService;
 
 @RestController
 public class CountryController {
 	
 	@Autowired
-	private CountryRepository countryRepository;
+	private CountryService countryService;
 	
 	@PostMapping("/api/country")
 	ResponseEntity<Country> createCountry(@RequestBody Country country){
-		country = countryRepository.save(country);
+		country = countryService.createCountry(country);
 		
 		return new ResponseEntity<Country>(country, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/api/country")
 	List<Country> findAllCountry() {
-		List<Country> countryList = countryRepository.findAll();
+		List<Country> countryList = countryService.findAllCountry();
 		
 		return countryList;
 	}
 	
 	@GetMapping("/api/country/{id}")
 	ResponseEntity<Country> getCountry(@PathVariable Long id) {
-		Country country = countryRepository.getOne(id);
+		Country country = countryService.findCountryById(id);
 		
 		return new ResponseEntity<Country>(country, HttpStatus.OK);
 	}

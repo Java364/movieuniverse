@@ -1,5 +1,7 @@
 package academy.softserve.movieuniverse.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,10 @@ public class MovieMarkService {
 	public MovieMark getMovieMark(Long id) {
 		
 		return movieMarkRepository.getOne(id);
+	}
+	
+	public List<MovieMark> findAllMovieMarks() {
+		return movieMarkRepository.findAll();
 	}
 	
 }
