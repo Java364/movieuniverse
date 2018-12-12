@@ -3,6 +3,7 @@ package academy.softserve.movieuniverse.entity;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class Person extends AbstractEntity {
@@ -12,7 +13,7 @@ public abstract class Person extends AbstractEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    private LocalDate birthday;
+    private Long birthday;
 
     public String getFirstName() {
         return firstName;
@@ -32,12 +33,12 @@ public abstract class Person extends AbstractEntity {
         return this;
     }
 
-    public LocalDate getBirthday() {
+    public Long getBirthday() {
         return birthday;
     }
 
-    public Person setBirthday(LocalDate birthday) {
+    public void setBirthday(Long birthday) {
         this.birthday = birthday;
-        return this;
     }
+
 }
