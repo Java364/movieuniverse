@@ -1,12 +1,14 @@
 package academy.softserve.movieuniverse.dto;
 
-public class UserRegistrationDTO {
+import java.util.Objects;
+
+public class UserRegistrationDTO{
     private String email;
     private String password;
     private String confirmPassword;
-    private String encryptedPassword;
     private String lastName;
     private String firstName;
+    private Long birthday;
 
     public String getEmail() {
         return email;
@@ -48,12 +50,30 @@ public class UserRegistrationDTO {
         this.firstName = firstName;
     }
 
-    public String getEncryptedPassword() {
-        return encryptedPassword;
+    public Long getBirthday() {
+        return birthday;
     }
 
-    public void setEncryptedPassword(String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
+    public void setBirthday(Long birthday) {
+        this.birthday = birthday;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserRegistrationDTO that = (UserRegistrationDTO) o;
+        return Objects.equals(email, that.email) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(confirmPassword, that.confirmPassword) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(firstName, that.firstName) &&
+                Objects.equals(birthday, that.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, password, confirmPassword, lastName, firstName, birthday);
     }
 
     @Override
@@ -62,9 +82,9 @@ public class UserRegistrationDTO {
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
-                ", encryptedPassword='" + encryptedPassword + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
+                ", birthday=" + birthday +
                 '}';
     }
 }
