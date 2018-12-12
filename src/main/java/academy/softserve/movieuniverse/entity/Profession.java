@@ -15,9 +15,6 @@ public class Profession extends AbstractEntity {
     @Column(name = "profession_type")
     private String professionType;
 
-    @OneToMany(mappedBy = "profession")//TODO delete
-    private List<StarActivityInFilms> starRoles = new ArrayList<StarActivityInFilms>();
-
     @OneToMany(mappedBy = "profession")
     private List<StarProfession> stars = new ArrayList<StarProfession>();
 

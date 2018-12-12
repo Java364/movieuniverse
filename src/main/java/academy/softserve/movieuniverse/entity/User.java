@@ -6,10 +6,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user")
-public class User extends Person {
+public class User extends Person  {
     private String email;
     private String password;
 
@@ -23,34 +24,57 @@ public class User extends Person {
         return movieMarks;
     }
 
-    public void setMovieMarks(List<MovieMark> movieMarks) {
-        this.movieMarks = movieMarks;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public User setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public User setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
-        return this;
     }
 
     public List<UserReview> getUserReviews() {
         return userReviews;
     }
 
-    public User setUserReviews(List<UserReview> userReviews) {
+    public void setUserReviews(List<UserReview> userReviews) {
         this.userReviews = userReviews;
-        return this;
+    }
+
+    public void setMovieMarks(List<MovieMark> movieMarks) {
+        this.movieMarks = movieMarks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(userReviews, user.userReviews) &&
+                Objects.equals(movieMarks, user.movieMarks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, password, userReviews, movieMarks);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", userReviews=" + userReviews +
+                ", movieMarks=" + movieMarks +
+                '}';
     }
 }
