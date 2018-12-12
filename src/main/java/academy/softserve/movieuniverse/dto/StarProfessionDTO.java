@@ -3,9 +3,8 @@ package academy.softserve.movieuniverse.dto;
 public class StarProfessionDTO {
 
     private long id;
-
-    //    private StarDTO starDTO;
-    private StarProfessionDTO professionDTO;
+    private long starProfessionId;
+    private long starId;
 
     public long getId() {
         return id;
@@ -15,14 +14,19 @@ public class StarProfessionDTO {
         this.id = id;
     }
 
-    public StarProfessionDTO() {
+    public long getStarProfessionId() {
+        return starProfessionId;
     }
 
-    public StarProfessionDTO getProfessionDTO() {
-        return professionDTO;
+    public void setStarProfessionId(long starProfessionId) {
+        this.starProfessionId = starProfessionId;
     }
 
-    public void setProfessionDTO(StarProfessionDTO professionDTO) {
-        this.professionDTO = professionDTO;
+    public long getStarId() {
+        return starId;
+    }
+
+    public void setStarId(long starId) {
+        this.starId = starId;
     }
 }
