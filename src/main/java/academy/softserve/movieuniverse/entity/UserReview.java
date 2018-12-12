@@ -23,35 +23,31 @@ public class UserReview extends AbstractEntity {
         return reviewer;
     }
 
-    public UserReview setReviewer(User reviewer) {
+    public void setReviewer(User reviewer) {
         this.reviewer = reviewer;
-        return this;
     }
 
     public Movie getReviewedMovie() {
         return reviewedMovie;
     }
 
-    public UserReview setReviewedMovie(Movie reviewedMovie) {
+    public void setReviewedMovie(Movie reviewedMovie) {
         this.reviewedMovie = reviewedMovie;
-        return this;
     }
 
     public String getText() {
         return text;
     }
 
-    public UserReview setText(String text) {
+    public void setText(String text) {
         this.text = text;
-        return this;
     }
 
     public List<UserReviewMark> getUserReviewMarks() {
         return userReviewMarks;
     }
 
-    public UserReview setUserReviewMarks(List<UserReviewMark> userReviewMarks) {
+    public void setUserReviewMarks(List<UserReviewMark> userReviewMarks) {
         this.userReviewMarks = userReviewMarks;
-        return this;
     }
 }

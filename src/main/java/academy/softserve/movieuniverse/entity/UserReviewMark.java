@@ -20,26 +20,23 @@ public class UserReviewMark extends AbstractEntity {
         return userReview;
     }
 
-    public UserReviewMark setUserReview(UserReview userReview) {
+    public void setUserReview(UserReview userReview) {
         this.userReview = userReview;
-        return this;
     }
 
     public User getReviewer() {
         return reviewer;
     }
 
-    public UserReviewMark setReviewer(User reviewer) {
+    public void setReviewer(User reviewer) {
         this.reviewer = reviewer;
-        return this;
     }
 
     public boolean isLiked() {
         return liked;
     }
 
-    public UserReviewMark setLiked(boolean liked) {
+    public void setLiked(boolean liked) {
         this.liked = liked;
-        return this;
     }
 }
