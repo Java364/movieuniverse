@@ -2,7 +2,7 @@ package academy.softserve.movieuniverse.dto;
 
 import java.util.Objects;
 
-public class UserProfileDTO {
+public class UserProfileDTO{
     private Long id;
     private String email;
     private String lastName;

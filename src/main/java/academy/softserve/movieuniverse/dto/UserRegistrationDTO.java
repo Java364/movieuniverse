@@ -1,10 +1,9 @@
 package academy.softserve.movieuniverse.dto;
 
-public class UserRegistrationDTO {
+public class UserRegistrationDTO{
     private String email;
     private String password;
     private String confirmPassword;
-    private String encryptedPassword;
     private String lastName;
     private String firstName;
 
@@ -48,13 +47,6 @@ public class UserRegistrationDTO {
         this.firstName = firstName;
     }
 
-    public String getEncryptedPassword() {
-        return encryptedPassword;
-    }
-
-    public void setEncryptedPassword(String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
-    }
 
     @Override
     public String toString() {
@@ -62,7 +54,6 @@ public class UserRegistrationDTO {
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
-                ", encryptedPassword='" + encryptedPassword + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 '}';
