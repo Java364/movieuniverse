@@ -4,7 +4,7 @@ import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.entity.Poster;
 
 
-public class PosterMapper implements ReversableDtoMapper<Poster, PosterDTO>{
+public class PosterMapper implements ReversibleDtoMapper<Poster, PosterDTO> {
 
 	@Override
 	public Poster mapToEntity(PosterDTO posterDTO) {

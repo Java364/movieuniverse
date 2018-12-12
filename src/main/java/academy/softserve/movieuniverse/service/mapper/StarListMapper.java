@@ -1,12 +1,12 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import academy.softserve.movieuniverse.dto.StarListDTO;
 import academy.softserve.movieuniverse.entity.Star;
 
-public class StarListMapper implements ReversableDtoMapper<Star, StarListDTO>{
+import java.util.ArrayList;
+import java.util.List;
+
+public class StarListMapper implements ReversibleDtoMapper<Star, StarListDTO> {
 
 	@Override
 	public Star mapToEntity(StarListDTO dto) {

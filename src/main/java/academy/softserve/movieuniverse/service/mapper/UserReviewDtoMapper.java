@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserReviewDtoMapper implements ReversableDtoMapper<UserReview, UserReviewDto> {
+public class UserReviewDtoMapper implements ReversibleDtoMapper<UserReview, UserReviewDto> {
     private ModelMapper modelMapper;
 
     @Autowired

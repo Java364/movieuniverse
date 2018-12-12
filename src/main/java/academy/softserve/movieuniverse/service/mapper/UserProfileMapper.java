@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class UserProfileMapper implements ReversableDtoMapper<User, UserProfileDTO> {
+public class UserProfileMapper implements ReversibleDtoMapper<User, UserProfileDTO> {
 
     private ModelMapper modelMapper = new ModelMapper();
 

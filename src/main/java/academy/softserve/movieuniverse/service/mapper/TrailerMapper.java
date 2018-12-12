@@ -1,11 +1,12 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
 import academy.softserve.movieuniverse.dto.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Trailer;
 
-public class TrailerMapper implements ReversableDtoMapper<Trailer, TrailerDTO>{
+import java.util.ArrayList;
+import java.util.List;
+
+public class TrailerMapper implements ReversibleDtoMapper<Trailer, TrailerDTO> {
 	/*@Autowired
 	MovieService movieService;*/
 	

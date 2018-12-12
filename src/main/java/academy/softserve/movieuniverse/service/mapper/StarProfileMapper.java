@@ -3,7 +3,7 @@ package academy.softserve.movieuniverse.service.mapper;
 import academy.softserve.movieuniverse.dto.StarCreateDTO;
 import academy.softserve.movieuniverse.entity.Star;
 
-public class StarProfileMapper implements ReversableDtoMapper<Star, StarCreateDTO>{
+public class StarProfileMapper implements ReversibleDtoMapper<Star, StarCreateDTO> {
 
 	@Override
 	public Star mapToEntity(StarCreateDTO dto) {

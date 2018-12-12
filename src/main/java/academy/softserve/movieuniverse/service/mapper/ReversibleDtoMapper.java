@@ -3,7 +3,7 @@ package academy.softserve.movieuniverse.service.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface ReversableDtoMapper<E, D> {
+public interface ReversibleDtoMapper<E, D> {
     E mapToEntity(D dto);
 
     D mapToDto(E entity);

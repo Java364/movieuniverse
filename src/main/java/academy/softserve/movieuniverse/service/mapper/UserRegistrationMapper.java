@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserRegistrationMapper implements ReversableDtoMapper<User, UserRegistrationDTO> {
+public class UserRegistrationMapper implements ReversibleDtoMapper<User, UserRegistrationDTO> {
 
     private ModelMapper modelMapper = new ModelMapper();
 

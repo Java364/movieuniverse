@@ -1,12 +1,12 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import academy.softserve.movieuniverse.dto.CountryDTO;
 import academy.softserve.movieuniverse.entity.Country;
 
-public class CountryMapper implements ReversableDtoMapper<Country, CountryDTO>{
+import java.util.ArrayList;
+import java.util.List;
+
+public class CountryMapper implements ReversibleDtoMapper<Country, CountryDTO> {
 
 	@Override
 	public Country mapToEntity(CountryDTO dto) {
