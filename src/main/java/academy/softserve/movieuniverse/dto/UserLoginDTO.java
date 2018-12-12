@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.dto;
 
-public class UserLoginDTO {
+public class UserLoginDTO{
     private String email;
     private String password;
     private String encryptedPassword;

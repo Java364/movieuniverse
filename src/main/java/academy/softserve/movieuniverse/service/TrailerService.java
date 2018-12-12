@@ -1,5 +1,7 @@
 package academy.softserve.movieuniverse.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,10 @@ public class TrailerService {
 	
 	public void deleteTrailer(Long id) {
 		trailerRepository.deleteById(id);
+	}
+	
+	public List<Trailer> findAll() {
+		return trailerRepository.findAll();
 	}
 
 }

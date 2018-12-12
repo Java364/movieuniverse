@@ -15,8 +15,9 @@ public class StarService {
 	@Autowired
 	private StarRepository starRepository;
 
-	public void saveStar(Star star) {
-		starRepository.save(star);
+	public Star saveStar(Star star) {
+		star = starRepository.save(star);
+		return star;
 	}
 
 	public List<Star> showAllStars() {

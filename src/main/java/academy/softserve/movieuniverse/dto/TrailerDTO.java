@@ -4,6 +4,7 @@ public class TrailerDTO {
 	
 	private Long id;
 	private String trailerUrl;
+	private Long movieId;
 	
 	public TrailerDTO() {}
 
@@ -22,4 +23,13 @@ public class TrailerDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public Long getMovieId() {
+		return movieId;
+	}
+
+	public void setMovieId(Long movieId) {
+		this.movieId = movieId;
+	}
+	
 }

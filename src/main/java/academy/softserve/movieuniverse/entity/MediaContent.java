@@ -14,8 +14,7 @@ public class MediaContent {
     @JoinColumn(name = "poster_id")
     private Poster poster;
 
-    @OneToMany
-    @JoinColumn(name = "movie_id")
+    @OneToMany(mappedBy = "movie")
     private List<Trailer> trailers;
 
     @OneToOne
