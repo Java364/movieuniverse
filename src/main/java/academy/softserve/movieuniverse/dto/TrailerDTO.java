@@ -2,6 +2,7 @@ package academy.softserve.movieuniverse.dto;
 
 public class TrailerDTO {
 	
+	private Long id;
 	private String trailerUrl;
 	
 	public TrailerDTO() {}
@@ -14,4 +15,11 @@ public class TrailerDTO {
 		this.trailerUrl = trailerUrl;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 }
