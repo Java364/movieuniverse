@@ -22,7 +22,4 @@ public class Gallery extends AbstractEntity{
 	public void setImages(List<Image> images) {
 		this.images = images;
 	}
-	
-	
-
 }
