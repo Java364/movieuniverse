@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "gallery")
 public class Gallery extends AbstractEntity{
 	
-	@OneToMany
+	@OneToMany(mappedBy = "gallery")
 	private List<Image> images = new ArrayList<>();
 
 	public Gallery() {}
