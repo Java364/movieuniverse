@@ -22,14 +22,16 @@ public class Star extends Person {
     @Column(name = "star_growth")
     private Double growth;
 
-    @Column(name = "star_country")
-    private String countryOfBirth; //TODO Country
+    @ManyToMany
+    @JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "star_id"),
+            inverseJoinColumns = @JoinColumn(name = "country_id"))
+    private List<Country> countries = new ArrayList<>();
 
     @Column(name = "star_city")
     private String cityOfBirth;
 
     @OneToMany(mappedBy = "star")
-    private List<StarActivityInFilms> roles = new ArrayList<StarActivityInFilms>();
+    private List<StarActivityInMovies> roles = new ArrayList<StarActivityInMovies>();
 
     @OneToMany(mappedBy = "star")
     private List<StarProfession> professions = new ArrayList<StarProfession>();
@@ -66,11 +68,11 @@ public class Star extends Person {
         this.biography = biography;
     }
 
-    public List<StarActivityInFilms> getRoles() {
+    public List<StarActivityInMovies> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<StarActivityInFilms> roles) {
+    public void setRoles(List<StarActivityInMovies> roles) {
         this.roles = roles;
     }
 
@@ -98,15 +100,15 @@ public class Star extends Person {
         this.links = links;
     }
 
-    public String getCountryOfBirth() {
-        return countryOfBirth;
-    }
+    public List<Country> getCountries() {
+		return countries;
+	}
 
-    public void setCountryOfBirth(String countryOfBirth) {
-        this.countryOfBirth = countryOfBirth;
-    }
+	public void setCountries(List<Country> countries) {
+		this.countries = countries;
+	}
 
-    public String getCityOfBirth() {
+	public String getCityOfBirth() {
         return cityOfBirth;
     }
 

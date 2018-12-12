@@ -45,7 +45,7 @@ public class Movie extends AbstractEntity {
     private List<Country> countries = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie")
-    private List<StarActivityInFilms> roles = new ArrayList<StarActivityInFilms>();
+    private List<StarActivityInMovies> roles = new ArrayList<StarActivityInMovies>();
 
     @ManyToMany
     @JoinTable(name = "star_movie",
@@ -70,11 +70,11 @@ public class Movie extends AbstractEntity {
         this.movieMarks = movieMarks;
     }
 
-    public List<StarActivityInFilms> getRoles() {
+    public List<StarActivityInMovies> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<StarActivityInFilms> roles) {
+    public void setRoles(List<StarActivityInMovies> roles) {
         this.roles = roles;
     }
 
