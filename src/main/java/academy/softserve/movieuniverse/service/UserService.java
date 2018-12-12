@@ -64,4 +64,9 @@ public class UserService {
     public List<UserProfileDTO> getAll(){
         return userProfileMapper.mapListToDTO(userRepository.findAll());
     }
+    
+    public User findUserById(Long id){
+    	
+    	return userRepository.getOne(id);
+    }
 }
