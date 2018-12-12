@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -41,23 +42,20 @@ public class Star extends Person {
             joinColumns = @JoinColumn(name = "star_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private List<Movie> movies = new ArrayList<Movie>();
+    
+    @OneToOne
+    @JoinColumn(name = "gallery_id")
+    private Gallery gallery;
 
-    public Star() {
-    }
+    public Gallery getGallery() {
+		return gallery;
+	}
 
-    public Star(String biography, Double growth, String countryOfBirth,
-                String cityOfBirth, List<StarActivityInFilms> roles,
-                List<StarProfession> professions, List<Links> links,
-                List<Movie> movies) {
-        super();
-        this.biography = biography;
-        this.growth = growth;
-        this.countryOfBirth = countryOfBirth;
-        this.cityOfBirth = cityOfBirth;
-        this.roles = roles;
-        this.professions = professions;
-        this.links = links;
-        this.movies = movies;
+	public void setGallery(Gallery gallery) {
+		this.gallery = gallery;
+	}
+
+	public Star() {
     }
 
     public String getBiography() {
