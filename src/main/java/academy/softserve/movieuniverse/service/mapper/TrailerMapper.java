@@ -14,6 +14,7 @@ public class TrailerMapper implements ReversableDtoMapper<Trailer, TrailerDTO>{
 		trailer.setTrailerUrl(dto.getTrailerUrl());
 		trailer.setId(dto.getId());
 		trailer.setIsRemoved(false);
+		
 		return trailer;
 	}
 
