@@ -20,7 +20,6 @@ public class LinksMapper {
         links.setSiteName(dto.getSiteName());
         links.setStar(starService.findStarById(dto.getStarid()));
         return links;
-
     }
 
     public LinksDTO mapToDto(Links entity) {
@@ -36,8 +35,8 @@ public class LinksMapper {
     public List<LinksDTO> mapListToDto(List<Links> links) {
         List<LinksDTO> linksDTOlist = new ArrayList<>();
 
-        for (Links t : links) {
-            linksDTOlist.add(this.mapToDto(t));
+        for (Links l : links) {
+            linksDTOlist.add(this.mapToDto(l));
 
         }
         return linksDTOlist;
