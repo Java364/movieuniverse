@@ -6,9 +6,8 @@ import java.util.List;
 import academy.softserve.movieuniverse.dto.StarListDTO;
 import academy.softserve.movieuniverse.entity.Star;
 
-public class StarListMapper implements ReversableDtoMapper<Star, StarListDTO>{
+public class StarListMapper {
 
-	@Override
 	public Star mapToEntity(StarListDTO dto) {
 		Star star = new Star();
 		star.setFirstName(dto.getFirstName());
@@ -18,7 +17,6 @@ public class StarListMapper implements ReversableDtoMapper<Star, StarListDTO>{
 		return star;
 	}
 
-	@Override
 	public StarListDTO mapToDto(Star entity) {
 		StarListDTO dto = new StarListDTO();
 		dto.setFirstName(entity.getFirstName());

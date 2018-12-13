@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LinksMapper implements ReversableDtoMapper<Links, LinksDTO> {
+public class LinksMapper {
     @Autowired
     private StarService starService;
-    @Override
 
     public Links mapToEntity(LinksDTO dto) {
         Links links = new Links();
@@ -24,7 +23,6 @@ public class LinksMapper implements ReversableDtoMapper<Links, LinksDTO> {
 
     }
 
-    @Override
     public LinksDTO mapToDto(Links entity) {
         LinksDTO linksDTO = new LinksDTO();
         linksDTO.setId(entity.getId());
@@ -35,7 +33,7 @@ public class LinksMapper implements ReversableDtoMapper<Links, LinksDTO> {
 
     public List<LinksDTO> mapListToDto(List<Links> links) {
         List<LinksDTO> linksDTOlist = new ArrayList<>();
-        for(Links t: links) {
+        for (Links t : links) {
             linksDTOlist.add(this.mapToDto(t));
         }
         return linksDTOlist;

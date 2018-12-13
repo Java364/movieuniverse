@@ -4,9 +4,8 @@ import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.entity.Poster;
 
 
-public class PosterMapper implements ReversableDtoMapper<Poster, PosterDTO>{
+public class PosterMapper {
 
-	@Override
 	public Poster mapToEntity(PosterDTO posterDTO) {
 		
 		Poster poster = new Poster();
@@ -16,7 +15,6 @@ public class PosterMapper implements ReversableDtoMapper<Poster, PosterDTO>{
 		return poster;
 	}
 
-	@Override
 	public PosterDTO mapToDto(Poster entity) {
 		PosterDTO posterDTO=new PosterDTO();
 		posterDTO.setId(entity.getId());
