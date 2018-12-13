@@ -34,10 +34,10 @@ public class LinksController {
         return linksMapper.mapListToDto(linksList);
     }
 
-    @GetMapping("/api/link/{id}")
+   /* @GetMapping("/api/link/{id}")
     public ResponseEntity<LinksDTO> getOneLink(@PathVariable Long id) {
         return new ResponseEntity<>(linksService.getLinksDTO(id), HttpStatus.OK);
-    }
+    }*/
 
 
 }

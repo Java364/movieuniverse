@@ -6,8 +6,6 @@ import academy.softserve.movieuniverse.repository.LinksRepository;
 import academy.softserve.movieuniverse.service.mapper.LinksMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.plugin.javascript.navig.Link;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +28,11 @@ public class LinksService {
     }
 
 
-    public LinksDTO getLinksDTO(Long id){
+    /*public LinksDTO getLinksDTO(Long id){
         Optional<Links> linksOptional = linksRepository.findById(id);
         return linksMapper.mapToDto(linksOptional.get());
+    }*/
+    public List<Links> getOneLinks(Long id){
+        return linksRepository.findAll();
     }
 }
