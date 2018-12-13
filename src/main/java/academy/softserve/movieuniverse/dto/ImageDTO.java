@@ -5,6 +5,7 @@ public class ImageDTO {
 	private Long id;
 	private String name;
 	private String imageUrl;
+	private Long galleryId;
 	
 	public ImageDTO() {}
 
@@ -31,4 +32,13 @@ public class ImageDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public Long getGalleryId() {
+		return galleryId;
+	}
+
+	public void setGalleryId(Long galleryId) {
+		this.galleryId = galleryId;
+	}
+	
 }

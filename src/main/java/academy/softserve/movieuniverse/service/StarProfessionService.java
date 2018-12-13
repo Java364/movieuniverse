@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class StarProfessionService {
 
+    private final StarProfessionRepository starProfessionRepository;
+
     @Autowired
-    private StarProfessionRepository starProfessionRepository;
+    public StarProfessionService(StarProfessionRepository starProfessionRepository) {
+        this.starProfessionRepository = starProfessionRepository;
+    }
 
     public void createStarProfession(StarProfession starProfession) {
         starProfessionRepository.save(starProfession);
@@ -21,11 +25,11 @@ public class StarProfessionService {
         return starProfessionRepository.getOne(id);
     }
 
-    public void deleteStarProfession(Long id) {
+    public void completelyDeleteStarProfession(Long id) {
         starProfessionRepository.deleteById(id);
     }
 
-    public List<StarProfession> findAllStarProfessionService() {
+    public List<StarProfession> findAllStarProfession() {
         return starProfessionRepository.findAll();
     }
 
