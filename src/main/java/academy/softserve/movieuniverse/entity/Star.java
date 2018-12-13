@@ -3,14 +3,7 @@ package academy.softserve.movieuniverse.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "movie_stars")
@@ -36,7 +29,7 @@ public class Star extends Person {
     @OneToMany(mappedBy = "star")
     private List<StarProfession> professions = new ArrayList<StarProfession>();
 
-    @OneToMany(mappedBy = "star")
+    @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<Links> links = new ArrayList<Links>();
 
     @ManyToMany
