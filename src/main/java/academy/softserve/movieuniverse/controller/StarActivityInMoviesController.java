@@ -1,19 +1,29 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.service.StarProfessionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import academy.softserve.movieuniverse.entity.StarActivityInMovies;
+import academy.softserve.movieuniverse.service.StarActivityInMoviesService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class StarActivityInMoviesController {
 
-    private StarProfessionService starProfessionService;
+    private StarActivityInMoviesService starActivityInMoviesService;
 
-    @Autowired
-    public StarActivityInMoviesController(StarProfessionService starProfessionService) {
-        this.starProfessionService = starProfessionService;
+    public StarActivityInMoviesController(StarActivityInMoviesService starActivityInMoviesService) {
+        this.starActivityInMoviesService = starActivityInMoviesService;
     }
 
+    @GetMapping("/star-activity-in-movies")
+    public List<StarActivityInMovies> getAllStarActivityInMovies() {
+        return starActivityInMoviesService.findAllStarActivityInMovies();
+    }
 
+    @GetMapping("/star-activity-in-movies/{id}")
+    public StarActivityInMovies getStarActivityInMoviesById(@PathVariable Long id) {
+        return starActivityInMoviesService.getStarActivityInMovies(id);
+    }
 }

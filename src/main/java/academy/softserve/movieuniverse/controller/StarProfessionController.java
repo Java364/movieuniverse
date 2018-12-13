@@ -28,7 +28,7 @@ public class StarProfessionController {
     }
 
     @GetMapping("/star-profession/{id}")
-    public StarProfession getStarProfessions(@PathVariable Long id) {
+    public StarProfession getStarProfession(@PathVariable Long id) {
         return starProfessionService.getStarProfession(id);
     }
 
@@ -36,6 +36,7 @@ public class StarProfessionController {
     public ResponseEntity completelyDeleteStarProfession(@PathVariable Long id) {
         starProfessionService.completelyDeleteStarProfession(id);
         return new ResponseEntity(HttpStatus.OK);
+
     }
 
 }
