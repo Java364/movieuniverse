@@ -1,7 +1,6 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.UserProfileDTO;
-import academy.softserve.movieuniverse.dto.UserRegistrationDTO;
+import academy.softserve.movieuniverse.dto.UserDTO;
 import academy.softserve.movieuniverse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,18 +20,18 @@ public class UserController {
     }
 
     @PostMapping("/api/user")
-    public ResponseEntity<UserProfileDTO> createUser(@RequestBody UserRegistrationDTO userDTO) {
-        return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);
+    public ResponseEntity createUser(@RequestBody UserDTO userDTO) {
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping("/api/user/{id}")
-    public ResponseEntity<UserProfileDTO> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+    public ResponseEntity getUser(@PathVariable Long id) {
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/api/users")
-    public ResponseEntity<List<UserProfileDTO>> getAllUsers(){
-        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
+    public ResponseEntity getAllUsers(){
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/api/user/{id}")
@@ -48,8 +47,8 @@ public class UserController {
     }
 
     @PutMapping("/api/user/{id}")
-    public ResponseEntity<UserProfileDTO> updateUser(@PathVariable Long id, @RequestBody UserRegistrationDTO userRegistrationDTO) {
-        return new ResponseEntity<>(userService.updateUser(userRegistrationDTO, id), HttpStatus.OK);
+    public ResponseEntity updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 

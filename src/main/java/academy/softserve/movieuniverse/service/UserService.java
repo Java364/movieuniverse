@@ -1,11 +1,8 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.dto.UserProfileDTO;
-import academy.softserve.movieuniverse.dto.UserRegistrationDTO;
+import academy.softserve.movieuniverse.dto.UserDTO;
 import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.repository.UserRepository;
-import academy.softserve.movieuniverse.service.mapper.UserProfileMapper;
-import academy.softserve.movieuniverse.service.mapper.UserRegistrationMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,23 +15,20 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserProfileMapper userProfileMapper;
-    private final UserRegistrationMapper userRegistrationMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserProfileMapper userProfileMapper, UserRegistrationMapper userRegistrationMapper) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userProfileMapper = userProfileMapper;
-        this.userRegistrationMapper = userRegistrationMapper;
+
     }
 
-    public UserProfileDTO getUser(Long id){
+    public User getUser(Long id){
         Optional<User> userOptional = userRepository.findById(id);
-        return userProfileMapper.mapToDto(userOptional.get());
+        return userOptional.get();
     }
     @Transactional
-    public UserProfileDTO createUser(UserRegistrationDTO userDTO){
-        return userProfileMapper.mapToDto(userRepository.saveAndFlush(userRegistrationMapper.mapToEntity(userDTO)));
+    public User createUser(User user){
+        return userRepository.saveAndFlush(user);
     }
     @Transactional
     public void completelyDeleteUser(Long id){
@@ -49,20 +43,19 @@ public class UserService {
     }
 
     @Transactional
-    public UserProfileDTO updateUser(UserRegistrationDTO userDTO, Long id){
+    public User updateUser(User user, Long id){
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()){
-            User user = userRegistrationMapper.mapToEntity(userDTO);
             User userDB = userOptional.get();
             user.setId(userDB.getId());
             BeanUtils.copyProperties(user, userDB);
-            return userProfileMapper.mapToDto(userRepository.saveAndFlush(userDB));
+            return userRepository.saveAndFlush(userDB);
         }
-        return userProfileMapper.mapToDto(userRegistrationMapper.mapToEntity(userDTO));
+        return null;
     }
 
-    public List<UserProfileDTO> getAll(){
-        return userProfileMapper.mapListToDTO(userRepository.findAll());
+    public List<User> getAll(){
+        return userRepository.findAll();
     }
     
     public User findUserById(Long id){
