@@ -29,8 +29,7 @@ public class UserReviewService {
     }
 
     public List<UserReviewDto> findAllUserReviewsByMovieId(Long movieId) {
-        return userReviewRepository.findAllUserReviewsByMovieId(movieId).stream()
-                .map(userReview -> userReviewDtoMapper.mapToDto(userReview)).collect(Collectors.toList());
+        return null;
     }
 
     @Transactional
