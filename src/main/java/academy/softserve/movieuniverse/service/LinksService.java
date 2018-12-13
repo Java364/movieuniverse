@@ -1,20 +1,18 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.repository.LinksRepository;
 import academy.softserve.movieuniverse.service.mapper.LinksMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LinksService {
     @Autowired
     private LinksRepository linksRepository;
-    private LinksMapper linksMapper = new LinksMapper();
-
+    
     public void saveLinks(Links links){
        linksRepository.save(links);
     }
@@ -32,7 +30,7 @@ public class LinksService {
         Optional<Links> linksOptional = linksRepository.findById(id);
         return linksMapper.mapToDto(linksOptional.get());
     }*/
-    public List<Links> getOneLinks(Long id){
-        return linksRepository.findAll();
+    public Links getOneLinks(Long id){
+        return linksRepository.getOne(id);
     }
 }

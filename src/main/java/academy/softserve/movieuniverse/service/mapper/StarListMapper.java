@@ -3,12 +3,14 @@ package academy.softserve.movieuniverse.service.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import academy.softserve.movieuniverse.dto.StarListDTO;
 import academy.softserve.movieuniverse.entity.Star;
 
-public class StarListMapper implements ReversableDtoMapper<Star, StarListDTO>{
 
-	@Override
+@Component
+public class StarListMapper {
 	public Star mapToEntity(StarListDTO dto) {
 		Star star = new Star();
 		star.setFirstName(dto.getFirstName());
@@ -18,7 +20,6 @@ public class StarListMapper implements ReversableDtoMapper<Star, StarListDTO>{
 		return star;
 	}
 
-	@Override
 	public StarListDTO mapToDto(Star entity) {
 		StarListDTO dto = new StarListDTO();
 		dto.setFirstName(entity.getFirstName());
@@ -35,5 +36,4 @@ public class StarListMapper implements ReversableDtoMapper<Star, StarListDTO>{
 		}
 		return starDTOs;
 	}
-
 }

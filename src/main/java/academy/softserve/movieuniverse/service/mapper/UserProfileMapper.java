@@ -9,16 +9,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class UserProfileMapper implements ReversableDtoMapper<User, UserProfileDTO> {
+public class UserProfileMapper {
 
     private ModelMapper modelMapper = new ModelMapper();
 
-    @Override
     public User mapToEntity(UserProfileDTO dto) {
         return modelMapper.map(dto, User.class);
     }
 
-    @Override
     public UserProfileDTO mapToDto(User entity) {
         return modelMapper.map(entity, UserProfileDTO.class);
     }

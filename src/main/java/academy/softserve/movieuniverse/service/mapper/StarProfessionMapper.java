@@ -7,16 +7,14 @@ import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StarProfessionMapper implements ReversableDtoMapper<StarProfession, StarProfessionDTO> {
+public class StarProfessionMapper {
 
     private ModelMapper modelMapper = new ModelMapper();
 
-    @Override
     public StarProfession mapToEntity(StarProfessionDTO starProfessionDTO) {
         return modelMapper.map(starProfessionDTO, StarProfession.class);
     }
 
-    @Override
     public StarProfessionDTO mapToDto(StarProfession starProfessionEntity) {
         return modelMapper.map(starProfessionEntity, StarProfessionDTO.class);
     }

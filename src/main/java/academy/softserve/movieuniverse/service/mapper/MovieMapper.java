@@ -11,16 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class MovieMapper implements ReversableDtoMapper<Movie, MovieDTO> {
+public class MovieMapper {
 
     private ModelMapper modelMapper = new ModelMapper();
 
-    @Override
     public Movie mapToEntity(MovieDTO dto) {
         return modelMapper.map(dto, Movie.class);
     }
 
-    @Override
     public MovieDTO mapToDto(Movie entity) {
         return modelMapper.map(entity, MovieDTO.class);
     }

@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProfessionMapper implements ReversableDtoMapper<Profession,ProfessionDTO>{
+public class ProfessionMapper {
     @Autowired
     private ProfessionServise professionServise;
-    @Override
 
     public Profession mapToEntity(ProfessionDTO dto) {
         Profession profession = new Profession();
@@ -22,7 +21,6 @@ public class ProfessionMapper implements ReversableDtoMapper<Profession,Professi
         return profession;
     }
 
-    @Override
     public ProfessionDTO mapToDto(Profession entity) {
         ProfessionDTO professionDTO = new ProfessionDTO();
         professionDTO.setId(entity.getId());
