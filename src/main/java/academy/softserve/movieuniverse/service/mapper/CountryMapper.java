@@ -13,7 +13,6 @@ public class CountryMapper implements ReversableDtoMapper<Country, CountryDTO> {
 		Country country = new Country();
 		country.setId(dto.getId());
 		country.setName(dto.getName());
-		country.setIsRemoved(false);
 
 		return country;
 	}

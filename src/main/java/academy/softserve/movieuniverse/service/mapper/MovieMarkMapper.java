@@ -1,28 +1,29 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import academy.softserve.movieuniverse.dto.MovieMarkDTO;
 import academy.softserve.movieuniverse.entity.MovieMark;
+import academy.softserve.movieuniverse.repository.MovieRepository;
 import academy.softserve.movieuniverse.repository.UserRepository;
-import academy.softserve.movieuniverse.service.MovieMarkService;
 
 public class MovieMarkMapper implements ReversableDtoMapper<MovieMark, MovieMarkDTO> {
 
 	@Autowired
-	MovieMarkService movieService;
+	MovieRepository movieRepository;
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Override
 	public MovieMark mapToEntity(MovieMarkDTO dto) {
 		MovieMark movieMark = new MovieMark();
 		movieMark.setId(dto.getId());
-		movieMark.setIsRemoved(false);
 		movieMark.setMark(dto.getMark());
-//		movieMark.setMovie(dto.getMovieId(movieService.getId()));
+		movieMark.setMovie(movieRepository.getOne(dto.getMovieId()));
 		movieMark.setUser(userRepository.getOne(dto.getUserId()));
-		
+
 		return movieMark;
 	}
 
@@ -33,8 +34,10 @@ public class MovieMarkMapper implements ReversableDtoMapper<MovieMark, MovieMark
 		movieMarkDTO.setMark(entity.getMark());
 		movieMarkDTO.setMovieId(entity.getMovie().getId());
 		movieMarkDTO.setUserId(entity.getUser().getId());
-		
+
 		return movieMarkDTO;
 	}
+	
+	
 
 }
