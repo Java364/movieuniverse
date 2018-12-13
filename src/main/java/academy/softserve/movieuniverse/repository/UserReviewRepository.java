@@ -7,5 +7,4 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserReviewRepository extends JpaRepository<UserReview, Long> {
-    List<UserReview> findAllUserReviewsByMovieId(Long movieId);
 }
