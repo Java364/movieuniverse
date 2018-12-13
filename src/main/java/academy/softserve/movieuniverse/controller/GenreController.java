@@ -2,9 +2,9 @@ package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class GenreController {
     private GenreService genreService;
 
