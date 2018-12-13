@@ -7,12 +7,11 @@ import academy.softserve.movieuniverse.dto.ImageDTO;
 import academy.softserve.movieuniverse.entity.Image;
 import academy.softserve.movieuniverse.service.GalleryService;
 
-public class ImageMapper implements ReversableDtoMapper<Image, ImageDTO>{
+public class ImageMapper {
 
 	@Autowired
 	private GalleryService galleryService;
-	
-	@Override
+
 	public Image mapToEntity(ImageDTO dto) {
 		Image image = new Image();
 		image.setGallery(galleryService.getGallery(dto.getGalleryId()));
@@ -23,7 +22,6 @@ public class ImageMapper implements ReversableDtoMapper<Image, ImageDTO>{
 		return null;
 	}
 
-	@Override
 	public ImageDTO mapToDto(Image entity) {
 		ImageDTO imageDTO = new ImageDTO();
 		imageDTO.setGalleryId(entity.getGallery().getId());
@@ -32,7 +30,7 @@ public class ImageMapper implements ReversableDtoMapper<Image, ImageDTO>{
 		imageDTO.setName(entity.getName());
 		return imageDTO;
 	}
-	
+
 	public List<ImageDTO> mapListEntityToDto(List<Image> images) {
 		List<ImageDTO> imageDTOs = new ArrayList<>();
 		for(Image i: images) {
@@ -40,7 +38,7 @@ public class ImageMapper implements ReversableDtoMapper<Image, ImageDTO>{
 		}
 		return imageDTOs;
 	}
-	
+
 	public List<Image> mapListDtoToEntity(List<ImageDTO> imageDTOs) {
 		List<Image> images = new ArrayList<>();
 		for(ImageDTO i: imageDTOs) {
