@@ -25,7 +25,7 @@ public class StarProfessionService {
         starProfessionRepository.deleteById(id);
     }
 
-    public List<StarProfession> findAllStarProfessionService() {
+    public List<StarProfession> findAllStarProfession() {
         return starProfessionRepository.findAll();
     }
 
