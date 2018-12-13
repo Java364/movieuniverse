@@ -22,17 +22,17 @@ public class StarProfessionController {
         this.starProfessionService = starProfessionService;
     }
 
-    @GetMapping("/api/starProfession")
+    @GetMapping("/star-profession")
     public List<StarProfession> viewAll() {
         return starProfessionService.findAllStarProfession();
     }
 
-    @GetMapping("/api/starProfession/{id}")
+    @GetMapping("/star-profession/{id}")
     public StarProfession getStarProfessions(@PathVariable Long id) {
         return starProfessionService.getStarProfession(id);
     }
 
-    @DeleteMapping("/api/starProfession")
+    @DeleteMapping("/star-profession")
     public ResponseEntity completelyDeleteStarProfession(@PathVariable Long id) {
         starProfessionService.completelyDeleteStarProfession(id);
         return new ResponseEntity(HttpStatus.OK);
