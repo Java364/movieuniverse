@@ -4,6 +4,8 @@ import academy.softserve.movieuniverse.entity.StarProfession;
 
 public class StarProfessionException extends CustomValidationException {
 
+    private static final long serialVersionUID = 1646215947109824314L;
+
     private StarProfessionException(String customMessage, ExceptionType exceptionType, Exception ex) {
         super(customMessage, exceptionType, ex);
     }
