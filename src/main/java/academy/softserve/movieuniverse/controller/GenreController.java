@@ -14,5 +14,4 @@ public class GenreController {
     public GenreController(GenreService genreService) {
         this.genreService = genreService;
     }
-    
 }

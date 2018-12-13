@@ -23,13 +23,13 @@ public class GenreService {
 
     @Transactional
     public GenreDto saveGenre(GenreDto genreDto) {
-        Genre genre = genreRepository.save(genreDtoMapper.mapToEntity(genreDto));
-        return genreDtoMapper.mapToDto(genre);
+        Genre genre = genreRepository.save(genreDtoMapper.mapGenreToEntity(genreDto));
+        return genreDtoMapper.mapGenreToDto(genre);
     }
 
     public Optional<GenreDto> findGenreById(Long genreId) {
         Optional<Genre> optionalGenre = genreRepository.findById(genreId);
-        return optionalGenre.map(genre -> genreDtoMapper.mapToDto(genre));
+        return optionalGenre.map(genre -> genreDtoMapper.mapGenreToDto(genre));
     }
 
     @Transactional

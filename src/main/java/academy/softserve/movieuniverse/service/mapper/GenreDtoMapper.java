@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GenreDtoMapper{
+public class GenreDtoMapper {
 
     private ModelMapper modelMapper;
 
@@ -16,11 +16,11 @@ public class GenreDtoMapper{
         this.modelMapper = modelMapper;
     }
 
-    public Genre mapToEntity(GenreDto genreDto) {
+    public Genre mapGenreToEntity(GenreDto genreDto) {
         return modelMapper.map(genreDto, Genre.class);
     }
 
-    public GenreDto mapToDto(Genre entity) {
+    public GenreDto mapGenreToDto(Genre entity) {
         return modelMapper.map(entity, GenreDto.class);
     }
 }
