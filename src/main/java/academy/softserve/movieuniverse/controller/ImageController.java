@@ -16,7 +16,7 @@ public class ImageController {
 	private ImageService imageService;
 	private ImageMapper imageMapper = new ImageMapper();
 	
-	@GetMapping("/api/galleries")
+	@GetMapping("/api/images")
 	List<ImageDTO> viewAll() {
 		List<Image> images = imageService.findAll();
 		return imageMapper.mapListEntityToDto(images);
