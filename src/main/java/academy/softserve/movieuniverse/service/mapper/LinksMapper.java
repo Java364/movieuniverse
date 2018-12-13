@@ -18,7 +18,7 @@ public class LinksMapper {
         links.setId(dto.getId());
         links.setLinkName(dto.getLinkName());
         links.setSiteName(dto.getSiteName());
-        links.setStar(starService.findStarById(dto.getStarid()).get());
+        links.setStar(starService.findStarById(dto.getStarid()));
         return links;
 
     }

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import academy.softserve.movieuniverse.dto.StarCreateDTO;
+import academy.softserve.movieuniverse.dto.StarDTO;
 import academy.softserve.movieuniverse.dto.StarListDTO;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.service.StarService;
@@ -26,33 +28,41 @@ public class StarController {
 	
 	@Autowired
 	private StarService service;
+	@Autowired
 	private StarListMapper listMapper = new StarListMapper();
 	private StarProfileMapper createMapper = new StarProfileMapper();
 	
 	@GetMapping("/list")
-	List<StarListDTO> showAllStars() {
+	public List<StarListDTO> showAllStars() {
 		List<Star> stars = service.showAllStars();
 		return listMapper.mapListToDto(stars);
 	}
 	
 	@GetMapping("/{id}")
-    public ResponseEntity<Optional<Star>> showOneStar(@PathVariable Long id) {
-        return new ResponseEntity<>(service.findStarById(id), HttpStatus.OK);
+    public ResponseEntity<StarListDTO> showOneStar(@PathVariable Long id) {
+		Star star = service.findStarById(id);
+        return new ResponseEntity<>(listMapper.mapToDto(star), HttpStatus.OK);
     }
 	
 	@PostMapping("/create")
-	ResponseEntity<StarCreateDTO> createStar(@RequestBody StarCreateDTO starDTO) {
+	public ResponseEntity<StarCreateDTO> createStar(@RequestBody StarCreateDTO starDTO) {
 		Star star = createMapper.mapToEntity(starDTO);
-		star = service.saveStar(star);
+		service.saveStar(star);
 		starDTO = createMapper.mapToDto(star);
 		return new ResponseEntity<StarCreateDTO>(starDTO, HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/update")
-	ResponseEntity<StarCreateDTO> updateStar(@RequestBody StarCreateDTO starDTO, @PathVariable Long id) {
+	public ResponseEntity<StarCreateDTO> updateStar(@RequestBody StarCreateDTO starDTO, @PathVariable Long id) {
 		Star star = createMapper.mapToEntity(starDTO);
-		star = service.saveStar(star);
+		service.saveStar(star);
 		starDTO = createMapper.mapToDto(star);
 		return new ResponseEntity<StarCreateDTO>(starDTO, HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity fullyDeleteStar(@PathVariable Long id) {
+		service.fullyDelete(id);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }
