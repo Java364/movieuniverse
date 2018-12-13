@@ -38,6 +38,10 @@ public class MovieMarkMapper implements ReversableDtoMapper<MovieMark, MovieMark
 		return movieMarkDTO;
 	}
 	
+//	public List<MovieMarkDTO> listToDto(){
+//		
+//	}
+	
 	
 
 }
