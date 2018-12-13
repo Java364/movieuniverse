@@ -2,12 +2,17 @@ package academy.softserve.movieuniverse.service.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import academy.softserve.movieuniverse.dto.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Trailer;
+import academy.softserve.movieuniverse.service.MovieService;
 
 public class TrailerMapper implements ReversableDtoMapper<Trailer, TrailerDTO>{
-	/*@Autowired
-	MovieService movieService;*/
+	
+	@Autowired
+	MovieService movieService;
 	
 	@Override
 	public Trailer mapToEntity(TrailerDTO dto) {
@@ -15,7 +20,7 @@ public class TrailerMapper implements ReversableDtoMapper<Trailer, TrailerDTO>{
 		trailer.setTrailerUrl(dto.getTrailerUrl());
 		trailer.setId(dto.getId());
 		trailer.setIsRemoved(false);
-		//trailer.setMovie(movieService.getMovie(dto.getMovieId()));
+		trailer.setMovie(movieService.findMovieById(dto.getMovieId()).get());
 		return trailer;
 	}
 
