@@ -25,11 +25,6 @@ public class LinksService {
         linksRepository.deleteById(id);
     }
 
-
-    /*public LinksDTO getLinksDTO(Long id){
-        Optional<Links> linksOptional = linksRepository.findById(id);
-        return linksMapper.mapToDto(linksOptional.get());
-    }*/
     public Links getOneLinks(Long id){
         return linksRepository.getOne(id);
     }

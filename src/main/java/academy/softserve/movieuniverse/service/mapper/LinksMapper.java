@@ -28,8 +28,8 @@ public class LinksMapper {
         linksDTO.setId(entity.getId());
         linksDTO.setLinkName(entity.getLinkName());
         linksDTO.setSiteName(entity.getSiteName());
-        /*linksDTO.setStarid(entity.getStar().getId());*/
-        /*linksDTO.setStarid(starService.findStarById(entity.getId()));*/
+        linksDTO.setStarid(entity.getStar().getId());
+
         return linksDTO;
     }
 
