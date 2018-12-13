@@ -14,36 +14,34 @@ import javax.persistence.Table;
 @Table(name = "countries")
 public class Country extends AbstractEntity {
 
-    @Column(name = "name_country")
-    private String name;
+	@Column(name = "name_country")
+	private String name;
 
-    @ManyToMany
-    @JoinTable(name = "movies_countries", joinColumns = @JoinColumn(name = "country_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private List<Movie> movies = new ArrayList<>();
-    
-    @ManyToMany
-    @JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "country_id"),
-            inverseJoinColumns = @JoinColumn(name = "star_id"))
-    private List<Star> stars = new ArrayList<Star>();
+	@ManyToMany
+	@JoinTable(name = "movies_countries", joinColumns = @JoinColumn(name = "country_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
+	private List<Movie> movies = new ArrayList<>();
 
-    public Country() {
-    }
+	@ManyToMany
+	@JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "country_id"), inverseJoinColumns = @JoinColumn(name = "star_id"))
+	private List<Star> stars = new ArrayList<Star>();
 
-    public String getName() {
-        return name;
-    }
+	public Country() {
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public List<Movie> getMovies() {
-        return movies;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
-    }
+	public List<Movie> getMovies() {
+		return movies;
+	}
+
+	public void setMovies(List<Movie> movies) {
+		this.movies = movies;
+	}
 
 }
