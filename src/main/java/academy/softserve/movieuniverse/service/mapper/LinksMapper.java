@@ -27,14 +27,18 @@ public class LinksMapper {
         LinksDTO linksDTO = new LinksDTO();
         linksDTO.setId(entity.getId());
         linksDTO.setLinkName(entity.getLinkName());
+        linksDTO.setSiteName(entity.getSiteName());
         /*linksDTO.setStarid(entity.getStar().getId());*/
+        /*linksDTO.setStarid(starService.findStarById(entity.getId()));*/
         return linksDTO;
     }
 
     public List<LinksDTO> mapListToDto(List<Links> links) {
         List<LinksDTO> linksDTOlist = new ArrayList<>();
+
         for (Links t : links) {
             linksDTOlist.add(this.mapToDto(t));
+
         }
         return linksDTOlist;
     }
