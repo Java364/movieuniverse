@@ -9,12 +9,11 @@ import academy.softserve.movieuniverse.dto.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Trailer;
 import academy.softserve.movieuniverse.service.MovieService;
 
-public class TrailerMapper implements ReversableDtoMapper<Trailer, TrailerDTO>{
+public class TrailerMapper {
 	
 	@Autowired
 	MovieService movieService;
 	
-	@Override
 	public Trailer mapToEntity(TrailerDTO dto) {
 		Trailer trailer = new Trailer();
 		trailer.setTrailerUrl(dto.getTrailerUrl());
@@ -24,7 +23,6 @@ public class TrailerMapper implements ReversableDtoMapper<Trailer, TrailerDTO>{
 		return trailer;
 	}
 
-	@Override
 	public TrailerDTO mapToDto(Trailer entity) {
 		TrailerDTO trailerDTO = new TrailerDTO();
 		trailerDTO.setId(entity.getId());

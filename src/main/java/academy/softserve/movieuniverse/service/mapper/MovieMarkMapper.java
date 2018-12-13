@@ -7,14 +7,13 @@ import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.repository.UserRepository;
 import academy.softserve.movieuniverse.service.MovieMarkService;
 
-public class MovieMarkMapper implements ReversableDtoMapper<MovieMark, MovieMarkDTO> {
+public class MovieMarkMapper {
 
 	@Autowired
 	MovieMarkService movieService;
 	@Autowired
 	UserRepository userRepository;
 	
-	@Override
 	public MovieMark mapToEntity(MovieMarkDTO dto) {
 		MovieMark movieMark = new MovieMark();
 		movieMark.setId(dto.getId());
@@ -26,7 +25,6 @@ public class MovieMarkMapper implements ReversableDtoMapper<MovieMark, MovieMark
 		return movieMark;
 	}
 
-	@Override
 	public MovieMarkDTO mapToDto(MovieMark entity) {
 		MovieMarkDTO movieMarkDTO = new MovieMarkDTO();
 		movieMarkDTO.setId(entity.getId());

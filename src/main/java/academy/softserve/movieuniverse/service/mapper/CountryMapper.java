@@ -6,9 +6,8 @@ import java.util.List;
 import academy.softserve.movieuniverse.dto.CountryDTO;
 import academy.softserve.movieuniverse.entity.Country;
 
-public class CountryMapper implements ReversableDtoMapper<Country, CountryDTO> {
+public class CountryMapper {
 
-	@Override
 	public Country mapToEntity(CountryDTO dto) {
 		Country country = new Country();
 		country.setId(dto.getId());
@@ -18,7 +17,6 @@ public class CountryMapper implements ReversableDtoMapper<Country, CountryDTO> {
 		return country;
 	}
 
-	@Override
 	public CountryDTO mapToDto(Country entity) {
 		CountryDTO countryDTO = new CountryDTO();
 		countryDTO.setId(entity.getId());

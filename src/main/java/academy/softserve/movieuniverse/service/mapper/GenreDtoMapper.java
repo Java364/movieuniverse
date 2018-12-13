@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GenreDtoMapper implements ReversableDtoMapper<Genre, GenreDto> {
+public class GenreDtoMapper{
 
     private ModelMapper modelMapper;
 
@@ -16,12 +16,10 @@ public class GenreDtoMapper implements ReversableDtoMapper<Genre, GenreDto> {
         this.modelMapper = modelMapper;
     }
 
-    @Override
     public Genre mapToEntity(GenreDto genreDto) {
         return modelMapper.map(genreDto, Genre.class);
     }
 
-    @Override
     public GenreDto mapToDto(Genre entity) {
         return modelMapper.map(entity, GenreDto.class);
     }
