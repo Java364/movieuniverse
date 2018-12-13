@@ -39,7 +39,5 @@ public class LinksController {
         Links links = linksService.getOneLinks(id);
         return new ResponseEntity<LinksDTO>(linksMapper.mapToDto(links), HttpStatus.OK);
     }
-    
-
-}
+    }
 
