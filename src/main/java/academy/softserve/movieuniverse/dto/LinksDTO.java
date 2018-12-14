@@ -1,9 +1,6 @@
 package academy.softserve.movieuniverse.dto;
 
 
-import academy.softserve.movieuniverse.entity.Star;
-
-import java.util.Optional;
 
 public class LinksDTO {
     private Long id;
@@ -45,10 +42,5 @@ public class LinksDTO {
     public void setStarid(Long starid) {
         this.starid = starid;
     }
-    /* public void setStarid(Optional<Star> starid) {
-        this.starid = starid;
-    }*/
 
-    /*public void setStarid(Star star) {
-    }*/
 }
