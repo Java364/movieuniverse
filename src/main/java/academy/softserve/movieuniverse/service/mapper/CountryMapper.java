@@ -12,7 +12,6 @@ public class CountryMapper {
 		Country country = new Country();
 		country.setId(dto.getId());
 		country.setName(dto.getName());
-		country.setIsRemoved(false);
 
 		return country;
 	}

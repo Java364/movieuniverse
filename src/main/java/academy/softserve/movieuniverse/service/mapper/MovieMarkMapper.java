@@ -1,27 +1,28 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import academy.softserve.movieuniverse.dto.MovieMarkDTO;
 import academy.softserve.movieuniverse.entity.MovieMark;
+import academy.softserve.movieuniverse.repository.MovieRepository;
 import academy.softserve.movieuniverse.repository.UserRepository;
-import academy.softserve.movieuniverse.service.MovieMarkService;
 
 public class MovieMarkMapper {
 
 	@Autowired
-	MovieMarkService movieService;
+	MovieRepository movieRepository;
 	@Autowired
 	UserRepository userRepository;
-	
+
 	public MovieMark mapToEntity(MovieMarkDTO dto) {
 		MovieMark movieMark = new MovieMark();
 		movieMark.setId(dto.getId());
-		movieMark.setIsRemoved(false);
 		movieMark.setMark(dto.getMark());
-//		movieMark.setMovie(dto.getMovieId(movieService.getId()));
+		movieMark.setMovie(movieRepository.getOne(dto.getMovieId()));
 		movieMark.setUser(userRepository.getOne(dto.getUserId()));
-		
+
 		return movieMark;
 	}
 
@@ -31,8 +32,19 @@ public class MovieMarkMapper {
 		movieMarkDTO.setMark(entity.getMark());
 		movieMarkDTO.setMovieId(entity.getMovie().getId());
 		movieMarkDTO.setUserId(entity.getUser().getId());
-		
+
 		return movieMarkDTO;
 	}
+	
+	public List<MovieMarkDTO> mapListToDto(List<MovieMark> movieMarks){
+		List<MovieMarkDTO> movieMarkDTOs = new ArrayList<>();
+		for(MovieMark m : movieMarks) {
+			movieMarkDTOs.add(this.mapToDto(m));
+		}
+		
+		return movieMarkDTOs;
+	}
+	
+	
 
 }
