@@ -12,8 +12,12 @@ import java.util.List;
 @Component
 public class StarProfessionMapper {
 
+    private final ModelMapper modelMapper;
+
     @Autowired
-    private ModelMapper modelMapper;
+    public StarProfessionMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     public StarProfession mapToEntity(StarProfessionDTO starProfessionDTO) {
         return modelMapper.map(starProfessionDTO, StarProfession.class);
@@ -24,6 +28,9 @@ public class StarProfessionMapper {
         starProfessionDTO.setId(starProfessionEntity.getId());
         starProfessionDTO.setStarId(starProfessionEntity.getStar().getId());
         starProfessionDTO.setStarProfessionId(starProfessionEntity.getProfession().getId());
+        starProfessionDTO.setStarName(starProfessionEntity.getStar().getFirstName() + " "
+                + starProfessionEntity.getStar().getLastName());
+        starProfessionDTO.setStarProfession(starProfessionEntity.getProfession().getType());
         return starProfessionDTO;
     }
 
