@@ -10,7 +10,7 @@ public class Links extends AbstractEntity {
     @Column(name = "link_name")
     private String linkName;
 
-    @Column(name = "site_name")
+    @Column(name = "socialNetwork")
     @Enumerated(EnumType.STRING)
     private SocialNetworkingSites socialNetworkingSite;
 
