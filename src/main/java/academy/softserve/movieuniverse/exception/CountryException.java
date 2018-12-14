@@ -11,5 +11,17 @@ public class CountryException extends CustomValidationException{
 	public static CountryException createSaveException(String message, Exception ex) {
 		return new CountryException(message, ExceptionType.SAVE, ex);
 	}
+	
+	public static CountryException createDeleteException(String message, Exception ex) {
+		return new CountryException(message, ExceptionType.DELETE, ex);
+	}
+	
+	public static CountryException createUpdateException(String message, Exception ex) {
+		return new CountryException(message, ExceptionType.UPDATE, ex);
+	}
+	
+	public static CountryException createSelectException(String message, Exception ex) {
+		return new CountryException(message, ExceptionType.SELECT, ex);
+	}
 
 }
