@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import academy.softserve.movieuniverse.dto.MovieMarkDTO;
-import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.service.MovieMarkService;
 import academy.softserve.movieuniverse.service.mapper.MovieMarkMapper;
@@ -25,7 +24,7 @@ public class MovieMarkController {
 	
 	private MovieMarkMapper movieMarkMapper =  new MovieMarkMapper();
 	
-	@PostMapping("/api/movieMark")
+	@PostMapping("/movieMark")
 	ResponseEntity<MovieMarkDTO> createMovieMark(@RequestBody MovieMarkDTO movieMarkDTO){
 		MovieMark movieMark = movieMarkMapper.mapToEntity(movieMarkDTO);
 		movieMark = movieMarkService.createMovieMark(movieMark);
@@ -34,15 +33,17 @@ public class MovieMarkController {
 		return new ResponseEntity<MovieMarkDTO>(movieMarkDTO, HttpStatus.CREATED);
 	}
 	
-//	@GetMapping("/api/movieMarks")
-//	List<MovieMarkDTO> findAllMovieMarks() {
-//		
-//		return movieMarkMapper.(movieMarkService.findAllMovieMarks());;
+	@GetMapping("/movieMarks")
+	List<MovieMarkDTO> findAllMovieMarks() {
+		
+		return movieMarkMapper.mapListToDto(movieMarkService.findAllMovieMarks());
 	}
 	
-	@GetMapping("/api/movieMark/{id}")
-	ResponseEntity<MovieMark> findMovieMarkById(@PathVariable Long id) {
+	@GetMapping("/movieMark/{id}")
+	ResponseEntity<MovieMarkDTO> findMovieMarkById(@PathVariable Long id) {
 		MovieMark movieMark = movieMarkService.getMovieMark(id);
-		return new ResponseEntity<MovieMark>(movieMark, HttpStatus.OK);
+		MovieMarkDTO movieMarkDTO = movieMarkMapper.mapToDto(movieMark);
+		
+		return new ResponseEntity<MovieMarkDTO>(movieMarkDTO, HttpStatus.OK);
 	}
 }

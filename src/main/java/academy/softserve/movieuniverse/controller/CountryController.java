@@ -23,7 +23,7 @@ public class CountryController {
 	
 	private CountryMapper countryMapper = new CountryMapper();
 	
-	@PostMapping("/api/country")
+	@PostMapping("/country")
 	ResponseEntity<CountryDTO> createCountry(@RequestBody CountryDTO countryDTO){
 		Country country = countryMapper.mapToEntity(countryDTO);
 		country = countryService.createCountry(country);
@@ -32,7 +32,7 @@ public class CountryController {
 		return new ResponseEntity<CountryDTO>(countryDTO, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/api/country")
+	@GetMapping("/country")
 	List<CountryDTO> findAllCountry() {
 		
 		return countryMapper.mapListToDto(countryService.findAllCountry());

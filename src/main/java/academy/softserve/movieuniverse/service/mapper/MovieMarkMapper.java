@@ -1,7 +1,7 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import java.util.Optional;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import academy.softserve.movieuniverse.dto.MovieMarkDTO;
@@ -36,9 +36,14 @@ public class MovieMarkMapper {
 		return movieMarkDTO;
 	}
 	
-//	public List<MovieMarkDTO> listToDto(){
-//		
-//	}
+	public List<MovieMarkDTO> mapListToDto(List<MovieMark> movieMarks){
+		List<MovieMarkDTO> movieMarkDTOs = new ArrayList<>();
+		for(MovieMark m : movieMarks) {
+			movieMarkDTOs.add(this.mapToDto(m));
+		}
+		
+		return movieMarkDTOs;
+	}
 	
 	
 
