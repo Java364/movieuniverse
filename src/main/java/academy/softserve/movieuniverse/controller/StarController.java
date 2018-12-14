@@ -36,7 +36,7 @@ public class StarController {
 	@GetMapping("/{id}")
     public ResponseEntity<StarDTO> showOneStar(@PathVariable Long id) {
 		Star star = service.findStarById(id);
-        return new ResponseEntity<>(mapper.mapCreateToDto(star), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.mapProfileToDto(star), HttpStatus.OK);
     }
 	
 	@PostMapping("/create")
