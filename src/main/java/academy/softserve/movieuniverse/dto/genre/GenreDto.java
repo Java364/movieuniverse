@@ -1,21 +1,25 @@
-package academy.softserve.movieuniverse.dto;
+package academy.softserve.movieuniverse.dto.genre;
 
-public class GenreDto {
+public class GenreDto implements  GenreEditorDto, GenreViewDto {
     private Long id;
     private String genreName;
 
-    public Long getId() {
+    @Override
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    @Override
+    public void setId(long id) {
         this.id = id;
     }
 
+    @Override
     public String getGenreName() {
         return genreName;
     }
 
+    @Override
     public void setGenreName(String genreName) {
         this.genreName = genreName;
     }
