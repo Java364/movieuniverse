@@ -36,7 +36,7 @@ public class StarMapper {
 	private CountryMapper countryMapper;
 	@Autowired 
 	private LinksMapper linksMapper;
-	//@Autowired
+	@Autowired
 	private GalleryMapper galleryMapper;
 	
 	public Star mapListToEntity(StarDTO dto) {
