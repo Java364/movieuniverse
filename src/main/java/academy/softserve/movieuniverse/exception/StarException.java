@@ -4,7 +4,7 @@ public class StarException extends CustomValidationException {
 
 	private static final long serialVersionUID = 1L;
 
-	public StarException(String customMessage, ExceptionType exceptionType,	Exception ex) {
+	private StarException(String customMessage, ExceptionType exceptionType,	Exception ex) {
 		super(customMessage, exceptionType, ex);
 	}
 	
