@@ -1,11 +1,6 @@
 package academy.softserve.movieuniverse.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -16,7 +11,8 @@ public class Links extends AbstractEntity {
     private String linkName;
 
     @Column(name = "site_name")
-    private String siteName;
+    @Enumerated(EnumType.STRING)
+    private SocialNetworkingSites socialNetworkingSite;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "star_id")
@@ -25,10 +21,9 @@ public class Links extends AbstractEntity {
     public Links() {
     }
 
-    public Links(String linkName, String siteName, Star star) {
-        super();
+    public Links(String linkName, SocialNetworkingSites socialNetworkingSite, Star star) {
         this.linkName = linkName;
-        this.siteName = siteName;
+        this.socialNetworkingSite = socialNetworkingSite;
         this.star = star;
     }
 
@@ -40,12 +35,12 @@ public class Links extends AbstractEntity {
         this.linkName = linkName;
     }
 
-    public String getSiteName() {
-        return siteName;
+    public SocialNetworkingSites getSocialNetworkingSite() {
+        return socialNetworkingSite;
     }
 
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
+    public void setSocialNetworkingSite(SocialNetworkingSites socialNetworkingSite) {
+        this.socialNetworkingSite = socialNetworkingSite;
     }
 
     public Star getStar() {
@@ -55,5 +50,10 @@ public class Links extends AbstractEntity {
     public void setStar(Star star) {
         this.star = star;
     }
+
+    public enum SocialNetworkingSites {
+        FACEBOOK, INSTAGRAM, TWITTER
+    }
 }
+
 

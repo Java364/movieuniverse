@@ -14,13 +14,13 @@ import java.util.List;
 public class LinksMapper {
     @Autowired
     private StarService starService;
-    private ModelMapper modelMapper = new ModelMapper();
+    /*private ModelMapper modelMapper = new ModelMapper();*/
 
     public Links mapToEntity(LinksDTO dto) {
         Links links = new Links();
         links.setId(dto.getId());
         links.setLinkName(dto.getLinkName());
-        links.setSiteName(dto.getSiteName());
+        links.setSocialNetworkingSite(dto.getSocialNetworkingSite());
         links.setStar(starService.findStarById(dto.getStarid()));
         return links;
     }
@@ -29,7 +29,7 @@ public class LinksMapper {
         LinksDTO linksDTO = new LinksDTO();
         linksDTO.setId(entity.getId());
         linksDTO.setLinkName(entity.getLinkName());
-        linksDTO.setSiteName(entity.getSiteName());
+        linksDTO.setSocialNetworkingSite(entity.getSocialNetworkingSite());
         linksDTO.setStarid(entity.getStar().getId());
 
         return linksDTO;
