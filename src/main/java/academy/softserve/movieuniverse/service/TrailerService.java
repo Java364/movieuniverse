@@ -22,9 +22,9 @@ public class TrailerService {
 		return trailer;
 	}
 	
-	public Trailer updateTrailer(Long id, Trailer trailer) {
-		Trailer newTrailer = this.findTrailerById(id);
-		//trailer = trailerRepository.save(trailer);
+	public Trailer updateTrailer(Trailer trailer) {
+		trailer = trailerRepository.save(trailer);
+		if(trailer == null) throw TrailerException.createUpdateException("couldn't update trailer", null);
 		return trailer;
 	}
 	

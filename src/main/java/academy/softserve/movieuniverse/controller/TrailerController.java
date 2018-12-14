@@ -26,7 +26,7 @@ public class TrailerController {
 	
 	@PostMapping("/trailer/")
 	ResponseEntity<TrailerDTO> createTrailer(@RequestBody TrailerDTO trailerDTO) {
-		Trailer trailer = trailerMapper. mapToEntity(trailerDTO);
+		Trailer trailer = trailerMapper. mapToEntityForSave(trailerDTO);
 		trailer = trailerService.saveTrailer(trailer);
 		trailerDTO = trailerMapper.mapToDto(trailer);
 		return new ResponseEntity<TrailerDTO>(trailerDTO, HttpStatus.CREATED);
@@ -34,22 +34,20 @@ public class TrailerController {
 	
 	@PutMapping("/trailer/{id}")
 	ResponseEntity<TrailerDTO> updateTrailer(@PathVariable("id") Long id, @RequestBody TrailerDTO trailerDTO) {
-		Trailer trailer = trailerService.findTrailerById(id);
-		/*if(trailer == null) {
-			return new ResponseEntity<TrailerDTO>(HttpStatus.NOT_FOUND);
-		}
+		Trailer trailer = trailerMapper.mapToEntityForUpdate(trailerDTO, id);
 		trailer = trailerService.updateTrailer(trailer);
-		trailerDTO = trailerMapper.mapToDto(trailer);*/
+		trailerDTO = trailerMapper.mapToDto(trailer);
 		return new ResponseEntity<TrailerDTO>(trailerDTO, HttpStatus.OK);
 	}
 	
-	@GetMapping("/trailer")
-	public ResponseEntity<List<Trailer>> listAllTrailers() {
+	@GetMapping("/trailers")
+	public ResponseEntity<List<TrailerDTO>> listAllTrailers() {
         List<Trailer> trailers = trailerService.findAll();
+        List<TrailerDTO> trailerDTOs = trailerMapper.mapListToDto(trailers);
         if(trailers.isEmpty()){
-            return new ResponseEntity<List<Trailer>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<List<TrailerDTO>>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<Trailer>>(trailers, HttpStatus.OK);
+        return new ResponseEntity<List<TrailerDTO>>(trailerDTOs, HttpStatus.OK);
     }
 	
 	@GetMapping("/trailer/{id}")

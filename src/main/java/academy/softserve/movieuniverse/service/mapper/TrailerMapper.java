@@ -15,20 +15,21 @@ public class TrailerMapper {
 	@Autowired
 	MovieService movieService;
 	
-	public Trailer mapToEntity(TrailerDTO dto) {
+	public Trailer mapToEntityForSave(TrailerDTO dto) {
 		Trailer trailer = new Trailer();
 		trailer.setTrailerUrl(dto.getTrailerUrl());
-		trailer.setId(dto.getId());
+		trailer.setId(null);
 		trailer.setIsRemoved(new Boolean(false));
-		trailer.setMovie(null);
+		trailer.setMovie(movieService.findMovieById(dto.getMovieId()).get());
 		return trailer;
 	}
 	
-	public Trailer mapToEntityForUpdate(TrailerDTO dto) {
+	public Trailer mapToEntityForUpdate(TrailerDTO dto, Long trailerId) {
 		Trailer trailer = new Trailer();
 		trailer.setTrailerUrl(dto.getTrailerUrl());
 		trailer.setIsRemoved(new Boolean(false));
-		trailer.setMovie(null);
+		trailer.setId(trailerId);
+		trailer.setMovie(movieService.findMovieById(dto.getMovieId()).get());
 		return trailer;
 	}
 
