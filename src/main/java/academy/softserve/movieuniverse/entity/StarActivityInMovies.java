@@ -2,6 +2,7 @@ package academy.softserve.movieuniverse.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,7 +17,7 @@ public class StarActivityInMovies extends AbstractEntity {
     @JoinColumn(name = "star_id")
     private Star star;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<StarProfession> professions;
 
     @ManyToOne

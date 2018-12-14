@@ -15,7 +15,7 @@ public class Star extends Person {
     @Column(name = "star_growth")
     private Double growth;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "star_id"),
             inverseJoinColumns = @JoinColumn(name = "country_id"))
     private List<Country> countries = new ArrayList<>();
@@ -23,16 +23,16 @@ public class Star extends Person {
     @Column(name = "star_city")
     private String cityOfBirth;
 
-    @OneToMany(mappedBy = "star")
+    @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<StarActivityInMovies> roles = new ArrayList<StarActivityInMovies>();
 
-    @OneToMany(mappedBy = "star")
+    @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<StarProfession> professions = new ArrayList<StarProfession>();
 
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<Links> links = new ArrayList<Links>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "star_movie",
             joinColumns = @JoinColumn(name = "star_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
