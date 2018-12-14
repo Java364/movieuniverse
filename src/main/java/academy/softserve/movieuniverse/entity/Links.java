@@ -1,10 +1,12 @@
 package academy.softserve.movieuniverse.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "links")
@@ -16,7 +18,7 @@ public class Links extends AbstractEntity {
     @Column(name = "site_name")
     private String siteName;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "star_id")
     private Star star;
 
