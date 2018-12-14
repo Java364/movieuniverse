@@ -3,6 +3,9 @@ package academy.softserve.movieuniverse.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import academy.softserve.movieuniverse.entity.Links;
+import academy.softserve.movieuniverse.entity.Movie;
+
 
 public class StarDTO {
 	private Long id;
@@ -17,8 +20,39 @@ public class StarDTO {
     private List<Long> professionsIds = new ArrayList<Long>();
     private List<Long> linksIds = new ArrayList<Long>();
     private List<Long> moviesIds = new ArrayList<Long>();
+    //private List<MovieDTO> movies = new ArrayList<MovieDTO>();
+    private List<LinksDTO> links = new ArrayList<LinksDTO>();
+    private List<StarActivityInMoviesDTO> activities = new ArrayList<StarActivityInMoviesDTO>();
+    private List<CountryDTO> countries = new ArrayList<CountryDTO>();
     private Long gallery;
-    private Boolean isRemoved;
+    private GalleryDTO galleryDto;
+    
+    public GalleryDTO getGalleryDto() {
+		return galleryDto;
+	}
+	public void setGalleryDto(GalleryDTO galleryDto) {
+		this.galleryDto = galleryDto;
+	}
+	private Boolean isRemoved;
+    
+    public List<LinksDTO> getLinks() {
+		return links;
+	}
+	public void setLinks(List<LinksDTO> links) {
+		this.links = links;
+	}
+	public List<StarActivityInMoviesDTO> getActivities() {
+		return activities;
+	}
+	public void setActivities(List<StarActivityInMoviesDTO> activities) {
+		this.activities = activities;
+	}
+	public List<CountryDTO> getCountries() {
+		return countries;
+	}
+	public void setCountries(List<CountryDTO> countries) {
+		this.countries = countries;
+	}
 	
     public Long getId() {
 		return id;

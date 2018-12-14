@@ -7,7 +7,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import academy.softserve.movieuniverse.dto.CountryDTO;
+import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.dto.StarDTO;
+import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.service.CountryService;
@@ -29,6 +32,12 @@ public class StarMapper {
 	private LinksService linkService;
 	@Autowired
 	private StarProfessionService starProfessionService;
+	@Autowired
+	private CountryMapper countryMapper;
+	//@Autowired 
+	private LinksMapper linksMapper;
+	//@Autowired
+	private GalleryMapper galleryMapper;
 	
 	public Star mapListToEntity(StarDTO dto) {
 		Star star = new Star();
@@ -91,21 +100,30 @@ public class StarMapper {
 		star.setBiography(dto.getBiography());
 		star.setBirthday(dto.getBirthday());
 		star.setCityOfBirth(dto.getCityOfBirth());
-		star.setCountries(dto.getCountriesIds().stream().map(p -> countryService.findCountryById(p)).collect(Collectors.toList()));
 		star.setFirstName(dto.getFirstName());
-		star.setGallery(galleryService.getGallery(dto.getGallery()));
+		star.setGallery(galleryMapper.mapToEntity(dto.getGalleryDto()));
 		star.setGrowth(dto.getGrowth());
 		star.setId(dto.getId());
 		star.setLastName(dto.getLastName());
-		star.setLinks(dto.getLinksIds().stream().map(p -> linkService.getOneLinks(p)).collect(Collectors.toList()));
-		//star.setProfessions(dto.getProfessions());
+		star.setCountries(this.mapCountriesListToEntity(dto.getCountries()));
+		star.setLinks(this.mapLinksListToEntity(dto.getLinks()));
+		
 		return star;
 	}
 	
 	public StarDTO mapProfileToDto(Star entity) {
-		StarDTO dto = this.mapCreateToDto(entity);
-		//dto.setMoviesIds(entity);
-		//dto.setProfessions(entity.getProfessions().stream().map(mapper));
+		StarDTO dto = new StarDTO();
+		dto.setBiography(entity.getBiography());
+		dto.setBirthday(entity.getBirthday());
+		dto.setCityOfBirth(entity.getCityOfBirth());
+		dto.setFirstName(entity.getFirstName());
+		dto.setGalleryDto(galleryMapper.mapToDto(entity.getGallery()));
+		dto.setGrowth(entity.getGrowth());
+		dto.setId(entity.getId());
+		dto.setLastName(entity.getLastName());
+		dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
+		dto.setLinks(linksMapper.mapListToDto(entity.getLinks()));
+		//dto.setActivities(activities); //TODO activities
 		return dto;
 	}
 	
@@ -115,6 +133,22 @@ public class StarMapper {
 			starDTOs.add(this.mapListToDto(t));
 		}
 		return starDTOs;
+	}
+	
+	 public List<Links> mapLinksListToEntity(List<LinksDTO> linkDTOs) {
+	        List<Links> links = new ArrayList<>();
+	        for (LinksDTO l : linkDTOs) {
+	        	links.add(linksMapper.mapToEntity(l));
+	        }
+	        return links;
+	    }
+	 
+	public List<Country> mapCountriesListToEntity(List<CountryDTO> countryDTOs) {
+		List<Country> countries = new ArrayList<>();
+		for (CountryDTO c : countryDTOs) {
+			countries.add(countryMapper.mapToEntity(c));
+		}
+		return countries;
 	}
 	
 }
