@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import academy.softserve.movieuniverse.dto.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Trailer;
 import academy.softserve.movieuniverse.service.MovieService;
-
+@Service
 public class TrailerMapper {
 	
 	@Autowired
@@ -18,8 +19,16 @@ public class TrailerMapper {
 		Trailer trailer = new Trailer();
 		trailer.setTrailerUrl(dto.getTrailerUrl());
 		trailer.setId(dto.getId());
-		trailer.setIsRemoved(false);
-		trailer.setMovie(movieService.findMovieById(dto.getMovieId()).get());
+		trailer.setIsRemoved(new Boolean(false));
+		trailer.setMovie(null);
+		return trailer;
+	}
+	
+	public Trailer mapToEntityForUpdate(TrailerDTO dto) {
+		Trailer trailer = new Trailer();
+		trailer.setTrailerUrl(dto.getTrailerUrl());
+		trailer.setIsRemoved(new Boolean(false));
+		trailer.setMovie(null);
 		return trailer;
 	}
 
