@@ -17,7 +17,7 @@ public class ProfessionController {
 
     @Autowired
     private ProfessionServise professionServise;
-
+    @Autowired
     private ProfessionMapper professionMapper = new ProfessionMapper();
 
     @PostMapping("/api/createProfession")

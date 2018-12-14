@@ -17,7 +17,7 @@ public class LinksController {
 
     @Autowired
     private LinksService linksService;
-
+    @Autowired
     private LinksMapper linksMapper = new LinksMapper();
 
     @PostMapping("/api/createLinks")
