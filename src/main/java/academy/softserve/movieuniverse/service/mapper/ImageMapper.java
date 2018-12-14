@@ -3,10 +3,12 @@ package academy.softserve.movieuniverse.service.mapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import academy.softserve.movieuniverse.dto.ImageDTO;
 import academy.softserve.movieuniverse.entity.Image;
 import academy.softserve.movieuniverse.service.GalleryService;
-
+@Service
 public class ImageMapper {
 
 	@Autowired
@@ -17,7 +19,7 @@ public class ImageMapper {
 		image.setGallery(galleryService.getGallery(dto.getGalleryId()));
 		image.setId(dto.getId());
 		image.setImageUrl(dto.getImageUrl());
-		image.setIsRemoved(false);
+		image.setIsRemoved(new Boolean(false));
 		image.setName(dto.getName());
 		return null;
 	}

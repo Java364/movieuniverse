@@ -6,7 +6,7 @@ import java.util.List;
 public class GalleryDTO {
 	
 	private Long id;
-	private List<ImageDTO> images = new ArrayList<>();
+	private List<Long> imageIds = new ArrayList<>();
 	
 	public GalleryDTO() {}
 
@@ -18,11 +18,12 @@ public class GalleryDTO {
 		this.id = id;
 	}
 
-	public List<ImageDTO> getImages() {
-		return images;
+	public List<Long> getImageIds() {
+		return imageIds;
 	}
 
-	public void setImages(List<ImageDTO> images) {
-		this.images = images;
+	public void setImageIds(List<Long> imageIds) {
+		this.imageIds = imageIds;
 	}
+	
 }
