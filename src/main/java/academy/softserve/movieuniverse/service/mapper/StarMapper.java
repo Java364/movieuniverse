@@ -34,9 +34,9 @@ public class StarMapper {
 	private StarProfessionService starProfessionService;
 	@Autowired
 	private CountryMapper countryMapper;
-	//@Autowired 
+	@Autowired 
 	private LinksMapper linksMapper;
-	//@Autowired
+	@Autowired
 	private GalleryMapper galleryMapper;
 	
 	public Star mapListToEntity(StarDTO dto) {
@@ -135,13 +135,13 @@ public class StarMapper {
 		return starDTOs;
 	}
 	
-	 public List<Links> mapLinksListToEntity(List<LinksDTO> linkDTOs) {
-	        List<Links> links = new ArrayList<>();
-	        for (LinksDTO l : linkDTOs) {
-	        	links.add(linksMapper.mapToEntity(l));
-	        }
-	        return links;
-	    }
+	public List<Links> mapLinksListToEntity(List<LinksDTO> linkDTOs) {
+		List<Links> links = new ArrayList<>();
+		for (LinksDTO l : linkDTOs) {
+			links.add(linksMapper.mapToEntity(l));
+		}
+		return links;
+	}
 	 
 	public List<Country> mapCountriesListToEntity(List<CountryDTO> countryDTOs) {
 		List<Country> countries = new ArrayList<>();

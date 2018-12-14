@@ -43,6 +43,14 @@ public class LinksMapper {
         }
         return linksDTOlist;
     }
+    
+    public List<Links> mapLinksListToEntity(List<LinksDTO> linkDTOs) {
+		List<Links> links = new ArrayList<>();
+		for (LinksDTO l : linkDTOs) {
+			links.add(this.mapToEntity(l));
+		}
+		return links;
+	}
    /*public Links mapToEntity(LinksDTO linksDTO) {
        return modelMapper.map(linksDTO, Links.class);
    }
