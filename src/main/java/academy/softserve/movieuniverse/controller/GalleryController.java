@@ -15,7 +15,8 @@ public class GalleryController {
 	
 	@Autowired
 	private GalleryService galleryService;
-	private GalleryMapper galleryMapper = new GalleryMapper();
+	@Autowired
+	private GalleryMapper galleryMapper;
 	
 	@GetMapping("/api/galleries")
 	List<GalleryDTO> viewAll() {

@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ public class ImageService {
 	}
 	
 	public List<Image> findAll() {
-		return imageRepository.findAll();
+		List<Image> images = new ArrayList<>();
+		images = imageRepository.findAll();
+		return images;
 	}
 
 

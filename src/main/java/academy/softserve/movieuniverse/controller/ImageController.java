@@ -14,7 +14,8 @@ import academy.softserve.movieuniverse.service.mapper.ImageMapper;
 public class ImageController {
 	@Autowired
 	private ImageService imageService;
-	private ImageMapper imageMapper = new ImageMapper();
+	@Autowired
+	private ImageMapper imageMapper;
 	
 	@GetMapping("/api/images")
 	List<ImageDTO> viewAll() {

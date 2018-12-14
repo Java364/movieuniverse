@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ public class GalleryService {
 	}
 	
 	public List<Gallery> findAll() {
-		return galleryRepository.findAll();
+		List<Gallery> galleries = new ArrayList<>();
+		galleries = galleryRepository.findAll();
+		return galleries;
 	}
 
 }
