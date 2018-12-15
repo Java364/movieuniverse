@@ -30,6 +30,13 @@ public class GenreDtoMapper {
         return genre;
     }
 
+    public Genre mapGenreUpdateDtoToEntity(Long genreId, GenreCreateDto genreCreateDto) {
+        Genre genre = new Genre();
+        genre.setId(genreId);
+        genre.setName(genreCreateDto.getGenreName());
+        return genre;
+    }
+
     public List<GenreDto> mapEntitiesToGenreDtoList(List<Genre> genres) {
         return genres.stream().map(this::mapGenreEntityToGenreDto).collect(Collectors.toList());
     }
