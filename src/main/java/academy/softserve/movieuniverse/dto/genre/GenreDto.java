@@ -1,9 +1,5 @@
 package academy.softserve.movieuniverse.dto.genre;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-
 public class GenreDto {
     private Long id;
     private String genreName;
