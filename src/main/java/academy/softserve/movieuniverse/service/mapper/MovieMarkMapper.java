@@ -44,6 +44,14 @@ public class MovieMarkMapper {
 		
 		return movieMarkDTOs;
 	}
+
+	public List<MovieMark> mapMovieMarksListToEntity(List<MovieMarkDTO> movieMarksDTOs) {
+		List<MovieMark> marks = new ArrayList<>();
+		for (MovieMarkDTO m : movieMarksDTOs) {
+			marks.add(this.mapToEntity(m));
+		}
+		return marks;
+	}
 	
 	
 
