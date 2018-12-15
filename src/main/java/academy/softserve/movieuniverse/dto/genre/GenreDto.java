@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.dto.genre;
 
-public class GenreDto {
+public class GenreDto implements GenreCreateDto {
     private Long id;
     private String genreName;
 
@@ -12,10 +12,13 @@ public class GenreDto {
         this.id = id;
     }
 
+
+    @Override
     public String getGenreName() {
         return genreName;
     }
 
+    @Override
     public void setGenreName(String genreName) {
         this.genreName = genreName;
     }
