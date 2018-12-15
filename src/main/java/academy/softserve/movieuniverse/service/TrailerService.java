@@ -17,12 +17,14 @@ public class TrailerService {
 	private TrailerRepository trailerRepository;
 	
 	public Trailer saveTrailer(Trailer trailer) {
+		if(trailer == null || trailer.getId() != null) throw TrailerException.createSaveException("couldn't save trailer", null);
 		trailer = trailerRepository.save(trailer);
 		if(trailer == null) throw TrailerException.createSaveException("couldn't save trailer", null);
 		return trailer;
 	}
 	
 	public Trailer updateTrailer(Trailer trailer) {
+		if(trailer == null || trailer.getId() == null || !trailerRepository.findById(trailer.getId()).isPresent()) throw TrailerException.createUpdateException("no trailer to update", null);
 		trailer = trailerRepository.save(trailer);
 		if(trailer == null) throw TrailerException.createUpdateException("couldn't update trailer", null);
 		return trailer;
@@ -38,7 +40,7 @@ public class TrailerService {
 	}
 	
 	public void deleteTrailer(Long id) {
-		if(id == null || findTrailerById(id) == null) throw TrailerException.createDeleteException("no exist such trailer to delete", null);
+		if(id == null || !trailerRepository.findById(id).isPresent()) throw TrailerException.createDeleteException("no exist such trailer to delete", null);
 		trailerRepository.deleteById(id);
 	}
 	
