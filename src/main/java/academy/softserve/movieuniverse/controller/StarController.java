@@ -49,6 +49,7 @@ public class StarController {
 	
 	@PostMapping("/update/{id}")
 	public ResponseEntity<StarDTO> updateStar(@RequestBody StarDTO starDTO, @PathVariable Long id) {
+		starDTO = this.showOneStar(id).getBody();
 		Star star = mapper.mapCreateToEntity(starDTO);
 		service.updateStar(star, id);
 		starDTO = mapper.mapCreateToDto(star);

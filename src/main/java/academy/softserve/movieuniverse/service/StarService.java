@@ -10,15 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.exception.StarException;
 import academy.softserve.movieuniverse.repository.StarRepository;
-import academy.softserve.movieuniverse.service.mapper.StarListMapper;
 
 @Service
 public class StarService {
 	
 	@Autowired
 	private StarRepository starRepository;
-	@Autowired
-	private StarListMapper listMapper;
 
 	@Transactional
 	public Star saveStar(Star star) {
