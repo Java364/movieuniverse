@@ -5,6 +5,7 @@ import academy.softserve.movieuniverse.repository.LinksRepository;
 import academy.softserve.movieuniverse.service.mapper.LinksMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,17 +21,17 @@ public class LinksService {
     public List<Links> findAll(){
         return linksRepository.findAll();
     }
-
+    @Transactional
     public void deleteLinks(Long id){
         linksRepository.deleteById(id);
     }
 
-
-    /*public LinksDTO getLinksDTO(Long id){
-        Optional<Links> linksOptional = linksRepository.findById(id);
-        return linksMapper.mapToDto(linksOptional.get());
-    }*/
     public Links getOneLinks(Long id){
         return linksRepository.getOne(id);
+    }
+
+    public Links updateLinks(Links links) {
+        links = linksRepository.save(links);
+        return links;
     }
 }

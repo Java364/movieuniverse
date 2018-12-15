@@ -14,7 +14,7 @@ import java.util.Optional;
 public class ProfessionServise {
     @Autowired
     private ProfessionRepository professionRepository;
-    private ProfessionMapper professionMapper = new ProfessionMapper();
+
 
     public void saveProfession(Profession profession){
         professionRepository.save(profession);
@@ -29,8 +29,8 @@ public class ProfessionServise {
     }
 
 
-    public ProfessionDTO getProfessionDTO(Long id){
-        Optional<Profession> linksOptional = professionRepository.findById(id);
-        return professionMapper.mapToDto(linksOptional.get());
+
+    public Profession getOneProfession(Long id){
+        return professionRepository.getOne(id);
     }
 }

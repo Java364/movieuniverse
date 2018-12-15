@@ -1,14 +1,12 @@
 package academy.softserve.movieuniverse.dto;
 
 
-import academy.softserve.movieuniverse.entity.Star;
-
-import java.util.Optional;
+import academy.softserve.movieuniverse.entity.Links;
 
 public class LinksDTO {
     private Long id;
     private String linkName;
-    private String siteName;
+    private Links.SocialNetworkingSites socialNetworkingSite;
     private Long starid;
 
     public LinksDTO() {
@@ -30,12 +28,12 @@ public class LinksDTO {
         this.linkName = linkName;
     }
 
-    public String getSiteName() {
-        return siteName;
+    public Links.SocialNetworkingSites getSocialNetworkingSite() {
+        return socialNetworkingSite;
     }
 
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
+    public void setSocialNetworkingSite(Links.SocialNetworkingSites socialNetworkingSite) {
+        this.socialNetworkingSite = socialNetworkingSite;
     }
 
     public Long getStarid() {
@@ -45,10 +43,5 @@ public class LinksDTO {
     public void setStarid(Long starid) {
         this.starid = starid;
     }
-    /* public void setStarid(Optional<Star> starid) {
-        this.starid = starid;
-    }*/
 
-    /*public void setStarid(Star star) {
-    }*/
 }

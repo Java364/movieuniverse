@@ -3,14 +3,7 @@ package academy.softserve.movieuniverse.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "movie_stars")
@@ -22,7 +15,7 @@ public class Star extends Person {
     @Column(name = "star_growth")
     private Double growth;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "star_id"),
             inverseJoinColumns = @JoinColumn(name = "country_id"))
     private List<Country> countries = new ArrayList<>();
@@ -30,16 +23,16 @@ public class Star extends Person {
     @Column(name = "star_city")
     private String cityOfBirth;
 
-    @OneToMany(mappedBy = "star")
+    @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<StarActivityInMovies> roles = new ArrayList<StarActivityInMovies>();
 
-    @OneToMany(mappedBy = "star")
+    @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<StarProfession> professions = new ArrayList<StarProfession>();
 
-    @OneToMany(mappedBy = "star")
+    @OneToMany(mappedBy = "star"/*, cascade = CascadeType.ALL*/)
     private List<Links> links = new ArrayList<Links>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "star_movie",
             joinColumns = @JoinColumn(name = "star_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))

@@ -4,6 +4,7 @@ public class PosterDTO {
 	private Long id;
 	private String name;
 	private String imageUrl;
+	private Long movieId;
 	
 	public PosterDTO() {}
 
@@ -29,5 +30,13 @@ public class PosterDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getMovieId() {
+		return movieId;
+	}
+
+	public void setMovieId(Long movieId) {
+		this.movieId = movieId;
 	}
 }

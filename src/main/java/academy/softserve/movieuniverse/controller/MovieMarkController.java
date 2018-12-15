@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import academy.softserve.movieuniverse.dto.MovieMarkDTO;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.service.MovieMarkService;
+import academy.softserve.movieuniverse.service.mapper.MovieMarkMapper;
 
 @RestController
 public class MovieMarkController {
@@ -20,22 +22,28 @@ public class MovieMarkController {
 	@Autowired
 	private MovieMarkService movieMarkService;
 	
-	@PostMapping("/api/movieMark")
-	ResponseEntity<MovieMark> createMovieMark(@RequestBody MovieMark movieMark) {
+	private MovieMarkMapper movieMarkMapper =  new MovieMarkMapper();
+	
+	@PostMapping("/movieMark")
+	ResponseEntity<MovieMarkDTO> createMovieMark(@RequestBody MovieMarkDTO movieMarkDTO){
+		MovieMark movieMark = movieMarkMapper.mapToEntity(movieMarkDTO);
 		movieMark = movieMarkService.createMovieMark(movieMark);
+		movieMarkDTO = movieMarkMapper.mapToDto(movieMark);
 		
-		return new ResponseEntity<MovieMark>(movieMark, HttpStatus.OK);
+		return new ResponseEntity<MovieMarkDTO>(movieMarkDTO, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/api/movieMarks")
-	List<MovieMark> findAllMovieMarks() {
-		List<MovieMark> movieMarkList = movieMarkService.findAllMovieMarks();
-		return movieMarkList;
+	@GetMapping("/movieMarks")
+	List<MovieMarkDTO> findAllMovieMarks() {
+		
+		return movieMarkMapper.mapListToDto(movieMarkService.findAllMovieMarks());
 	}
 	
-	@GetMapping("/api/movieMark/{id}")
-	ResponseEntity<MovieMark> findMovieMarkById(@PathVariable Long id) {
+	@GetMapping("/movieMark/{id}")
+	ResponseEntity<MovieMarkDTO> findMovieMarkById(@PathVariable Long id) {
 		MovieMark movieMark = movieMarkService.getMovieMark(id);
-		return new ResponseEntity<MovieMark>(movieMark, HttpStatus.OK);
+		MovieMarkDTO movieMarkDTO = movieMarkMapper.mapToDto(movieMark);
+		
+		return new ResponseEntity<MovieMarkDTO>(movieMarkDTO, HttpStatus.OK);
 	}
 }

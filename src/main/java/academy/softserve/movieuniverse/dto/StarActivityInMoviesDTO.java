@@ -1,10 +1,15 @@
 package academy.softserve.movieuniverse.dto;
 
+import java.util.List;
+
 public class StarActivityInMoviesDTO {
 
     private long id;
+    private long starId;
     private long movieId;
-    private long professionId;
+    private String starName;
+    private String movieName;
+    private List<Long> professionIds;
 
     public long getId() {
         return id;
@@ -12,6 +17,14 @@ public class StarActivityInMoviesDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getStarId() {
+        return starId;
+    }
+
+    public void setStarId(long starId) {
+        this.starId = starId;
     }
 
     public long getMovieId() {
@@ -22,11 +35,27 @@ public class StarActivityInMoviesDTO {
         this.movieId = movieId;
     }
 
-    public long getProfessionId() {
-        return professionId;
+    public String getStarName() {
+        return starName;
     }
 
-    public void setProfessionId(long professionId) {
-        this.professionId = professionId;
+    public void setStarName(String starName) {
+        this.starName = starName;
+    }
+
+    public String getMovieName() {
+        return movieName;
+    }
+
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
+
+    public List<Long> getProfessionIds() {
+        return professionIds;
+    }
+
+    public void setProfessionIds(List<Long> professionIds) {
+        this.professionIds = professionIds;
     }
 }
