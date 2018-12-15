@@ -31,7 +31,6 @@ public class LinksMapper {
         linksDTO.setLinkName(entity.getLinkName());
         linksDTO.setSocialNetworkingSite(entity.getSocialNetworkingSite());
         linksDTO.setStarid(entity.getStar().getId());
-
         return linksDTO;
     }
 
