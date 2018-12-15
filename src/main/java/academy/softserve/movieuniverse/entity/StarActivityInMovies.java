@@ -2,12 +2,7 @@ package academy.softserve.movieuniverse.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "star_activity")
@@ -20,12 +15,11 @@ public class StarActivityInMovies extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL)
     private List<StarProfession> professions;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
     public StarActivityInMovies() {
-        super();
     }
 
     public Star getStar() {
