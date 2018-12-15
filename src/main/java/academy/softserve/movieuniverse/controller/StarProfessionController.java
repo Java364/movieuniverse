@@ -42,8 +42,10 @@ public class StarProfessionController {
     }
 
     @GetMapping("/starProfession/{id}")
-    public StarProfession getStarProfessions(@PathVariable Long id) {
-        return starProfessionService.getStarProfession(id);
+    public StarProfessionDTO getStarProfessions(@PathVariable Long id) {
+        StarProfession starProfession = starProfessionService.getStarProfession(id);
+        StarProfessionDTO starProfessionDTO = starProfessionMapper.mapToDto(starProfession);
+        return starProfessionDTO;
     }
 
     @DeleteMapping("/starProfession")
