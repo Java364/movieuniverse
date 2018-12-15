@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.dto.GenreDto;
+import academy.softserve.movieuniverse.dto.genre.GenreDto;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.repository.GenreRepository;
 import academy.softserve.movieuniverse.service.mapper.GenreDtoMapper;
@@ -23,13 +23,15 @@ public class GenreService {
 
     @Transactional
     public GenreDto saveGenre(GenreDto genreDto) {
-        Genre genre = genreRepository.save(genreDtoMapper.mapGenreToEntity(genreDto));
-        return genreDtoMapper.mapGenreToDto(genre);
+//        Genre genre = genreRepository.save(genreDtoMapper.mapGenreEntityToEditDto(genreDto));
+//        return genreDtoMapper.mapGenreToDto(genre);
+        return null;
     }
 
     public Optional<GenreDto> findGenreById(Long genreId) {
-        Optional<Genre> optionalGenre = genreRepository.findById(genreId);
-        return optionalGenre.map(genre -> genreDtoMapper.mapGenreToDto(genre));
+//        Optional<Genre> optionalGenre = genreRepository.findById(genreId);
+//        return optionalGenre.map(genre -> genreDtoMapper.mapGenreToDto(genre));
+        return Optional.empty();
     }
 
     @Transactional

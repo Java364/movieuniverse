@@ -1,25 +1,25 @@
 package academy.softserve.movieuniverse.dto.genre;
 
-public class GenreDto implements  GenreEditorDto, GenreViewDto {
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
+public class GenreDto {
     private Long id;
     private String genreName;
 
-    @Override
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }
 
-    @Override
     public String getGenreName() {
         return genreName;
     }
 
-    @Override
     public void setGenreName(String genreName) {
         this.genreName = genreName;
     }
