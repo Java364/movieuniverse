@@ -24,7 +24,7 @@ public class TrailerController {
 	@Autowired
 	private TrailerMapper trailerMapper;
 	
-	@PostMapping("/trailer/")
+	@PostMapping("/trailer")
 	ResponseEntity<TrailerDTO> createTrailer(@RequestBody TrailerDTO trailerDTO) {
 		Trailer trailer = trailerMapper. mapToEntityForSave(trailerDTO);
 		trailer = trailerService.saveTrailer(trailer);

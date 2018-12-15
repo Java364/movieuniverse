@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 import academy.softserve.movieuniverse.dto.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Trailer;
 import academy.softserve.movieuniverse.service.MovieService;
+import academy.softserve.movieuniverse.service.TrailerService;
 @Service
 public class TrailerMapper {
 	
 	@Autowired
 	MovieService movieService;
+	@Autowired
+	TrailerService trailerService;
 	
 	public Trailer mapToEntityForSave(TrailerDTO dto) {
 		Trailer trailer = new Trailer();
@@ -26,10 +29,10 @@ public class TrailerMapper {
 	
 	public Trailer mapToEntityForUpdate(TrailerDTO dto, Long trailerId) {
 		Trailer trailer = new Trailer();
-		trailer.setTrailerUrl(dto.getTrailerUrl());
-		trailer.setIsRemoved(new Boolean(false));
 		trailer.setId(trailerId);
 		trailer.setMovie(movieService.findMovieById(dto.getMovieId()).get());
+		trailer.setTrailerUrl(dto.getTrailerUrl());
+		trailer.setIsRemoved(new Boolean(false));
 		return trailer;
 	}
 
@@ -47,6 +50,11 @@ public class TrailerMapper {
 			trailerDTOs.add(this.mapToDto(t));
 		}
 		return trailerDTOs;
+	}
+	
+	public TrailerDTO dtoForSave(TrailerDTO dto) {
+		dto.setId(null);
+		return dto;
 	}
 
 }
