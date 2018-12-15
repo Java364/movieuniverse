@@ -1,13 +1,11 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.MovieDTO;
-import academy.softserve.movieuniverse.dto.StarListDTO;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.StarService;
 import academy.softserve.movieuniverse.service.mapper.MovieMapper;
-import academy.softserve.movieuniverse.service.mapper.StarListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
