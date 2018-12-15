@@ -17,7 +17,7 @@ public class LinksController {
 
     @Autowired
     private LinksService linksService;
-
+    @Autowired
     private LinksMapper linksMapper = new LinksMapper();
 
     @PostMapping("/api/createLinks")
@@ -39,6 +39,5 @@ public class LinksController {
         Links links = linksService.getOneLinks(id);
         return new ResponseEntity<LinksDTO>(linksMapper.mapToDto(links), HttpStatus.OK);
     }
-
-}
+    }
 

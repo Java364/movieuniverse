@@ -17,7 +17,7 @@ public class ProfessionController {
 
     @Autowired
     private ProfessionServise professionServise;
-
+    @Autowired
     private ProfessionMapper professionMapper = new ProfessionMapper();
 
     @PostMapping("/api/createProfession")
@@ -34,10 +34,10 @@ public class ProfessionController {
         return professionMapper.mapListToDto(professionList);
     }
 
+
     @GetMapping("/api/profession/{id}")
     public ResponseEntity<ProfessionDTO> getOneProfession(@PathVariable Long id) {
-        return new ResponseEntity<>(professionServise.getProfessionDTO(id), HttpStatus.OK);
+        Profession profession = professionServise.getOneProfession(id);
+        return new ResponseEntity<ProfessionDTO>(professionMapper.mapToDto(profession), HttpStatus.OK);
     }
-
-
 }

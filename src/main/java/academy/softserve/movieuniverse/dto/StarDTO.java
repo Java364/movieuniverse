@@ -3,14 +3,9 @@ package academy.softserve.movieuniverse.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-import academy.softserve.movieuniverse.entity.Country;
-import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.entity.Movie;
-import academy.softserve.movieuniverse.entity.StarActivityInMovies;
-import academy.softserve.movieuniverse.entity.StarProfession;
+
 
 public class StarDTO {
 	private Long id;
@@ -19,26 +14,51 @@ public class StarDTO {
     private Long birthday;
     private String biography;
     private Double growth;
-    private List<Country> countries = new ArrayList<>();
+    private List<Long> countriesIds = new ArrayList<>();
     private String cityOfBirth;
-    private List<StarActivityInMovies> roles = new ArrayList<StarActivityInMovies>();
-    private List<StarProfession> professions = new ArrayList<StarProfession>();
-    private List<Links> links = new ArrayList<Links>();
-    private List<Movie> movies = new ArrayList<Movie>();
-    private Gallery gallery;
-    private Boolean isRemoved;
+    private List<Long> rolesIds = new ArrayList<Long>();
+    private List<Long> professionsIds = new ArrayList<Long>();
+    private List<Long> linksIds = new ArrayList<Long>();
+    private List<Long> moviesIds = new ArrayList<Long>();
+    //private List<MovieDTO> movies = new ArrayList<MovieDTO>();
+    private List<LinksDTO> links = new ArrayList<LinksDTO>();
+    private List<StarActivityInMoviesDTO> activities = new ArrayList<StarActivityInMoviesDTO>();
+    private List<CountryDTO> countries = new ArrayList<CountryDTO>();
+    private Long gallery;
+    private GalleryDTO galleryDto;
     
-	public Long getId() {
+    public GalleryDTO getGalleryDto() {
+		return galleryDto;
+	}
+	public void setGalleryDto(GalleryDTO galleryDto) {
+		this.galleryDto = galleryDto;
+	}
+	private Boolean isRemoved;
+    
+    public List<LinksDTO> getLinks() {
+		return links;
+	}
+	public void setLinks(List<LinksDTO> links) {
+		this.links = links;
+	}
+	public List<StarActivityInMoviesDTO> getActivities() {
+		return activities;
+	}
+	public void setActivities(List<StarActivityInMoviesDTO> activities) {
+		this.activities = activities;
+	}
+	public List<CountryDTO> getCountries() {
+		return countries;
+	}
+	public void setCountries(List<CountryDTO> countries) {
+		this.countries = countries;
+	}
+	
+    public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public Boolean getIsRemoved() {
-		return isRemoved;
-	}
-	public void setIsRemoved(Boolean isRemoved) {
-		this.isRemoved = isRemoved;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -70,11 +90,11 @@ public class StarDTO {
 	public void setGrowth(Double growth) {
 		this.growth = growth;
 	}
-	public List<Country> getCountries() {
-		return countries;
+	public List<Long> getCountriesIds() {
+		return countriesIds;
 	}
-	public void setCountries(List<Country> countries) {
-		this.countries = countries;
+	public void setCountriesIds(List<Long> countriesIds) {
+		this.countriesIds = countriesIds;
 	}
 	public String getCityOfBirth() {
 		return cityOfBirth;
@@ -82,34 +102,40 @@ public class StarDTO {
 	public void setCityOfBirth(String cityOfBirth) {
 		this.cityOfBirth = cityOfBirth;
 	}
-	public List<StarActivityInMovies> getRoles() {
-		return roles;
+	public List<Long> getRolesIds() {
+		return rolesIds;
 	}
-	public void setRoles(List<StarActivityInMovies> roles) {
-		this.roles = roles;
+	public void setRolesIds(List<Long> rolesIds) {
+		this.rolesIds = rolesIds;
 	}
-	public List<StarProfession> getProfessions() {
-		return professions;
+	public List<Long> getProfessionsIds() {
+		return professionsIds;
 	}
-	public void setProfessions(List<StarProfession> professions) {
-		this.professions = professions;
+	public void setProfessionsIds(List<Long> professionsIds) {
+		this.professionsIds = professionsIds;
 	}
-	public List<Links> getLinks() {
-		return links;
+	public List<Long> getLinksIds() {
+		return linksIds;
 	}
-	public void setLinks(List<Links> links) {
-		this.links = links;
+	public void setLinksIds(List<Long> linksIds) {
+		this.linksIds = linksIds;
 	}
-	public List<Movie> getMovies() {
-		return movies;
+	public List<Long> getMoviesIds() {
+		return moviesIds;
 	}
-	public void setMovies(List<Movie> movies) {
-		this.movies = movies;
+	public void setMoviesIds(List<Long> moviesIds) {
+		this.moviesIds = moviesIds;
 	}
-	public Gallery getGallery() {
+	public Long getGallery() {
 		return gallery;
 	}
-	public void setGallery(Gallery gallery) {
+	public void setGallery(Long gallery) {
 		this.gallery = gallery;
+	}
+	public Boolean getIsRemoved() {
+		return isRemoved;
+	}
+	public void setIsRemoved(Boolean isRemoved) {
+		this.isRemoved = isRemoved;
 	}
 }

@@ -5,6 +5,8 @@ public class StarProfessionDTO {
     private long id;
     private long starProfessionId;
     private long starId;
+    private String starName;
+    private String starProfession;
 
     public long getId() {
         return id;
@@ -28,5 +30,21 @@ public class StarProfessionDTO {
 
     public void setStarId(long starId) {
         this.starId = starId;
+    }
+
+    public String getStarName() {
+        return starName;
+    }
+
+    public void setStarName(String starName) {
+        this.starName = starName;
+    }
+
+    public String getStarProfession() {
+        return starProfession;
+    }
+
+    public void setStarProfession(String starProfession) {
+        this.starProfession = starProfession;
     }
 }

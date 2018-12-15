@@ -3,7 +3,7 @@ package academy.softserve.movieuniverse.dto;
 public class CountryDTO {
 	private Long id;
 	private String name;
-
+	//TODO List longlistID
 	public Long getId() {
 		return id;
 	}
