@@ -27,7 +27,7 @@ public class StarService {
 	public Star updateStar(Star star, Long id) {
 		Optional<Star> starOptional = starRepository.findById(id);
 		if(!starOptional.isPresent()){
-			throw StarException.createUpdateException("No such user to update", null);
+			throw StarException.createUpdateException("No such star to update", null);
 		}
 		star.setId(id);
 		star = starRepository.save(star);
@@ -41,7 +41,7 @@ public class StarService {
 	public Star findStarById(Long id) {
 		Optional<Star> starOptional = starRepository.findById(id);
 		if(!starOptional.isPresent()){
-			throw StarException.createSelectException("no such star", new Exception());
+			throw StarException.createSelectException("No such star", new Exception());
 		}
 		Star star = starOptional.get();
 		return star;
@@ -51,7 +51,7 @@ public class StarService {
 	public void fullyDelete(Long id){
 		Optional<Star> starOptional = starRepository.findById(id);
 		if (!starOptional.isPresent()) {
-			throw StarException.createDeleteException("no such user to delete", null);
+			throw StarException.createDeleteException("No such user to delete", null);
 		}
 		starRepository.deleteById(id);
 	}

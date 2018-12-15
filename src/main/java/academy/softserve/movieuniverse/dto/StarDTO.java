@@ -3,10 +3,6 @@ package academy.softserve.movieuniverse.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import academy.softserve.movieuniverse.entity.Links;
-import academy.softserve.movieuniverse.entity.Movie;
-
-
 public class StarDTO {
 	private Long id;
     private String firstName;
@@ -14,18 +10,20 @@ public class StarDTO {
     private Long birthday;
     private String biography;
     private Double growth;
-    private List<Long> countriesIds = new ArrayList<>();
     private String cityOfBirth;
+    private Long gallery;
+    private GalleryDTO galleryDto;
+    private List<Long> countriesIds = new ArrayList<>();
     private List<Long> rolesIds = new ArrayList<Long>();
     private List<Long> professionsIds = new ArrayList<Long>();
     private List<Long> linksIds = new ArrayList<Long>();
     private List<Long> moviesIds = new ArrayList<Long>();
     //private List<MovieDTO> movies = new ArrayList<MovieDTO>();
     private List<LinksDTO> links = new ArrayList<LinksDTO>();
-    private List<StarActivityInMoviesDTO> activities = new ArrayList<StarActivityInMoviesDTO>();
+    private List<StarProfessionDTO> professions = new ArrayList<StarProfessionDTO>();
     private List<CountryDTO> countries = new ArrayList<CountryDTO>();
-    private Long gallery;
-    private GalleryDTO galleryDto;
+    
+    private List<StarActivityInMoviesDTO> activities = new ArrayList<StarActivityInMoviesDTO>();
     
     public GalleryDTO getGalleryDto() {
 		return galleryDto;
@@ -137,5 +135,11 @@ public class StarDTO {
 	}
 	public void setIsRemoved(Boolean isRemoved) {
 		this.isRemoved = isRemoved;
+	}
+	public List<StarProfessionDTO> getProfessions() {
+		return professions;
+	}
+	public void setProfessions(List<StarProfessionDTO> professions) {
+		this.professions = professions;
 	}
 }
