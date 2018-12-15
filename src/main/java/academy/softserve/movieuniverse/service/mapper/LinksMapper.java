@@ -51,6 +51,14 @@ public class LinksMapper {
 		}
 		return links;
 	}
+    public Links mapToEntityForUpdate(LinksDTO dto, Long id) {
+        Links links = new Links();
+        links.setId(id);
+        links.setLinkName(dto.getLinkName());
+        links.setSocialNetworkingSite(dto.getSocialNetworkingSite());
+        links.setStar(starService.findStarById(dto.getStarid()));
+        return links;
+    }
    /*public Links mapToEntity(LinksDTO linksDTO) {
        return modelMapper.map(linksDTO, Links.class);
    }

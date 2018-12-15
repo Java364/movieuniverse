@@ -14,7 +14,7 @@ public class Links extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private SocialNetworkingSites socialNetworkingSite;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne/*(cascade = CascadeType.ALL)*/
     @JoinColumn(name = "star_id")
     private Star star;
 
