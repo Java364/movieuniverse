@@ -26,6 +26,16 @@ public class GenreService {
         return genreRepository.findAll();
     }
 
+    public void updateGenre(Genre updatedGenre) {
+        boolean genreExists = genreRepository.existsById(updatedGenre.getId());
+        if (genreExists) {
+            saveGenre(updatedGenre);
+        } else {
+            // TODO throw genre update exception
+        }
+
+    }
+
     @Transactional
     public void deleteGenreById(Long id) {
         genreRepository.deleteById(id);
