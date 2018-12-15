@@ -1,11 +1,13 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.StarProfession;
+import academy.softserve.movieuniverse.exception.StarProfessionException;
 import academy.softserve.movieuniverse.repository.StarProfessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StarProfessionService {
@@ -18,11 +20,18 @@ public class StarProfessionService {
     }
 
     public void createStarProfession(StarProfession starProfession) {
+        if (starProfession == null) {
+            throw StarProfessionException.createSaveException("not save", null);
+        }
         starProfessionRepository.save(starProfession);
     }
 
     public StarProfession getStarProfession(Long id) {
-        return starProfessionRepository.getOne(id);
+        Optional<StarProfession> starProfession = starProfessionRepository.findById(id);
+        if (!starProfession.isPresent()) {
+            throw StarProfessionException.createSelectException("Can't find Starprofession with ID:" + id, null);
+        }
+        return starProfession.get();
     }
 
     public void completelyDeleteStarProfession(Long id) {
