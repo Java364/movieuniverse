@@ -18,23 +18,8 @@ public class GenreDtoMapper {
         this.modelMapper = modelMapper;
     }
 
-    public GenreDto mapGenreEntityToEditDto(Genre genre) {
-        GenreDto editorDto = new GenreDto();
-        editorDto.setId(genre.getId());
-        editorDto.setGenreName(genre.getName());
-        return editorDto;
-    }
-
-    public GenreDto mapGenreEntityToGenreViewDto(Genre entity) {
-        GenreDto genreViewDto = new GenreDto();
-        genreViewDto.setGenreName(entity.getName());
-        return genreViewDto;
-    }
-
-    public Genre mapGenreEditorDtoToGenreEntity(GenreDto genreDto) {
-        Genre genre = new Genre();
-//        genre.setId(genre);
-        return genre;
+    public GenreDto mapGenreEntityToGenreDto(Genre genre) {
+        return modelMapper.map(genre, GenreDto.class);
     }
 
 }
