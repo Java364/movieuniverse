@@ -39,4 +39,12 @@ public class GenreController {
         genreService.saveGenre(newGenre);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateGenre(@PathVariable("id") Long genreId,
+                                         @RequestBody GenreCreateDto genreUpdateRequest) {
+        Genre updatedGenre = genreDtoMapper.mapGenreUpdateDtoToEntity(genreId, genreUpdateRequest);
+        genreService.updateGenre(updatedGenre);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }
