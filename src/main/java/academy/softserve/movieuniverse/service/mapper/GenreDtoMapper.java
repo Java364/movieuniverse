@@ -1,7 +1,6 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import academy.softserve.movieuniverse.dto.genre.GenreCreateDto;
-import academy.softserve.movieuniverse.dto.genre.GenreDto;
+import academy.softserve.movieuniverse.dto.GenreDto;
 import academy.softserve.movieuniverse.entity.Genre;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +27,13 @@ public class GenreDtoMapper {
         return modelMapper.map(genreDto, Genre.class);
     }
 
-    public Genre mapGenreCreateDtoToEntity(GenreCreateDto genreCreateDto) {
+    public Genre mapGenreCreateDtoToEntity(GenreDto genreCreateDto) {
         Genre genre = new Genre();
         genre.setName(genreCreateDto.getGenreName());
         return genre;
     }
 
-    public Genre mapGenreUpdateDtoToEntity(Long genreId, GenreCreateDto genreCreateDto) {
+    public Genre mapGenreUpdateDtoToEntity(Long genreId, GenreDto genreCreateDto) {
         Genre genre = new Genre();
         genre.setId(genreId);
         genre.setName(genreCreateDto.getGenreName());

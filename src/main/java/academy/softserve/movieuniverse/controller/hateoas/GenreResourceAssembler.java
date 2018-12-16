@@ -1,7 +1,7 @@
 package academy.softserve.movieuniverse.controller.hateoas;
 
 import academy.softserve.movieuniverse.controller.GenreController;
-import academy.softserve.movieuniverse.dto.genre.GenreDto;
+import academy.softserve.movieuniverse.dto.GenreDto;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.mapper.GenreDtoMapper;
 import org.springframework.hateoas.Link;
@@ -26,8 +26,8 @@ public class GenreResourceAssembler implements ResourceAssembler<Genre, Resource
     @Override
     public Resource<GenreDto> toResource(Genre genre) {
         Long genreId = genre.getId();
-        Link selfRelLink = linkTo(GenreController.class).slash(genreId).withSelfRel();
         String formattedGenreName = genre.getName().toLowerCase();
+        Link selfRelLink = linkTo(GenreController.class).slash(genreId).withSelfRel();
         Link searchMoviesRel = linkTo(methodOn(GenreController.class).showAllMoviesByGenreName(formattedGenreName))
                 .withRel("search.movies");
         return new Resource<>(genreDtoMapper.mapGenreEntityToGenreDto(genre), selfRelLink, searchMoviesRel);

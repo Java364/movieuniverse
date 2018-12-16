@@ -1,8 +1,7 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.controller.hateoas.GenreResourceAssembler;
-import academy.softserve.movieuniverse.dto.genre.GenreCreateDto;
-import academy.softserve.movieuniverse.dto.genre.GenreDto;
+import academy.softserve.movieuniverse.dto.GenreDto;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.GenreService;
 import academy.softserve.movieuniverse.service.mapper.GenreDtoMapper;
@@ -44,7 +43,7 @@ public class GenreController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createGenre(@RequestBody GenreCreateDto genreCreateDto) {
+    public ResponseEntity<?> createGenre(@RequestBody GenreDto genreCreateDto) {
         final Genre newGenre = genreDtoMapper.mapGenreCreateDtoToEntity(genreCreateDto);
         genreService.saveGenre(newGenre);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -52,7 +51,7 @@ public class GenreController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateGenre(@PathVariable("id") Long genreId,
-                                         @RequestBody GenreCreateDto genreUpdateRequest) {
+                                         @RequestBody GenreDto genreUpdateRequest) {
         Genre updatedGenre = genreDtoMapper.mapGenreUpdateDtoToEntity(genreId, genreUpdateRequest);
         genreService.updateGenre(updatedGenre);
         return ResponseEntity.status(HttpStatus.CREATED).build();
