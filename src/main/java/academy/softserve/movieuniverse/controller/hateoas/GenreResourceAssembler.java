@@ -4,11 +4,13 @@ import academy.softserve.movieuniverse.controller.GenreController;
 import academy.softserve.movieuniverse.dto.genre.GenreDto;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.mapper.GenreDtoMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -17,7 +19,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class GenreResourceAssembler implements ResourceAssembler<Genre, Resource<GenreDto>> {
     private GenreDtoMapper genreDtoMapper;
 
-    @Autowired
     public GenreResourceAssembler(GenreDtoMapper genreDtoMapper) {
         this.genreDtoMapper = genreDtoMapper;
     }
@@ -30,5 +31,10 @@ public class GenreResourceAssembler implements ResourceAssembler<Genre, Resource
         Link searchMoviesRel = linkTo(methodOn(GenreController.class).showAllMoviesByGenreName(formattedGenreName))
                 .withRel("search.movies");
         return new Resource<>(genreDtoMapper.mapGenreEntityToGenreDto(genre), selfRelLink, searchMoviesRel);
+    }
+
+    public List<Resource<GenreDto>> toResources(List<Genre> genres) {
+        return genres.stream().map(this::toResource)
+              .collect(Collectors.toList());
     }
 }

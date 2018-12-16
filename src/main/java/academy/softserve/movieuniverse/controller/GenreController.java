@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.controller;
 
+import academy.softserve.movieuniverse.controller.hateoas.GenreResourceAssembler;
 import academy.softserve.movieuniverse.dto.genre.GenreCreateDto;
 import academy.softserve.movieuniverse.dto.genre.GenreDto;
 import academy.softserve.movieuniverse.entity.Genre;
@@ -31,7 +32,8 @@ public class GenreController {
     @GetMapping(value = "/show/all", produces = "application/hal+json")
     public ResponseEntity<Resources<Resource<GenreDto>>> showAllGenres() {
         final List<Genre> genres = genreService.findAllGenres();
-        List<Resource<GenreDto>> resources = genreDtoMapper.mapEntitiesToGenreDtoList(genres);
+        GenreResourceAssembler genreResourceAssembler = new GenreResourceAssembler(genreDtoMapper);
+        List<Resource<GenreDto>> resources = genreResourceAssembler.toResources(genres);
         return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(resources));
     }
 
