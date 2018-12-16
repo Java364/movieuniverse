@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.dto.interfaces;
 
-import academy.softserve.movieuniverse.dto.genre.GenreDto;
+import academy.softserve.movieuniverse.dto.GenreDto;
 
 import java.util.List;
 

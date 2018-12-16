@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.dto.genre;
+package academy.softserve.movieuniverse.dto;
 
 import org.springframework.hateoas.core.Relation;
 

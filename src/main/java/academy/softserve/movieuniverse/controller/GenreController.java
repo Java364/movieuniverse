@@ -1,7 +1,7 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.controller.hateoas.GenreResourceAssembler;
-import academy.softserve.movieuniverse.dto.genre.GenreDto;
+import academy.softserve.movieuniverse.dto.GenreDto;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.GenreService;
 import academy.softserve.movieuniverse.service.mapper.GenreDtoMapper;
