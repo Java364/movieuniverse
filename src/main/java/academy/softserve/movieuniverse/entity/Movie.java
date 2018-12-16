@@ -1,18 +1,6 @@
 package academy.softserve.movieuniverse.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import javax.persistence.*;
-
-import java.time.Duration;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +11,9 @@ public class Movie extends AbstractEntity {
     @Column(name = "movie_name")
     private String movieName;
 
-    private Duration duration;
+    private Long duration;
     @Column(columnDefinition = "SMALLINT")
-    private Year year;
+    private int year;
 
     private String description;
     @Column(name = "age_limitation")
@@ -51,7 +39,7 @@ public class Movie extends AbstractEntity {
     @JoinTable(name = "star_movie",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "star_id"))
-    private List<Star> stars = new ArrayList<Star>();
+    private List<Star> stars = new ArrayList<>();
 
     @OneToMany(mappedBy = "reviewedMovie", cascade = CascadeType.ALL)
     private List<UserReview> userReviews = new ArrayList<>();
@@ -87,7 +75,7 @@ public class Movie extends AbstractEntity {
     }
 
     public List<Genre> getGenres() {
-        return genres;
+        return genres ;
     }
 
     public void setGenres(List<Genre> genres) {
@@ -102,19 +90,19 @@ public class Movie extends AbstractEntity {
         this.movieName = movieName;
     }
 
-    public Duration getDuration() {
+    public Long getDuration() {
         return duration;
     }
 
-    public void setDuration(Duration duration) {
+    public void setDuration(Long duration) {
         this.duration = duration;
     }
 
-    public Year getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(Year year) {
+    public void setYear(int year) {
         this.year = year;
     }
 

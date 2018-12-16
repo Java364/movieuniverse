@@ -23,14 +23,14 @@ public class TrailerMapper {
 		trailer.setTrailerUrl(dto.getTrailerUrl());
 		trailer.setId(null);
 		trailer.setIsRemoved(new Boolean(false));
-		trailer.setMovie(movieService.findMovieById(dto.getMovieId()).get());
+		trailer.setMovie(movieService.findMovieById(dto.getMovieId()));
 		return trailer;
 	}
 	
 	public Trailer mapToEntityForUpdate(TrailerDTO dto, Long trailerId) {
 		Trailer trailer = new Trailer();
 		trailer.setId(trailerId);
-		trailer.setMovie(movieService.findMovieById(dto.getMovieId()).get());
+		trailer.setMovie(movieService.findMovieById(dto.getMovieId()));
 		trailer.setTrailerUrl(dto.getTrailerUrl());
 		trailer.setIsRemoved(new Boolean(false));
 		return trailer;

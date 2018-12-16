@@ -19,6 +19,7 @@ public class GenreService {
 
     @Transactional
     public Genre saveGenre(Genre genre) {
+        // TODO throw genre save exception
         return genreRepository.save(genre);
     }
 
@@ -38,6 +39,7 @@ public class GenreService {
 
     @Transactional
     public void deleteGenreById(Long id) {
+        // TODO throw genre delete exception
         genreRepository.deleteById(id);
     }
 }

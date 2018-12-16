@@ -8,7 +8,9 @@ import academy.softserve.movieuniverse.dto.MovieMarkDTO;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import academy.softserve.movieuniverse.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MovieMarkMapper {
 
 	@Autowired
@@ -43,6 +45,14 @@ public class MovieMarkMapper {
 		}
 		
 		return movieMarkDTOs;
+	}
+
+	public List<MovieMark> mapMovieMarksListToEntity(List<MovieMarkDTO> movieMarksDTOs) {
+		List<MovieMark> marks = new ArrayList<>();
+		for (MovieMarkDTO m : movieMarksDTOs) {
+			marks.add(this.mapToEntity(m));
+		}
+		return marks;
 	}
 	
 	

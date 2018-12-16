@@ -28,7 +28,10 @@ public class ProfessionServise {
         professionRepository.deleteById(id);
     }
 
-
+    public Profession updateProfession(Profession profession) {
+        profession = professionRepository.save(profession);
+        return profession;
+    }
 
     public Profession getOneProfession(Long id){
         return professionRepository.getOne(id);
