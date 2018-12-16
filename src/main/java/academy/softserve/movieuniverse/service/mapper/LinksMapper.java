@@ -14,31 +14,32 @@ import java.util.List;
 public class LinksMapper {
     @Autowired
     private StarService starService;
-    /*private ModelMapper modelMapper = new ModelMapper();*/
 
-    public Links mapToEntity(LinksDTO dto) {
+
+    public Links mapToEntityAndSaveLinks(LinksDTO dto) {
         Links links = new Links();
         links.setId(dto.getId());
         links.setLinkName(dto.getLinkName());
         links.setSocialNetworkingSite(dto.getSocialNetworkingSite());
-        links.setStar(starService.findStarById(dto.getStarid()));
+        links.setStar(starService.findStarById(dto.getStarID()));
+        links.setIsRemoved(false);
         return links;
     }
 
-    public LinksDTO mapToDto(Links entity) {
+    public LinksDTO mapEntityToDto(Links links) {
         LinksDTO linksDTO = new LinksDTO();
-        linksDTO.setId(entity.getId());
-        linksDTO.setLinkName(entity.getLinkName());
-        linksDTO.setSocialNetworkingSite(entity.getSocialNetworkingSite());
-        linksDTO.setStarid(entity.getStar().getId());
+        linksDTO.setId(links.getId());
+        linksDTO.setLinkName(links.getLinkName());
+        linksDTO.setSocialNetworkingSite(links.getSocialNetworkingSite());
+        linksDTO.setStarID(links.getStar().getId());
+        linksDTO.setRemoved(links.getIsRemoved());
         return linksDTO;
     }
 
     public List<LinksDTO> mapListToDto(List<Links> links) {
         List<LinksDTO> linksDTOlist = new ArrayList<>();
-
         for (Links l : links) {
-            linksDTOlist.add(this.mapToDto(l));
+            linksDTOlist.add(this.mapEntityToDto(l));
         }
         return linksDTOlist;
     }
@@ -46,31 +47,18 @@ public class LinksMapper {
     public List<Links> mapLinksListToEntity(List<LinksDTO> linkDTOs) {
 		List<Links> links = new ArrayList<>();
 		for (LinksDTO l : linkDTOs) {
-			links.add(this.mapToEntity(l));
+			links.add(this.mapToEntityAndSaveLinks(l));
 		}
 		return links;
 	}
-    public Links mapToEntityForUpdate(LinksDTO dto, Long id) {
+    public Links mapToEntityForUpdateLinks(LinksDTO dto, Long id) {
         Links links = new Links();
         links.setId(id);
         links.setLinkName(dto.getLinkName());
         links.setSocialNetworkingSite(dto.getSocialNetworkingSite());
-        links.setStar(starService.findStarById(dto.getStarid()));
+        links.setStar(starService.findStarById(dto.getStarID()));
+        links.setIsRemoved(dto.getRemoved());
         return links;
     }
-   /*public Links mapToEntity(LinksDTO linksDTO) {
-       return modelMapper.map(linksDTO, Links.class);
-   }
 
-    public LinksDTO mapToDto(Links linksEntity) {
-        return modelMapper.map(linksEntity, LinksDTO.class);
-    }
-
-    public List<LinksDTO> mapListToDto(List<Links> links) {
-        List<LinksDTO> linksDTOS = new ArrayList<>();
-        for (Links links1: links ) {
-            linksDTOS.add(mapToDto(links1));
-        }
-        return linksDTOS;
-    }*/
 }

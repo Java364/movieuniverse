@@ -22,7 +22,7 @@ public class ProfessionController {
 
     @PostMapping("/api/createProfession")
     ResponseEntity<ProfessionDTO> createProfession(@RequestBody ProfessionDTO professionDTO) {
-        Profession profession = professionMapper.mapToEntity(professionDTO);
+        Profession profession = professionMapper.mapProfessionToEntity(professionDTO);
         professionServise.saveProfession(profession);
         professionDTO = professionMapper.mapToDto(profession);
         return new ResponseEntity<ProfessionDTO>(professionDTO, HttpStatus.CREATED);
@@ -31,7 +31,7 @@ public class ProfessionController {
     @GetMapping("/api/listAll")
     public List<ProfessionDTO> findAllProfession() {
         List<Profession> professionList = professionServise.findAll();
-        return professionMapper.mapListToDto(professionList);
+        return professionMapper.mapListProfessionToDto(professionList);
     }
 
 
@@ -39,5 +39,17 @@ public class ProfessionController {
     public ResponseEntity<ProfessionDTO> getOneProfession(@PathVariable Long id) {
         Profession profession = professionServise.getOneProfession(id);
         return new ResponseEntity<ProfessionDTO>(professionMapper.mapToDto(profession), HttpStatus.OK);
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteProfession(@PathVariable Long id) {
+        professionServise.deleteProfession(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @PostMapping("/link/{id}")
+    ResponseEntity<ProfessionDTO> updateProfession(@PathVariable("id") Long id, @RequestBody ProfessionDTO professionDTO) {
+        Profession professions = professionMapper.mapToEntityForUpdateProfession(professionDTO, id);
+        professions = professionServise.updateProfession(professions);
+        professionDTO = professionMapper.mapToDto(professions);
+        return new ResponseEntity<ProfessionDTO>(professionDTO, HttpStatus.OK);
     }
 }
