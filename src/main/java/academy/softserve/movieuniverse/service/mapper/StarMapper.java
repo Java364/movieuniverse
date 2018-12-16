@@ -77,8 +77,6 @@ public class StarMapper {
 		star.setId(dto.getId());
 		star.setLastName(dto.getLastName());
 		star.setLinks(dto.getLinksIds().stream().map(p -> linkService.getOneLinks(p)).collect(Collectors.toList()));
-		//star.setProfessions(
-		//dto.getProfessions().stream.map(p -> starProfessionService.);
 		return star;
 	}
 
@@ -89,10 +87,6 @@ public class StarMapper {
 		dto.setCityOfBirth(entity.getCityOfBirth());
 		dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));
 		dto.setFirstName(entity.getFirstName());
-//		if (entity.getGallery() == null) {
-//			Long id = (long) 1;
-//			dto.setGallery(id);
-//		}
 		dto.setGallery(entity.getGallery().getId());
 		dto.setGrowth(entity.getGrowth());
 		dto.setId(entity.getId());
@@ -128,12 +122,15 @@ public class StarMapper {
 		dto.setBiography(entity.getBiography());
 		dto.setCityOfBirth(entity.getCityOfBirth());
 		dto.setLinks(linksMapper.mapListToDto(entity.getLinks()));
+		dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
 		dto.setGalleryDto(galleryMapper.mapToDto(entity.getGallery()));
+		dto.setGallery(entity.getGallery().getId());
 		dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
+		dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));
 		dto.setProfessions(starProfessionMapper.mapListEntityToDTO(entity.getProfessions()));
+		dto.setProfessionsIds(entity.getProfessions().stream().map(p -> p.getProfession().getId()).collect(Collectors.toList()));
 		dto.setActivities(this.mapActivityListsToDto(entity.getRoles())); //TODO edit when StarActivityDTO will be created
-		//dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
-		//dto.setProfessionsIds(entity.getProfessions().stream().map(p -> p.getId()).collect(Collectors.toList()));
+		dto.setMoviesIds(entity.getRoles().stream().map(p -> p.getMovie().getId()).collect(Collectors.toList()));
 
 		return dto;
 	}

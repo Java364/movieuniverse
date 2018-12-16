@@ -11,7 +11,7 @@ public class StarDTO {
     private String biography;
     private Double growth;
     private String cityOfBirth;
-    private Long gallery;
+    private Long galleryId;
     private GalleryDTO galleryDto;
     private List<Long> countriesIds = new ArrayList<>();
     private List<Long> rolesIds = new ArrayList<Long>();
@@ -22,7 +22,6 @@ public class StarDTO {
     private List<LinksDTO> links = new ArrayList<LinksDTO>();
     private List<StarProfessionDTO> professions = new ArrayList<StarProfessionDTO>();
     private List<CountryDTO> countries = new ArrayList<CountryDTO>();
-    
     private List<StarActivityInMoviesDTO> activities = new ArrayList<StarActivityInMoviesDTO>();
     
     public GalleryDTO getGalleryDto() {
@@ -125,10 +124,10 @@ public class StarDTO {
 		this.moviesIds = moviesIds;
 	}
 	public Long getGallery() {
-		return gallery;
+		return galleryId;
 	}
 	public void setGallery(Long gallery) {
-		this.gallery = gallery;
+		this.galleryId = gallery;
 	}
 	public Boolean getIsRemoved() {
 		return isRemoved;
