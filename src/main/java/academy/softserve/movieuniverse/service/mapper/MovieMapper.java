@@ -1,13 +1,9 @@
 package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.dto.MovieDTO;
-import academy.softserve.movieuniverse.dto.UserProfileDTO;
 import academy.softserve.movieuniverse.entity.Movie;
-import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.service.StarActivityInMoviesService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,7 +35,6 @@ public class MovieMapper {
         movie.setStars(dto.getStars());
         movie.setUserReviews(new ArrayList<>());
         return  movie;
-        //return modelMapper.map(dto, Movie.class);
     }
 
 
