@@ -8,6 +8,7 @@ import academy.softserve.movieuniverse.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class UserMapper {
         this.userReviewDtoMapper = userReviewDtoMapper;
     }
 
-    User mapUserShortInfoWithPasswordToEntity(UserShortInfoWithPassword user){
+    public User mapUserShortInfoWithPasswordToEntity(UserShortInfoWithPassword user){
         User newUser = new User();
         newUser.setEmail(user.getEmail());
         newUser.setPassword(user.getPassword());
@@ -33,7 +34,7 @@ public class UserMapper {
         return newUser;
     }
 
-    UserFullInfo mapUserEntityToUserDTOWithFullInfo(User user){
+    public UserFullInfo mapUserEntityToUserDTOWithFullInfo(User user){
         UserFullInfo userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setEmail(user.getEmail());
@@ -45,11 +46,12 @@ public class UserMapper {
         userDTO.setEntryLastUpdate(user.getEntryLastUpdate());
         userDTO.setRemoved(user.getIsRemoved());
         //TODO userDTO.setUserReviewDTOList();
+        userDTO.setUserReviewDTOList(new ArrayList<>());
         userDTO.setMovieMarkDTOList(movieMarkMapper.mapListToDto(user.getMovieMarks()));
         return userDTO;
     }
 
-    UserShortInfoWithPassword mapUserEntityToUserDTOWithShortInfoAndPassword(User user){
+    public UserShortInfoWithPassword mapUserEntityToUserDTOWithShortInfoAndPassword(User user){
         UserShortInfoWithPassword userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setEmail(user.getEmail());
@@ -60,7 +62,7 @@ public class UserMapper {
         return userDTO;
     }
 
-    UserShortInfo mapUserEntityToUserDTOWithShortInfo(User user){
+    public UserShortInfo mapUserEntityToUserDTOWithShortInfo(User user){
         UserShortInfo userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setEmail(user.getEmail());
@@ -70,15 +72,15 @@ public class UserMapper {
         return userDTO;
     }
 
-    List<UserFullInfo> mapUserEntityListToUserWithFullInfoList(List<User> users){
+    public List<UserFullInfo> mapUserEntityListToUserWithFullInfoList(List<User> users){
         return users.stream().map(this::mapUserEntityToUserDTOWithFullInfo).collect(Collectors.toList());
     }
 
-    List<UserShortInfo> mapUserEntityListToUserWithShortInfoList(List<User> users){
+    public List<UserShortInfo> mapUserEntityListToUserWithShortInfoList(List<User> users){
         return users.stream().map(this::mapUserEntityToUserDTOWithShortInfo).collect(Collectors.toList());
     }
 
-    List<UserShortInfoWithPassword> mapUserEntityListToUserWithShortInfoWithPasswordList(List<User> users){
+    public List<UserShortInfoWithPassword> mapUserEntityListToUserWithShortInfoWithPasswordList(List<User> users){
         return users.stream().map(this::mapUserEntityToUserDTOWithShortInfoAndPassword).collect(Collectors.toList());
     }
 
