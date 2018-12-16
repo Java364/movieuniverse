@@ -1,14 +1,13 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.User;
+import academy.softserve.movieuniverse.exception.UserException;
 import academy.softserve.movieuniverse.repository.UserRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -21,44 +20,45 @@ public class UserService {
 
     }
 
-    public User getUser(Long id){
-        Optional<User> userOptional = userRepository.findById(id);
-        return userOptional.get();
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> UserException.createSelectException(String.format("No such user with id = %d", id), new Exception()));
     }
+
     @Transactional
-    public User createUser(User user){
+    public User createUser(User user) {
         return userRepository.saveAndFlush(user);
     }
+
     @Transactional
-    public void completelyDeleteUser(Long id){
+    public void completelyDeleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
     @Transactional
-    public void markUserAsDelete(Long id){
-        Optional<User> userOptional = userRepository.findById(id);
-        userOptional.ifPresent(user -> user.setIsRemoved(true));
-        userRepository.saveAndFlush(userOptional.get());
+    public void markUserAsDelete(Long id) {
+        userRepository.findById(id)
+                .map(user -> {
+                    user.setIsRemoved(true);
+                    return userRepository.saveAndFlush(user);
+                })
+                .orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
     }
 
     @Transactional
-    public User updateUser(User user, Long id){
-        Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isPresent()){
-            User userDB = userOptional.get();
-            user.setId(userDB.getId());
-            BeanUtils.copyProperties(user, userDB);
-            return userRepository.saveAndFlush(userDB);
-        }
-        return null;
+    public User updateUser(User user, Long id) {
+        return userRepository.findById(id)
+                .map(userDB -> {
+                    userDB.setEmail(user.getEmail());
+                    userDB.setPassword(user.getPassword());
+                    userDB.setFirstName(user.getFirstName());
+                    userDB.setLastName(user.getLastName());
+                    userDB.setBirthday(user.getBirthday());
+                    return userRepository.saveAndFlush(userDB);
+                }).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
     }
 
-    public List<User> getAll(){
+    public List<User> getAll() {
         return userRepository.findAll();
     }
-    
-    public User findUserById(Long id){
-    	
-    	return userRepository.getOne(id);
-    }
+
 }
