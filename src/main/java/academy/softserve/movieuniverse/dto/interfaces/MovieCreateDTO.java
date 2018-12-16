@@ -1,10 +1,10 @@
 package academy.softserve.movieuniverse.dto.interfaces;
 
-import academy.softserve.movieuniverse.dto.GenreDto;
+import academy.softserve.movieuniverse.dto.genre.GenreDto;
 
 import java.util.List;
 
 public interface MovieCreateDTO extends  MovieInfoDTO {
-    public List<GenreDto> getGenres();
-    public void setGenres(List<GenreDto> genres);
+    List<GenreDto> getGenres();
+    void setGenres(List<GenreDto> genres);
 }

@@ -36,7 +36,7 @@ public class MovieMapper {
         movie.setDuration(dto.getDuration());
         movie.setYear(dto.getYear());
         movie.setDescription(dto.getDescription());
-        movie.setGenres(genreDtoMapper.mapGenresListToEntity(dto.getGenres()));
+        movie.setGenres(genreDtoMapper.mapGenreDtosToEntities(dto.getGenres()));
         movie.setMovieMarks(movieMarkMapper.mapMovieMarksListToEntity(dto.getMovieMarks()));
         movie.setRoles(dto.getRoles().stream().map(roleId->starActivityInMoviesService.getStarActivityInMovies(roleId)).collect(Collectors.toList()));
         movie.setStars(dto.getStars().stream().map(starId->starService.findStarById(starId)).collect(Collectors.toList()));
@@ -53,7 +53,7 @@ public class MovieMapper {
         dto.setDuration(entity.getDuration());
         dto.setYear(entity.getYear());
         dto.setDescription(entity.getDescription());
-        dto.setGenres(genreDtoMapper.mapListToDto(entity.getGenres()));
+        dto.setGenres(genreDtoMapper.mapGenresToGenreDtoList(entity.getGenres()));
         dto.setMovieMarks(movieMarkMapper.mapListToDto(entity.getMovieMarks()));
         dto.setRoles(entity.getRoles().stream().map(role->role.getId()).collect(Collectors.toList()));
         dto.setStars(entity.getStars().stream().map(star->star.getId()).collect(Collectors.toList()));
