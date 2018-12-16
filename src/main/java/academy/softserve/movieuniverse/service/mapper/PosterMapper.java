@@ -14,7 +14,7 @@ public class PosterMapper {
 		poster.setImageUrl(dto.getImageUrl());
 		poster.setId(null);
 		poster.setIsRemoved(new Boolean(false));
-		poster.setMovie(movieService.findMovieById(dto.getMovieId()).get());
+		poster.setMovie(movieService.findMovieById(dto.getMovieId()));
 		return poster;
 	}
 
@@ -23,7 +23,7 @@ public class PosterMapper {
 		poster.setImageUrl(dto.getImageUrl());
 		poster.setIsRemoved(new Boolean(false));
 		poster.setId(posterId);
-		poster.setMovie(movieService.findMovieById(dto.getMovieId()).get());
+		poster.setMovie(movieService.findMovieById(dto.getMovieId()));
 		return poster;
 	}
 
@@ -33,7 +33,7 @@ public class PosterMapper {
 		poster.setId(posterDTO.getId());
 		poster.setName(posterDTO.getName());
 		poster.setImageUrl(posterDTO.getImageUrl());
-		poster.setMovie(movieService.findMovieById(posterDTO.getMovieId()).get());
+		poster.setMovie(movieService.findMovieById(posterDTO.getMovieId()));
 		return poster;
 	}
 

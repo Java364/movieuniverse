@@ -8,7 +8,9 @@ import academy.softserve.movieuniverse.dto.MovieMarkDTO;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import academy.softserve.movieuniverse.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MovieMarkMapper {
 
 	@Autowired
