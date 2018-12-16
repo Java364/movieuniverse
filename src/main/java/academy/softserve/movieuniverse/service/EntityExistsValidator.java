@@ -17,7 +17,7 @@ public class EntityExistsValidator <T, ID> {
 
     public void checkIfEntityExists(ID id) throws EntityNotFoundException, NullPointerException {
         Objects.requireNonNull(id, "Entity id must not be null");
-        boolean genreNotFound = jpaRepository.existsById(id);
+        boolean genreNotFound = !jpaRepository.existsById(id);
         if (genreNotFound) {
             throw new EntityNotFoundException(className + " entity with a given id: " + id + "does not exist.");
         }
