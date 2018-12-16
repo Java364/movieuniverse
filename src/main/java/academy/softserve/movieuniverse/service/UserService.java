@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.dto.UserDTO;
 import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.repository.UserRepository;
 import org.springframework.beans.BeanUtils;

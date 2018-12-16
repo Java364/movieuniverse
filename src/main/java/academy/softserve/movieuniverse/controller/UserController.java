@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.UserDTO;
+import academy.softserve.movieuniverse.dto.user.UserDTO;
 import academy.softserve.movieuniverse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
