@@ -23,7 +23,7 @@ public class MovieController {
     @Autowired
     private MovieMapper movieMapper;
 
-    @GetMapping("/list")
+    @GetMapping("")
     List<MovieDTO> showAllMovies() {
         List<Movie> movies = service.showAllMovies();
         return movieMapper.mapListToDTO(movies);
@@ -36,7 +36,7 @@ public class MovieController {
         return new ResponseEntity<MovieInfoDTO>(movieInfoDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     ResponseEntity<MovieCreateDTO> createMovie(@RequestBody MovieCreateDTO movieCreateDTO) {
         Movie movie = movieMapper.mapToEntity((MovieDTO) movieCreateDTO);
         movie = service.saveMovie(movie);
@@ -44,6 +44,17 @@ public class MovieController {
         return new ResponseEntity<MovieCreateDTO>(movieCreateDTO, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    ResponseEntity<MovieCreateDTO> updateMovie(@RequestBody MovieCreateDTO movieCreateDTO, @PathVariable Long id) {
+        Movie movie = movieMapper.mapToEntity((MovieDTO) movieCreateDTO);
+        movie = service.updateMovie(movie, id);
+        movieCreateDTO = movieMapper.mapToDto(movie);
+        return new ResponseEntity<MovieCreateDTO>(movieCreateDTO, HttpStatus.OK);
+    }
 
-
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
+        service.deleteMovie(id);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }
