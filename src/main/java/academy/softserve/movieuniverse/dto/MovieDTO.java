@@ -1,11 +1,13 @@
 package academy.softserve.movieuniverse.dto;
 
+import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
+import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
 import academy.softserve.movieuniverse.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieDTO {
+public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
     private String movieName;
     private int year;
     private String description;

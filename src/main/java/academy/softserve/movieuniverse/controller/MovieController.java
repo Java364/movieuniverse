@@ -1,6 +1,8 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.MovieDTO;
+import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
+import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.mapper.MovieMapper;
@@ -10,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/movie")
@@ -18,23 +19,29 @@ public class MovieController {
 
     @Autowired
     private MovieService service;
-    private MovieMapper listMapper = new MovieMapper();
+
+    @Autowired
+    private MovieMapper movieMapper;
 
     @GetMapping("/list")
     List<MovieDTO> showAllMovies() {
         List<Movie> movies = service.showAllMovies();
-        return listMapper.mapListToDTO(movies);
+        return movieMapper.mapListToDTO(movies);
     }
 
     @GetMapping("/{id}")
-    Optional<Movie> showOneMovie(@PathVariable("id") Long id) {
-        return service.findMovieById(id);
+    ResponseEntity<MovieInfoDTO> showOneMovie(@PathVariable Long id) {
+        Movie movie = service.findMovieById(id);
+        MovieInfoDTO movieInfoDTO = movieMapper.mapToDto(movie);
+        return new ResponseEntity<MovieInfoDTO>(movieInfoDTO, HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
+    ResponseEntity<MovieCreateDTO> createMovie(@RequestBody MovieCreateDTO movieCreateDTO) {
+        Movie movie = movieMapper.mapToEntity((MovieDTO) movieCreateDTO);
         movie = service.saveMovie(movie);
-        return new ResponseEntity<Movie>(movie, HttpStatus.CREATED);
+        movieCreateDTO = movieMapper.mapToDto(movie);
+        return new ResponseEntity<MovieCreateDTO>(movieCreateDTO, HttpStatus.CREATED);
     }
 
 
