@@ -1,16 +1,10 @@
 package academy.softserve.movieuniverse.dto;
 
+import org.springframework.hateoas.core.Relation;
+
+@Relation(value = "genre", collectionRelation = "genres")
 public class GenreDto {
-    private Long id;
     private String genreName;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getGenreName() {
         return genreName;

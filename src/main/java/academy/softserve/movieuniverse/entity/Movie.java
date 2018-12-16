@@ -1,21 +1,6 @@
 package academy.softserve.movieuniverse.entity;
 
-import academy.softserve.movieuniverse.dto.CountryDTO;
-import academy.softserve.movieuniverse.dto.GenreDto;
-import academy.softserve.movieuniverse.dto.MovieMarkDTO;
-import academy.softserve.movieuniverse.dto.UserReviewDto;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +13,7 @@ public class Movie extends AbstractEntity {
 
     private Long duration;
     @Column(columnDefinition = "SMALLINT")
-    private int year;
+    private Integer year;
 
     private String description;
     @Column(name = "age_limitation")
@@ -54,7 +39,7 @@ public class Movie extends AbstractEntity {
     @JoinTable(name = "star_movie",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "star_id"))
-    private List<Long> starsId = new ArrayList<>();
+    private List<Star> stars = new ArrayList<>();
 
     @OneToMany(mappedBy = "reviewedMovie", cascade = CascadeType.ALL)
     private List<UserReview> userReviews = new ArrayList<>();
@@ -81,12 +66,12 @@ public class Movie extends AbstractEntity {
         this.roles = roles;
     }
 
-    public List<Long> getStars() {
-        return starsId;
+    public List<Star> getStars() {
+        return stars;
     }
 
-    public void setStars(List<Long> starsId) {
-        this.starsId = starsId;
+    public void setStars(List<Star> stars) {
+        this.stars = stars;
     }
 
     public List<Genre> getGenres() {
@@ -113,7 +98,7 @@ public class Movie extends AbstractEntity {
         this.duration = duration;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 

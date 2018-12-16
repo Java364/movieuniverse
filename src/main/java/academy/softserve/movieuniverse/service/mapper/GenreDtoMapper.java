@@ -1,19 +1,16 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import academy.softserve.movieuniverse.dto.CountryDTO;
 import academy.softserve.movieuniverse.dto.GenreDto;
-import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.entity.Genre;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Service
-public class GenreDtoMapper{
+@Component
+public class GenreDtoMapper {
 
     private ModelMapper modelMapper;
 
@@ -22,32 +19,32 @@ public class GenreDtoMapper{
         this.modelMapper = modelMapper;
     }
 
-    public Genre mapToEntity(GenreDto genreDto) {
+    public GenreDto mapGenreEntityToGenreDto(Genre genre) {
+        return modelMapper.map(genre, GenreDto.class);
+    }
+
+    public Genre mapGenreDtoToEntity(GenreDto genreDto) {
         return modelMapper.map(genreDto, Genre.class);
     }
 
-    public GenreDto mapToDto(Genre entity) {
-        GenreDto genreDto = new GenreDto();
-        genreDto.setId(entity.getId());
-        genreDto.setGenreName(entity.getName());
-        return genreDto;
-
+    public Genre mapGenreCreateDtoToEntity(GenreDto genreCreateDto) {
+        Genre genre = new Genre();
+        genre.setName(genreCreateDto.getGenreName());
+        return genre;
     }
 
-    public List<GenreDto> mapListToDto(List<Genre> genres) {
-        List<GenreDto> genreDTOs = new ArrayList<>();
-        for (Genre g : genres) {
-            genreDTOs.add(this.mapToDto(g));
-        }
-
-        return genreDTOs;
+    public Genre mapGenreUpdateDtoToEntity(Long genreId, GenreDto genreCreateDto) {
+        Genre genre = new Genre();
+        genre.setId(genreId);
+        genre.setName(genreCreateDto.getGenreName());
+        return genre;
     }
 
-    public List<Genre> mapGenresListToEntity(List<GenreDto> genreDTOs) {
-        List<Genre> genres = new ArrayList<>();
-        for (GenreDto g : genreDTOs) {
-            genres.add(this.mapToEntity(g));
-        }
-        return genres;
+    public List<Genre> mapGenreDtosToEntities(List<GenreDto> genres) {
+        return genres.stream().map(this::mapGenreDtoToEntity).collect(Collectors.toList());
+    }
+
+    public List<GenreDto> mapGenresToGenreDtoList(List<Genre> genres) {
+        return genres.stream().map(this::mapGenreEntityToGenreDto).collect(Collectors.toList());
     }
 }

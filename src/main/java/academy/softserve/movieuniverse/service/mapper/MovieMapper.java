@@ -3,6 +3,7 @@ package academy.softserve.movieuniverse.service.mapper;
 import academy.softserve.movieuniverse.dto.MovieDTO;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.service.StarActivityInMoviesService;
+import academy.softserve.movieuniverse.service.StarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,18 @@ import java.util.stream.Collectors;
 public class MovieMapper {
     @Autowired
     private CountryMapper countryMapper;
+
     @Autowired
     private GenreDtoMapper genreDtoMapper;
+
     @Autowired
     private MovieMarkMapper movieMarkMapper;
+
     @Autowired
     private StarActivityInMoviesService starActivityInMoviesService;
+
+    @Autowired
+    private StarService starService;
 
     public Movie mapToEntity(MovieDTO dto) {
         Movie movie = new Movie();
@@ -29,10 +36,10 @@ public class MovieMapper {
         movie.setDuration(dto.getDuration());
         movie.setYear(dto.getYear());
         movie.setDescription(dto.getDescription());
-        movie.setGenres(genreDtoMapper.mapGenresListToEntity(dto.getGenres()));
+        movie.setGenres(genreDtoMapper.mapGenreDtosToEntities(dto.getGenres()));
         movie.setMovieMarks(movieMarkMapper.mapMovieMarksListToEntity(dto.getMovieMarks()));
         movie.setRoles(dto.getRoles().stream().map(roleId->starActivityInMoviesService.getStarActivityInMovies(roleId)).collect(Collectors.toList()));
-        movie.setStars(dto.getStars());
+        movie.setStars(dto.getStars().stream().map(starId->starService.findStarById(starId)).collect(Collectors.toList()));
         movie.setUserReviews(new ArrayList<>());
         return  movie;
     }
@@ -46,10 +53,10 @@ public class MovieMapper {
         dto.setDuration(entity.getDuration());
         dto.setYear(entity.getYear());
         dto.setDescription(entity.getDescription());
-        dto.setGenres(genreDtoMapper.mapListToDto(entity.getGenres()));
+        dto.setGenres(genreDtoMapper.mapGenresToGenreDtoList(entity.getGenres()));
         dto.setMovieMarks(movieMarkMapper.mapListToDto(entity.getMovieMarks()));
         dto.setRoles(entity.getRoles().stream().map(role->role.getId()).collect(Collectors.toList()));
-        dto.setStars(entity.getStars());
+        dto.setStars(entity.getStars().stream().map(star->star.getId()).collect(Collectors.toList()));
         dto.setUserReviews(entity.getUserReviews().stream().map(review -> review.getId()).collect(Collectors.toList()));
         return dto;
     }
@@ -57,6 +64,5 @@ public class MovieMapper {
     public List<MovieDTO> mapListToDTO(List<Movie> entities) {
         return entities.stream().map(movie->mapToDto(movie)).collect(Collectors.toList());
     }
-
 
 }

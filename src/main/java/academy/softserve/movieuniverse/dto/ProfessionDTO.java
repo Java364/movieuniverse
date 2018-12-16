@@ -9,7 +9,8 @@ import java.util.List;
 public class ProfessionDTO {
     private Long id;
     private String professionType;
-    private List<Long> starsIDs = new ArrayList<Long>();
+    private List<StarProfessionDTO> starsProfessionDTO = new ArrayList<StarProfessionDTO>();
+    private Boolean isRemoved;
 
     public ProfessionDTO() {
     }
@@ -30,11 +31,19 @@ public class ProfessionDTO {
         this.professionType = professionType;
     }
 
-    public List<Long> getStarsIDs() {
-        return starsIDs;
+    public List<StarProfessionDTO> getStarsProfessionDTO() {
+        return starsProfessionDTO;
     }
 
-    public void setStarsIDs(List<Long> starsIDs) {
-        this.starsIDs = starsIDs;
+    public void setStarsProfessionDTO(List<StarProfessionDTO> starsProfessionDTO) {
+        this.starsProfessionDTO = starsProfessionDTO;
+    }
+
+    public Boolean getRemoved() {
+        return isRemoved;
+    }
+
+    public void setRemoved(Boolean removed) {
+        isRemoved = removed;
     }
 }

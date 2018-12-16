@@ -41,6 +41,13 @@ public class StarProfessionMapper {
         }
         return starProfessionDTOs;
     }
+    public List<StarProfession> mapListToEntity(List<StarProfessionDTO> starProfessionDTOS) {
+        List<StarProfession> starProfessions = new ArrayList<>();
+        for (StarProfessionDTO s : starProfessionDTOS) {
+            starProfessions.add(this.mapToEntity(s));
+        }
+        return starProfessions;
+    }
 
 
 }

@@ -20,29 +20,42 @@ public class ProfessionMapper {
     private ProfessionServise professionServise;
     @Autowired
     private StarProfessionService starProfessionService;
+    @Autowired
+    private StarProfessionMapper starProfessionMapper;
 
-    public Profession mapToEntity(ProfessionDTO dto) {
+    public Profession mapProfessionToEntity(ProfessionDTO dto) {
         Profession profession = new Profession();
         profession.setId(dto.getId());
         profession.setType(dto.getProfessionType());
-        profession.setStars(dto.getStarsIDs().stream().map(p -> starProfessionService.getStarProfession(p)).collect(Collectors.toList()));
+        /*profession.setStars(dto.getStarsIDs().stream().map(p -> starProfessionService.getStarProfession(p)).collect(Collectors.toList()));*/
+        profession.setStars(starProfessionMapper.mapListToEntity(dto.getStarsProfessionDTO()));
+        profession.setIsRemoved(false);
         return profession;
     }
 
-    public ProfessionDTO mapToDto(Profession entity) {
+    public ProfessionDTO mapToDto(Profession profession) {
         ProfessionDTO professionDTO = new ProfessionDTO();
-        professionDTO.setId(entity.getId());
-        professionDTO.setProfessionType(entity.getType());
-        professionDTO.setStarsIDs(entity.getStars().stream().map(p ->p.getId()).collect(Collectors.toList()));
-
+        professionDTO.setId(profession.getId());
+        professionDTO.setProfessionType(profession.getType());
+       /* professionDTO.setStarsIDs(entity.getStars().stream().map(p ->p.getId()).collect(Collectors.toList()));*/
+        professionDTO.setStarsProfessionDTO(starProfessionMapper.mapListEntityToDTO(profession.getStars()));
+        professionDTO.setRemoved(profession.getIsRemoved());
         return professionDTO;
     }
 
-    public List<ProfessionDTO> mapListToDto(List<Profession> professionList) {
+    public List<ProfessionDTO> mapListProfessionToDto(List<Profession> professionList) {
         List<ProfessionDTO> professionDTOS = new ArrayList<>();
         for(Profession p: professionList) {
             professionDTOS.add(this.mapToDto(p));
         }
         return professionDTOS;
+    }
+    public Profession mapToEntityForUpdateProfession(ProfessionDTO dto, Long id) {
+        Profession profession = new Profession();
+        profession.setId(id);
+        profession.setType(dto.getProfessionType());
+        profession.setStars(starProfessionMapper.mapListToEntity(dto.getStarsProfessionDTO()));
+        profession.setIsRemoved(false);
+        return profession;
     }
 }

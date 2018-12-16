@@ -7,7 +7,8 @@ public class LinksDTO {
     private Long id;
     private String linkName;
     private Links.SocialNetworkingSites socialNetworkingSite;
-    private Long starid;
+    private Long starID;
+    private Boolean isRemoved;
 
     public LinksDTO() {
     }
@@ -36,12 +37,19 @@ public class LinksDTO {
         this.socialNetworkingSite = socialNetworkingSite;
     }
 
-    public Long getStarid() {
-        return starid;
+    public Long getStarID() {
+        return starID;
     }
 
-    public void setStarid(Long starid) {
-        this.starid = starid;
+    public void setStarID(Long starID) {
+        this.starID = starID;
     }
 
+    public Boolean getRemoved() {
+        return isRemoved;
+    }
+
+    public void setRemoved(Boolean removed) {
+        isRemoved = removed;
+    }
 }

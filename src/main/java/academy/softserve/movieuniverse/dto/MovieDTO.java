@@ -1,23 +1,24 @@
 package academy.softserve.movieuniverse.dto;
 
-import academy.softserve.movieuniverse.entity.*;
+import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
+import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieDTO {
-    private String movieName;
-    private int year;
-    private String description;
-    private Long duration;
-    private MediaContentDTO mediaContentDTO;
-    private String ageLimitation;
-    private List<GenreDto> genres = new ArrayList<>();
-    private List<CountryDTO> countries = new ArrayList<>();
-    private List<Long> roles = new ArrayList<Long>();
-    private List<Long> userReviews = new ArrayList<>();
-    private List<Long> stars = new ArrayList<Long>();
-    private List<MovieMarkDTO> movieMarks = new ArrayList<>();
+public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
+    private String             movieName;
+    private int                year;
+    private String             description;
+    private Long               duration;
+    private MediaContentDTO    mediaContentDTO;
+    private String             ageLimitation;
+    private List<GenreDto>     genres      = new ArrayList<>();
+    private List<CountryDTO>   countries   = new ArrayList<>();
+    private List<Long>         roles       = new ArrayList<Long>();
+    private List<Long>         userReviews = new ArrayList<>();
+    private List<Long>         stars       = new ArrayList<Long>();
+    private List<MovieMarkDTO> movieMarks  = new ArrayList<>();
 
     public String getMovieName() {
         return movieName;
