@@ -2,9 +2,7 @@ package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.MovieDTO;
 import academy.softserve.movieuniverse.entity.Movie;
-import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.service.MovieService;
-import academy.softserve.movieuniverse.service.StarService;
 import academy.softserve.movieuniverse.service.mapper.MovieMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +22,7 @@ public class MovieController {
 
     @GetMapping("/list")
     List<MovieDTO> showAllMovies() {
-        List<Movie> movies = service.showAllMovie();
+        List<Movie> movies = service.showAllMovies();
         return listMapper.mapListToDTO(movies);
     }
 
@@ -38,5 +36,7 @@ public class MovieController {
         movie = service.saveMovie(movie);
         return new ResponseEntity<Movie>(movie, HttpStatus.CREATED);
     }
+
+
 
 }
