@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 
 import academy.softserve.movieuniverse.dto.CountryDTO;
 import academy.softserve.movieuniverse.entity.Country;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class CountryMapper {
 
 	public Country mapToEntity(CountryDTO dto) {
