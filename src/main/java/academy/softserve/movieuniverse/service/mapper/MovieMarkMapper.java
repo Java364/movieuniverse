@@ -24,7 +24,6 @@ public class MovieMarkMapper {
 		movieMark.setMark(dto.getMark());
 		movieMark.setMovie(movieRepository.getOne(dto.getMovieId()));
 		movieMark.setUser(userRepository.getOne(dto.getUserId()));
-
 		return movieMark;
 	}
 
@@ -34,16 +33,14 @@ public class MovieMarkMapper {
 		movieMarkDTO.setMark(entity.getMark());
 		movieMarkDTO.setMovieId(entity.getMovie().getId());
 		movieMarkDTO.setUserId(entity.getUser().getId());
-
 		return movieMarkDTO;
 	}
-	
-	public List<MovieMarkDTO> mapListToDto(List<MovieMark> movieMarks){
+
+	public List<MovieMarkDTO> mapListToDto(List<MovieMark> movieMarks) {
 		List<MovieMarkDTO> movieMarkDTOs = new ArrayList<>();
-		for(MovieMark m : movieMarks) {
+		for (MovieMark m : movieMarks) {
 			movieMarkDTOs.add(this.mapToDto(m));
 		}
-		
 		return movieMarkDTOs;
 	}
 
@@ -54,7 +51,5 @@ public class MovieMarkMapper {
 		}
 		return marks;
 	}
-	
-	
 
 }
