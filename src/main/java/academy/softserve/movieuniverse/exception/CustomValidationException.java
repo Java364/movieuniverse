@@ -9,7 +9,7 @@ public class CustomValidationException extends ValidationException {
 	private ExceptionType exceptionType;
 
 	public CustomValidationException(String customMessage, ExceptionType exceptionType, Exception ex) {
-		super(ex == null ? new Exception().getMessage() : ex.getMessage());
+		super(ex == null ? new Exception(customMessage).getMessage() : ex.getMessage());
 		this.customMessage = customMessage;
 		this.exceptionType = exceptionType;
 	}

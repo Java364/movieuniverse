@@ -1,5 +1,10 @@
 package academy.softserve.movieuniverse.dto.interfaces;
 
+import academy.softserve.movieuniverse.dto.MovieDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+//@JsonDeserialize(as = MovieDTO.class)
 public interface MovieInfoDTO {
     public String getMovieName();
     public String getDescription();
