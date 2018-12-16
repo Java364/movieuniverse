@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import academy.softserve.movieuniverse.dto.CountryDTO;
 import academy.softserve.movieuniverse.dto.LinksDTO;
@@ -21,7 +21,7 @@ import academy.softserve.movieuniverse.service.LinksService;
 import academy.softserve.movieuniverse.service.StarProfessionService;
 import academy.softserve.movieuniverse.service.StarService;
 
-@Component
+@Service
 public class StarMapper {
 	
 	@Autowired
