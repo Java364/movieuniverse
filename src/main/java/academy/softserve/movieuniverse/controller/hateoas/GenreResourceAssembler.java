@@ -1,7 +1,7 @@
 package academy.softserve.movieuniverse.controller.hateoas;
 
 import academy.softserve.movieuniverse.controller.GenreController;
-import academy.softserve.movieuniverse.dto.genre.GenreDto;
+import academy.softserve.movieuniverse.dto.GenreDto;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.mapper.GenreDtoMapper;
 import org.springframework.hateoas.Link;
