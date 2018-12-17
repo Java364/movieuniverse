@@ -1,16 +1,19 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import academy.softserve.movieuniverse.controller.UserController;
 import academy.softserve.movieuniverse.dto.user.UserDTO;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
 import academy.softserve.movieuniverse.dto.user.UserShortInfo;
-import academy.softserve.movieuniverse.dto.user.UserShortInfoWithPassword;
+import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
 public class UserMapper {
@@ -24,7 +27,25 @@ public class UserMapper {
         this.userReviewDtoMapper = userReviewDtoMapper;
     }
 
-    public User mapUserShortInfoWithPasswordToEntity(UserShortInfoWithPassword user){
+    private UserDTO mapShortInfoToDto(User user){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserId(user.getId());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setBirthday(user.getBirthday());
+        userDTO.add(linkTo(methodOn(UserController.class).showById(userDTO.getUserId())).withSelfRel());
+        userDTO.add(linkTo(methodOn(UserController.class).showAll()).withRel("users"));
+        if (user.getIsRemoved()){
+            userDTO.add(linkTo(methodOn(UserController.class).restoreById(userDTO.getUserId())).withRel("restore"));
+            userDTO.add(linkTo(methodOn(UserController.class).deleteById(userDTO.getUserId())).withRel("delete"));
+        }else{
+            userDTO.add(linkTo(methodOn(UserController.class).removeById(userDTO.getUserId())).withRel("remove"));
+        }
+        return userDTO;
+    }
+
+    public User mapUserShortInfoWithPasswordToEntity(UserCreateInfo user){
         User newUser = new User();
         newUser.setEmail(user.getEmail());
         newUser.setPassword(user.getPassword());
@@ -35,36 +56,23 @@ public class UserMapper {
     }
 
     public UserFullInfo mapUserEntityToUserDTOWithFullInfo(User user){
-        UserFullInfo userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setEmail(user.getEmail());
+        UserDTO userDTO = mapShortInfoToDto(user);
         userDTO.setPassword(user.getPassword());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setBirthday(user.getBirthday());
         userDTO.setRemoved(user.getIsRemoved());
-        //TODO userDTO.setUserReviewDTOList();
+        userDTO.setEntryCreationDate(user.getEntryCreationDate());
+        userDTO.setEntryLastUpdate(user.getEntryLastUpdate());
+        //TODO relations to review and moviemarks
         return userDTO;
     }
 
-    public UserShortInfoWithPassword mapUserEntityToUserDTOWithShortInfoAndPassword(User user){
-        UserShortInfoWithPassword userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setEmail(user.getEmail());
+    public UserCreateInfo mapUserEntityToUserDTOWithShortInfoAndPassword(User user){
+        UserDTO userDTO = mapShortInfoToDto(user);
         userDTO.setPassword(user.getPassword());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setBirthday(user.getBirthday());
         return userDTO;
     }
 
     public UserShortInfo mapUserEntityToUserDTOWithShortInfo(User user){
-        UserShortInfo userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setBirthday(user.getBirthday());
+        UserDTO userDTO = mapShortInfoToDto(user);
         return userDTO;
     }
 
@@ -76,9 +84,6 @@ public class UserMapper {
         return users.stream().map(this::mapUserEntityToUserDTOWithShortInfo).collect(Collectors.toList());
     }
 
-    public List<UserShortInfoWithPassword> mapUserEntityListToUserWithShortInfoWithPasswordList(List<User> users){
-        return users.stream().map(this::mapUserEntityToUserDTOWithShortInfoAndPassword).collect(Collectors.toList());
-    }
 
 
 }

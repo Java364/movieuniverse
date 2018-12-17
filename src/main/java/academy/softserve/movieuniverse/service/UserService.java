@@ -20,7 +20,7 @@ public class UserService {
 
     }
 
-    public User getUser(Long id) {
+    public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> UserException.createSelectException(String.format("No such user with id = %d", id), new Exception()));
     }
 
@@ -30,12 +30,17 @@ public class UserService {
     }
 
     @Transactional
-    public void completelyDeleteUser(Long id) {
-        userRepository.deleteById(id);
+    public void deleteById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
+        if (user.getIsRemoved()){
+            userRepository.deleteById(id);
+        }else{
+            throw UserException.createDeleteException("Wrong operation for such status", new Exception());
+        }
     }
 
     @Transactional
-    public void markUserAsDelete(Long id) {
+    public void removeById(Long id) {
         userRepository.findById(id)
                 .map(user -> {
                     user.setIsRemoved(true);
@@ -45,7 +50,17 @@ public class UserService {
     }
 
     @Transactional
-    public User updateUser(User user, Long id) {
+    public void restoreById(Long id) {
+        userRepository.findById(id)
+                .map(user -> {
+                    user.setIsRemoved(false);
+                    return userRepository.saveAndFlush(user);
+                })
+                .orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
+    }
+
+    @Transactional
+    public User update(User user, Long id) {
         return userRepository.findById(id)
                 .map(userDB -> {
                     userDB.setEmail(user.getEmail());
@@ -57,8 +72,12 @@ public class UserService {
                 }).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
     }
 
-    public List<User> getAll() {
+    public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public List<User> findAllByIsRemovedFalse() {
+        return userRepository.findAllByIsRemovedFalse();
     }
 
 }
