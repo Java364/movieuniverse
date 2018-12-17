@@ -14,10 +14,30 @@ public class ImageMapper {
 	@Autowired
 	private GalleryService galleryService;
 
+	public Image mapToEntityForSave(ImageDTO dto) {
+		Image image = new Image();
+		image.setGallery(galleryService.findGalleryById(dto.getGalleryId()));
+		image.setId(null);
+		image.setImageUrl(dto.getImageUrl());
+		image.setIsRemoved(new Boolean(false));
+		image.setName(dto.getName());
+		return null;
+	}
+	
 	public Image mapToEntity(ImageDTO dto) {
 		Image image = new Image();
-		image.setGallery(galleryService.getGallery(dto.getGalleryId()));
+		image.setGallery(galleryService.findGalleryById(dto.getGalleryId()));
 		image.setId(dto.getId());
+		image.setImageUrl(dto.getImageUrl());
+		image.setIsRemoved(new Boolean(false));
+		image.setName(dto.getName());
+		return null;
+	}
+	
+	public Image mapToEntityForUpdate(ImageDTO dto, Long id) {
+		Image image = new Image();
+		image.setGallery(galleryService.findGalleryById(dto.getGalleryId()));
+		image.setId(id);
 		image.setImageUrl(dto.getImageUrl());
 		image.setIsRemoved(new Boolean(false));
 		image.setName(dto.getName());
