@@ -59,12 +59,6 @@ public class StarController {
 		return new ResponseEntity<StarDTO>(starDTO, HttpStatus.CREATED);
 	}
 	
-	@PatchMapping("/remove/{id}")
-	public ResponseEntity<StarDTO> remove(@PathVariable Long id) {
-		service.remove(id);
-		return ResponseEntity.status(HttpStatus.OK).build();
-	}
-	
 	@PutMapping("/update/{id}")
 	public ResponseEntity<StarDTO> update(@RequestBody StarDTO starDTO, @PathVariable Long id) {
 		Star star = mapper.mapCreateToEntity(starDTO);
@@ -76,6 +70,18 @@ public class StarController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> completelyDelete(@PathVariable Long id) {
 		service.deleteById(id);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+	
+	@PatchMapping("/remove/{id}")
+	public ResponseEntity<StarDTO> remove(@PathVariable Long id) {
+		service.remove(id);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+	
+	@PatchMapping("/make-active/{id}")
+	public ResponseEntity<StarDTO> makeActive(@PathVariable Long id) {
+		service.makeActive(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 }

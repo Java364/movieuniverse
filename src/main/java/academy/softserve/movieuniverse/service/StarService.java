@@ -68,5 +68,18 @@ public class StarService {
 		star = starRepository.save(star);
 		return star;
 	}
+	
+	@Transactional
+	public Star makeActive(Long id) {
+		Optional<Star> starOptional = starRepository.findById(id);
+		if(!starOptional.isPresent()){
+			throw StarException.createUpdateException("No such star to make active again", null);
+		}
+		Star star = starOptional.get();
+		star.setId(id);
+		star.setIsRemoved(false);
+		star = starRepository.save(star);
+		return star;
+	}
 
 }
