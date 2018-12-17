@@ -56,11 +56,7 @@ public class StarMapper {
 		StarDTO dto = new StarDTO();
 		dto.setFirstName(entity.getFirstName());
 		dto.setLastName(entity.getLastName());
-		dto.setIsRemoved(null);
 		dto.setId(entity.getId());
-		dto.setBiography(null);
-		dto.setActivities(null);
-		dto.setBirthday(null);
 		return dto;
 	}
 	

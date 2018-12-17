@@ -13,7 +13,7 @@ import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.service.mapper.StarMapper;
 
 @Component
-public class StarResourceAssembler implements ResourceAssembler<Star, Resource<StarDTO>> {
+public class StarResourceAssembler implements ResourceAssembler<StarDTO, Resource<StarDTO>> {
 	
 	private StarMapper starMapper;
 
@@ -22,9 +22,9 @@ public class StarResourceAssembler implements ResourceAssembler<Star, Resource<S
 	}
 
 	@Override
-	public Resource<StarDTO> toResource(Star star) {
-		Link starProfileLink = linkTo(StarController.class).slash(star.getId()).withSelfRel();
-		Resource<StarDTO> resource = new Resource<>(starMapper.mapProfileToDto(star), starProfileLink);
+	public Resource<StarDTO> toResource(StarDTO starDto) {
+		Link starProfileLink = linkTo(StarController.class).slash(starDto.getId()).withSelfRel();
+		Resource<StarDTO> resource = new Resource<>(starDto, starProfileLink);
 		return resource;
 	}
 	
