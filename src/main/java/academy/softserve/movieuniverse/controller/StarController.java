@@ -30,7 +30,7 @@ public class StarController {
 	@Autowired
 	private StarService service;
 	@Autowired
-	private StarMapper mapper = new StarMapper();
+	private StarMapper mapper;
 	
 	@GetMapping("/list")
 	public ResponseEntity<Resources<Resource<StarDTO>>> showAllStars() {
@@ -44,7 +44,7 @@ public class StarController {
     public ResponseEntity<Resource<StarDTO>> showOneStar(@PathVariable Long id) {
 		Star star = service.findStarById(id);
 		StarResourceAssembler assembler = new StarResourceAssembler(mapper);
-		Resource<StarDTO> resource = assembler.toResource(star);
+		Resource<StarDTO> resource = assembler.toResource(mapper.mapProfileToDto(star));
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 	
