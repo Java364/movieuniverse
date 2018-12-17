@@ -69,8 +69,11 @@ public class StarMapper {
 		}
 		star.setGallery(galleryService.findGalleryById(dto.getGalleryId()));
 		star.setGrowth(dto.getGrowth());
-		star.setId(dto.getId());
+		star.setId(null);
 		star.setLastName(dto.getLastName());
+		if(dto.getIsRemoved() == null) { 
+			star.setIsRemoved(false);
+		}
 		return star;
 	}
 
@@ -85,6 +88,7 @@ public class StarMapper {
 		dto.setGrowth(entity.getGrowth());
 		dto.setId(entity.getId());
 		dto.setLastName(entity.getLastName());
+		dto.setIsRemoved(entity.getIsRemoved());
 		//dto.setProfessions(entity.getProfessions()); //TODO How to add professions
 		return dto;
 	}
@@ -115,6 +119,7 @@ public class StarMapper {
 		dto.setBiography(entity.getBiography());
 		dto.setCityOfBirth(entity.getCityOfBirth());
 		dto.setLinks(linksMapper.mapListToDto(entity.getLinks()));
+		dto.setIsRemoved(entity.getIsRemoved());
 		dto.setGalleryId(entity.getGallery().getId());
 		dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
 		dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));

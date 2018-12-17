@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import academy.softserve.movieuniverse.controller.hateoas.StarResourceAssembler;
 import academy.softserve.movieuniverse.dto.StarDTO;
 import academy.softserve.movieuniverse.entity.Star;
+import academy.softserve.movieuniverse.service.StarProfessionService;
 import academy.softserve.movieuniverse.service.StarService;
 import academy.softserve.movieuniverse.service.mapper.StarMapper;
 
@@ -29,6 +31,8 @@ public class StarController {
 	
 	@Autowired
 	private StarService service;
+	@Autowired
+	private StarProfessionService starProfessionService;
 	@Autowired
 	private StarMapper mapper;
 	@Autowired
@@ -66,6 +70,18 @@ public class StarController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> completelyDelete(@PathVariable Long id) {
 		service.deleteById(id);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+	
+	@PatchMapping("/remove/{id}")
+	public ResponseEntity<StarDTO> remove(@PathVariable Long id) {
+		service.remove(id);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+	
+	@PatchMapping("/make-active/{id}")
+	public ResponseEntity<StarDTO> makeActive(@PathVariable Long id) {
+		service.makeActive(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 }

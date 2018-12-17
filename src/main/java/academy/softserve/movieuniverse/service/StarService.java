@@ -55,5 +55,31 @@ public class StarService {
 		}
 		starRepository.deleteById(id);
 	}
+	
+	@Transactional
+	public Star remove(Long id) {
+		Optional<Star> starOptional = starRepository.findById(id);
+		if(!starOptional.isPresent()){
+			throw StarException.createUpdateException("No such star to remove", null);
+		}
+		Star star = starOptional.get();
+		star.setId(id);
+		star.setIsRemoved(true);
+		star = starRepository.save(star);
+		return star;
+	}
+	
+	@Transactional
+	public Star makeActive(Long id) {
+		Optional<Star> starOptional = starRepository.findById(id);
+		if(!starOptional.isPresent()){
+			throw StarException.createUpdateException("No such star to make active again", null);
+		}
+		Star star = starOptional.get();
+		star.setId(id);
+		star.setIsRemoved(false);
+		star = starRepository.save(star);
+		return star;
+	}
 
 }
