@@ -25,7 +25,7 @@ public class UserReviewMarkMapper {
 		UserReviewMark userReviewMark = new UserReviewMark();
 		userReviewMark.setId(dto.getId());
 		userReviewMark.setLiked(dto.isLiked());
-		userReviewMark.setReviewer(user.findUserById(dto.getReviewerId()));
+		userReviewMark.setReviewer(user.getUser(dto.getReviewerId()));
 		userReviewMark
 				.setUserReview(userReviewMapper.mapToEntity(userReviewService.findById(dto.getUserReviewId()).get()));
 		return userReviewMark;
@@ -36,7 +36,7 @@ public class UserReviewMarkMapper {
 		UserReviewMark userReviewMark = new UserReviewMark();
 		userReviewMark.setId(userReviewMarkId);
 		userReviewMark.setLiked(dto.isLiked());
-		userReviewMark.setReviewer(user.findUserById(dto.getReviewerId()));
+		userReviewMark.setReviewer(user.getUser(dto.getReviewerId()));
 		userReviewMark
 				.setUserReview(userReviewMapper.mapToEntity(userReviewService.findById(dto.getUserReviewId()).get()));
 		return userReviewMark;
