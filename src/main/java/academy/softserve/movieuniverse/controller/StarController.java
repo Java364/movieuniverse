@@ -35,37 +35,37 @@ public class StarController {
 	private StarResourceAssembler essembler;
 	
 	@GetMapping("/list")
-	public ResponseEntity<Resources<Resource<StarDTO>>> showAllStars() {
+	public ResponseEntity<Resources<Resource<StarDTO>>> showAll() {
 		List<Resource<StarDTO>> resources = mapper.mapListsToDto(service.showAllStars()).stream().map(essembler::toResource).collect(Collectors.toList());
 		return new ResponseEntity<>(new Resources<>(resources), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-    public ResponseEntity<Resource<StarDTO>> showOneStar(@PathVariable Long id) {
+    public ResponseEntity<Resource<StarDTO>> showOne(@PathVariable Long id) {
 		Star star = service.findStarById(id);
 		Resource<StarDTO> resource = essembler.toResource(mapper.mapProfileToDto(star));
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 	
 	@PostMapping("/create")
-	public ResponseEntity<StarDTO> createStar(@RequestBody StarDTO starDTO) {
+	public ResponseEntity<StarDTO> create(@RequestBody StarDTO starDTO) {
 		Star star = mapper.mapCreateToEntity(starDTO);
-		service.saveStar(star);
+		service.create(star);
 		starDTO = mapper.mapCreateToDto(star);
 		return new ResponseEntity<StarDTO>(starDTO, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<StarDTO> updateStar(@RequestBody StarDTO starDTO, @PathVariable Long id) {
+	public ResponseEntity<StarDTO> update(@RequestBody StarDTO starDTO, @PathVariable Long id) {
 		Star star = mapper.mapCreateToEntity(starDTO);
-		service.updateStar(star, id);
+		service.update(star, id);
 		starDTO = mapper.mapCreateToDto(star);
 		return new ResponseEntity<StarDTO>(starDTO, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> fullyDeleteStar(@PathVariable Long id) {
-		service.fullyDelete(id);
+	public ResponseEntity<?> completelyDelete(@PathVariable Long id) {
+		service.deleteById(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 }

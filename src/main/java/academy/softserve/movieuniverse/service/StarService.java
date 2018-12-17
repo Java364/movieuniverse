@@ -18,13 +18,13 @@ public class StarService {
 	private StarRepository starRepository;
 
 	@Transactional
-	public Star saveStar(Star star) {
+	public Star create(Star star) {
 		star = starRepository.save(star);
 		return star;
 	}
 	
 	@Transactional
-	public Star updateStar(Star star, Long id) {
+	public Star update(Star star, Long id) {
 		Optional<Star> starOptional = starRepository.findById(id);
 		if(!starOptional.isPresent()){
 			throw StarException.createUpdateException("No such star to update", null);
@@ -38,7 +38,7 @@ public class StarService {
 		return starRepository.findAll();
 	}
 
-	public Star findStarById(Long id) {
+	public Star findStarById(Long id) { //TODO rename method name
 		Optional<Star> starOptional = starRepository.findById(id);
 		if(!starOptional.isPresent()){
 			throw StarException.createSelectException("No such star", new Exception());
@@ -48,7 +48,7 @@ public class StarService {
 	}
 	
 	@Transactional
-	public void fullyDelete(Long id){
+	public void deleteById(Long id){
 		Optional<Star> starOptional = starRepository.findById(id);
 		if (!starOptional.isPresent()) {
 			throw StarException.createDeleteException("No such user to delete", null);
