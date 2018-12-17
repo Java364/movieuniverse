@@ -42,8 +42,6 @@ public class UserMapper {
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setBirthday(user.getBirthday());
-        userDTO.setEntryCreationDate(user.getEntryCreationDate());
-        userDTO.setEntryLastUpdate(user.getEntryLastUpdate());
         userDTO.setRemoved(user.getIsRemoved());
         //TODO userDTO.setUserReviewDTOList();
         userDTO.setUserReviewDTOList(new ArrayList<>());

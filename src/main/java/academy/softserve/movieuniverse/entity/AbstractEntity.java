@@ -1,5 +1,7 @@
 package academy.softserve.movieuniverse.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -10,10 +12,10 @@ public abstract class AbstractEntity {
     private Long id;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false)
-    private Long entryCreationDate;
+    private LocalDateTime  entryCreationDate;
 
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Long entryLastUpdate;
+    private LocalDateTime  entryLastUpdate;
 
     @Column(name = "is_removed", columnDefinition = "BIT DEFAULT 0")
     private Boolean isRemoved;
@@ -26,22 +28,6 @@ public abstract class AbstractEntity {
         this.id = id;
     }
 
-    public Long getEntryCreationDate() {
-        return entryCreationDate;
-    }
-
-    public void setEntryCreationDate(Long entryCreationDate) {
-        this.entryCreationDate = entryCreationDate;
-    }
-
-    public Long getEntryLastUpdate() {
-        return entryLastUpdate;
-    }
-
-    public void setEntryLastUpdate(Long entryLastUpdate) {
-        this.entryLastUpdate = entryLastUpdate;
-    }
-
     public Boolean getIsRemoved() {
         return isRemoved;
     }
@@ -49,4 +35,20 @@ public abstract class AbstractEntity {
     public void setIsRemoved(Boolean isRemoved) {
         this.isRemoved = isRemoved;
     }
+
+	public LocalDateTime getEntryCreationDate() {
+		return entryCreationDate;
+	}
+
+	public void setEntryCreationDate(LocalDateTime entryCreationDate) {
+		this.entryCreationDate = entryCreationDate;
+	}
+
+	public LocalDateTime getEntryLastUpdate() {
+		return entryLastUpdate;
+	}
+
+	public void setEntryLastUpdate(LocalDateTime entryLastUpdate) {
+		this.entryLastUpdate = entryLastUpdate;
+	}
 }
