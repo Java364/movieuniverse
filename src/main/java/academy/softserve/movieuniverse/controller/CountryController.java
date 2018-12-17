@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import academy.softserve.movieuniverse.dto.CountryDTO;
@@ -19,14 +20,15 @@ import academy.softserve.movieuniverse.service.CountryService;
 import academy.softserve.movieuniverse.service.mapper.CountryMapper;
 
 @RestController
+@RequestMapping("/country")
 public class CountryController {
 
 	@Autowired
 	private CountryService countryService;
-
+	@Autowired
 	private CountryMapper countryMapper = new CountryMapper();
 
-	@PostMapping("/country")
+	@PostMapping("/create")
 	ResponseEntity<CountryDTO> create(@RequestBody CountryDTO countryDTO) {
 		Country country = countryMapper.mapToEntityForSave(countryDTO);
 		country = countryService.createCountry(country);
@@ -34,25 +36,25 @@ public class CountryController {
 		return new ResponseEntity<CountryDTO>(countryDTO, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/countries")
+	@GetMapping("/list")
 	List<CountryDTO> showAll() {
 		return countryMapper.mapListToDto(countryService.findAllCountry());
 	}
 	
-	@GetMapping("/country/{id}")
+	@GetMapping("/show/{id}")
 	ResponseEntity<CountryDTO> showOne(@PathVariable Long id) {
 		Country country = countryService.findCountryById(id);
 		CountryDTO countryDTO = countryMapper.mapToDto(country);
 		return new ResponseEntity<CountryDTO>(countryDTO, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/country/{id}")
+	@DeleteMapping("/delete/{id}")
 	ResponseEntity<Country> delete(@PathVariable Long id) {
 		countryService.deleteCountry(id);
 		return new ResponseEntity<Country>(HttpStatus.OK);
 	}
 
-	@PutMapping("/country/{id}")
+	@PutMapping("/update/{id}")
 	ResponseEntity<CountryDTO> update(@PathVariable Long id, @RequestBody CountryDTO countryDTO ) {
 		Country country = countryMapper.mapToEntityForUpdate(countryDTO, id);
 		country = countryService.updateCountry(country);

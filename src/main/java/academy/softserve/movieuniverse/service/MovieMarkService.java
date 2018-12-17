@@ -36,11 +36,14 @@ public class MovieMarkService {
 
 	@Transactional
 	public MovieMark updateMovieMark(MovieMark movieMark) {
-		Optional<MovieMark> movieMarkOptional = movieMarkRepository.findById(movieMark.getId());
-		if (movieMark == null || movieMark.getId() == null || !movieMarkOptional.isPresent()) {
+		MovieMark existMovieMark = movieMarkRepository.getOne(movieMark.getId());
+		if (movieMark == null || movieMark.getId() == null || existMovieMark == null) {
 			throw MovieMarkException.createUpdateException("Cant update movie mark", new Exception());
 		}
-		movieMark = movieMarkRepository.save(movieMark);
+		existMovieMark.setMark(movieMark.getMark());
+		existMovieMark.setUser(movieMark.getUser());
+		existMovieMark.setMovie(movieMark.getMovie());
+		movieMark = movieMarkRepository.save(existMovieMark);
 		if (movieMark == null) {
 			throw MovieMarkException.createUpdateException("Cant update movie mark", new Exception());
 		}

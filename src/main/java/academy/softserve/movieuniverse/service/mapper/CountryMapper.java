@@ -62,39 +62,4 @@ public class CountryMapper {
 		}
 		return countries;
 	}
-
-	public List<Movie> mapListIdsToMovies(List<Long> movieIds) {
-		List<Movie> movies = new ArrayList<>();
-		for (Long l : movieIds) {
-			movies.add(movieService.findMovieById(l));
-		}
-		return movies;
-	}
-
-	public List<Long> mapMovieToIds(List<Movie> movies) {
-		List<Long> movieIds = new ArrayList<>();
-		for (Movie movie : movies) {
-			movieIds.add(movie.getId());
-		}
-		return movieIds;
-	}
-
-	public List<Long> mapStarsToIds(List<Star> stars) {
-		List<Long> starIds = new ArrayList<>();
-		for (Star star : stars) {
-			starIds.add(star.getId());
-		}
-		return starIds;
-	}
-
-	public List<Star> mapListIdsToStar(List<Long> starIds) {
-		List<Star> stars = new ArrayList<>();
-		for (Long l : starIds) {
-			System.out.println(l);
-			Star star = starService.findStarById(l);
-			System.out.println(star.getId());
-			stars.add(starService.findStarById(l));
-		}
-		return stars;
-	}
 }
