@@ -1,10 +1,7 @@
 package academy.softserve.movieuniverse.dto.user;
 
 
-import academy.softserve.movieuniverse.dto.MovieMarkDTO;
-import academy.softserve.movieuniverse.dto.UserReviewDto;
-
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class UserDTO implements UserShortInfo, UserShortInfoWithPassword, UserFullInfo, UserLoginInfo{
     private Long id;
@@ -14,11 +11,12 @@ public class UserDTO implements UserShortInfo, UserShortInfoWithPassword, UserFu
     private String firstName;
     private String lastName;
     private Long birthday;
-    private Long entryCreationDate;
-    private Long entryLastUpdate;
+    private LocalDateTime entryCreationDate;
+    private LocalDateTime entryLastUpdate;
     private Boolean isRemoved;
-    private List<UserReviewDto> userReviewDTOList;
-    private List<MovieMarkDTO> movieMarkDTOList;
+
+    public UserDTO() {
+    }
 
     @Override
     public Long getId() {
@@ -91,22 +89,21 @@ public class UserDTO implements UserShortInfo, UserShortInfoWithPassword, UserFu
     }
 
     @Override
-    public Long getEntryCreationDate() {
+    public LocalDateTime getEntryCreationDate() {
         return entryCreationDate;
     }
 
     @Override
-    public void setEntryCreationDate(Long entryCreationDate) {
+    public void setEntryCreationDate(LocalDateTime entryCreationDate) {
         this.entryCreationDate = entryCreationDate;
     }
 
     @Override
-    public Long getEntryLastUpdate() {
+    public LocalDateTime getEntryLastUpdate() {
         return entryLastUpdate;
     }
 
-    @Override
-    public void setEntryLastUpdate(Long entryLastUpdate) {
+    public void setEntryLastUpdate(LocalDateTime entryLastUpdate) {
         this.entryLastUpdate = entryLastUpdate;
     }
 
@@ -120,23 +117,5 @@ public class UserDTO implements UserShortInfo, UserShortInfoWithPassword, UserFu
         isRemoved = removed;
     }
 
-    @Override
-    public List<UserReviewDto> getUserReviewDTOList() {
-        return userReviewDTOList;
-    }
 
-    @Override
-    public void setUserReviewDTOList(List<UserReviewDto> userReviewDTOList) {
-        this.userReviewDTOList = userReviewDTOList;
-    }
-
-    @Override
-    public List<MovieMarkDTO> getMovieMarkDTOList() {
-        return movieMarkDTOList;
-    }
-
-    @Override
-    public void setMovieMarkDTOList(List<MovieMarkDTO> movieMarkDTOList) {
-        this.movieMarkDTOList = movieMarkDTOList;
-    }
 }

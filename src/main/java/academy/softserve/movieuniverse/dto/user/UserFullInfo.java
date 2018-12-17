@@ -1,9 +1,6 @@
 package academy.softserve.movieuniverse.dto.user;
 
-import academy.softserve.movieuniverse.dto.MovieMarkDTO;
-import academy.softserve.movieuniverse.dto.UserReviewDto;
-
-import java.util.List;
+import java.time.LocalDateTime;
 
 public interface UserFullInfo {
 
@@ -35,24 +32,16 @@ public interface UserFullInfo {
 
     void setBirthday(Long birthday);
 
-    Long getEntryCreationDate();
+    LocalDateTime getEntryCreationDate();
 
-    void setEntryCreationDate(Long entryCreationDate);
+    void setEntryCreationDate(LocalDateTime entryCreationDate);
 
-    Long getEntryLastUpdate();
+    LocalDateTime getEntryLastUpdate();
 
-    void setEntryLastUpdate(Long entryLastUpdate);
+    void setEntryLastUpdate(LocalDateTime entryLastUpdate);
 
     Boolean getRemoved();
 
     void setRemoved(Boolean removed);
-
-    List<UserReviewDto> getUserReviewDTOList();
-
-    void setUserReviewDTOList(List<UserReviewDto> userReviewDTOList);
-
-    List<MovieMarkDTO> getMovieMarkDTOList();
-
-    void setMovieMarkDTOList(List<MovieMarkDTO> movieMarkDTOList);
 
 }
