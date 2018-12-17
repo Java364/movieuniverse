@@ -12,24 +12,17 @@ public class StarDTO {
     private Double growth;
     private String cityOfBirth;
     private Long galleryId;
-    private GalleryDTO galleryDto;
+    //private GalleryDTO galleryDto;
+    //private List<Long> rolesIds = new ArrayList<Long>();
+    //private List<Long> professionsIds = new ArrayList<Long>();
+    //private List<Long> linksIds = new ArrayList<Long>();
     private List<Long> countriesIds = new ArrayList<>();
-    private List<Long> rolesIds = new ArrayList<Long>();
-    private List<Long> professionsIds = new ArrayList<Long>();
-    private List<Long> linksIds = new ArrayList<Long>();
     private List<Long> moviesIds = new ArrayList<Long>();
-    //private List<MovieDTO> movies = new ArrayList<MovieDTO>();
     private List<LinksDTO> links = new ArrayList<LinksDTO>();
     private List<StarProfessionDTO> professions = new ArrayList<StarProfessionDTO>();
     private List<CountryDTO> countries = new ArrayList<CountryDTO>();
     private List<StarActivityInMoviesDTO> activities = new ArrayList<StarActivityInMoviesDTO>();
     
-    public GalleryDTO getGalleryDto() {
-		return galleryDto;
-	}
-	public void setGalleryDto(GalleryDTO galleryDto) {
-		this.galleryDto = galleryDto;
-	}
 	private Boolean isRemoved;
     
     public List<LinksDTO> getLinks() {
@@ -87,35 +80,11 @@ public class StarDTO {
 	public void setGrowth(Double growth) {
 		this.growth = growth;
 	}
-	public List<Long> getCountriesIds() {
-		return countriesIds;
-	}
-	public void setCountriesIds(List<Long> countriesIds) {
-		this.countriesIds = countriesIds;
-	}
 	public String getCityOfBirth() {
 		return cityOfBirth;
 	}
 	public void setCityOfBirth(String cityOfBirth) {
 		this.cityOfBirth = cityOfBirth;
-	}
-	public List<Long> getRolesIds() {
-		return rolesIds;
-	}
-	public void setRolesIds(List<Long> rolesIds) {
-		this.rolesIds = rolesIds;
-	}
-	public List<Long> getProfessionsIds() {
-		return professionsIds;
-	}
-	public void setProfessionsIds(List<Long> professionsIds) {
-		this.professionsIds = professionsIds;
-	}
-	public List<Long> getLinksIds() {
-		return linksIds;
-	}
-	public void setLinksIds(List<Long> linksIds) {
-		this.linksIds = linksIds;
 	}
 	public List<Long> getMoviesIds() {
 		return moviesIds;
@@ -123,12 +92,7 @@ public class StarDTO {
 	public void setMoviesIds(List<Long> moviesIds) {
 		this.moviesIds = moviesIds;
 	}
-	public Long getGallery() {
-		return galleryId;
-	}
-	public void setGallery(Long gallery) {
-		this.galleryId = gallery;
-	}
+	
 	public Boolean getIsRemoved() {
 		return isRemoved;
 	}
@@ -140,5 +104,17 @@ public class StarDTO {
 	}
 	public void setProfessions(List<StarProfessionDTO> professions) {
 		this.professions = professions;
+	}
+	public Long getGalleryId() {
+		return galleryId;
+	}
+	public void setGalleryId(Long galleryId) {
+		this.galleryId = galleryId;
+	}
+	public List<Long> getCountriesIds() {
+		return countriesIds;
+	}
+	public void setCountriesIds(List<Long> countriesIds) {
+		this.countriesIds = countriesIds;
 	}
 }
