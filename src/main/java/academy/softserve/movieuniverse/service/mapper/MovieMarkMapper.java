@@ -18,9 +18,18 @@ public class MovieMarkMapper {
 	@Autowired
 	UserRepository userRepository;
 
-	public MovieMark mapToEntity(MovieMarkDTO dto) {
+	public MovieMark mapToEntityForSave(MovieMarkDTO dto) {
 		MovieMark movieMark = new MovieMark();
 		movieMark.setId(dto.getId());
+		movieMark.setMark(dto.getMark());
+		movieMark.setMovie(movieRepository.getOne(dto.getMovieId()));
+		movieMark.setUser(userRepository.getOne(dto.getUserId()));
+		return movieMark;
+	}
+
+	public MovieMark mapToEntityForUpdate(MovieMarkDTO dto, Long id) {
+		MovieMark movieMark = new MovieMark();
+		movieMark.setId(id);
 		movieMark.setMark(dto.getMark());
 		movieMark.setMovie(movieRepository.getOne(dto.getMovieId()));
 		movieMark.setUser(userRepository.getOne(dto.getUserId()));
@@ -47,7 +56,7 @@ public class MovieMarkMapper {
 	public List<MovieMark> mapMovieMarksListToEntity(List<MovieMarkDTO> movieMarksDTOs) {
 		List<MovieMark> marks = new ArrayList<>();
 		for (MovieMarkDTO m : movieMarksDTOs) {
-			marks.add(this.mapToEntity(m));
+			marks.add(this.mapToEntityForSave(m));
 		}
 		return marks;
 	}
