@@ -27,7 +27,7 @@ public class CountryController {
 	private CountryMapper countryMapper = new CountryMapper();
 
 	@PostMapping("/country")
-	ResponseEntity<CountryDTO> createCountry(@RequestBody CountryDTO countryDTO) {
+	ResponseEntity<CountryDTO> create(@RequestBody CountryDTO countryDTO) {
 		Country country = countryMapper.mapToEntityForSave(countryDTO);
 		country = countryService.createCountry(country);
 		countryDTO = countryMapper.mapToDto(country);
@@ -35,18 +35,25 @@ public class CountryController {
 	}
 
 	@GetMapping("/countries")
-	List<CountryDTO> findAllCountry() {
+	List<CountryDTO> showAll() {
 		return countryMapper.mapListToDto(countryService.findAllCountry());
+	}
+	
+	@GetMapping("/country/{id}")
+	ResponseEntity<CountryDTO> showOne(@PathVariable Long id) {
+		Country country = countryService.findCountryById(id);
+		CountryDTO countryDTO = countryMapper.mapToDto(country);
+		return new ResponseEntity<CountryDTO>(countryDTO, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/country/{id}")
-	ResponseEntity<Country> deleteCountry(@PathVariable Long id) {
+	ResponseEntity<Country> delete(@PathVariable Long id) {
 		countryService.deleteCountry(id);
 		return new ResponseEntity<Country>(HttpStatus.OK);
 	}
 
 	@PutMapping("/country/{id}")
-	ResponseEntity<CountryDTO> updateCountry(@PathVariable Long id, @RequestBody CountryDTO countryDTO ) {
+	ResponseEntity<CountryDTO> update(@PathVariable Long id, @RequestBody CountryDTO countryDTO ) {
 		Country country = countryMapper.mapToEntityForUpdate(countryDTO, id);
 		country = countryService.updateCountry(country);
 		countryDTO = countryMapper.mapToDto(country);
