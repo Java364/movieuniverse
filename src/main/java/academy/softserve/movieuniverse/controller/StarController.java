@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import academy.softserve.movieuniverse.controller.hateoas.StarResourceAssembler;
 import academy.softserve.movieuniverse.dto.StarDTO;
 import academy.softserve.movieuniverse.entity.Star;
+import academy.softserve.movieuniverse.service.StarProfessionService;
 import academy.softserve.movieuniverse.service.StarService;
 import academy.softserve.movieuniverse.service.mapper.StarMapper;
 
@@ -29,6 +30,8 @@ public class StarController {
 	
 	@Autowired
 	private StarService service;
+	@Autowired
+	private StarProfessionService starProfessionService;
 	@Autowired
 	private StarMapper mapper;
 	@Autowired
