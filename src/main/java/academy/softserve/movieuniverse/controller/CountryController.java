@@ -40,7 +40,7 @@ public class CountryController {
 	List<CountryDTO> showAll() {
 		return countryMapper.mapListToDto(countryService.findAll());
 	}
-	
+
 	@GetMapping("/show/{id}")
 	ResponseEntity<CountryDTO> showOne(@PathVariable Long id) {
 		Country country = countryService.findById(id);
@@ -55,7 +55,7 @@ public class CountryController {
 	}
 
 	@PutMapping("/update/{id}")
-	ResponseEntity<CountryDTO> update(@PathVariable Long id, @RequestBody CountryDTO countryDTO ) {
+	ResponseEntity<CountryDTO> update(@PathVariable Long id, @RequestBody CountryDTO countryDTO) {
 		Country country = countryMapper.mapToEntityForUpdate(countryDTO, id);
 		country = countryService.update(country);
 		countryDTO = countryMapper.mapToDto(country);

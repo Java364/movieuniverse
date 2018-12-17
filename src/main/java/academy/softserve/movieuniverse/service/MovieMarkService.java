@@ -19,7 +19,7 @@ public class MovieMarkService {
 	private MovieMarkRepository movieMarkRepository;
 
 	@Transactional
-	public MovieMark createMovieMark(MovieMark movieMark) {
+	public MovieMark create(MovieMark movieMark) {
 		if (movieMark == null) {
 			throw MovieMarkException.createSaveException("Cant save movie mark", new Exception());
 		}
@@ -27,7 +27,7 @@ public class MovieMarkService {
 	}
 
 	@Transactional
-	public void deleteMovieMark(Long id) {
+	public void delete(Long id) {
 		if (id == null || !movieMarkRepository.findById(id).isPresent()) {
 			throw MovieMarkException.createDeleteException("No such movie mark to delete", new Exception());
 		}
@@ -35,7 +35,7 @@ public class MovieMarkService {
 	}
 
 	@Transactional
-	public MovieMark updateMovieMark(MovieMark movieMark) {
+	public MovieMark update(MovieMark movieMark) {
 		MovieMark existMovieMark = movieMarkRepository.getOne(movieMark.getId());
 		if (movieMark == null || movieMark.getId() == null || existMovieMark == null) {
 			throw MovieMarkException.createUpdateException("Cant update movie mark", new Exception());
@@ -50,7 +50,7 @@ public class MovieMarkService {
 		return movieMark;
 	}
 
-	public MovieMark getMovieMark(Long id) {
+	public MovieMark findById(Long id) {
 		Optional<MovieMark> movieMarkOptional = movieMarkRepository.findById(id);
 		if (id == null || !movieMarkOptional.isPresent()) {
 			throw MovieMarkException.createSelectException("No such movie mark ", new Exception());
@@ -59,7 +59,7 @@ public class MovieMarkService {
 		return movieMark;
 	}
 
-	public List<MovieMark> findAllMovieMarks() {
+	public List<MovieMark> findAll() {
 		return movieMarkRepository.findAll();
 	}
 }

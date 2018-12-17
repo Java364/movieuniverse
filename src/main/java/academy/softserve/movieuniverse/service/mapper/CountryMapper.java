@@ -32,7 +32,7 @@ public class CountryMapper {
 		country.setName(dto.getName());
 		return country;
 	}
-	
+
 	public Country mapToEntityForUpdate(CountryDTO dto, Long id) {
 		Country country = new Country();
 		country.setId(id);
