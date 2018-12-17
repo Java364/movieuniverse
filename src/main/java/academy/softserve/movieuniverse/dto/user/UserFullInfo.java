@@ -47,12 +47,4 @@ public interface UserFullInfo {
 
     void setRemoved(Boolean removed);
 
-    List<UserReviewDto> getUserReviewDTOList();
-
-    void setUserReviewDTOList(List<UserReviewDto> userReviewDTOList);
-
-    List<MovieMarkDTO> getMovieMarkDTOList();
-
-    void setMovieMarkDTOList(List<MovieMarkDTO> movieMarkDTOList);
-
 }

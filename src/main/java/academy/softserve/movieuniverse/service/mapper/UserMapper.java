@@ -46,8 +46,6 @@ public class UserMapper {
         userDTO.setEntryLastUpdate(user.getEntryLastUpdate());
         userDTO.setRemoved(user.getIsRemoved());
         //TODO userDTO.setUserReviewDTOList();
-        userDTO.setUserReviewDTOList(new ArrayList<>());
-        userDTO.setMovieMarkDTOList(movieMarkMapper.mapListToDto(user.getMovieMarks()));
         return userDTO;
     }
 

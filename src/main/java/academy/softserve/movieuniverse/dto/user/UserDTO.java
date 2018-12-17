@@ -17,8 +17,9 @@ public class UserDTO implements UserShortInfo, UserShortInfoWithPassword, UserFu
     private Long entryCreationDate;
     private Long entryLastUpdate;
     private Boolean isRemoved;
-    private List<UserReviewDto> userReviewDTOList;
-    private List<MovieMarkDTO> movieMarkDTOList;
+
+    public UserDTO() {
+    }
 
     @Override
     public Long getId() {
@@ -120,23 +121,5 @@ public class UserDTO implements UserShortInfo, UserShortInfoWithPassword, UserFu
         isRemoved = removed;
     }
 
-    @Override
-    public List<UserReviewDto> getUserReviewDTOList() {
-        return userReviewDTOList;
-    }
 
-    @Override
-    public void setUserReviewDTOList(List<UserReviewDto> userReviewDTOList) {
-        this.userReviewDTOList = userReviewDTOList;
-    }
-
-    @Override
-    public List<MovieMarkDTO> getMovieMarkDTOList() {
-        return movieMarkDTOList;
-    }
-
-    @Override
-    public void setMovieMarkDTOList(List<MovieMarkDTO> movieMarkDTOList) {
-        this.movieMarkDTOList = movieMarkDTOList;
-    }
 }

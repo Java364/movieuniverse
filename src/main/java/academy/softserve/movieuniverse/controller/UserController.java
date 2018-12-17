@@ -2,7 +2,6 @@ package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.controller.hateoas.UserResourceAssembler;
 import academy.softserve.movieuniverse.dto.user.UserDTO;
-import academy.softserve.movieuniverse.dto.user.UserShortInfo;
 import academy.softserve.movieuniverse.dto.user.UserShortInfoWithPassword;
 import academy.softserve.movieuniverse.service.UserService;
 import academy.softserve.movieuniverse.service.mapper.UserMapper;
@@ -17,7 +16,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController("/api/users")
+@RestController
+@RequestMapping(value = "/api/users", produces = "application/hal+json")
 public class UserController {
 
     private final UserService userService;
@@ -34,7 +34,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getAllUsers() {
         List<UserDTO> users = userMapper.mapUserEntityListToUserWithShortInfoList(
-                userService.getAll()).stream().map(userShortInfo ->(UserDTO) userShortInfo).collect(Collectors.toList());
+                userService.getAll()).stream().map(userShortInfo -> (UserDTO) userShortInfo).collect(Collectors.toList());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userResourceAssembler.listToResource(users));
