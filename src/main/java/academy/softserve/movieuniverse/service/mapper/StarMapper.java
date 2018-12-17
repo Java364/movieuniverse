@@ -63,7 +63,7 @@ public class StarMapper {
 		star.setCityOfBirth(dto.getCityOfBirth());
 		star.setCountries(dto.getCountriesIds().stream().map(p -> countryService.findCountryById(p)).collect(Collectors.toList()));
 		star.setFirstName(dto.getFirstName());
-		if (dto.getGalleryId() == null || dto.getGalleryId() == 0) {
+		if (dto.getGalleryId() == null || galleryService.findGalleryById(dto.getGalleryId()) == null) {
 			Long id = (long) 1;
 			dto.setGalleryId(id); 
 		}
