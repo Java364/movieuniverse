@@ -1,5 +1,8 @@
 package academy.softserve.movieuniverse.dto.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as = UserDTO.class)
 public interface UserShortInfo {
 
     Long getId();

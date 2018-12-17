@@ -1,17 +1,19 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.controller.hateoas.userAssembler.UserShortInfoResourceAssembler;
+import academy.softserve.movieuniverse.dto.user.UserDTO;
 import academy.softserve.movieuniverse.dto.user.UserShortInfo;
+import academy.softserve.movieuniverse.dto.user.UserShortInfoWithPassword;
 import academy.softserve.movieuniverse.service.UserService;
 import academy.softserve.movieuniverse.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -38,20 +40,20 @@ public class UserController {
                 .body(userShortInfoResourceAssembler.listToResource(users));
     }
 
-//    @PostMapping
-//    public ResponseEntity<?> createUser(@RequestBody UserShortInfoWithPassword userDTO) throws URISyntaxException {
-//        Resource<UserDTO> resource = userResourceAssembler.toResource((UserDTO)
-//                userMapper.mapUserEntityToUserDTOWithShortInfo(
-//                        userService.createUser(
-//                                userMapper.mapUserShortInfoWithPasswordToEntity(userDTO)
-//                        )
-//                )
-//        );
-//        return ResponseEntity
-//                .created(new URI(resource.getId().expand().getHref()))
-//                .body(resource);
-//    }
-//
+    @PostMapping
+    public ResponseEntity<?> createUser(@RequestBody UserShortInfoWithPassword userDTO) throws URISyntaxException {
+        Resource<UserShortInfo> resource = userShortInfoResourceAssembler.toResource(
+                userMapper.mapUserEntityToUserDTOWithShortInfo(
+                        userService.createUser(
+                                userMapper.mapUserShortInfoWithPasswordToEntity(userDTO)
+                        )
+                )
+        );
+        return ResponseEntity
+                .created(new URI(resource.getId().expand().getHref()))
+                .body(resource);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity getUser(@PathVariable Long id) {
         return new ResponseEntity(HttpStatus.OK);
