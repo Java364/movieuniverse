@@ -75,7 +75,7 @@ public class StarMapper {
 			Long id = (long) 1;
 			dto.setGallery(id); 
 		}
-		star.setGallery(galleryService.getGallery(dto.getGallery()));
+		star.setGallery(galleryService.findGalleryById(dto.getGallery()));
 		star.setGrowth(dto.getGrowth());
 		star.setId(dto.getId());
 		star.setLastName(dto.getLastName());
