@@ -10,6 +10,7 @@ import academy.softserve.movieuniverse.dto.CountryDTO;
 import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.Star;
+import academy.softserve.movieuniverse.service.CountryService;
 import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.StarService;
 
@@ -22,13 +23,20 @@ public class CountryMapper {
 	MovieService movieService;
 	@Autowired
 	StarService starService;
+	@Autowired
+	CountryService countryService;
 
-	public Country mapToEntity(CountryDTO dto) {
+	public Country mapToEntityForSave(CountryDTO dto) {
 		Country country = new Country();
 		country.setId(dto.getId());
 		country.setName(dto.getName());
-		country.setMovies(mapListIdsToMovies(dto.getMovieIds()));
-		country.setStars(mapListIdsToStar(dto.getStarIds()));
+		return country;
+	}
+	
+	public Country mapToEntityForUpdate(CountryDTO dto, Long id) {
+		Country country = new Country();
+		country.setId(id);
+		country.setName(dto.getName());
 		return country;
 	}
 
@@ -36,8 +44,6 @@ public class CountryMapper {
 		CountryDTO countryDTO = new CountryDTO();
 		countryDTO.setId(entity.getId());
 		countryDTO.setName(entity.getName());
-		countryDTO.setMovieIds(mapMovieToIds(entity.getMovies()));
-		countryDTO.setStarIds(mapStarsToIds(entity.getStars()));
 		return countryDTO;
 	}
 
@@ -52,7 +58,7 @@ public class CountryMapper {
 	public List<Country> mapCountriesListToEntity(List<CountryDTO> countryDTOs) {
 		List<Country> countries = new ArrayList<>();
 		for (CountryDTO c : countryDTOs) {
-			countries.add(this.mapToEntity(c));
+			countries.add(this.mapToEntityForSave(c));
 		}
 		return countries;
 	}
@@ -84,6 +90,9 @@ public class CountryMapper {
 	public List<Star> mapListIdsToStar(List<Long> starIds) {
 		List<Star> stars = new ArrayList<>();
 		for (Long l : starIds) {
+			System.out.println(l);
+			Star star = starService.findStarById(l);
+			System.out.println(star.getId());
 			stars.add(starService.findStarById(l));
 		}
 		return stars;

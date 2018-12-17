@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import academy.softserve.movieuniverse.entity.MovieMark;
+import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.exception.MovieMarkException;
 import academy.softserve.movieuniverse.repository.MovieMarkRepository;
 
@@ -19,7 +20,7 @@ public class MovieMarkService {
 
 	@Transactional
 	public MovieMark createMovieMark(MovieMark movieMark) {
-		if (movieMark == null || movieMark.getId() == null) {
+		if (movieMark == null) {
 			throw MovieMarkException.createSaveException("Cant save movie mark", new Exception());
 		}
 		return movieMarkRepository.save(movieMark);
@@ -58,5 +59,4 @@ public class MovieMarkService {
 	public List<MovieMark> findAllMovieMarks() {
 		return movieMarkRepository.findAll();
 	}
-
 }

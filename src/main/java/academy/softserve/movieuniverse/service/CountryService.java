@@ -19,7 +19,7 @@ public class CountryService {
 
 	@Transactional
 	public Country createCountry(Country country) {
-		if (country == null || country.getId() != null)
+		if (country == null)
 			throw CountryException.createSaveException("Cant save country", new Exception());
 		return countryRepository.save(country);
 	}

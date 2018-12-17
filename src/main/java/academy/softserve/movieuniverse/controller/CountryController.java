@@ -28,7 +28,7 @@ public class CountryController {
 
 	@PostMapping("/country")
 	ResponseEntity<CountryDTO> createCountry(@RequestBody CountryDTO countryDTO) {
-		Country country = countryMapper.mapToEntity(countryDTO);
+		Country country = countryMapper.mapToEntityForSave(countryDTO);
 		country = countryService.createCountry(country);
 		countryDTO = countryMapper.mapToDto(country);
 		return new ResponseEntity<CountryDTO>(countryDTO, HttpStatus.CREATED);
@@ -44,12 +44,12 @@ public class CountryController {
 		countryService.deleteCountry(id);
 		return new ResponseEntity<Country>(HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/country/{id}")
-	ResponseEntity<CountryDTO> updateCountry(@RequestBody CountryDTO countryDTO) {
-		Country country = countryMapper.mapToEntity(countryDTO);
+	ResponseEntity<CountryDTO> updateCountry(@PathVariable Long id, @RequestBody CountryDTO countryDTO ) {
+		Country country = countryMapper.mapToEntityForUpdate(countryDTO, id);
 		country = countryService.updateCountry(country);
 		countryDTO = countryMapper.mapToDto(country);
-		return new ResponseEntity<CountryDTO>(countryDTO,HttpStatus.OK);
+		return new ResponseEntity<CountryDTO>(countryDTO, HttpStatus.OK);
 	}
 }
