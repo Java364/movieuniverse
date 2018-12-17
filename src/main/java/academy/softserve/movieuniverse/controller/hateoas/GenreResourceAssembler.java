@@ -26,8 +26,8 @@ public class GenreResourceAssembler implements ResourceAssembler<Genre, Resource
     @Override
     public Resource<GenreDto> toResource(Genre genre) {
         Long genreId = genre.getId();
-        Link selfRelLink = linkTo(GenreController.class).slash(genreId).withSelfRel();
         String formattedGenreName = genre.getName().toLowerCase();
+        Link selfRelLink = linkTo(GenreController.class).slash(genreId).withSelfRel();
         Link searchMoviesRel = linkTo(methodOn(GenreController.class).showAllMoviesByGenreName(formattedGenreName))
                 .withRel("search.movies");
         return new Resource<>(genreDtoMapper.mapGenreEntityToGenreDto(genre), selfRelLink, searchMoviesRel);

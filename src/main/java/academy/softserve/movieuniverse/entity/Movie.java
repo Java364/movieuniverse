@@ -13,7 +13,7 @@ public class Movie extends AbstractEntity {
 
     private Long duration;
     @Column(columnDefinition = "SMALLINT")
-    private int year;
+    private Integer year;
 
     private String description;
     @Column(name = "age_limitation")
@@ -98,7 +98,7 @@ public class Movie extends AbstractEntity {
         this.duration = duration;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 

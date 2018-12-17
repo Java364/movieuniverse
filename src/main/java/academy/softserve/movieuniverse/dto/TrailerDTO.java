@@ -1,9 +1,12 @@
 package academy.softserve.movieuniverse.dto;
 
+import javax.validation.constraints.NotBlank;
+
 public class TrailerDTO {
 	
 	private Long id;
 	private String trailerUrl;
+	@NotBlank
 	private Long movieId;
 	
 	public TrailerDTO() {}

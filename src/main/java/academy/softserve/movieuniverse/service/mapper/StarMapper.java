@@ -48,7 +48,7 @@ public class StarMapper {
 		star.setFirstName(dto.getFirstName());
 		star.setLastName(dto.getLastName());
 		star.setId(dto.getId());
-		star.setIsRemoved(false);
+		star.setIsRemoved(new Boolean(false));
 		return star;
 	}
 
@@ -56,8 +56,11 @@ public class StarMapper {
 		StarDTO dto = new StarDTO();
 		dto.setFirstName(entity.getFirstName());
 		dto.setLastName(entity.getLastName());
-		dto.setIsRemoved(false);
+		dto.setIsRemoved(null);
 		dto.setId(entity.getId());
+		dto.setBiography(null);
+		dto.setActivities(null);
+		dto.setBirthday(null);
 		return dto;
 	}
 	
@@ -72,7 +75,7 @@ public class StarMapper {
 			Long id = (long) 1;
 			dto.setGallery(id); 
 		}
-		star.setGallery(galleryService.getGallery(dto.getGallery()));
+		star.setGallery(galleryService.findGalleryById(dto.getGallery()));
 		star.setGrowth(dto.getGrowth());
 		star.setId(dto.getId());
 		star.setLastName(dto.getLastName());
@@ -121,15 +124,15 @@ public class StarMapper {
 		dto.setBirthday(entity.getBirthday());
 		dto.setBiography(entity.getBiography());
 		dto.setCityOfBirth(entity.getCityOfBirth());
-		dto.setLinks(linksMapper.mapListToDto(entity.getLinks()));
+		//dto.setLinks(linksMapper.mapListToDto(entity.getLinks()));
 		dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
-		dto.setGalleryDto(galleryMapper.mapToDto(entity.getGallery()));
+		//dto.setGalleryDto(galleryMapper.mapToDto(entity.getGallery()));
 		dto.setGallery(entity.getGallery().getId());
-		dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
+		//dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
 		dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));
-		dto.setProfessions(starProfessionMapper.mapListEntityToDTO(entity.getProfessions()));
+		//dto.setProfessions(starProfessionMapper.mapListEntityToDTO(entity.getProfessions()));
 		dto.setProfessionsIds(entity.getProfessions().stream().map(p -> p.getProfession().getId()).collect(Collectors.toList()));
-		dto.setActivities(this.mapActivityListsToDto(entity.getRoles())); //TODO edit when StarActivityDTO will be created
+		//dto.setActivities(this.mapActivityListsToDto(entity.getRoles())); //TODO edit when StarActivityDTO will be created
 		dto.setMoviesIds(entity.getRoles().stream().map(p -> p.getMovie().getId()).collect(Collectors.toList()));
 
 		return dto;
