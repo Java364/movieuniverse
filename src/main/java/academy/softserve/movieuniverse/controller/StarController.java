@@ -31,20 +31,19 @@ public class StarController {
 	private StarService service;
 	@Autowired
 	private StarMapper mapper;
+	@Autowired
+	private StarResourceAssembler essembler;
 	
 	@GetMapping("/list")
 	public ResponseEntity<Resources<Resource<StarDTO>>> showAllStars() {
-		//List<Star> stars = service.showAllStars();
-		StarResourceAssembler assembler = new StarResourceAssembler(mapper);
-		List<Resource<StarDTO>> resources = service.showAllStars().stream().map(assembler::toStarsListResource).collect(Collectors.toList());
+		List<Resource<StarDTO>> resources = mapper.mapListsToDto(service.showAllStars()).stream().map(essembler::toResource).collect(Collectors.toList());
 		return new ResponseEntity<>(new Resources<>(resources), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
     public ResponseEntity<Resource<StarDTO>> showOneStar(@PathVariable Long id) {
 		Star star = service.findStarById(id);
-		StarResourceAssembler assembler = new StarResourceAssembler(mapper);
-		Resource<StarDTO> resource = assembler.toResource(mapper.mapProfileToDto(star));
+		Resource<StarDTO> resource = essembler.toResource(mapper.mapProfileToDto(star));
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 	

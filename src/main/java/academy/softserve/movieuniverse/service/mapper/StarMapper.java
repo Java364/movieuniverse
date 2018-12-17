@@ -7,12 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import academy.softserve.movieuniverse.dto.CountryDTO;
-import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
 import academy.softserve.movieuniverse.dto.StarDTO;
-import academy.softserve.movieuniverse.entity.Country;
-import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.entity.StarActivityInMovies;
 import academy.softserve.movieuniverse.service.CountryService;
@@ -67,15 +63,14 @@ public class StarMapper {
 		star.setCityOfBirth(dto.getCityOfBirth());
 		star.setCountries(dto.getCountriesIds().stream().map(p -> countryService.findCountryById(p)).collect(Collectors.toList()));
 		star.setFirstName(dto.getFirstName());
-		if (dto.getGallery() == null || dto.getGallery() == 0) {
+		if (dto.getGalleryId() == null || dto.getGalleryId() == 0) {
 			Long id = (long) 1;
-			dto.setGallery(id); 
+			dto.setGalleryId(id); 
 		}
-		star.setGallery(galleryService.findGalleryById(dto.getGallery()));
+		star.setGallery(galleryService.findGalleryById(dto.getGalleryId()));
 		star.setGrowth(dto.getGrowth());
 		star.setId(dto.getId());
 		star.setLastName(dto.getLastName());
-		star.setLinks(dto.getLinksIds().stream().map(p -> linkService.getOneLinks(p)).collect(Collectors.toList()));
 		return star;
 	}
 
@@ -86,11 +81,10 @@ public class StarMapper {
 		dto.setCityOfBirth(entity.getCityOfBirth());
 		dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));
 		dto.setFirstName(entity.getFirstName());
-		dto.setGallery(entity.getGallery().getId());
+		dto.setGalleryId(entity.getGallery().getId());
 		dto.setGrowth(entity.getGrowth());
 		dto.setId(entity.getId());
 		dto.setLastName(entity.getLastName());
-		dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
 		//dto.setProfessions(entity.getProfessions()); //TODO How to add professions
 		return dto;
 	}
@@ -120,16 +114,15 @@ public class StarMapper {
 		dto.setBirthday(entity.getBirthday());
 		dto.setBiography(entity.getBiography());
 		dto.setCityOfBirth(entity.getCityOfBirth());
-		//dto.setLinks(linksMapper.mapListToDto(entity.getLinks()));
-		dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
-		//dto.setGalleryDto(galleryMapper.mapToDto(entity.getGallery()));
-		dto.setGallery(entity.getGallery().getId());
-		//dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
+		dto.setLinks(linksMapper.mapListToDto(entity.getLinks()));
+		dto.setGalleryId(entity.getGallery().getId());
+		dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
 		dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));
-		//dto.setProfessions(starProfessionMapper.mapListEntityToDTO(entity.getProfessions()));
-		dto.setProfessionsIds(entity.getProfessions().stream().map(p -> p.getProfession().getId()).collect(Collectors.toList()));
-		//dto.setActivities(this.mapActivityListsToDto(entity.getRoles())); //TODO edit when StarActivityDTO will be created
+		dto.setProfessions(starProfessionMapper.mapListEntityToDTO(entity.getProfessions()));
+		dto.setActivities(this.mapActivityListsToDto(entity.getRoles())); //TODO edit when StarActivityDTO will be created
 		dto.setMoviesIds(entity.getRoles().stream().map(p -> p.getMovie().getId()).collect(Collectors.toList()));
+		//dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
+		//dto.setProfessionsIds(entity.getProfessions().stream().map(p -> p.getProfession().getId()).collect(Collectors.toList()));
 
 		return dto;
 	}
@@ -162,7 +155,7 @@ public class StarMapper {
 	
 	public StarActivityInMoviesDTO mapActivityToDto(StarActivityInMovies entity) {
 		StarActivityInMoviesDTO dto = new StarActivityInMoviesDTO();
-		dto.setId(entity.getId());;
+		dto.setId(entity.getId());
 		dto.setMovieId(entity.getMovie().getId());
 		dto.setStarId(entity.getStar().getId());
 		dto.setProfessionIds(entity.getProfessions().stream().map(p -> p.getId()).collect(Collectors.toList()));
