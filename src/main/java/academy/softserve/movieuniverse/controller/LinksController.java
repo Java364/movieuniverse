@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/links")
 public class LinksController {
@@ -45,7 +45,7 @@ public class LinksController {
         linksService.deleteLinks(id);
         return new ResponseEntity(HttpStatus.OK);
     }
-    @PostMapping("/link/{id}")
+    @PutMapping("/link/{id}")
     ResponseEntity<LinksDTO> updateLink(@PathVariable("id") Long id, @RequestBody LinksDTO linksDTO) {
         /*Links linkss = linksService.getOneLinks(id);*/
         Links links = linksMapper.mapToEntityForUpdateLinks(linksDTO, id);
