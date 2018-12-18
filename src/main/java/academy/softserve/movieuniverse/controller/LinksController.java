@@ -2,6 +2,7 @@ package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.entity.Links;
+import academy.softserve.movieuniverse.exception.LinkException;
 import academy.softserve.movieuniverse.service.LinksService;
 import academy.softserve.movieuniverse.service.mapper.LinksMapper;
 import org.springframework.beans.factory.annotation.Autowired;

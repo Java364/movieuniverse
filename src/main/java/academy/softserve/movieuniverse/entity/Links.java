@@ -53,6 +53,7 @@ public class Links extends AbstractEntity {
 
     public enum SocialNetworkingSites {
         FACEBOOK, INSTAGRAM, TWITTER
+
     }
 }
 

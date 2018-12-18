@@ -3,6 +3,7 @@ package academy.softserve.movieuniverse.exception;
 
 public class LinkException extends CustomValidationException {
 
+
     public LinkException(String customMessage, ExceptionType exceptionType, Exception ex) {
         super(customMessage, exceptionType, ex);
     }
@@ -22,4 +23,5 @@ public class LinkException extends CustomValidationException {
     public static LinkException createUpdateException(String message, Exception ex) {
         return new LinkException(message, ExceptionType.UPDATE, ex);
     }
+
 }
