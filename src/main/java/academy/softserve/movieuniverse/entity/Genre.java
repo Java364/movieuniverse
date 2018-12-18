@@ -1,20 +1,14 @@
 package academy.softserve.movieuniverse.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "genres")
 public class Genre extends AbstractEntity {
 
-    @Column(name = "name_genre")
+    @Column(name = "name_genre", unique = true)
     private String name;
 
     @ManyToMany
