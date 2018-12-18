@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import academy.softserve.movieuniverse.controller.hateoas.StarResourceAssembler;
 import academy.softserve.movieuniverse.dto.StarDTO;
+import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.entity.Star;
+import academy.softserve.movieuniverse.entity.StarProfession;
 import academy.softserve.movieuniverse.service.StarProfessionService;
 import academy.softserve.movieuniverse.service.StarService;
 import academy.softserve.movieuniverse.service.mapper.StarMapper;
+import academy.softserve.movieuniverse.service.mapper.StarProfessionMapper;
 
 @RestController
 @RequestMapping("/star")
@@ -35,6 +38,8 @@ public class StarController {
 	private StarProfessionService starProfessionService;
 	@Autowired
 	private StarMapper mapper;
+	@Autowired
+	private StarProfessionMapper starProfessionMapper;
 	@Autowired
 	private StarResourceAssembler essembler;
 	
@@ -65,6 +70,14 @@ public class StarController {
 		service.update(star, id);
 		starDTO = mapper.mapCreateToDto(star);
 		return new ResponseEntity<StarDTO>(starDTO, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/{id}/create-profession")
+	public ResponseEntity<StarProfessionDTO> createProfession(@RequestBody StarProfessionDTO starProfessionDTO, @PathVariable("id") Long starId) {
+		StarProfession starProfession = starProfessionMapper.mapToEntity(starProfessionDTO);
+		starProfessionService.createStarProfession(starProfession, starId);
+		starProfessionDTO = starProfessionMapper.mapToDto(starProfession);
+		return new ResponseEntity<StarProfessionDTO>(starProfessionDTO, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
