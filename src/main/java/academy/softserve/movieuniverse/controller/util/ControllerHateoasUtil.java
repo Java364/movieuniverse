@@ -13,8 +13,8 @@ public final class ControllerHateoasUtil {
         URI locationHeaderUri;
         try {
             locationHeaderUri = new URI(resource.getId().expand().getHref());
-        } catch (URISyntaxException use) {
-            throw new LocationHeaderCreationException("Failed to create genre resource location header uri");
+        } catch (URISyntaxException ex) {
+            throw new LocationHeaderCreationException("Failed to create genre resource location header uri", ex);
         }
         return locationHeaderUri;
     }
