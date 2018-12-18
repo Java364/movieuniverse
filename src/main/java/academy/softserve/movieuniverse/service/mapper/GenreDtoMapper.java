@@ -1,7 +1,7 @@
 package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.controller.GenreController;
-import academy.softserve.movieuniverse.dto.GenreDto;
+import academy.softserve.movieuniverse.dto.GenreDTO;
 import academy.softserve.movieuniverse.dto.GenreRequest;
 import academy.softserve.movieuniverse.entity.Genre;
 import org.modelmapper.ModelMapper;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
-public class GenreDtoMapper implements DtoMapper<GenreDto, Genre>, DTOEntityRequestMapper<GenreRequest, Genre, Long> {
+public class GenreDtoMapper implements DtoMapper<GenreDTO, Genre>, DTOEntityRequestMapper<GenreRequest, Genre, Long> {
     private ModelMapper modelMapper;
 
     @Autowired
@@ -24,25 +24,25 @@ public class GenreDtoMapper implements DtoMapper<GenreDto, Genre>, DTOEntityRequ
     }
 
     @Override
-    public GenreDto mapToDTO(Genre genre) {
-        GenreDto genreDto = modelMapper.map(genre, GenreDto.class);
+    public GenreDTO mapToDTO(Genre genre) {
+        GenreDTO genreDto = modelMapper.map(genre, GenreDTO.class);
         Link selfRelLink = linkTo(GenreController.class).slash(genre.getId()).withSelfRel();
         genreDto.add(selfRelLink);
         return genreDto;
     }
 
     @Override
-    public Genre mapToEntity(GenreDto genreDto) {
+    public Genre mapToEntity(GenreDTO genreDto) {
         return modelMapper.map(genreDto, Genre.class);
     }
 
     @Override
-    public List<Genre> mapToEntityList(List<GenreDto> genres) {
+    public List<Genre> mapToEntityList(List<GenreDTO> genres) {
         return genres.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 
     @Override
-    public List<GenreDto> mapToDtoList(List<Genre> genres) {
+    public List<GenreDTO> mapToDtoList(List<Genre> genres) {
         return genres.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 

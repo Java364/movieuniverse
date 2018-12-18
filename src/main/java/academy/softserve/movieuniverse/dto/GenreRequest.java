@@ -2,7 +2,7 @@ package academy.softserve.movieuniverse.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(as = GenreDto.class)
+@JsonDeserialize(as = GenreDTO.class)
 public interface GenreRequest {
     String getGenreName();
 

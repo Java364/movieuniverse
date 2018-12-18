@@ -13,7 +13,7 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
     private Long               duration;
     private MediaContentDTO    mediaContentDTO;
     private String             ageLimitation;
-    private List<GenreDto>     genres      = new ArrayList<>();
+    private List<GenreDTO>     genres      = new ArrayList<>();
     private List<CountryDTO>   countries   = new ArrayList<>();
     private List<Long>         roles       = new ArrayList<Long>();
     private List<Long>         userReviews = new ArrayList<>();
@@ -68,11 +68,11 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
         this.ageLimitation = ageLimitation;
     }
 
-    public List<GenreDto> getGenres() {
+    public List<GenreDTO> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<GenreDto> genres) {
+    public void setGenres(List<GenreDTO> genres) {
         this.genres = genres;
     }
 

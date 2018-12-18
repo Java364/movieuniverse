@@ -4,8 +4,7 @@ import academy.softserve.movieuniverse.entity.AbstractEntity;
 
 import java.util.List;
 
-public interface
-DtoMapper<D, E extends AbstractEntity> {
+public interface DtoMapper<D, E extends AbstractEntity> {
     E mapToEntity(D dto);
 
     D mapToDTO(E entity);
