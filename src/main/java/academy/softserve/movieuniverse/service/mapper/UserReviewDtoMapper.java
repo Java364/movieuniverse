@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import academy.softserve.movieuniverse.dto.UserReviewDto;
+import academy.softserve.movieuniverse.dto.userreview.UserReviewDto;
 import academy.softserve.movieuniverse.entity.UserReview;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

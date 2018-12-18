@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.dto;
+package academy.softserve.movieuniverse.dto.userreview;
 
 import org.springframework.hateoas.ResourceSupport;
 

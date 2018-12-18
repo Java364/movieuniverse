@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.dto.UserReviewDto;
+import academy.softserve.movieuniverse.dto.userreview.UserReviewDto;
 import academy.softserve.movieuniverse.entity.UserReview;
 import academy.softserve.movieuniverse.repository.UserReviewRepository;
 import academy.softserve.movieuniverse.service.mapper.UserReviewDtoMapper;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserReviewService {
