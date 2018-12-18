@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.dto.UserReviewDto;
+import academy.softserve.movieuniverse.dto.userreview.UserReviewDTO;
 import academy.softserve.movieuniverse.entity.UserReview;
 import academy.softserve.movieuniverse.repository.UserReviewRepository;
 import academy.softserve.movieuniverse.service.mapper.UserReviewDtoMapper;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserReviewService {
@@ -23,18 +22,18 @@ public class UserReviewService {
         this.userReviewDtoMapper = userReviewDtoMapper;
     }
 
-    public Optional<UserReviewDto> findById(Long userReviewId) {
+    public Optional<UserReviewDTO> findById(Long userReviewId) {
         Optional<UserReview> userReviewOptional = userReviewRepository.findById(userReviewId);
         return userReviewOptional.map(userReview -> userReviewDtoMapper.mapToDto(userReview));
     }
 
     
-    public List<UserReviewDto> findAllUserReviewsByMovieId(Long movieId) {
+    public List<UserReviewDTO> findAllUserReviewsByMovieId(Long movieId) {
         return null;
     }
 
     @Transactional
-    public UserReviewDto saveUserReview(UserReviewDto userReviewDto) {
+    public UserReviewDTO saveUserReview(UserReviewDTO userReviewDto) {
         UserReview userReview = userReviewDtoMapper.mapToEntity(userReviewDto);
         userReview = userReviewRepository.save(userReview);
         return userReviewDtoMapper.mapToDto(userReview);
