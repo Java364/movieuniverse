@@ -23,6 +23,22 @@ public class GalleryMapper{
 		gallery.setImages(mapIdsToImages(dto.getImageIds()));
 		return gallery;
 	}
+	
+	public Gallery mapToEntityForSave(GalleryDTO dto) {
+		Gallery gallery = new Gallery();
+		gallery.setId(null);
+		gallery.setIsRemoved(false);
+		gallery.setImages(mapIdsToImages(dto.getImageIds()));
+		return gallery;
+	}
+	
+	public Gallery mapToEntityForUpdate(GalleryDTO dto, Long id) {
+		Gallery gallery = new Gallery();
+		gallery.setId(id);
+		gallery.setIsRemoved(false);
+		gallery.setImages(mapIdsToImages(dto.getImageIds()));
+		return gallery;
+	}
 
 	public GalleryDTO mapToDto(Gallery entity) {
 		GalleryDTO galleryDTO = new GalleryDTO();

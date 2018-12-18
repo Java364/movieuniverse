@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import academy.softserve.movieuniverse.entity.MovieMark;
+import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.exception.MovieMarkException;
 import academy.softserve.movieuniverse.repository.MovieMarkRepository;
 
@@ -18,15 +19,15 @@ public class MovieMarkService {
 	private MovieMarkRepository movieMarkRepository;
 
 	@Transactional
-	public MovieMark createMovieMark(MovieMark movieMark) {
-		if (movieMark == null || movieMark.getId() == null) {
+	public MovieMark create(MovieMark movieMark) {
+		if (movieMark == null) {
 			throw MovieMarkException.createSaveException("Cant save movie mark", new Exception());
 		}
 		return movieMarkRepository.save(movieMark);
 	}
 
 	@Transactional
-	public void deleteMovieMark(Long id) {
+	public void delete(Long id) {
 		if (id == null || !movieMarkRepository.findById(id).isPresent()) {
 			throw MovieMarkException.createDeleteException("No such movie mark to delete", new Exception());
 		}
@@ -34,19 +35,22 @@ public class MovieMarkService {
 	}
 
 	@Transactional
-	public MovieMark updateMovieMark(MovieMark movieMark) {
-		Optional<MovieMark> movieMarkOptional = movieMarkRepository.findById(movieMark.getId());
-		if (movieMark == null || movieMark.getId() == null || !movieMarkOptional.isPresent()) {
+	public MovieMark update(MovieMark movieMark) {
+		MovieMark existMovieMark = movieMarkRepository.getOne(movieMark.getId());
+		if (movieMark == null || movieMark.getId() == null || existMovieMark == null) {
 			throw MovieMarkException.createUpdateException("Cant update movie mark", new Exception());
 		}
-		movieMark = movieMarkRepository.save(movieMark);
+		existMovieMark.setMark(movieMark.getMark());
+		existMovieMark.setUser(movieMark.getUser());
+		existMovieMark.setMovie(movieMark.getMovie());
+		movieMark = movieMarkRepository.save(existMovieMark);
 		if (movieMark == null) {
 			throw MovieMarkException.createUpdateException("Cant update movie mark", new Exception());
 		}
 		return movieMark;
 	}
 
-	public MovieMark getMovieMark(Long id) {
+	public MovieMark findById(Long id) {
 		Optional<MovieMark> movieMarkOptional = movieMarkRepository.findById(id);
 		if (id == null || !movieMarkOptional.isPresent()) {
 			throw MovieMarkException.createSelectException("No such movie mark ", new Exception());
@@ -55,8 +59,7 @@ public class MovieMarkService {
 		return movieMark;
 	}
 
-	public List<MovieMark> findAllMovieMarks() {
+	public List<MovieMark> findAll() {
 		return movieMarkRepository.findAll();
 	}
-
 }
