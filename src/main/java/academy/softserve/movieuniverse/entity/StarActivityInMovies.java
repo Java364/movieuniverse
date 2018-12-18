@@ -15,7 +15,7 @@ public class StarActivityInMovies extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL)
     private List<StarProfession> professions;
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "movie_id")
     private Movie movie;
 

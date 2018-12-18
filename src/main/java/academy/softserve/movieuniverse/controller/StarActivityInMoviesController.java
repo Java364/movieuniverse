@@ -6,6 +6,7 @@ import academy.softserve.movieuniverse.service.StarActivityInMoviesService;
 import academy.softserve.movieuniverse.service.mapper.StarActivityInMoviesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class StarActivityInMoviesController {
         this.starActivityInMoviesMapper = starActivityInMoviesMapper;
     }
 
-    @GetMapping("/star-activity-in-movies")
+    @GetMapping("/starActivityInMovies")
     public List<StarActivityInMoviesDTO> viewAll() {
         List<StarActivityInMovies> allStarActivityInMovies = starActivityInMoviesService.findAllStarActivityInMovies();
         List<StarActivityInMoviesDTO> allStarActivityInMoviesDTOs = new ArrayList<>();
@@ -32,5 +33,12 @@ public class StarActivityInMoviesController {
             allStarActivityInMoviesDTOs.add(starActivityInMoviesDTO);
         }
         return allStarActivityInMoviesDTOs;
+    }
+
+    @GetMapping("/starActivityInMovies/{id}")
+    public StarActivityInMoviesDTO getStarActivityInMovies(@PathVariable Long id) {
+        StarActivityInMovies starActivityInMovies = starActivityInMoviesService.getStarActivityInMovies(id);
+        StarActivityInMoviesDTO starActivityInMoviesDTO = starActivityInMoviesMapper.mapToDto(starActivityInMovies);
+        return starActivityInMoviesDTO;
     }
 }
