@@ -13,17 +13,35 @@ public class StarDTO {
     private String cityOfBirth;
     private Long galleryId;
     //private GalleryDTO galleryDto;
-    //private List<Long> rolesIds = new ArrayList<Long>();
-    //private List<Long> professionsIds = new ArrayList<Long>();
-    //private List<Long> linksIds = new ArrayList<Long>();
+    private List<Long> rolesIds = new ArrayList<Long>();
+	private List<Long> professionsIds = new ArrayList<Long>();
+    private List<Long> linksIds = new ArrayList<Long>();
     private List<Long> countriesIds = new ArrayList<>();
     private List<Long> moviesIds = new ArrayList<Long>();
     private List<LinksDTO> links = new ArrayList<LinksDTO>();
     private List<StarProfessionDTO> professions = new ArrayList<StarProfessionDTO>();
     private List<CountryDTO> countries = new ArrayList<CountryDTO>();
     private List<StarActivityInMoviesDTO> activities = new ArrayList<StarActivityInMoviesDTO>();
-    
 	private Boolean isRemoved;
+	
+	public List<Long> getRolesIds() {
+		return rolesIds;
+	}
+	public void setRolesIds(List<Long> rolesIds) {
+		this.rolesIds = rolesIds;
+	}
+	public List<Long> getProfessionsIds() {
+		return professionsIds;
+	}
+	public void setProfessionsIds(List<Long> professionsIds) {
+		this.professionsIds = professionsIds;
+	}
+	public List<Long> getLinksIds() {
+		return linksIds;
+	}
+	public void setLinksIds(List<Long> linksIds) {
+		this.linksIds = linksIds;
+	}
     
     public List<LinksDTO> getLinks() {
 		return links;

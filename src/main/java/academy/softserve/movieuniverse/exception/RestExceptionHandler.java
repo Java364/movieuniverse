@@ -29,6 +29,14 @@ public class RestExceptionHandler {
         apiError.setMessage(ex.getCustomMessage());
         return buildResponseEntity(apiError);
     }
+    
+    @ExceptionHandler(StarException.class)
+    protected ResponseEntity<Object> notFoundStar(
+            CustomValidationException ex) {
+        ApiError apiError = new ApiError(NOT_FOUND);
+        apiError.setMessage(ex.getCustomMessage());
+        return buildResponseEntity(apiError);
+    }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
