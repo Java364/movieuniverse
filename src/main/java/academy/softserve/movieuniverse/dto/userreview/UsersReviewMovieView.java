@@ -1,5 +1,8 @@
 package academy.softserve.movieuniverse.dto.userreview;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as = UserReviewDTO.class)
 public interface UsersReviewMovieView {
     Long getUserReviewId();
 
