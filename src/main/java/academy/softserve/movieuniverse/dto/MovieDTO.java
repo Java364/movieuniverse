@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.dto;
 
+import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
 

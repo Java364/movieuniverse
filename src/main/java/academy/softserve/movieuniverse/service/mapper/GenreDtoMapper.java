@@ -1,8 +1,8 @@
 package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.controller.GenreController;
-import academy.softserve.movieuniverse.dto.GenreDTO;
-import academy.softserve.movieuniverse.dto.GenreRequest;
+import academy.softserve.movieuniverse.dto.genre.GenreDTO;
+import academy.softserve.movieuniverse.dto.genre.GenreRequest;
 import academy.softserve.movieuniverse.entity.Genre;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.GenreDTO;
-import academy.softserve.movieuniverse.dto.GenreRequest;
+import academy.softserve.movieuniverse.dto.genre.GenreDTO;
+import academy.softserve.movieuniverse.dto.genre.GenreRequest;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.GenreService;
 import academy.softserve.movieuniverse.service.mapper.GenreDtoMapper;
