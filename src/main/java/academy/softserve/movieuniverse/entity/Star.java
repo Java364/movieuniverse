@@ -29,7 +29,7 @@ public class Star extends Person {
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<StarProfession> professions = new ArrayList<StarProfession>();
 
-    @OneToMany(mappedBy = "star"/*, cascade = CascadeType.ALL*/)
+    @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<Links> links = new ArrayList<Links>();
 
     @ManyToMany(cascade = CascadeType.ALL)
