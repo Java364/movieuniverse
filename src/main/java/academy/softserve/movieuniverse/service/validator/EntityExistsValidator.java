@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.service;
+package academy.softserve.movieuniverse.service.validator;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -19,7 +19,7 @@ public class EntityExistsValidator <T, ID> {
         Objects.requireNonNull(id, "Entity id must not be null");
         boolean genreNotFound = !jpaRepository.existsById(id);
         if (genreNotFound) {
-            throw new EntityNotFoundException(className + " entity with a given id: " + id + "does not exist.");
+            throw new EntityNotFoundException(className + " entity with an id: " + id + " does not exist.");
         }
     }
 
