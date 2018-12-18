@@ -23,7 +23,7 @@ public class StarActivityInMoviesController {
         this.starActivityInMoviesMapper = starActivityInMoviesMapper;
     }
 
-    @GetMapping("/starActivityInMovies")
+    @GetMapping("/star-activity-in-movies")
     public List<StarActivityInMoviesDTO> viewAll() {
         List<StarActivityInMovies> allStarActivityInMovies = starActivityInMoviesService.findAllStarActivityInMovies();
         List<StarActivityInMoviesDTO> allStarActivityInMoviesDTOs = new ArrayList<>();

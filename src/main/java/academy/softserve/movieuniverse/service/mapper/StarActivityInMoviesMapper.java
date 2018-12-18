@@ -13,8 +13,8 @@ public class StarActivityInMoviesMapper {
     public StarActivityInMoviesDTO mapToDto(StarActivityInMovies starActivityInMoviesEntity) {
         StarActivityInMoviesDTO starActivityInMoviesDTO = new StarActivityInMoviesDTO();
         starActivityInMoviesDTO.setId(starActivityInMoviesEntity.getId());
-//        starActivityInMoviesDTO.setMovieId(starActivityInMoviesEntity.getMovie().getId());
-//        starActivityInMoviesDTO.setMovieName(starActivityInMoviesEntity.getMovie().getMovieName());
+        starActivityInMoviesDTO.setMovieId(starActivityInMoviesEntity.getMovie().getId());
+        starActivityInMoviesDTO.setMovieName(starActivityInMoviesEntity.getMovie().getMovieName());
         starActivityInMoviesDTO.setStarId(starActivityInMoviesEntity.getStar().getId());
         starActivityInMoviesDTO.setStarName(starActivityInMoviesEntity.getStar().getFirstName() + " "
                 + starActivityInMoviesEntity.getStar().getLastName());
