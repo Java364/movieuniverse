@@ -2,7 +2,7 @@ package academy.softserve.movieuniverse.dto.userreview;
 
 import org.springframework.hateoas.ResourceSupport;
 
-public class UserReviewDto extends ResourceSupport implements UsersReviewMovieView, UserReviewUserView {
+public class UserReviewDTO extends ResourceSupport implements UsersReviewMovieView, UserReviewUserView {
     private Long userReviewId;
     private String text;
     private String userName;

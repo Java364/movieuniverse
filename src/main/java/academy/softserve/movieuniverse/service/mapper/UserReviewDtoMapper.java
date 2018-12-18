@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import academy.softserve.movieuniverse.dto.userreview.UserReviewDto;
+import academy.softserve.movieuniverse.dto.userreview.UserReviewDTO;
 import academy.softserve.movieuniverse.entity.UserReview;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,11 @@ public class UserReviewDtoMapper {
         this.modelMapper = modelMapper;
     }
 
-    public UserReview mapToEntity(UserReviewDto dto) {
+    public UserReview mapToEntity(UserReviewDTO dto) {
         return modelMapper.map(dto, UserReview.class);
     }
 
-    public UserReviewDto mapToDto(UserReview entity) {
-        return modelMapper.map(entity, UserReviewDto.class);
+    public UserReviewDTO mapToDto(UserReview entity) {
+        return modelMapper.map(entity, UserReviewDTO.class);
     }
 }
