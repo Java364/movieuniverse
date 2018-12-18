@@ -8,7 +8,9 @@ import academy.softserve.movieuniverse.dto.MovieMarkDTO;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import academy.softserve.movieuniverse.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MovieMarkMapper {
 
 	@Autowired
@@ -16,13 +18,21 @@ public class MovieMarkMapper {
 	@Autowired
 	UserRepository userRepository;
 
-	public MovieMark mapToEntity(MovieMarkDTO dto) {
+	public MovieMark mapToEntityForSave(MovieMarkDTO dto) {
 		MovieMark movieMark = new MovieMark();
 		movieMark.setId(dto.getId());
 		movieMark.setMark(dto.getMark());
 		movieMark.setMovie(movieRepository.getOne(dto.getMovieId()));
 		movieMark.setUser(userRepository.getOne(dto.getUserId()));
+		return movieMark;
+	}
 
+	public MovieMark mapToEntityForUpdate(MovieMarkDTO dto, Long id) {
+		MovieMark movieMark = new MovieMark();
+		movieMark.setId(id);
+		movieMark.setMark(dto.getMark());
+		movieMark.setMovie(movieRepository.getOne(dto.getMovieId()));
+		movieMark.setUser(userRepository.getOne(dto.getUserId()));
 		return movieMark;
 	}
 
@@ -32,19 +42,23 @@ public class MovieMarkMapper {
 		movieMarkDTO.setMark(entity.getMark());
 		movieMarkDTO.setMovieId(entity.getMovie().getId());
 		movieMarkDTO.setUserId(entity.getUser().getId());
-
 		return movieMarkDTO;
 	}
-	
-	public List<MovieMarkDTO> mapListToDto(List<MovieMark> movieMarks){
+
+	public List<MovieMarkDTO> mapListToDto(List<MovieMark> movieMarks) {
 		List<MovieMarkDTO> movieMarkDTOs = new ArrayList<>();
-		for(MovieMark m : movieMarks) {
+		for (MovieMark m : movieMarks) {
 			movieMarkDTOs.add(this.mapToDto(m));
 		}
-		
 		return movieMarkDTOs;
 	}
-	
-	
+
+	public List<MovieMark> mapMovieMarksListToEntity(List<MovieMarkDTO> movieMarksDTOs) {
+		List<MovieMark> marks = new ArrayList<>();
+		for (MovieMarkDTO m : movieMarksDTOs) {
+			marks.add(this.mapToEntityForSave(m));
+		}
+		return marks;
+	}
 
 }

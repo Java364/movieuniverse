@@ -43,21 +43,22 @@ public class TrailerController {
 	@GetMapping("/trailers")
 	public ResponseEntity<List<TrailerDTO>> listAllTrailers() {
         List<Trailer> trailers = trailerService.findAll();
-        List<TrailerDTO> trailerDTOs = trailerMapper.mapListToDto(trailers);
         if(trailers.isEmpty()){
             return new ResponseEntity<List<TrailerDTO>>(HttpStatus.NO_CONTENT);
         }
+        List<TrailerDTO> trailerDTOs = trailerMapper.mapListToDto(trailers);
         return new ResponseEntity<List<TrailerDTO>>(trailerDTOs, HttpStatus.OK);
     }
 	
 	@GetMapping("/trailer/{id}")
     public ResponseEntity<TrailerDTO> showOneTrailer(@PathVariable Long id) {
 		Trailer trailer = trailerService.findTrailerById(id);
-        return new ResponseEntity<>(trailerMapper.mapToDto(trailer), HttpStatus.OK);
+		TrailerDTO trailerDTO = trailerMapper.mapToDto(trailer);
+        return new ResponseEntity<TrailerDTO>(trailerDTO, HttpStatus.OK);
     }
 	
 	@DeleteMapping("/trailer/{id}")
-	public ResponseEntity<String> fullyDeleteTrailer(@PathVariable Long id) {
+	public ResponseEntity<String> completelyDeleteTrailer(@PathVariable Long id) {
 		trailerService.deleteTrailer(id);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

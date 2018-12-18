@@ -47,8 +47,8 @@ public class GalleryMapper{
 	}
 	private List<Image> mapIdsToImages(List<Long> imageIds) {
 		List<Image> images = new ArrayList<>();
-		for(Long l: imageIds) {
-			images.add(imageService.getImage(l));
+		for(Long id: imageIds) {
+			images.add(imageService.findImageById(id));
 		}
 		return images;
 	}

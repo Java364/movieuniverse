@@ -20,24 +20,39 @@ public class LinksController {
     @Autowired
     private LinksMapper linksMapper = new LinksMapper();
 
-    @PostMapping("/api/createLinks")
-    ResponseEntity<LinksDTO> createLinks(@RequestBody LinksDTO linksDTO) {
-        Links links = linksMapper.mapToEntity(linksDTO);
-       linksService.saveLinks(links);
-       linksDTO = linksMapper.mapToDto(links);
+    @PostMapping("/createLinks")
+    ResponseEntity<LinksDTO> createLink(@RequestBody LinksDTO linksDTO) {
+        Links links = linksMapper.mapToEntityAndSaveLinks(linksDTO);
+        linksService.saveLinks(links);
+        linksDTO = linksMapper.mapEntityToDto(links);
         return new ResponseEntity<LinksDTO>(linksDTO, HttpStatus.CREATED);
-
     }
-    @GetMapping("/api/listAll")
+
+    @GetMapping("/listAll")
     public List<LinksDTO> findAllLinks() {
         List<Links> linksList = linksService.findAll();
         return linksMapper.mapListToDto(linksList);
     }
 
-  @GetMapping("/api/link/{id}")
+    @GetMapping("/link/{id}")
     public ResponseEntity<LinksDTO> getOneLink(@PathVariable Long id) {
         Links links = linksService.getOneLinks(id);
-        return new ResponseEntity<LinksDTO>(linksMapper.mapToDto(links), HttpStatus.OK);
+        return new ResponseEntity<LinksDTO>(linksMapper.mapEntityToDto(links), HttpStatus.OK);
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteLink(@PathVariable Long id) {
+        linksService.deleteLinks(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
+    @PostMapping("/link/{id}")
+    ResponseEntity<LinksDTO> updateLink(@PathVariable("id") Long id, @RequestBody LinksDTO linksDTO) {
+        /*Links linkss = linksService.getOneLinks(id);*/
+        Links links = linksMapper.mapToEntityForUpdateLinks(linksDTO, id);
+        links = linksService.updateLinks(links);
+        linksDTO = linksMapper.mapEntityToDto(links);
+        return new ResponseEntity<LinksDTO>(linksDTO, HttpStatus.OK);
+    }
+
+
+}
 

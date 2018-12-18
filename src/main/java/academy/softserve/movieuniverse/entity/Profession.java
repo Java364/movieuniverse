@@ -18,12 +18,6 @@ public class Profession extends AbstractEntity {
     @OneToMany(mappedBy = "profession")
     private List<StarProfession> stars = new ArrayList<StarProfession>();
 
-    public Profession(String professionType, List<StarProfession> stars) {
-        super();
-        this.professionType = professionType;
-        this.stars = stars;
-    }
-
     public Profession() {
         super();
     }

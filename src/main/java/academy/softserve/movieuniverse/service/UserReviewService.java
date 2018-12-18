@@ -28,6 +28,7 @@ public class UserReviewService {
         return userReviewOptional.map(userReview -> userReviewDtoMapper.mapToDto(userReview));
     }
 
+    
     public List<UserReviewDto> findAllUserReviewsByMovieId(Long movieId) {
         return null;
     }

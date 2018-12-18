@@ -25,6 +25,14 @@ public class Country extends AbstractEntity {
 	@JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "country_id"), inverseJoinColumns = @JoinColumn(name = "star_id"))
 	private List<Star> stars = new ArrayList<Star>();
 
+	public List<Star> getStars() {
+		return stars;
+	}
+
+	public void setStars(List<Star> stars) {
+		this.stars = stars;
+	}
+
 	public Country() {
 	}
 
