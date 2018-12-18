@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 public final class ControllerHateoasUtil {
     private ControllerHateoasUtil() { }
 
-    public static URI creaateLocationHeaderUri(ResourceSupport resource) throws LocationHeaderCreationException {
+    public static URI createLocationHeaderUri(ResourceSupport resource) throws LocationHeaderCreationException {
         URI locationHeaderUri;
         try {
             locationHeaderUri = new URI(resource.getId().expand().getHref());

@@ -43,7 +43,7 @@ public class GenreController {
         Genre newGenre = genreDtoMapper.fromEntityCreateRequest(genreCreateDto);
         Genre genre = genreService.saveGenre(newGenre);
         GenreDTO genreDto = genreDtoMapper.mapToDTO(genre);
-        URI locationHeaderUri = ControllerHateoasUtil.creaateLocationHeaderUri(genreDto);
+        URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDto);
         return ResponseEntity.created(locationHeaderUri).body(genreDto);
     }
 
@@ -54,7 +54,7 @@ public class GenreController {
         Genre updatedGenre = genreDtoMapper.fromEntityUpdateRequest(genreRequest, genreId);
         Genre genre = genreService.updateGenre(updatedGenre);
         GenreDTO genreDto = genreDtoMapper.mapToDTO(genre);
-        URI locationHeaderUri = ControllerHateoasUtil.creaateLocationHeaderUri(genreDto);
+        URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDto);
         return ResponseEntity.created(locationHeaderUri).body(genreDto);
     }
 
