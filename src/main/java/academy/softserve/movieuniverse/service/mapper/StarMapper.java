@@ -89,7 +89,6 @@ public class StarMapper {
 		dto.setId(entity.getId());
 		dto.setLastName(entity.getLastName());
 		dto.setIsRemoved(entity.getIsRemoved());
-		//dto.setProfessions(entity.getProfessions()); //TODO How to add professions
 		return dto;
 	}
 	
@@ -121,13 +120,13 @@ public class StarMapper {
 		dto.setLinks(linksMapper.mapListToDto(entity.getLinks()));
 		dto.setIsRemoved(entity.getIsRemoved());
 		dto.setGalleryId(entity.getGallery().getId());
-		dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
+		//dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
 		dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));
-		dto.setProfessions(starProfessionMapper.mapListEntityToDTO(entity.getProfessions()));
+		//dto.setProfessions(starProfessionMapper.mapListEntityToDTO(entity.getProfessions()));
 		dto.setActivities(this.mapActivityListsToDto(entity.getRoles())); //TODO edit when StarActivityDTO will be created
 		dto.setMoviesIds(entity.getRoles().stream().map(p -> p.getMovie().getId()).collect(Collectors.toList()));
-		//dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
-		//dto.setProfessionsIds(entity.getProfessions().stream().map(p -> p.getProfession().getId()).collect(Collectors.toList()));
+		dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
+		dto.setProfessionsIds(entity.getProfessions().stream().map(p -> p.getProfession().getId()).collect(Collectors.toList()));
 
 		return dto;
 	}

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Service
 public class DbInitService {
@@ -88,4 +89,8 @@ public class DbInitService {
         genreRepository.save(genre5);
     }
 
+    @PreDestroy
+    private void removeData() {
+        genreRepository.deleteAll();
+    }
 }

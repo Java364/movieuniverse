@@ -8,6 +8,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import academy.softserve.movieuniverse.controller.hateoas.StarResourceAssembler;
 import academy.softserve.movieuniverse.dto.StarDTO;
@@ -29,7 +31,8 @@ import academy.softserve.movieuniverse.service.mapper.StarMapper;
 import academy.softserve.movieuniverse.service.mapper.StarProfessionMapper;
 
 @RestController
-@RequestMapping("/star")
+@CrossOrigin(maxAge = 3600)
+@RequestMapping(value = "/star", produces = "application/hal+json")
 public class StarController {
 	
 	@Autowired
@@ -43,12 +46,14 @@ public class StarController {
 	@Autowired
 	private StarResourceAssembler essembler;
 	
+
 	@GetMapping("/list")
 	public ResponseEntity<Resources<Resource<StarDTO>>> showAll() {
 		List<Resource<StarDTO>> resources = mapper.mapListsToDto(service.showAllStars()).stream().map(essembler::toResource).collect(Collectors.toList());
 		return new ResponseEntity<>(new Resources<>(resources), HttpStatus.OK);
 	}
 	
+
 	@GetMapping("/{id}")
     public ResponseEntity<Resource<StarDTO>> showOne(@PathVariable Long id) {
 		Star star = service.findStarById(id);
@@ -56,6 +61,7 @@ public class StarController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 	
+
 	@PostMapping("/create")
 	public ResponseEntity<StarDTO> create(@RequestBody StarDTO starDTO) {
 		Star star = mapper.mapCreateToEntity(starDTO);
