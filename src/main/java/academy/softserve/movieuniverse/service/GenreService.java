@@ -34,10 +34,10 @@ public class GenreService {
         return genreRepository.findAll();
     }
 
-    public void updateGenre(@NotNull Genre updatedGenre) throws EntityNotFoundException, NullPointerException {
+    public Genre updateGenre(@NotNull Genre updatedGenre) throws EntityNotFoundException, NullPointerException {
         Objects.requireNonNull(updatedGenre, NULL_GENRE_ENTITY_MSG);
         entityExistsValidator.checkIfEntityExists(updatedGenre.getId());
-        saveGenre(updatedGenre);
+        return saveGenre(updatedGenre);
     }
 
     @Transactional
