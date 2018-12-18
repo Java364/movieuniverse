@@ -3,6 +3,7 @@ package academy.softserve.movieuniverse.service;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.exception.DuplicateEntryException;
 import academy.softserve.movieuniverse.repository.GenreRepository;
+import academy.softserve.movieuniverse.service.validator.EntityExistsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,6 @@ import java.util.Objects;
 @Service
 public class GenreService {
     private static final String NULL_GENRE_ENTITY_MSG = "Genre entity must not be null";
-
     private GenreRepository genreRepository;
     private EntityExistsValidator<Genre, Long> entityExistsValidator;
 
