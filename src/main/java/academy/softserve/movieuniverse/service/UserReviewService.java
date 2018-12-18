@@ -24,7 +24,7 @@ public class UserReviewService {
 
     public Optional<UserReviewDTO> findById(Long userReviewId) {
         Optional<UserReview> userReviewOptional = userReviewRepository.findById(userReviewId);
-        return userReviewOptional.map(userReview -> userReviewDtoMapper.mapToDto(userReview));
+        return userReviewOptional.map(userReview -> userReviewDtoMapper.mapToDTO(userReview));
     }
 
     
@@ -36,7 +36,7 @@ public class UserReviewService {
     public UserReviewDTO saveUserReview(UserReviewDTO userReviewDto) {
         UserReview userReview = userReviewDtoMapper.mapToEntity(userReviewDto);
         userReview = userReviewRepository.save(userReview);
-        return userReviewDtoMapper.mapToDto(userReview);
+        return userReviewDtoMapper.mapToDTO(userReview);
     }
 
     @Transactional
