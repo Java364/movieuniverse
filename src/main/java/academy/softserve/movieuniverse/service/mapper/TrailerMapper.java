@@ -51,10 +51,4 @@ public class TrailerMapper {
 		}
 		return trailerDTOs;
 	}
-	
-	public TrailerDTO dtoForSave(TrailerDTO dto) {
-		dto.setId(null);
-		return dto;
-	}
-
 }

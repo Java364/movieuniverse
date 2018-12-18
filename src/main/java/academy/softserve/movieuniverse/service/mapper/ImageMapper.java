@@ -21,7 +21,7 @@ public class ImageMapper {
 		image.setImageUrl(dto.getImageUrl());
 		image.setIsRemoved(new Boolean(false));
 		image.setName(dto.getName());
-		return null;
+		return image;
 	}
 	
 	public Image mapToEntity(ImageDTO dto) {
@@ -31,7 +31,7 @@ public class ImageMapper {
 		image.setImageUrl(dto.getImageUrl());
 		image.setIsRemoved(new Boolean(false));
 		image.setName(dto.getName());
-		return null;
+		return image;
 	}
 	
 	public Image mapToEntityForUpdate(ImageDTO dto, Long id) {
@@ -41,7 +41,7 @@ public class ImageMapper {
 		image.setImageUrl(dto.getImageUrl());
 		image.setIsRemoved(new Boolean(false));
 		image.setName(dto.getName());
-		return null;
+		return image;
 	}
 
 	public ImageDTO mapToDto(Image entity) {
