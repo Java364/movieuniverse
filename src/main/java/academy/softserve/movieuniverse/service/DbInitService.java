@@ -27,6 +27,31 @@ public class DbInitService {
 
     @PostConstruct
     public void dbInit() {
+        insertCountries();
+        insertGenres();
+        insertProfessions();
+
+    }
+
+    private void insertProfessions() {
+        Profession profession1 = new Profession();
+        Profession profession2 = new Profession();
+        Profession profession3 = new Profession();
+        Profession profession4 = new Profession();
+        Profession profession5 = new Profession();
+        profession1.setType("Actor");
+        profession2.setType("Camera operator");
+        profession3.setType("Director");
+        profession4.setType("Producer");
+        profession5.setType("Scriptwriter");
+        professionRepository.save(profession1);
+        professionRepository.save(profession2);
+        professionRepository.save(profession3);
+        professionRepository.save(profession4);
+        professionRepository.save(profession5);
+    }
+
+    private void insertCountries() {
         Country country1 = new Country();
         Country country2 = new Country();
         Country country3 = new Country();
@@ -43,6 +68,9 @@ public class DbInitService {
         countryRepository.save(country4);
         countryRepository.save(country5);
 
+    }
+
+    private void insertGenres() {
         Genre genre1 = new Genre();
         Genre genre2 = new Genre();
         Genre genre3 = new Genre();
@@ -58,23 +86,6 @@ public class DbInitService {
         genreRepository.save(genre3);
         genreRepository.save(genre4);
         genreRepository.save(genre5);
-
-        Profession profession1 = new Profession();
-        Profession profession2 = new Profession();
-        Profession profession3 = new Profession();
-        Profession profession4 = new Profession();
-        Profession profession5 = new Profession();
-        profession1.setType("Actor");
-        profession2.setType("Camera operator");
-        profession3.setType("Director");
-        profession4.setType("Producer");
-        profession5.setType("Scriptwriter");
-        professionRepository.save(profession1);
-        professionRepository.save(profession2);
-        professionRepository.save(profession3);
-        professionRepository.save(profession4);
-        professionRepository.save(profession5);
-
-
     }
+
 }
