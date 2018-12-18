@@ -40,7 +40,7 @@ public class GenreController {
     @PostMapping("/create")
     public ResponseEntity<GenreDTO> createGenre(@RequestBody GenreRequest genreCreateDto)
             throws LocationHeaderCreationException {
-        Genre newGenre = genreDtoMapper.fromEntityCreateRequest(genreCreateDto);
+        Genre newGenre = genreDtoMapper.mapToEntity(genreCreateDto);
         Genre genre = genreService.saveGenre(newGenre);
         GenreDTO genreDto = genreDtoMapper.mapToDTO(genre);
         URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDto);
@@ -51,8 +51,8 @@ public class GenreController {
     public ResponseEntity<GenreDTO> updateGenre(@PathVariable("id") Long genreId,
                                                 @RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
-        Genre updatedGenre = genreDtoMapper.fromEntityUpdateRequest(genreRequest, genreId);
-        Genre genre = genreService.updateGenre(updatedGenre);
+        Genre updatedGenre = genreDtoMapper.mapToEntity(genreRequest);
+        Genre genre = genreService.updateGenre(genreId, updatedGenre);
         GenreDTO genreDto = genreDtoMapper.mapToDTO(genre);
         URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDto);
         return ResponseEntity.created(locationHeaderUri).body(genreDto);
