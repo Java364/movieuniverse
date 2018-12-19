@@ -1,44 +1,45 @@
 package academy.softserve.movieuniverse.dto;
 
 public class ImageDTO {
-	
-	private Long id;
-	private String name;
-	private String imageUrl;
-	private Long galleryId;
-	
-	public ImageDTO() {}
 
-	public String getName() {
-		return name;
-	}
+    private Long id;
+    private String name;
+    private String imageUrl;
+    private Long galleryId;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public ImageDTO() {
+    }
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-	public Long getGalleryId() {
-		return galleryId;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setGalleryId(Long galleryId) {
-		this.galleryId = galleryId;
-	}
-	
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getGalleryId() {
+        return galleryId;
+    }
+
+    public void setGalleryId(Long galleryId) {
+        this.galleryId = galleryId;
+    }
+
 }

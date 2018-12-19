@@ -1,9 +1,8 @@
 package academy.softserve.movieuniverse.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "movie_stars")
@@ -37,20 +36,20 @@ public class Star extends Person {
             joinColumns = @JoinColumn(name = "star_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private List<Movie> movies = new ArrayList<Movie>();
-    
+
     @OneToOne
     @JoinColumn(name = "gallery_id")
     private Gallery gallery;
 
+    public Star() {
+    }
+
     public Gallery getGallery() {
-		return gallery;
-	}
+        return gallery;
+    }
 
-	public void setGallery(Gallery gallery) {
-		this.gallery = gallery;
-	}
-
-	public Star() {
+    public void setGallery(Gallery gallery) {
+        this.gallery = gallery;
     }
 
     public String getBiography() {
@@ -94,14 +93,14 @@ public class Star extends Person {
     }
 
     public List<Country> getCountries() {
-		return countries;
-	}
+        return countries;
+    }
 
-	public void setCountries(List<Country> countries) {
-		this.countries = countries;
-	}
+    public void setCountries(List<Country> countries) {
+        this.countries = countries;
+    }
 
-	public String getCityOfBirth() {
+    public String getCityOfBirth() {
         return cityOfBirth;
     }
 

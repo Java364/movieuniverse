@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/profession")
@@ -28,6 +29,7 @@ public class ProfessionController {
         return new ResponseEntity<ProfessionDTO>(professionDTO, HttpStatus.CREATED);
 
     }
+
     @GetMapping("/listAll")
     public List<ProfessionDTO> findAllProfession() {
         List<Profession> professionList = professionServise.findAll();
@@ -40,11 +42,13 @@ public class ProfessionController {
         Profession profession = professionServise.getOneProfession(id);
         return new ResponseEntity<ProfessionDTO>(professionMapper.mapToDto(profession), HttpStatus.OK);
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteProfession(@PathVariable Long id) {
         professionServise.deleteProfession(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
     @PutMapping("/profession/{id}")
     ResponseEntity<ProfessionDTO> updateProfession(@PathVariable("id") Long id, @RequestBody ProfessionDTO professionDTO) {
         Profession professions = professionMapper.mapToEntityForUpdateProfession(professionDTO, id);

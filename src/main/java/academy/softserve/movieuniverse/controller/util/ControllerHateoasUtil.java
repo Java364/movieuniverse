@@ -7,7 +7,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public final class ControllerHateoasUtil {
-    private ControllerHateoasUtil() { }
+    private ControllerHateoasUtil() {
+    }
 
     public static URI createLocationHeaderUri(ResourceSupport resource) throws LocationHeaderCreationException {
         URI locationHeaderUri;

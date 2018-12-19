@@ -1,6 +1,9 @@
 package academy.softserve.movieuniverse.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,7 +17,9 @@ public class UserReviewMark extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User reviewer;
 
-    private boolean liked;
+    @Column(name = "mark")
+    @Enumerated(EnumType.STRING)
+    private Mark mark;
 
     public UserReview getUserReview() {
         return userReview;
@@ -31,12 +36,16 @@ public class UserReviewMark extends AbstractEntity {
     public void setReviewer(User reviewer) {
         this.reviewer = reviewer;
     }
+    
+    public Mark getMark() {
+		return mark;
+	}
 
-    public boolean isLiked() {
-        return liked;
-    }
+	public void setMark(Mark mark) {
+		this.mark = mark;
+	}
 
-    public void setLiked(boolean liked) {
-        this.liked = liked;
+	public enum Mark {
+       LIKE,DISLIKE
     }
 }

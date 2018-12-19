@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public interface UserFullInfo {
 
-    Long getId();
+    Long getUserId();
 
-    void setId(Long id);
+    void setUserId(Long id);
 
     String getEmail();
 
@@ -15,10 +15,6 @@ public interface UserFullInfo {
     String getPassword();
 
     void setPassword(String password);
-
-    String getConfirmPassword();
-
-    void setConfirmPassword(String confirmPassword);
 
     String getLastName();
 

@@ -1,20 +1,16 @@
 package academy.softserve.movieuniverse.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
-import javax.validation.constraints.NotNull;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import academy.softserve.movieuniverse.entity.UserReviewMark;
 import academy.softserve.movieuniverse.exception.UserReviewMarkException;
-import academy.softserve.movieuniverse.entity.UserReviewMark;
+
 
 import academy.softserve.movieuniverse.repository.UserReviewMarkRepository;
 

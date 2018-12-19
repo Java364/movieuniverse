@@ -4,26 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GalleryDTO {
-	
-	private Long id;
-	private List<Long> imageIds = new ArrayList<>();
-	
-	public GalleryDTO() {}
 
-	public Long getId() {
-		return id;
-	}
+    private Long id;
+    private List<Long> imageIds = new ArrayList<>();
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public GalleryDTO() {
+    }
 
-	public List<Long> getImageIds() {
-		return imageIds;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setImageIds(List<Long> imageIds) {
-		this.imageIds = imageIds;
-	}
-	
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Long> getImageIds() {
+        return imageIds;
+    }
+
+    public void setImageIds(List<Long> imageIds) {
+        this.imageIds = imageIds;
+    }
+
 }

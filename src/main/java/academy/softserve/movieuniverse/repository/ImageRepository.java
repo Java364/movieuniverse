@@ -1,9 +1,8 @@
 package academy.softserve.movieuniverse.repository;
 
+import academy.softserve.movieuniverse.entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import academy.softserve.movieuniverse.entity.Image;
-
-public interface ImageRepository extends JpaRepository<Image, Long>{
+public interface ImageRepository extends JpaRepository<Image, Long> {
 
 }

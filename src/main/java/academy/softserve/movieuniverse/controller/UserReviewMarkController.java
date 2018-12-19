@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +27,7 @@ public class UserReviewMarkController {
 	
 	@PostMapping("/userReviewMark")
 	ResponseEntity<UserReviewMarkDTO> createUserReviewMark(@RequestBody UserReviewMarkDTO userReviewMarkDTO) {
-		UserReviewMark userReviewMark = userReviewMarkMapper. mapToEntity(userReviewMarkDTO);
+		UserReviewMark userReviewMark = userReviewMarkMapper.mapToEntity(userReviewMarkDTO);
 		userReviewMark = userReviewMarkService.saveUserReviewMark(userReviewMark);
 		userReviewMarkDTO = userReviewMarkMapper.mapToDto(userReviewMark);
 		return new ResponseEntity<UserReviewMarkDTO>(userReviewMarkDTO, HttpStatus.CREATED);

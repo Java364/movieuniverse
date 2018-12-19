@@ -1,25 +1,26 @@
 package academy.softserve.movieuniverse.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "gallery")
-public class Gallery extends AbstractEntity{
-	
-	@OneToMany(mappedBy = "gallery")
-	private List<Image> images = new ArrayList<>();
+public class Gallery extends AbstractEntity {
 
-	public Gallery() {}
-	public List<Image> getImages() {
-		return images;
-	}
+    @OneToMany(mappedBy = "gallery")
+    private List<Image> images = new ArrayList<>();
 
-	public void setImages(List<Image> images) {
-		this.images = images;
-	}
+    public Gallery() {
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 }
