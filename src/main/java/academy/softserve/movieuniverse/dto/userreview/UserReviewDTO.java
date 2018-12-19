@@ -2,7 +2,7 @@ package academy.softserve.movieuniverse.dto.userreview;
 
 import org.springframework.hateoas.ResourceSupport;
 
-public class UserReviewDTO extends ResourceSupport implements UsersReviewMovieView, UserReviewUserView {
+public class UserReviewDTO extends ResourceSupport {
     private Long userReviewId;
     private String text;
     private String userName;
@@ -30,7 +30,7 @@ public class UserReviewDTO extends ResourceSupport implements UsersReviewMovieVi
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUsername(String userName) {
         this.userName = userName;
     }
 

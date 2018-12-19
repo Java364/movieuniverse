@@ -26,7 +26,6 @@ public class GenreDtoMapper implements DtoMapper<Genre> {
     public <D> D mapToDTO(Genre genre) {
         GenreDTO genreDto = modelMapper.map(genre, GenreDTO.class);
         Link selfRelLink = linkTo(GenreController.class).slash(genre.getId()).withSelfRel();
-        genreDto.add(selfRelLink);
         return (D) genreDto;
     }
 

@@ -1,46 +1,46 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.dto.userreview.UserReviewDTO;
 import academy.softserve.movieuniverse.entity.UserReview;
 import academy.softserve.movieuniverse.repository.UserReviewRepository;
-import academy.softserve.movieuniverse.service.mapper.UserReviewDtoMapper;
+import academy.softserve.movieuniverse.service.validator.EntityExistsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import java.util.Objects;
 
 @Service
 public class UserReviewService {
     private UserReviewRepository userReviewRepository;
-    private UserReviewDtoMapper userReviewDtoMapper;
+    private EntityExistsValidator<UserReview, Long> entityExistsValidator;
 
     @Autowired
-    public UserReviewService(UserReviewRepository userReviewRepository, UserReviewDtoMapper userReviewDtoMapper) {
+    public UserReviewService(UserReviewRepository userReviewRepository) {
         this.userReviewRepository = userReviewRepository;
-        this.userReviewDtoMapper = userReviewDtoMapper;
+        entityExistsValidator = new EntityExistsValidator<>(userReviewRepository, UserReview.class);
     }
 
-    public Optional<UserReviewDTO> findById(Long userReviewId) {
-
-        Optional<UserReview> userReviewOptional = userReviewRepository.findById(userReviewId);
-        return null;
-    }
-
-    
-    public List<UserReviewDTO> findAllUserReviewsByMovieId(Long movieId) {
-        return null;
+    public UserReview findById(Long userReviewId) {
+        return userReviewRepository.findById(userReviewId)
+                                   .orElseThrow(() -> new EntityNotFoundException("Entity doesn't exists"));
     }
 
     @Transactional
-    public UserReviewDTO saveUserReview(UserReviewDTO userReviewDto) {
-        return null;
+    public UserReview saveUserReview(UserReview userReview) {
+        Objects.requireNonNull(userReview, "entity must not be null");
+        return userReviewRepository.save(userReview);
     }
 
     @Transactional
-    public void deleteUserReviewById(Long userReviewId) {
+    public void deleteUserReviewById(Long userReviewId) throws EntityNotFoundException {
+        entityExistsValidator.checkIfEntityExists(userReviewId);
         userReviewRepository.deleteById(userReviewId);
     }
 
+    public UserReview updateUserReview(Long userReviewId, UserReview userReview) {
+        entityExistsValidator.checkIfEntityExists(userReviewId);
+        userReview.setId(userReviewId);
+        return saveUserReview(userReview);
+    }
 }
