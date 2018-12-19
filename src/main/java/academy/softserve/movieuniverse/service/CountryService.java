@@ -2,6 +2,7 @@ package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.exception.CountryException;
+import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class CountryService {
     @Transactional
     public Country create(Country country) {
         if (country == null)
-            throw CountryException.createSaveException("Cant save country", new Exception());
+            throw CountryException.createSaveException(ExceptionType.SAVE.getMessage() + " country");
         return countryRepository.save(country);
     }
 
@@ -27,11 +28,11 @@ public class CountryService {
     public Country update(Country country) {
         Optional<Country> countryOptional = countryRepository.findById(country.getId());
         if (country == null || country.getId() == null || !countryOptional.isPresent()) {
-            throw CountryException.createUpdateException("No such country to update", new Exception());
+            throw CountryException.createUpdateException(ExceptionType.UPDATE.getMessage() + " country");
         }
         country = countryRepository.save(country);
         if (country == null) {
-            throw CountryException.createUpdateException("Cant update country", new Exception());
+            throw CountryException.createUpdateException(ExceptionType.UPDATE.getMessage() + " country");
         }
         return country;
     }
@@ -43,7 +44,8 @@ public class CountryService {
     public Country findById(Long id) {
         Optional<Country> countryOptional = countryRepository.findById(id);
         if (!countryOptional.isPresent()) {
-            throw CountryException.createSelectException("No such country", new Exception());
+            throw CountryException
+                    .createSelectException(ExceptionType.SELECT.getMessage() + "country with " + id.toString() + " ID");
         }
         Country country = countryOptional.get();
         return country;
@@ -53,7 +55,8 @@ public class CountryService {
     public void delete(Long id) {
         Optional<Country> countryOptional = countryRepository.findById(id);
         if (id == null || !countryOptional.isPresent()) {
-            throw CountryException.createDeleteException("No such country to delete", new Exception());
+            throw CountryException
+                    .createDeleteException(ExceptionType.DELETE.getMessage() + "country with " + id.toString() + " ID");
         }
         countryRepository.deleteById(id);
     }
