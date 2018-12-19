@@ -8,10 +8,15 @@ public class CustomValidationException extends ValidationException {
 	private String customMessage = "";
 	private ExceptionType exceptionType;
 
+	public CustomValidationException(String customMessage) {
+		this.customMessage = customMessage;
+	}
+
 	public CustomValidationException(String customMessage, ExceptionType exceptionType, Exception ex) {
 		super(ex == null ? new Exception(customMessage).getMessage() : ex.getMessage());
 		this.customMessage = customMessage;
 		this.exceptionType = exceptionType;
+
 	}
 
 	public String getCustomMessage() {

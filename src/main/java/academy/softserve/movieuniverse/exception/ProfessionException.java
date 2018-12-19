@@ -4,23 +4,23 @@ package academy.softserve.movieuniverse.exception;
 public class ProfessionException extends CustomValidationException {
 
 
-    public ProfessionException(String customMessage, ExceptionType exceptionType, Exception ex) {
-        super(customMessage, exceptionType, ex);
+    public ProfessionException(String customMessage) {
+        super(customMessage);
     }
 
-    public static ProfessionException createDeleteException(String message, Exception ex) {
-        return new ProfessionException(message, ExceptionType.DELETE, ex);
+    public static ProfessionException createDeleteException(String message) {
+        return new ProfessionException(message);
     }
 
-    public static ProfessionException createSaveException(String message, Exception ex) {
-        return new ProfessionException(message, ExceptionType.SAVE, ex);
+    public static ProfessionException createSaveException(String message) {
+        return new ProfessionException(message);
     }
 
-    public static ProfessionException createSelectException(String message, Exception ex) {
-        return new ProfessionException(message, ExceptionType.SELECT, ex);
+    public static ProfessionException createSelectException(String message) {
+        return new ProfessionException(message);
     }
 
-    public static ProfessionException createUpdateException(String message, Exception ex) {
-        return new ProfessionException(message, ExceptionType.UPDATE, ex);
+    public static ProfessionException createUpdateException(String message) {
+        return new ProfessionException(message);
     }
 }
