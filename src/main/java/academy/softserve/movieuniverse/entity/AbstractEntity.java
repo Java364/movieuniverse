@@ -17,8 +17,8 @@ public abstract class AbstractEntity {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime  entryLastUpdate;
 
-    @Column(name = "is_removed", columnDefinition = "BIT DEFAULT 0")
-    private Boolean isRemoved;
+    @Column(name = "is_removed")
+    private Boolean isRemoved = false;
 
     public Long getId() {
         return id;

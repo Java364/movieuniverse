@@ -24,6 +24,11 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> UserException.createSelectException(String.format("No such user with id = %d", id), new Exception()));
     }
 
+    public String findNamesById(Long id){
+        User user = userRepository.findById(id).orElseThrow(() -> UserException.createSelectException(String.format("No such user with id = %d", id), new Exception()));
+        return user.getFirstName() + user.getLastName();
+    }
+
     @Transactional
     public User createUser(User user) {
         return userRepository.saveAndFlush(user);
@@ -76,8 +81,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> findAllByIsRemovedFalse() {
-        return userRepository.findAllByIsRemovedFalse();
+    public List<User> findAllNonRemoved() {
+        return userRepository.findAllByIsRemoved(false);
     }
 
 }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    List<User> findAllByIsRemovedFalse();
+    List<User> findAllByIsRemoved(Boolean isRemoved);
 }

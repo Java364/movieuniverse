@@ -1,6 +1,8 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import academy.softserve.movieuniverse.controller.MovieMarkController;
 import academy.softserve.movieuniverse.controller.UserController;
+import academy.softserve.movieuniverse.controller.UserReviewMarkController;
 import academy.softserve.movieuniverse.dto.user.UserDTO;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
 import academy.softserve.movieuniverse.dto.user.UserShortInfo;
@@ -27,7 +29,7 @@ public class UserMapper {
         this.userReviewDtoMapper = userReviewDtoMapper;
     }
 
-    private UserDTO mapShortInfoToDto(User user){
+    private UserDTO copyEntityPropertiesToDTO(User user){
         UserDTO userDTO = new UserDTO();
         userDTO.setUserId(user.getId());
         userDTO.setEmail(user.getEmail());
@@ -35,7 +37,10 @@ public class UserMapper {
         userDTO.setLastName(user.getLastName());
         userDTO.setBirthday(user.getBirthday());
         userDTO.add(linkTo(methodOn(UserController.class).showById(userDTO.getUserId())).withSelfRel());
-        userDTO.add(linkTo(methodOn(UserController.class).showAll()).withRel("users"));
+        userDTO.add(linkTo(methodOn(UserController.class).showAllNonRemoved()).withRel("users"));
+        userDTO.add(linkTo(methodOn(UserReviewMarkController.class).showOneUserReviewMark(userDTO.getUserId())).withRel("reviews"));
+        userDTO.add(linkTo(methodOn(MovieMarkController.class).showAllByUserId(userDTO.getUserId())).withRel("movieMarks"));
+        System.out.println(user);
         if (user.getIsRemoved()){
             userDTO.add(linkTo(methodOn(UserController.class).restoreById(userDTO.getUserId())).withRel("restore"));
             userDTO.add(linkTo(methodOn(UserController.class).deleteById(userDTO.getUserId())).withRel("delete"));
@@ -56,23 +61,22 @@ public class UserMapper {
     }
 
     public UserFullInfo mapUserEntityToUserDTOWithFullInfo(User user){
-        UserDTO userDTO = mapShortInfoToDto(user);
+        UserDTO userDTO = copyEntityPropertiesToDTO(user);
         userDTO.setPassword(user.getPassword());
         userDTO.setRemoved(user.getIsRemoved());
         userDTO.setEntryCreationDate(user.getEntryCreationDate());
         userDTO.setEntryLastUpdate(user.getEntryLastUpdate());
-        //TODO relations to review and moviemarks
         return userDTO;
     }
 
     public UserCreateInfo mapUserEntityToUserDTOWithShortInfoAndPassword(User user){
-        UserDTO userDTO = mapShortInfoToDto(user);
+        UserDTO userDTO = copyEntityPropertiesToDTO(user);
         userDTO.setPassword(user.getPassword());
         return userDTO;
     }
 
     public UserShortInfo mapUserEntityToUserDTOWithShortInfo(User user){
-        UserDTO userDTO = mapShortInfoToDto(user);
+        UserDTO userDTO = copyEntityPropertiesToDTO(user);
         return userDTO;
     }
 

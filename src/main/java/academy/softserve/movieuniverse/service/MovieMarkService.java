@@ -59,7 +59,15 @@ public class MovieMarkService {
 		return movieMark;
 	}
 
+
+
 	public List<MovieMark> findAll() {
 		return movieMarkRepository.findAll();
 	}
+
+	public List<MovieMark> findAllByUser(User user) {
+
+		return movieMarkRepository.findAllByUser(user);
+	}
+
 }

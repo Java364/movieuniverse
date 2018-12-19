@@ -41,7 +41,7 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new Resources<>(userMapper.mapUserEntityListToUserWithShortInfoList(
-                        userService.findAllByIsRemovedFalse()),
+                        userService.findAllNonRemoved()),
                         linkTo(methodOn(UserController.class).showAllNonRemoved()).withSelfRel()));
     }
 
