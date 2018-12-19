@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/profession")
 public class ProfessionController {
@@ -20,7 +20,7 @@ public class ProfessionController {
     @Autowired
     private ProfessionMapper professionMapper = new ProfessionMapper();
 
-    @PostMapping("/api/createProfession")
+    @PostMapping("/createProfession")
     ResponseEntity<ProfessionDTO> createProfession(@RequestBody ProfessionDTO professionDTO) {
         Profession profession = professionMapper.mapProfessionToEntity(professionDTO);
         professionServise.saveProfession(profession);
@@ -28,14 +28,14 @@ public class ProfessionController {
         return new ResponseEntity<ProfessionDTO>(professionDTO, HttpStatus.CREATED);
 
     }
-    @GetMapping("/api/listAll")
+    @GetMapping("/listAll")
     public List<ProfessionDTO> findAllProfession() {
         List<Profession> professionList = professionServise.findAll();
         return professionMapper.mapListProfessionToDto(professionList);
     }
 
 
-    @GetMapping("/api/profession/{id}")
+    @GetMapping("/profession/{id}")
     public ResponseEntity<ProfessionDTO> getOneProfession(@PathVariable Long id) {
         Profession profession = professionServise.getOneProfession(id);
         return new ResponseEntity<ProfessionDTO>(professionMapper.mapToDto(profession), HttpStatus.OK);
@@ -45,7 +45,7 @@ public class ProfessionController {
         professionServise.deleteProfession(id);
         return new ResponseEntity(HttpStatus.OK);
     }
-    @PostMapping("/link/{id}")
+    @PutMapping("/profession/{id}")
     ResponseEntity<ProfessionDTO> updateProfession(@PathVariable("id") Long id, @RequestBody ProfessionDTO professionDTO) {
         Profession professions = professionMapper.mapToEntityForUpdateProfession(professionDTO, id);
         professions = professionServise.updateProfession(professions);
