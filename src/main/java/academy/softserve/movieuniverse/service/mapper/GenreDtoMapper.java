@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
-public class GenreDtoMapper implements DtoMapper<Genre> {
+public class GenreDtoMapper implements DtoMapper<GenreDTO, Genre> {
     private ModelMapper modelMapper;
 
     @Autowired
@@ -23,25 +23,25 @@ public class GenreDtoMapper implements DtoMapper<Genre> {
     }
 
     @Override
-    public <D> D mapToDTO(Genre genre) {
+    public GenreDTO mapToDTO(Genre genre) {
         GenreDTO genreDto = modelMapper.map(genre, GenreDTO.class);
         Link selfRelLink = linkTo(GenreController.class).slash(genre.getId()).withSelfRel();
         genreDto.add(selfRelLink);
-        return (D) genreDto;
+        return genreDto;
     }
 
     @Override
-    public <D> Genre mapToEntity(D genreDto) {
+    public <T> Genre mapToEntity(T genreDto) {
         return modelMapper.map(genreDto, Genre.class);
     }
 
     @Override
-    public <D> List<Genre> mapToEntityList(List<? extends D> genres) {
+    public <T> List<Genre> mapToEntityList(List<T> genres) {
         return genres.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 
     @Override
-    public <D> List<D> mapToDtoList(List<Genre> genres) {
-        return (List<D>) genres.stream().map(this::mapToDTO).collect(Collectors.toList());
+    public List<GenreDTO> mapToDtoList(List<Genre> genres) {
+        return genres.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 }
