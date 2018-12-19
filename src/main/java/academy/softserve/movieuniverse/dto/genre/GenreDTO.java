@@ -6,26 +6,13 @@ import org.springframework.hateoas.core.Relation;
 
 @Relation(value = "genre", collectionRelation = "genres")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GenreDTO extends ResourceSupport implements GenreRequest {
-    private Long genreId;
+public class GenreDTO extends ResourceSupport {
     private String genreName;
 
-    public Long getGenreId() {
-        return genreId;
-    }
-
-    public void setGenreId(Long genreId) {
-        this.genreId = genreId;
-    }
-
-
-    @Override
     public String getGenreName() {
         return genreName;
     }
 
-
-    @Override
     public void setGenreName(String genreName) {
         this.genreName = genreName;
     }

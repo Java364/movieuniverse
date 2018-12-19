@@ -4,12 +4,12 @@ import academy.softserve.movieuniverse.entity.AbstractEntity;
 
 import java.util.List;
 
-public interface DtoMapper<E extends AbstractEntity> {
-    <D> E mapToEntity(D dto);
+public interface DtoMapper<D, R, E extends AbstractEntity> {
+    E mapToEntity(R dto);
 
-    <D> D mapToDTO(E entity);
+    D mapToDTO(E entity);
 
-    <D> List<E> mapToEntityList(List<? extends D> dtos);
+    List<E> mapToEntityList(List<R> dtos);
 
-    <D> List<D> mapToDtoList(List<E> entities);
+    List<D> mapToDtoList(List<E> entities);
 }
