@@ -2,8 +2,6 @@ package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import java.time.LocalDate;
-import java.util.Objects;
 
 @MappedSuperclass
 public abstract class Person extends AbstractEntity {

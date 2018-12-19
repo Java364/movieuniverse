@@ -6,21 +6,21 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface UsersReviewMovieView {
     Long getUserReviewId();
 
-    String getText();
-
-    String getUserName();
-
-    Long getCreationTime();
-
-    Long getLastUpdated();
-
     void setUserReviewId(Long userReviewId);
+
+    String getText();
 
     void setText(String text);
 
+    String getUserName();
+
     void setUserName(String userName);
 
+    Long getCreationTime();
+
     void setCreationTime(Long creationTime);
+
+    Long getLastUpdated();
 
     void setLastUpdated(Long lastUpdated);
 }

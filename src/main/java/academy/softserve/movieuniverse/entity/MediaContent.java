@@ -1,11 +1,10 @@
 package academy.softserve.movieuniverse.entity;
 
-import java.util.List;
-
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.List;
 
 @Embeddable
 public class MediaContent {
@@ -37,12 +36,12 @@ public class MediaContent {
         this.trailers = trailers;
     }
 
-	public Gallery getGallery() {
-		return gallery;
-	}
+    public Gallery getGallery() {
+        return gallery;
+    }
 
-	public void setGallery(Gallery gallery) {
-		this.gallery = gallery;
-	}
+    public void setGallery(Gallery gallery) {
+        this.gallery = gallery;
+    }
 
 }

@@ -1,9 +1,8 @@
 package academy.softserve.movieuniverse.repository;
 
+import academy.softserve.movieuniverse.entity.Trailer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import academy.softserve.movieuniverse.entity.Trailer;
-
-public interface TrailerRepository extends JpaRepository<Trailer, Long>{
+public interface TrailerRepository extends JpaRepository<Trailer, Long> {
 
 }

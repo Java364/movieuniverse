@@ -1,10 +1,14 @@
 package academy.softserve.movieuniverse.dto.user;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.hateoas.ResourceSupport;
+
 import java.time.LocalDateTime;
 
-public class UserDTO implements UserShortInfo, UserShortInfoWithPassword, UserFullInfo, UserLoginInfo{
-    private Long id;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class UserDTO extends ResourceSupport implements UserShortInfo, UserCreateInfo, UserFullInfo, UserLoginInfo {
+    private Long userId;
     private String email;
     private String password;
     private String confirmPassword;
@@ -19,13 +23,13 @@ public class UserDTO implements UserShortInfo, UserShortInfoWithPassword, UserFu
     }
 
     @Override
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
     @Override
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

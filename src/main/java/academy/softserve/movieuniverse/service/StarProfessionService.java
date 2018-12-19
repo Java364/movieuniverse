@@ -4,7 +4,6 @@ import academy.softserve.movieuniverse.entity.StarProfession;
 import academy.softserve.movieuniverse.exception.StarException;
 import academy.softserve.movieuniverse.exception.StarProfessionException;
 import academy.softserve.movieuniverse.repository.StarProfessionRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +29,7 @@ public class StarProfessionService {
             throw StarProfessionException.createSaveException("New star's profession couldn't be saved", null);
         }
         if (starService.findStarById(starId) == null) {
-        	throw StarException.createSelectException("No such user", null);
+            throw StarException.createSelectException("No such user", null);
         }
         starProfession.setStar(starService.findStarById(starId));
         starProfessionRepository.save(starProfession);

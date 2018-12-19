@@ -1,10 +1,6 @@
 package academy.softserve.movieuniverse.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "images")
@@ -15,9 +11,9 @@ public class Image extends AbstractEntity {
 
     @Column(name = "image_url")
     private String imageUrl;
-    
+
     @ManyToOne
-   	@JoinColumn(name = "gallery_id")
+    @JoinColumn(name = "gallery_id")
     private Gallery gallery;
 
     public Image() {
@@ -39,11 +35,11 @@ public class Image extends AbstractEntity {
         this.imageUrl = imageUrl;
     }
 
-	public Gallery getGallery() {
-		return gallery;
-	}
+    public Gallery getGallery() {
+        return gallery;
+    }
 
-	public void setGallery(Gallery gallery) {
-		this.gallery = gallery;
-	}
+    public void setGallery(Gallery gallery) {
+        this.gallery = gallery;
+    }
 }

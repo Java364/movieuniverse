@@ -3,10 +3,7 @@ package academy.softserve.movieuniverse.dto.user;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(as = UserDTO.class)
-public interface UserShortInfoWithPassword {
-    Long getId();
-
-    void setId(Long id);
+public interface UserCreateInfo {
 
     String getEmail();
 

@@ -75,7 +75,7 @@ public class Movie extends AbstractEntity {
     }
 
     public List<Genre> getGenres() {
-        return genres ;
+        return genres;
     }
 
     public void setGenres(List<Genre> genres) {

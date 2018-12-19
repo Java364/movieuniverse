@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as = UserDTO.class)
 public interface UserShortInfo {
 
-    Long getId();
+    Long getUserId();
 
-    void setId(Long id);
+    void setUserId(Long id);
 
     String getEmail();
 

@@ -3,7 +3,6 @@ package academy.softserve.movieuniverse.service.mapper;
 import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.service.StarService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,14 +42,15 @@ public class LinksMapper {
         }
         return linksDTOlist;
     }
-    
+
     public List<Links> mapLinksListToEntity(List<LinksDTO> linkDTOs) {
-		List<Links> links = new ArrayList<>();
-		for (LinksDTO l : linkDTOs) {
-			links.add(this.mapToEntityAndSaveLinks(l));
-		}
-		return links;
-	}
+        List<Links> links = new ArrayList<>();
+        for (LinksDTO l : linkDTOs) {
+            links.add(this.mapToEntityAndSaveLinks(l));
+        }
+        return links;
+    }
+
     public Links mapToEntityForUpdateLinks(LinksDTO dto, Long id) {
         Links links = new Links();
         links.setId(id);

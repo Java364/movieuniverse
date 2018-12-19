@@ -28,7 +28,7 @@ public class StarActivityInMoviesController {
     public List<StarActivityInMoviesDTO> viewAll() {
         List<StarActivityInMovies> allStarActivityInMovies = starActivityInMoviesService.findAllStarActivityInMovies();
         List<StarActivityInMoviesDTO> allStarActivityInMoviesDTOs = new ArrayList<>();
-        for (StarActivityInMovies starActivityInMovies: allStarActivityInMovies) {
+        for (StarActivityInMovies starActivityInMovies : allStarActivityInMovies) {
             StarActivityInMoviesDTO starActivityInMoviesDTO = starActivityInMoviesMapper.mapToDto(starActivityInMovies);
             allStarActivityInMoviesDTOs.add(starActivityInMoviesDTO);
         }

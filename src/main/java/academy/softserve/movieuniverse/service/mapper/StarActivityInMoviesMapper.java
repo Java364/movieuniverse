@@ -21,7 +21,7 @@ public class StarActivityInMoviesMapper {
 
         List<Long> ids = new ArrayList<>();
         List<StarProfession> starProfessions = starActivityInMoviesEntity.getProfessions();
-        for (StarProfession profession: starProfessions) {
+        for (StarProfession profession : starProfessions) {
             ids.add(profession.getId());
         }
         return starActivityInMoviesDTO;
