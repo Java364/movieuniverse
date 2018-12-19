@@ -12,8 +12,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ControllerAdvice
 public class RestExceptionHandler {
-    /*@ResponseStatus(value= HttpStatus.NOT_FOUND,
-            reason="no!!!!!!!!")*/
+
     @ExceptionHandler(LinkException.class)
     protected ResponseEntity<Object> notFoundLink(
             CustomValidationException ex) {
