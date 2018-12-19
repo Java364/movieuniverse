@@ -1,8 +1,6 @@
 package academy.softserve.movieuniverse.dto;
 
 
-import academy.softserve.movieuniverse.entity.StarProfession;
-
 import java.util.ArrayList;
 import java.util.List;
 

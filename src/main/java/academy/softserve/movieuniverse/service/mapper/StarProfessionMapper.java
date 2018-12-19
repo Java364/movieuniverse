@@ -36,11 +36,12 @@ public class StarProfessionMapper {
 
     public List<StarProfessionDTO> mapListEntityToDTO(List<StarProfession> starProfessions) {
         List<StarProfessionDTO> starProfessionDTOs = new ArrayList<>();
-        for (StarProfession starProfession: starProfessions ) {
+        for (StarProfession starProfession : starProfessions) {
             starProfessionDTOs.add(mapToDto(starProfession));
         }
         return starProfessionDTOs;
     }
+
     public List<StarProfession> mapListToEntity(List<StarProfessionDTO> starProfessionDTOS) {
         List<StarProfession> starProfessions = new ArrayList<>();
         for (StarProfessionDTO s : starProfessionDTOS) {

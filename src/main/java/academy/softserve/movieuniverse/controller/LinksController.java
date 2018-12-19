@@ -2,7 +2,6 @@ package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.entity.Links;
-import academy.softserve.movieuniverse.exception.LinkException;
 import academy.softserve.movieuniverse.service.LinksService;
 import academy.softserve.movieuniverse.service.mapper.LinksMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/links")
@@ -40,11 +40,13 @@ public class LinksController {
         Links links = linksService.getOneLinks(id);
         return new ResponseEntity<LinksDTO>(linksMapper.mapEntityToDto(links), HttpStatus.OK);
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteLink(@PathVariable Long id) {
         linksService.deleteLinks(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
     @PutMapping("/link/{id}")
     ResponseEntity<LinksDTO> updateLink(@PathVariable("id") Long id, @RequestBody LinksDTO linksDTO) {
         /*Links linkss = linksService.getOneLinks(id);*/

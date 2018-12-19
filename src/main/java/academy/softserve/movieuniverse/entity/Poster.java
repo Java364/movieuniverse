@@ -16,7 +16,7 @@ public class Poster extends AbstractEntity {
 	private Movie movie;
 
 	public Poster() {
-		
+
 	}
 
 	public String getName() {

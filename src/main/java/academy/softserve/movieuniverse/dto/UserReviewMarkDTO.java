@@ -3,34 +3,35 @@ package academy.softserve.movieuniverse.dto;
 import academy.softserve.movieuniverse.entity.UserReviewMark;
 
 public class UserReviewMarkDTO {
-	private Long id;
-	private UserReviewMark.Mark mark;
-	private Long reviewerId;
-	private Long userReviewId;
 
-	public Long getUserReviewId() {
-		return userReviewId;
-	}
+    private Long id;
+    private UserReviewMark.Mark mark;
+    private Long reviewerId;
+    private Long userReviewId;
 
-	public void setUserReviewId(Long userReviewId) {
-		this.userReviewId = userReviewId;
-	}
+    public Long getUserReviewId() {
+        return userReviewId;
+    }
 
-	public Long getReviewerId() {
-		return reviewerId;
-	}
+    public void setUserReviewId(Long userReviewId) {
+        this.userReviewId = userReviewId;
+    }
 
-	public void setReviewerId(Long reviewerId) {
-		this.reviewerId = reviewerId;
-	}
+    public Long getReviewerId() {
+        return reviewerId;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setReviewerId(Long reviewerId) {
+        this.reviewerId = reviewerId;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 	public UserReviewMark.Mark getMark() {
 		return mark;

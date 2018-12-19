@@ -1,7 +1,5 @@
 package academy.softserve.movieuniverse.exception;
 
-import academy.softserve.movieuniverse.entity.StarProfession;
-
 public class StarProfessionException extends CustomValidationException {
 
     private static final long serialVersionUID = 1646215947109824314L;
@@ -18,11 +16,11 @@ public class StarProfessionException extends CustomValidationException {
         return new StarProfessionException(message, ExceptionType.DELETE, ex);
     }
 
-    public static StarProfessionException createUpdateException (String message, Exception ex) {
+    public static StarProfessionException createUpdateException(String message, Exception ex) {
         return new StarProfessionException(message, ExceptionType.UPDATE, ex);
     }
 
-    public static StarProfessionException createSelectException (String message, Exception ex) {
+    public static StarProfessionException createSelectException(String message, Exception ex) {
         return new StarProfessionException(message, ExceptionType.SELECT, ex);
     }
 }

@@ -3,36 +3,37 @@ package academy.softserve.movieuniverse.dto;
 import javax.validation.constraints.NotBlank;
 
 public class TrailerDTO {
-	
-	private Long id;
-	private String trailerUrl;
-	@NotBlank
-	private Long movieId;
-	
-	public TrailerDTO() {}
 
-	public String getTrailerUrl() {
-		return trailerUrl;
-	}
+    private Long id;
+    private String trailerUrl;
+    @NotBlank
+    private Long movieId;
 
-	public void setTrailerUrl(String trailerUrl) {
-		this.trailerUrl = trailerUrl;
-	}
+    public TrailerDTO() {
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public String getTrailerUrl() {
+        return trailerUrl;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
+    }
 
-	public Long getMovieId() {
-		return movieId;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setMovieId(Long movieId) {
-		this.movieId = movieId;
-	}
-	
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(Long movieId) {
+        this.movieId = movieId;
+    }
+
 }

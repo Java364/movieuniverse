@@ -1,11 +1,13 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import academy.softserve.movieuniverse.dto.UserReviewMarkDTO;
 
 import academy.softserve.movieuniverse.entity.UserReviewMark;
+
 
 import academy.softserve.movieuniverse.service.UserReviewService;
 import academy.softserve.movieuniverse.service.UserService;
@@ -25,7 +27,7 @@ public class UserReviewMarkMapper {
 		UserReviewMark userReviewMark = new UserReviewMark();
 		userReviewMark.setId(dto.getId());
 		userReviewMark.setMark(dto.getMark());
-		userReviewMark.setReviewer(user.getUser(dto.getReviewerId()));
+		userReviewMark.setReviewer(user.findById(dto.getReviewerId()));
 		userReviewMark
 				.setUserReview(userReviewMapper.mapToEntity(userReviewService.findById(dto.getUserReviewId()).get()));
 		return userReviewMark;
@@ -36,7 +38,7 @@ public class UserReviewMarkMapper {
 		UserReviewMark userReviewMark = new UserReviewMark();
 		userReviewMark.setId(userReviewMarkId);
 		userReviewMark.setMark(dto.getMark());
-		userReviewMark.setReviewer(user.getUser(dto.getReviewerId()));
+		userReviewMark.setReviewer(user.findById(dto.getReviewerId()));
 		userReviewMark
 				.setUserReview(userReviewMapper.mapToEntity(userReviewService.findById(dto.getUserReviewId()).get()));
 		return userReviewMark;
@@ -51,5 +53,6 @@ public class UserReviewMarkMapper {
 		return userReviewMarkDTO;
 
 	}
+
 
 }

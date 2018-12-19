@@ -1,8 +1,7 @@
 package academy.softserve.movieuniverse.entity;
 
-import java.util.List;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "star_activity")
@@ -38,11 +37,11 @@ public class StarActivityInMovies extends AbstractEntity {
         this.movie = movie;
     }
 
-	public List<StarProfession> getProfessions() {
-		return professions;
-	}
+    public List<StarProfession> getProfessions() {
+        return professions;
+    }
 
-	public void setProfessions(List<StarProfession> professions) {
-		this.professions = professions;
-	}
+    public void setProfessions(List<StarProfession> professions) {
+        this.professions = professions;
+    }
 }

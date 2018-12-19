@@ -1,42 +1,43 @@
 package academy.softserve.movieuniverse.dto;
 
 public class PosterDTO {
-	private Long id;
-	private String name;
-	private String imageUrl;
-	private Long movieId;
-	
-	public PosterDTO() {}
+    private Long id;
+    private String name;
+    private String imageUrl;
+    private Long movieId;
 
-	public String getName() {
-		return name;
-	}
+    public PosterDTO() {
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Long getMovieId() {
-		return movieId;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setMovieId(Long movieId) {
-		this.movieId = movieId;
-	}
+    public Long getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(Long movieId) {
+        this.movieId = movieId;
+    }
 }
