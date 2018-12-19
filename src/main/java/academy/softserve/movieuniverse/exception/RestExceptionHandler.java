@@ -37,6 +37,22 @@ public class RestExceptionHandler {
         return buildResponseEntity(apiError);
     }
     
+    @ExceptionHandler(CountryException.class)
+    protected ResponseEntity<Object> notFoundCountry(
+            CustomValidationException ex) {
+        ApiError apiError = new ApiError(NOT_FOUND);
+        apiError.setMessage(ex.getCustomMessage());
+        return buildResponseEntity(apiError);
+    }
+    
+    @ExceptionHandler(MovieMarkException.class)
+    protected ResponseEntity<Object> notFoundMovieMark(
+            CustomValidationException ex) {
+        ApiError apiError = new ApiError(NOT_FOUND);
+        apiError.setMessage(ex.getCustomMessage());
+        return buildResponseEntity(apiError);
+    }
+    
     @ExceptionHandler(GalleryException.class)
     protected ResponseEntity<Object> notFoundGallery(
             CustomValidationException ex) {

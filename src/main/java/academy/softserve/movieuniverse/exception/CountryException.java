@@ -4,24 +4,24 @@ public class CountryException extends CustomValidationException{
 
 	private static final long serialVersionUID = -6283677404347365061L;
 
-	private CountryException(String customMessage, ExceptionType exceptionType, Exception ex) {
-		super(customMessage, exceptionType, ex);
+	private CountryException(String customMessage) {
+		super(customMessage);
 	}
 	
-	public static CountryException createSaveException(String message, Exception ex) {
-		return new CountryException(message, ExceptionType.SAVE, ex);
+	public static CountryException createSaveException(String message) {
+		return new CountryException(message);
 	}
 	
-	public static CountryException createDeleteException(String message, Exception ex) {
-		return new CountryException(message, ExceptionType.DELETE, ex);
+	public static CountryException createDeleteException(String message) {
+		return new CountryException(message);
 	}
 	
-	public static CountryException createUpdateException(String message, Exception ex) {
-		return new CountryException(message, ExceptionType.UPDATE, ex);
+	public static CountryException createUpdateException(String message) {
+		return new CountryException(message);
 	}
 	
-	public static CountryException createSelectException(String message, Exception ex) {
-		return new CountryException(message, ExceptionType.SELECT, ex);
+	public static CountryException createSelectException(String message) {
+		return new CountryException(message);
 	}
 
 }
