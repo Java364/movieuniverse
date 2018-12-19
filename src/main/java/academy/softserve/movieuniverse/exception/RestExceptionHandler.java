@@ -1,12 +1,9 @@
 package academy.softserve.movieuniverse.exception;
 
 
-import academy.softserve.movieuniverse.entity.Profession;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -28,7 +25,7 @@ public class RestExceptionHandler {
         apiError.setMessage(ex.getCustomMessage());
         return buildResponseEntity(apiError);
     }
-    
+
     @ExceptionHandler(StarException.class)
     protected ResponseEntity<Object> notFoundStar(
             CustomValidationException ex) {
@@ -36,7 +33,7 @@ public class RestExceptionHandler {
         apiError.setMessage(ex.getCustomMessage());
         return buildResponseEntity(apiError);
     }
-    
+
     @ExceptionHandler(GalleryException.class)
     protected ResponseEntity<Object> notFoundGallery(
             CustomValidationException ex) {

@@ -58,14 +58,14 @@ public class MovieService {
                 exist.setDuration(movie.getDuration());
             if (movie.getYear() > 1888)
                 exist.setYear(movie.getYear());
-            if (movie.getGenres() !=null && !movie.getGenres().isEmpty()) {
+            if (movie.getGenres() != null && !movie.getGenres().isEmpty()) {
                 exist.setGenres(movie.getGenres());
             }
             exist = movieRepository.save(exist);
         } catch (Exception ex) {
             throw MovieException.movieUpdateException("Can't update movie", ex);
         }
-        return  exist;
+        return exist;
     }
 
     public void deleteMovie(Long id) {
@@ -80,7 +80,7 @@ public class MovieService {
     private boolean isExist(String value) {
         if (value == null)
             return false;
-        return  !value.trim().isEmpty();
+        return !value.trim().isEmpty();
     }
 
 }

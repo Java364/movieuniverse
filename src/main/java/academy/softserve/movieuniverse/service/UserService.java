@@ -24,7 +24,7 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> UserException.createSelectException(String.format("No such user with id = %d", id), new Exception()));
     }
 
-    public String findNamesById(Long id){
+    public String findNamesById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> UserException.createSelectException(String.format("No such user with id = %d", id), new Exception()));
         return user.getFirstName() + user.getLastName();
     }
@@ -37,9 +37,9 @@ public class UserService {
     @Transactional
     public void deleteById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
-        if (user.getIsRemoved()){
+        if (user.getIsRemoved()) {
             userRepository.deleteById(id);
-        }else{
+        } else {
             throw UserException.createDeleteException("Wrong operation for such status", new Exception());
         }
     }

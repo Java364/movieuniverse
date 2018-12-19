@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import javax.persistence.EntityNotFoundException;
 import java.util.Objects;
 
-public class EntityExistsValidator <T, ID> {
+public class EntityExistsValidator<T, ID> {
     private JpaRepository<T, ID> jpaRepository;
     private String className;
 

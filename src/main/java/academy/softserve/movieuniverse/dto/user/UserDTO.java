@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.time.LocalDateTime;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDTO extends ResourceSupport implements UserShortInfo, UserCreateInfo, UserFullInfo, UserLoginInfo {
     private Long userId;

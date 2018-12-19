@@ -38,10 +38,10 @@ public class MovieMapper {
         movie.setDescription(dto.getDescription());
         movie.setGenres(genreDtoMapper.mapToEntityList(dto.getGenres()));
         movie.setMovieMarks(movieMarkMapper.mapMovieMarksListToEntity(dto.getMovieMarks()));
-        movie.setRoles(dto.getRoles().stream().map(roleId->starActivityInMoviesService.getStarActivityInMovies(roleId)).collect(Collectors.toList()));
-        movie.setStars(dto.getStars().stream().map(starId->starService.findStarById(starId)).collect(Collectors.toList()));
+        movie.setRoles(dto.getRoles().stream().map(roleId -> starActivityInMoviesService.getStarActivityInMovies(roleId)).collect(Collectors.toList()));
+        movie.setStars(dto.getStars().stream().map(starId -> starService.findStarById(starId)).collect(Collectors.toList()));
         movie.setUserReviews(new ArrayList<>());
-        return  movie;
+        return movie;
     }
 
 
@@ -55,14 +55,14 @@ public class MovieMapper {
         dto.setDescription(entity.getDescription());
         dto.setGenres(genreDtoMapper.mapToDtoList(entity.getGenres()));
         dto.setMovieMarks(movieMarkMapper.mapListToDto(entity.getMovieMarks()));
-        dto.setRoles(entity.getRoles().stream().map(role->role.getId()).collect(Collectors.toList()));
-        dto.setStars(entity.getStars().stream().map(star->star.getId()).collect(Collectors.toList()));
+        dto.setRoles(entity.getRoles().stream().map(role -> role.getId()).collect(Collectors.toList()));
+        dto.setStars(entity.getStars().stream().map(star -> star.getId()).collect(Collectors.toList()));
         dto.setUserReviews(entity.getUserReviews().stream().map(review -> review.getId()).collect(Collectors.toList()));
         return dto;
     }
 
     public List<MovieDTO> mapListToDTO(List<Movie> entities) {
-        return entities.stream().map(movie->mapToDto(movie)).collect(Collectors.toList());
+        return entities.stream().map(movie -> mapToDto(movie)).collect(Collectors.toList());
     }
 
 }

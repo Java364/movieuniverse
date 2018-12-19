@@ -38,7 +38,7 @@ public class StarActivityInMoviesService {
         Optional<StarActivityInMovies> starActivityInMovies = starActivityInMoviesRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
             throw StarActivityInMoviesException.createDeleteException("Can't delete StarActivityInMovies with ID:" + id
-            + "ID doesn't exist", null);
+                    + "ID doesn't exist", null);
         }
         starActivityInMoviesRepository.deleteById(id);
     }

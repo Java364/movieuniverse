@@ -1,8 +1,7 @@
 package academy.softserve.movieuniverse.entity;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
@@ -12,10 +11,10 @@ public abstract class AbstractEntity {
     private Long id;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false)
-    private LocalDateTime  entryCreationDate;
+    private LocalDateTime entryCreationDate;
 
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime  entryLastUpdate;
+    private LocalDateTime entryLastUpdate;
 
     @Column(name = "is_removed")
     private Boolean isRemoved = false;
@@ -36,19 +35,19 @@ public abstract class AbstractEntity {
         this.isRemoved = isRemoved;
     }
 
-	public LocalDateTime getEntryCreationDate() {
-		return entryCreationDate;
-	}
+    public LocalDateTime getEntryCreationDate() {
+        return entryCreationDate;
+    }
 
-	public void setEntryCreationDate(LocalDateTime entryCreationDate) {
-		this.entryCreationDate = entryCreationDate;
-	}
+    public void setEntryCreationDate(LocalDateTime entryCreationDate) {
+        this.entryCreationDate = entryCreationDate;
+    }
 
-	public LocalDateTime getEntryLastUpdate() {
-		return entryLastUpdate;
-	}
+    public LocalDateTime getEntryLastUpdate() {
+        return entryLastUpdate;
+    }
 
-	public void setEntryLastUpdate(LocalDateTime entryLastUpdate) {
-		this.entryLastUpdate = entryLastUpdate;
-	}
+    public void setEntryLastUpdate(LocalDateTime entryLastUpdate) {
+        this.entryLastUpdate = entryLastUpdate;
+    }
 }

@@ -24,6 +24,10 @@ public class User extends Person {
         return movieMarks;
     }
 
+    public void setMovieMarks(List<MovieMark> movieMarks) {
+        this.movieMarks = movieMarks;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -46,10 +50,6 @@ public class User extends Person {
 
     public void setUserReviews(List<UserReview> userReviews) {
         this.userReviews = userReviews;
-    }
-
-    public void setMovieMarks(List<MovieMark> movieMarks) {
-        this.movieMarks = movieMarks;
     }
 
     @Override
