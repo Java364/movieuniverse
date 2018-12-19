@@ -21,6 +21,11 @@ public class UserReviewService {
         entityExistsValidator = new EntityExistsValidator<>(userReviewRepository, UserReview.class);
     }
 
+    public UserReview findById(Long userReviewId) {
+        return userReviewRepository.findById(userReviewId)
+                                   .orElseThrow(() -> new EntityNotFoundException("Entity doesn't exists"));
+    }
+
     @Transactional
     public UserReview saveUserReview(UserReview userReview) {
         Objects.requireNonNull(userReview, "entity must not be null");
