@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import academy.softserve.movieuniverse.controller.UserReviewController;
 import academy.softserve.movieuniverse.dto.userreview.UserReviewDTO;
 import academy.softserve.movieuniverse.entity.UserReview;
 import org.modelmapper.ModelMapper;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
 public class UserReviewDtoMapper implements DtoMapper<UserReviewDTO, UserReview> {
@@ -25,8 +28,8 @@ public class UserReviewDtoMapper implements DtoMapper<UserReviewDTO, UserReview>
 
     @Override
     public UserReviewDTO mapToDTO(UserReview entity) {
-        UserReviewDTO userReviewDTO = new UserReviewDTO();
-        modelMapper.map(entity, userReviewDTO);
+        UserReviewDTO userReviewDTO = modelMapper.map(entity, UserReviewDTO.class);
+        userReviewDTO.add(linkTo(UserReviewController.class).slash(userReviewDTO.getUserReviewId()).withSelfRel());
         return userReviewDTO;
     }
 
