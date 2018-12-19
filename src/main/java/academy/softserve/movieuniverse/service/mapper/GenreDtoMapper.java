@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
-public class GenreDtoMapper implements DtoMapper<GenreDTO, GenreDTO, Genre> {
+public class GenreDtoMapper implements DtoMapper<GenreDTO, Genre> {
     private ModelMapper modelMapper;
 
     @Autowired
@@ -31,12 +31,12 @@ public class GenreDtoMapper implements DtoMapper<GenreDTO, GenreDTO, Genre> {
     }
 
     @Override
-    public Genre mapToEntity(GenreDTO genreDto) {
+    public <T> Genre mapToEntity(T genreDto) {
         return modelMapper.map(genreDto, Genre.class);
     }
 
     @Override
-    public List<Genre> mapToEntityList(List<GenreDTO> genres) {
+    public <T> List<Genre> mapToEntityList(List<T> genres) {
         return genres.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 

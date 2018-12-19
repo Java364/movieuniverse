@@ -91,6 +91,6 @@ public class DbInitService {
 
     @PreDestroy
     private void removeData() {
-//        genreRepository.deleteAll();
+        genreRepository.deleteAll();
     }
 }

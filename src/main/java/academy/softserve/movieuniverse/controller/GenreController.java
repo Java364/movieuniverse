@@ -3,6 +3,7 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.controller.exception.LocationHeaderCreationException;
 import academy.softserve.movieuniverse.controller.util.ControllerHateoasUtil;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
+import academy.softserve.movieuniverse.dto.genre.GenreRequest;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.GenreService;
 import academy.softserve.movieuniverse.service.mapper.GenreDtoMapper;
@@ -37,9 +38,9 @@ public class GenreController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<GenreDTO> createGenre(@RequestBody GenreDTO genreCreateDto)
+    public ResponseEntity<GenreDTO> createGenre(@RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
-        Genre newGenre = genreDtoMapper.mapToEntity(genreCreateDto);
+        Genre newGenre = genreDtoMapper.mapToEntity(genreRequest);
         Genre genre = genreService.saveGenre(newGenre);
         GenreDTO genreDto = genreDtoMapper.mapToDTO(genre);
         URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDto);
@@ -48,7 +49,7 @@ public class GenreController {
 
     @PutMapping("/{id}")
     public ResponseEntity<GenreDTO> updateGenre(@PathVariable("id") Long genreId,
-                                                @RequestBody GenreDTO genreRequest)
+                                                @RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
         Genre updatedGenre = genreDtoMapper.mapToEntity(genreRequest);
         Genre genre = genreService.updateGenre(genreId, updatedGenre);

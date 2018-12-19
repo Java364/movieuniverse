@@ -1,7 +1,6 @@
 package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.dto.userreview.UserReviewDTO;
-import academy.softserve.movieuniverse.dto.userreview.UserReviewRequest;
 import academy.softserve.movieuniverse.entity.UserReview;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class UserReviewDtoMapper implements DtoMapper<UserReviewDTO, UserReviewRequest, UserReview> {
+public class UserReviewDtoMapper implements DtoMapper<UserReviewDTO, UserReview> {
     private ModelMapper modelMapper;
 
     @Autowired
@@ -20,7 +19,7 @@ public class UserReviewDtoMapper implements DtoMapper<UserReviewDTO, UserReviewR
     }
 
     @Override
-    public UserReview mapToEntity(UserReviewRequest dto) {
+    public <T> UserReview mapToEntity(T dto) {
         return modelMapper.map(dto, UserReview.class);
     }
 
@@ -31,7 +30,7 @@ public class UserReviewDtoMapper implements DtoMapper<UserReviewDTO, UserReviewR
         return userReviewDTO;
     }
 
-    public List<UserReview> mapToEntityList(List<UserReviewRequest> dtos) {
+    public <T> List<UserReview> mapToEntityList(List<T> dtos) {
         return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 
