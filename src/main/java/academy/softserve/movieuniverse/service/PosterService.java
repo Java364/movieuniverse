@@ -1,12 +1,14 @@
 package academy.softserve.movieuniverse.service;
 
+
+
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import academy.softserve.movieuniverse.entity.Poster;
 import academy.softserve.movieuniverse.exception.PosterException;
 import academy.softserve.movieuniverse.repository.PosterRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class PosterService {

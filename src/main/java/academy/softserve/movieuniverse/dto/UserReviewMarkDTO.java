@@ -1,8 +1,11 @@
 package academy.softserve.movieuniverse.dto;
 
+import academy.softserve.movieuniverse.entity.UserReviewMark;
+
 public class UserReviewMarkDTO {
+
     private Long id;
-    private boolean liked;
+    private UserReviewMark.Mark mark;
     private Long reviewerId;
     private Long userReviewId;
 
@@ -22,14 +25,6 @@ public class UserReviewMarkDTO {
         this.reviewerId = reviewerId;
     }
 
-    public boolean isLiked() {
-        return liked;
-    }
-
-    public void setLiked(boolean liked) {
-        this.liked = liked;
-    }
-
     public Long getId() {
         return id;
     }
@@ -37,5 +32,13 @@ public class UserReviewMarkDTO {
     public void setId(Long id) {
         this.id = id;
     }
+
+	public UserReviewMark.Mark getMark() {
+		return mark;
+	}
+
+	public void setMark(UserReviewMark.Mark mark) {
+		this.mark = mark;
+	}
 
 }
