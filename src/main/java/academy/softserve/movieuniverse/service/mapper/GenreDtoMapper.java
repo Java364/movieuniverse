@@ -1,17 +1,20 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import academy.softserve.movieuniverse.dto.GenreDto;
+import academy.softserve.movieuniverse.controller.GenreController;
+import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.entity.Genre;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-public class GenreDtoMapper {
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+@Component
+public class GenreDtoMapper implements DtoMapper<Genre> {
     private ModelMapper modelMapper;
 
     @Autowired
@@ -19,32 +22,26 @@ public class GenreDtoMapper {
         this.modelMapper = modelMapper;
     }
 
-    public GenreDto mapGenreEntityToGenreDto(Genre genre) {
-        return modelMapper.map(genre, GenreDto.class);
+    @Override
+    public <D> D mapToDTO(Genre genre) {
+        GenreDTO genreDto = modelMapper.map(genre, GenreDTO.class);
+        Link selfRelLink = linkTo(GenreController.class).slash(genre.getId()).withSelfRel();
+        genreDto.add(selfRelLink);
+        return (D) genreDto;
     }
 
-    public Genre mapGenreDtoToEntity(GenreDto genreDto) {
+    @Override
+    public <D> Genre mapToEntity(D genreDto) {
         return modelMapper.map(genreDto, Genre.class);
     }
 
-    public Genre mapGenreCreateDtoToEntity(GenreDto genreCreateDto) {
-        Genre genre = new Genre();
-        genre.setName(genreCreateDto.getGenreName());
-        return genre;
+    @Override
+    public <D> List<Genre> mapToEntityList(List<? extends D> genres) {
+        return genres.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 
-    public Genre mapGenreUpdateDtoToEntity(Long genreId, GenreDto genreCreateDto) {
-        Genre genre = new Genre();
-        genre.setId(genreId);
-        genre.setName(genreCreateDto.getGenreName());
-        return genre;
-    }
-
-    public List<Genre> mapGenreDtosToEntities(List<GenreDto> genres) {
-        return genres.stream().map(this::mapGenreDtoToEntity).collect(Collectors.toList());
-    }
-
-    public List<GenreDto> mapGenresToGenreDtoList(List<Genre> genres) {
-        return genres.stream().map(this::mapGenreEntityToGenreDto).collect(Collectors.toList());
+    @Override
+    public <D> List<D> mapToDtoList(List<Genre> genres) {
+        return (List<D>) genres.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 }

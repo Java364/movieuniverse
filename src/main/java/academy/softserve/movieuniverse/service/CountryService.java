@@ -18,14 +18,14 @@ public class CountryService {
 	private CountryRepository countryRepository;
 
 	@Transactional
-	public Country createCountry(Country country) {
-		if (country == null || country.getId() != null)
+	public Country create(Country country) {
+		if (country == null)
 			throw CountryException.createSaveException("Cant save country", new Exception());
 		return countryRepository.save(country);
 	}
 
 	@Transactional
-	public Country updateCountry(Country country) {
+	public Country update(Country country) {
 		Optional<Country> countryOptional = countryRepository.findById(country.getId());
 		if (country == null || country.getId() == null || !countryOptional.isPresent()) {
 			throw CountryException.createUpdateException("No such country to update", new Exception());
@@ -37,11 +37,11 @@ public class CountryService {
 		return country;
 	}
 
-	public List<Country> findAllCountry() {
+	public List<Country> findAll() {
 		return countryRepository.findAll();
 	}
 
-	public Country findCountryById(Long id) {
+	public Country findById(Long id) {
 		Optional<Country> countryOptional = countryRepository.findById(id);
 		if (!countryOptional.isPresent()) {
 			throw CountryException.createSelectException("No such country", new Exception());
@@ -51,7 +51,7 @@ public class CountryService {
 	}
 
 	@Transactional
-	public void deleteCountry(Long id) {
+	public void delete(Long id) {
 		Optional<Country> countryOptional = countryRepository.findById(id);
 		if (id == null || !countryOptional.isPresent()) {
 			throw CountryException.createDeleteException("No such country to delete", new Exception());

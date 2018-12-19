@@ -27,8 +27,8 @@ public class ProfessionMapper {
         Profession profession = new Profession();
         profession.setId(dto.getId());
         profession.setType(dto.getProfessionType());
-        /*profession.setStars(dto.getStarsIDs().stream().map(p -> starProfessionService.getStarProfession(p)).collect(Collectors.toList()));*/
-        profession.setStars(starProfessionMapper.mapListToEntity(dto.getStarsProfessionDTO()));
+       /* profession.setStars(dto.getProfessionsIds().stream().map(p -> starProfessionService.getStarProfession(p)).collect(Collectors.toList()));
+        *//*profession.setStars(starProfessionMapper.mapListToEntity(dto.getStarsProfessionDTO()));*/
         profession.setIsRemoved(false);
         return profession;
     }
@@ -38,7 +38,8 @@ public class ProfessionMapper {
         professionDTO.setId(profession.getId());
         professionDTO.setProfessionType(profession.getType());
        /* professionDTO.setStarsIDs(entity.getStars().stream().map(p ->p.getId()).collect(Collectors.toList()));*/
-        professionDTO.setStarsProfessionDTO(starProfessionMapper.mapListEntityToDTO(profession.getStars()));
+        /*professionDTO.setStarsProfessionDTO(starProfessionMapper.mapListEntityToDTO(profession.getStars()));*/
+        professionDTO.setStarIds(profession.getStars().stream().map(p -> p.getStar().getId()).collect(Collectors.toList()));
         professionDTO.setRemoved(profession.getIsRemoved());
         return professionDTO;
     }
@@ -54,7 +55,7 @@ public class ProfessionMapper {
         Profession profession = new Profession();
         profession.setId(id);
         profession.setType(dto.getProfessionType());
-        profession.setStars(starProfessionMapper.mapListToEntity(dto.getStarsProfessionDTO()));
+        /*profession.setStars(starProfessionMapper.mapListToEntity(dto.getStarsProfessionDTO()));*/
         profession.setIsRemoved(false);
         return profession;
     }

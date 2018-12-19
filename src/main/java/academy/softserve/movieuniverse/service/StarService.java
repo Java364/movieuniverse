@@ -18,16 +18,19 @@ public class StarService {
 	private StarRepository starRepository;
 
 	@Transactional
-	public Star saveStar(Star star) {
+	public Star create(Star star) {
+		if(star == null){
+			throw StarException.createSaveException("Couldn't create star", null);
+		}
 		star = starRepository.save(star);
 		return star;
 	}
 	
 	@Transactional
-	public Star updateStar(Star star, Long id) {
+	public Star update(Star star, Long id) {
 		Optional<Star> starOptional = starRepository.findById(id);
 		if(!starOptional.isPresent()){
-			throw StarException.createUpdateException("No such star to update", null);
+			throw StarException.createSelectException("There is no such star to update", null);
 		}
 		star.setId(id);
 		star = starRepository.save(star);
@@ -38,22 +41,48 @@ public class StarService {
 		return starRepository.findAll();
 	}
 
-	public Star findStarById(Long id) {
+	public Star findStarById(Long id) { 
 		Optional<Star> starOptional = starRepository.findById(id);
 		if(!starOptional.isPresent()){
-			throw StarException.createSelectException("No such star", new Exception());
+			throw StarException.createSelectException("There is no such star", new Exception());
 		}
 		Star star = starOptional.get();
 		return star;
 	}
 	
 	@Transactional
-	public void fullyDelete(Long id){
+	public void deleteById(Long id){
 		Optional<Star> starOptional = starRepository.findById(id);
 		if (!starOptional.isPresent()) {
-			throw StarException.createDeleteException("No such user to delete", null);
+			throw StarException.createSelectException("There is no such user to delete", null);
 		}
 		starRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public Star remove(Long id) {
+		Optional<Star> starOptional = starRepository.findById(id);
+		if(!starOptional.isPresent()){
+			throw StarException.createSelectException("There is no such star to remove", null);
+		}
+		Star star = starOptional.get();
+		star.setId(id);
+		star.setIsRemoved(true);
+		star = starRepository.save(star);
+		return star;
+	}
+	
+	@Transactional
+	public Star makeActive(Long id) {
+		Optional<Star> starOptional = starRepository.findById(id);
+		if(!starOptional.isPresent()){
+			throw StarException.createSelectException("There is no such star to make active again", null);
+		}
+		Star star = starOptional.get();
+		star.setId(id);
+		star.setIsRemoved(false);
+		star = starRepository.save(star);
+		return star;
 	}
 
 }
