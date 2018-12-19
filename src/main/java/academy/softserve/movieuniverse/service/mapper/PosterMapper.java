@@ -1,10 +1,11 @@
 package academy.softserve.movieuniverse.service.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.entity.Poster;
 import academy.softserve.movieuniverse.service.MovieService;
-
+@Component
 public class PosterMapper {
 	@Autowired
 	MovieService movieService;
@@ -13,6 +14,7 @@ public class PosterMapper {
 		Poster poster = new Poster();
 		poster.setImageUrl(dto.getImageUrl());
 		poster.setId(null);
+		poster.setName(dto.getName());
 		poster.setIsRemoved(new Boolean(false));
 		poster.setMovie(movieService.findMovieById(dto.getMovieId()));
 		return poster;
@@ -22,13 +24,13 @@ public class PosterMapper {
 		Poster poster = new Poster();
 		poster.setImageUrl(dto.getImageUrl());
 		poster.setIsRemoved(new Boolean(false));
+		poster.setName(dto.getName());
 		poster.setId(posterId);
 		poster.setMovie(movieService.findMovieById(dto.getMovieId()));
 		return poster;
 	}
 
 	public Poster mapToEntity(PosterDTO posterDTO) {
-
 		Poster poster = new Poster();
 		poster.setId(posterDTO.getId());
 		poster.setName(posterDTO.getName());
