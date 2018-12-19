@@ -1,8 +1,6 @@
 package academy.softserve.movieuniverse.exception;
 
-
 public class LinkException extends CustomValidationException {
-
 
     public LinkException(String customMessage) {
         super(customMessage);

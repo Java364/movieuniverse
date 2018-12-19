@@ -1,8 +1,6 @@
 package academy.softserve.movieuniverse.exception;
 
-
 public class ProfessionException extends CustomValidationException {
-
 
     public ProfessionException(String customMessage) {
         super(customMessage);
