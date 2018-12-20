@@ -30,6 +30,10 @@ public class UserReviewService {
                                    .orElseThrow(() -> new EntityNotFoundException("Entity doesn't exists"));
     }
 
+    public List<UserReview> findAll() {
+        return userReviewRepository.findAll();
+    }
+
     @Transactional
     public UserReview saveUserReview(UserReview userReview) {
         Objects.requireNonNull(userReview, "entity must not be null");

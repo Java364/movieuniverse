@@ -1,14 +1,17 @@
 package academy.softserve.movieuniverse.dto.userreview;
 
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.core.Relation;
 
+@Relation(value = "userReview", collectionRelation = "userReviews")
 public class UserReviewDTO extends ResourceSupport implements UserReviewRequest {
     private Long userReviewId;
+    private String title;
     private String text;
     private String userName;
     private String movieName;
     private Long creationTime;
-    private Long lastUpdated;
+    private Long lastUpdate;
 
     public Long getUserReviewId() {
         return userReviewId;
@@ -20,7 +23,7 @@ public class UserReviewDTO extends ResourceSupport implements UserReviewRequest 
 
     @Override
     public String getTitle() {
-        return null;
+        return title;
     }
 
     public String getText() {
@@ -29,7 +32,7 @@ public class UserReviewDTO extends ResourceSupport implements UserReviewRequest 
 
     @Override
     public void setTitle(String title) {
-
+        this.title = title;
     }
 
     public void setText(String text) {
@@ -60,11 +63,11 @@ public class UserReviewDTO extends ResourceSupport implements UserReviewRequest 
         this.creationTime = creationTime;
     }
 
-    public Long getLastUpdated() {
-        return lastUpdated;
+    public Long getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setLastUpdated(Long lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setLastUpdate(Long lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }
