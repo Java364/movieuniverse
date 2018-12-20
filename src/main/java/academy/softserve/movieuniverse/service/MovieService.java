@@ -61,6 +61,9 @@ public class MovieService {
             if (movie.getGenres() != null && !movie.getGenres().isEmpty()) {
                 exist.setGenres(movie.getGenres());
             }
+            if (movie.getCountries() != null && !movie.getCountries().isEmpty()) {
+                exist.setCountries(movie.getCountries());
+            }
             exist = movieRepository.save(exist);
         } catch (Exception ex) {
             throw MovieException.movieUpdateException("Can't update movie", ex);

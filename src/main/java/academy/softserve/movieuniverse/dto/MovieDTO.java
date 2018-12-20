@@ -8,18 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
-    private String movieName;
-    private int year;
-    private String description;
-    private Long duration;
-    private MediaContentDTO mediaContentDTO;
-    private String ageLimitation;
-    private List<GenreDTO> genres = new ArrayList<>();
-    private List<CountryDTO> countries = new ArrayList<>();
-    private List<Long> roles = new ArrayList<Long>();
-    private List<Long> userReviews = new ArrayList<>();
-    private List<Long> stars = new ArrayList<Long>();
-    private List<MovieMarkDTO> movieMarks = new ArrayList<>();
+    private Long               id;
+    private String             movieName;
+    private int                year;
+    private String             description;
+    private Long               duration;
+    private MediaContentDTO    mediaContentDTO;
+    private String             ageLimitation;
+    private List<Long>         genres      = new ArrayList<>();
+    private List<Long>         countries   = new ArrayList<>();
+    private List<Long>         roles       = new ArrayList<Long>();
+    private List<Long>         userReviews = new ArrayList<>();
+    private List<Long>         stars       = new ArrayList<Long>();
+    private List<MovieMarkDTO> movieMarks  = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getMovieName() {
         return movieName;
@@ -69,19 +78,19 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
         this.ageLimitation = ageLimitation;
     }
 
-    public List<GenreDTO> getGenres() {
+    public List<Long> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<GenreDTO> genres) {
+    public void setGenres(List<Long> genres) {
         this.genres = genres;
     }
 
-    public List<CountryDTO> getCountries() {
+    public List<Long> getCountries() {
         return countries;
     }
 
-    public void setCountries(List<CountryDTO> countries) {
+    public void setCountries(List<Long> countries) {
         this.countries = countries;
     }
 

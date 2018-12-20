@@ -2,6 +2,8 @@ package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.dto.MovieDTO;
 import academy.softserve.movieuniverse.entity.Movie;
+import academy.softserve.movieuniverse.service.CountryService;
+import academy.softserve.movieuniverse.service.GenreService;
 import academy.softserve.movieuniverse.service.StarActivityInMoviesService;
 import academy.softserve.movieuniverse.service.StarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +30,22 @@ public class MovieMapper {
     @Autowired
     private StarService starService;
 
+    @Autowired
+    private CountryService countryService;
+
+    @Autowired
+    private GenreService genreService;
+
     public Movie mapToEntity(MovieDTO dto) {
         Movie movie = new Movie();
+        movie.setId(dto.getId());
         movie.setMovieName(dto.getMovieName());
         movie.setAgeLimitation(dto.getAgeLimitation());
-        movie.setCountries(countryMapper.mapCountriesListToEntity(dto.getCountries()));
+        movie.setCountries(dto.getCountries().stream().map((countryId -> countryService.findById(countryId))).collect(Collectors.toList()));
         movie.setDuration(dto.getDuration());
         movie.setYear(dto.getYear());
         movie.setDescription(dto.getDescription());
-        movie.setGenres(genreDtoMapper.mapToEntityList(dto.getGenres()));
+        movie.setGenres(dto.getGenres().stream().map(genreId -> genreService.findById(genreId)).collect(Collectors.toList()));
         movie.setMovieMarks(movieMarkMapper.mapMovieMarksListToEntity(dto.getMovieMarks()));
         movie.setRoles(dto.getRoles().stream().map(roleId -> starActivityInMoviesService.getStarActivityInMovies(roleId)).collect(Collectors.toList()));
         movie.setStars(dto.getStars().stream().map(starId -> starService.findStarById(starId)).collect(Collectors.toList()));
@@ -47,13 +56,14 @@ public class MovieMapper {
 
     public MovieDTO mapToDto(Movie entity) {
         MovieDTO dto = new MovieDTO();
+        dto.setId(entity.getId());
         dto.setMovieName(entity.getMovieName());
         dto.setAgeLimitation(entity.getAgeLimitation());
-        dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
+        dto.setCountries(entity.getCountries().stream().map(country -> country.getId()).collect(Collectors.toList()));
         dto.setDuration(entity.getDuration());
         dto.setYear(entity.getYear());
         dto.setDescription(entity.getDescription());
-        dto.setGenres(genreDtoMapper.mapToDtoList(entity.getGenres()));
+        dto.setGenres(entity.getGenres().stream().map(genre -> genre.getId()).collect(Collectors.toList()));
         dto.setMovieMarks(movieMarkMapper.mapListToDto(entity.getMovieMarks()));
         dto.setRoles(entity.getRoles().stream().map(role -> role.getId()).collect(Collectors.toList()));
         dto.setStars(entity.getStars().stream().map(star -> star.getId()).collect(Collectors.toList()));
