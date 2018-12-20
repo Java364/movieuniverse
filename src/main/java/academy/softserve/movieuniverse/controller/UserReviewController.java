@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user-review")
 @CrossOrigin
+@RequestMapping("/user-review")
+
 public class UserReviewController {
     private UserReviewService userReviewService;
     private UserReviewDtoMapper userReviewDtoMapper;
@@ -53,5 +54,10 @@ public class UserReviewController {
     public ResponseEntity deleteUserReview(@PathVariable("id") Long userReviewId) {
         userReviewService.deleteUserReviewById(userReviewId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user/{id}")
+    public List<UserReviewDTO> findAllByUserId(@PathVariable Long id){
+        return  userReviewDtoMapper.mapToDtoList(userReviewService.findAllByUser(id));
     }
 }
