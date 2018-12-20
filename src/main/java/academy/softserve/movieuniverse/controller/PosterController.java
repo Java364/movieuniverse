@@ -26,11 +26,12 @@ public class PosterController {
 
     @Autowired
     private PosterService posterService;
-    private PosterMapper posterMapper = new PosterMapper();
+    @Autowired
+    private PosterMapper posterMapper;
 
     @PostMapping("/create")
     ResponseEntity<PosterDTO> createPoster(@RequestBody PosterDTO posterDTO) {
-        Poster poster = posterMapper.mapToEntity(posterDTO);
+        Poster poster = posterMapper.mapToEntityForSave(posterDTO);
         poster = posterService.savePoster(poster);
         posterDTO = posterMapper.mapToDto(poster);
         return new ResponseEntity<PosterDTO>(posterDTO, HttpStatus.CREATED);

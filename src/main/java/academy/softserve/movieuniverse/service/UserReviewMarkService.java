@@ -1,6 +1,8 @@
 package academy.softserve.movieuniverse.service;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -8,6 +10,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import academy.softserve.movieuniverse.entity.Links;
+import academy.softserve.movieuniverse.entity.Trailer;
 import academy.softserve.movieuniverse.entity.UserReviewMark;
 import academy.softserve.movieuniverse.exception.UserReviewMarkException;
 
@@ -41,6 +45,11 @@ public class UserReviewMarkService {
 		UserReviewMark userReviewMark = userReviewMarkOptional.get();
 		return userReviewMark;
 	}
+	 public List<UserReviewMark> findAll() {
+		 List<UserReviewMark> userReviewMark = new ArrayList<>();
+	        userReviewMark = userReviewMarkRepository.findAll();
+	        return userReviewMark;
+	    }
 
 	public void deleteUserReviewMark(Long id) {
 		if (id == null || findUserReviewMarkById(id) == null)

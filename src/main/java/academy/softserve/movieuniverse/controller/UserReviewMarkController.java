@@ -1,9 +1,12 @@
 package academy.softserve.movieuniverse.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,11 +15,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import academy.softserve.movieuniverse.dto.UserReviewMarkDTO;
+
 import academy.softserve.movieuniverse.entity.UserReviewMark;
+
 import academy.softserve.movieuniverse.service.UserReviewMarkService;
 import academy.softserve.movieuniverse.service.mapper.UserReviewMarkMapper;
-
+@CrossOrigin
 @RestController
 public class UserReviewMarkController {
 	
@@ -25,9 +31,18 @@ public class UserReviewMarkController {
 	@Autowired
 	private UserReviewMarkMapper userReviewMarkMapper;
 	
+	@GetMapping("/userReviewMarks")
+    public ResponseEntity<List<UserReviewMarkDTO>> listAllUserReviewMarks() {
+        List<UserReviewMark> userReviewMarks = userReviewMarkService.findAll();
+        if (userReviewMarks.isEmpty()) {
+            return new ResponseEntity<List<UserReviewMarkDTO>>(HttpStatus.NO_CONTENT);
+        }
+        List<UserReviewMarkDTO> userReviewMarkDTOs = userReviewMarkMapper.mapListToDto(userReviewMarks);
+        return new ResponseEntity<List<UserReviewMarkDTO>>(userReviewMarkDTOs, HttpStatus.OK);
+    }
 	@PostMapping("/userReviewMark")
 	ResponseEntity<UserReviewMarkDTO> createUserReviewMark(@RequestBody UserReviewMarkDTO userReviewMarkDTO) {
-		UserReviewMark userReviewMark = userReviewMarkMapper.mapToEntity(userReviewMarkDTO);
+		UserReviewMark userReviewMark = userReviewMarkMapper.mapToEntityForSave(userReviewMarkDTO);
 		userReviewMark = userReviewMarkService.saveUserReviewMark(userReviewMark);
 		userReviewMarkDTO = userReviewMarkMapper.mapToDto(userReviewMark);
 		return new ResponseEntity<UserReviewMarkDTO>(userReviewMarkDTO, HttpStatus.CREATED);
