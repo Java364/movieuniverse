@@ -2,7 +2,7 @@ package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.controller.MovieMarkController;
 import academy.softserve.movieuniverse.controller.UserController;
-import academy.softserve.movieuniverse.controller.UserReviewMarkController;
+import academy.softserve.movieuniverse.controller.UserReviewController;
 import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserDTO;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
@@ -38,15 +38,8 @@ public class UserMapper {
         userDTO.setBirthday(user.getBirthday());
         userDTO.add(linkTo(methodOn(UserController.class).showById(userDTO.getUserId())).withSelfRel());
         userDTO.add(linkTo(methodOn(UserController.class).showAllNonRemoved()).withRel("users"));
-        userDTO.add(linkTo(methodOn(UserReviewMarkController.class).showOneUserReviewMark(userDTO.getUserId())).withRel("reviews"));
+        userDTO.add(linkTo(methodOn(UserReviewController.class).findAllByUserId(userDTO.getUserId())).withRel("reviews"));
         userDTO.add(linkTo(methodOn(MovieMarkController.class).showAllByUserId(userDTO.getUserId())).withRel("movieMarks"));
-        System.out.println(user);
-        if (user.getIsRemoved()) {
-            userDTO.add(linkTo(methodOn(UserController.class).restoreById(userDTO.getUserId())).withRel("restore"));
-            userDTO.add(linkTo(methodOn(UserController.class).deleteById(userDTO.getUserId())).withRel("delete"));
-        } else {
-            userDTO.add(linkTo(methodOn(UserController.class).removeById(userDTO.getUserId())).withRel("remove"));
-        }
         return userDTO;
     }
 

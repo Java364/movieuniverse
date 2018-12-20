@@ -6,12 +6,16 @@ import academy.softserve.movieuniverse.dto.userreview.UserReviewRequest;
 import academy.softserve.movieuniverse.entity.UserReview;
 import academy.softserve.movieuniverse.service.UserReviewService;
 import academy.softserve.movieuniverse.service.mapper.UserReviewDtoMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@CrossOrigin
 @RequestMapping("/user-review")
-public class UserReviewController {
+public class  UserReviewController {
     private UserReviewService userReviewService;
     private UserReviewDtoMapper userReviewDtoMapper;
 
@@ -41,5 +45,10 @@ public class UserReviewController {
     public ResponseEntity deleteUserReview(@PathVariable("id") Long userReviewId) {
         userReviewService.deleteUserReviewById(userReviewId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user/{id}")
+    public List<UserReviewDTO> findAllByUserId(@PathVariable Long id){
+        return  userReviewDtoMapper.mapToDtoList(userReviewService.findAllByUser(id));
     }
 }
