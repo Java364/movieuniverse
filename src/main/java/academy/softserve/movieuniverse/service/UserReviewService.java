@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.UserReview;
+import academy.softserve.movieuniverse.repository.UserRepository;
 import academy.softserve.movieuniverse.repository.UserReviewRepository;
 import academy.softserve.movieuniverse.service.validator.EntityExistsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,14 @@ import java.util.Objects;
 @Service
 public class UserReviewService {
     private UserReviewRepository userReviewRepository;
+    private final UserService userService;
     private EntityExistsValidator<UserReview, Long> entityExistsValidator;
 
     @Autowired
-    public UserReviewService(UserReviewRepository userReviewRepository) {
+    public UserReviewService(UserReviewRepository userReviewRepository, UserService userService) {
         this.userReviewRepository = userReviewRepository;
         entityExistsValidator = new EntityExistsValidator<>(userReviewRepository, UserReview.class);
+        this.userService = userService;
     }
 
     public UserReview findById(Long userReviewId) {
@@ -47,5 +50,9 @@ public class UserReviewService {
         entityExistsValidator.checkIfEntityExists(userReviewId);
         userReview.setId(userReviewId);
         return saveUserReview(userReview);
+    }
+
+    public List<UserReview> findAllByUser(Long id){
+        return userReviewRepository.findAllByReviewer(userService.findById(id));
     }
 }
