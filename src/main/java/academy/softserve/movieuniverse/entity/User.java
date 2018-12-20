@@ -43,6 +43,11 @@ public class User extends Person {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String getUsername(){
+        String[] split = this.email.split("@");
+        return split[0];
+    }
+
 
     public List<UserReview> getUserReviews() {
         return userReviews;
