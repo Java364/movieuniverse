@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -24,6 +25,10 @@ public class UserReviewService {
     public UserReview findById(Long userReviewId) {
         return userReviewRepository.findById(userReviewId)
                                    .orElseThrow(() -> new EntityNotFoundException("Entity doesn't exists"));
+    }
+
+    public List<UserReview> findAll() {
+        return userReviewRepository.findAll();
     }
 
     @Transactional

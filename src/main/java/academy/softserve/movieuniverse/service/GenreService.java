@@ -36,6 +36,10 @@ public class GenreService {
         return genreRepository.findAll();
     }
 
+    public Genre findById(Long genreId) {
+        return genreRepository.findById(genreId).orElse(new Genre());
+    }
+
     public Genre updateGenre(Long genreId, @NotNull Genre updatedGenre) throws EntityNotFoundException,
             NullPointerException, DuplicateEntryException {
         Objects.requireNonNull(updatedGenre, NULL_GENRE_ENTITY_MSG);

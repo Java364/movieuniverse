@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/api/users", produces = "application/hal+json")
+@RequestMapping(value = "/users", produces = "application/hal+json")
 public class UserController {
 
     private final UserService userService;
@@ -35,6 +36,7 @@ public class UserController {
                         userService.findAll()),
                         linkTo(methodOn(UserController.class).showAll()).withSelfRel()));
     }
+
 
     @GetMapping
     public ResponseEntity<Resources<UserShortInfo>> showAllNonRemoved() {
@@ -75,22 +77,22 @@ public class UserController {
                 ));
     }
 
-    @PatchMapping("/{id}/remove")
-    public ResponseEntity removeById(@PathVariable Long id) {
+    @DeleteMapping("/{id}/remove")
+    public ResponseEntity<?> removeById(@PathVariable Long id) {
         userService.removeById(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}/restore")
-    public ResponseEntity restoreById(@PathVariable Long id) {
+    @GetMapping("/{id}/restore")
+    public ResponseEntity<?> restoreById(@PathVariable Long id) {
         userService.restoreById(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteById(@PathVariable Long id) {
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
         userService.deleteById(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
