@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/users", produces = "application/hal+json")
 public class UserController {
