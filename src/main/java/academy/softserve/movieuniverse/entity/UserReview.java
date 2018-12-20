@@ -13,6 +13,8 @@ public class UserReview extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie reviewedMovie;
 
+    private String title;
+
     @Column(columnDefinition = "text")
     private String text;
 
@@ -49,5 +51,13 @@ public class UserReview extends AbstractEntity {
 
     public void setUserReviewMarks(List<UserReviewMark> userReviewMarks) {
         this.userReviewMarks = userReviewMarks;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
