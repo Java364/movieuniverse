@@ -6,11 +6,16 @@ import academy.softserve.movieuniverse.dto.userreview.UserReviewRequest;
 import academy.softserve.movieuniverse.entity.UserReview;
 import academy.softserve.movieuniverse.service.UserReviewService;
 import academy.softserve.movieuniverse.service.mapper.UserReviewDtoMapper;
+import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user-review")
+@CrossOrigin
 public class UserReviewController {
     private UserReviewService userReviewService;
     private UserReviewDtoMapper userReviewDtoMapper;
@@ -20,7 +25,14 @@ public class UserReviewController {
         this.userReviewDtoMapper = userReviewDtoMapper;
     }
 
-    @PostMapping("/create")
+    @GetMapping("/all")
+    public ResponseEntity<Resources<UserReviewDTO>> showAll() {
+        List<UserReview> userReviews = userReviewService.findAll();
+        List<UserReviewDTO> userReviewDTOS = userReviewDtoMapper.mapToDtoList(userReviews);
+        return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(userReviewDTOS));
+    }
+
+    @PostMapping
     public ResponseEntity<UserReviewDTO> createUserReview(@RequestBody UserReviewRequest userReviewRequest) {
         UserReview userReview = userReviewDtoMapper.mapToEntity(userReviewRequest);
         userReviewService.saveUserReview(userReview);
