@@ -38,9 +38,9 @@ public class GenreController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<GenreDTO> createGenre(@RequestBody GenreRequest genreCreateDto)
+    public ResponseEntity<GenreDTO> createGenre(@RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
-        Genre newGenre = genreDtoMapper.mapToEntity(genreCreateDto);
+        Genre newGenre = genreDtoMapper.mapToEntity(genreRequest);
         Genre genre = genreService.saveGenre(newGenre);
         GenreDTO genreDto = genreDtoMapper.mapToDTO(genre);
         URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDto);
