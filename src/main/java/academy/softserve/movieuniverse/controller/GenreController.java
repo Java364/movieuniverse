@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/genre")
+@CrossOrigin
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class GenreController {
     private GenreService genreService;
@@ -30,14 +31,14 @@ public class GenreController {
         this.genreDtoMapper = genreDtoMapper;
     }
 
-    @GetMapping(value = "/show/all")
+    @GetMapping(value = "/all")
     public ResponseEntity<Resources<GenreDTO>> showAllGenres() {
         List<Genre> genres = genreService.findAllGenres();
         List<GenreDTO> resources = genreDtoMapper.mapToDtoList(genres);
         return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(resources));
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<GenreDTO> createGenre(@RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
         Genre newGenre = genreDtoMapper.mapToEntity(genreRequest);
