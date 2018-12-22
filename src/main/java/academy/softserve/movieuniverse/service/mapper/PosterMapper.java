@@ -16,6 +16,7 @@ public class PosterMapper {
         poster.setImageUrl(dto.getImageUrl());
         poster.setId(null);
         poster.setIsRemoved(new Boolean(false));
+        poster.setName(dto.getName());
         poster.setMovie(movieService.findMovieById(dto.getMovieId()));
         return poster;
     }
@@ -25,27 +26,29 @@ public class PosterMapper {
         poster.setImageUrl(dto.getImageUrl());
         poster.setIsRemoved(new Boolean(false));
         poster.setId(posterId);
+        poster.setName(dto.getName());
         poster.setMovie(movieService.findMovieById(dto.getMovieId()));
         return poster;
     }
 
-    public Poster mapToEntity(PosterDTO posterDTO) {
+    public Poster mapToEntity(PosterDTO dto) {
 
         Poster poster = new Poster();
-        poster.setId(posterDTO.getId());
-        poster.setName(posterDTO.getName());
-        poster.setImageUrl(posterDTO.getImageUrl());
-        poster.setMovie(movieService.findMovieById(posterDTO.getMovieId()));
+        poster.setName(dto.getName());
+        poster.setId(dto.getId());
+        poster.setName(dto.getName());
+        poster.setImageUrl(dto.getImageUrl());
+        poster.setMovie(movieService.findMovieById(dto.getMovieId()));
         return poster;
     }
 
     public PosterDTO mapToDto(Poster entity) {
-        PosterDTO posterDTO = new PosterDTO();
-        posterDTO.setId(entity.getId());
-        posterDTO.setName(entity.getName());
-        posterDTO.setImageUrl(entity.getImageUrl());
-        posterDTO.setMovieId(entity.getMovie().getId());
-        return posterDTO;
+        PosterDTO dto = new PosterDTO();
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setImageUrl(entity.getImageUrl());
+        dto.setMovieId(entity.getMovie().getId());
+        return dto;
     }
 
 
