@@ -29,31 +29,31 @@ public class PosterController {
     @Autowired
     private PosterMapper posterMapper;
 
-    @PostMapping("/create")
-    ResponseEntity<PosterDTO> createPoster(@RequestBody PosterDTO posterDTO) {
+    @PostMapping
+    ResponseEntity<PosterDTO> create(@RequestBody PosterDTO posterDTO) {
         Poster poster = posterMapper.mapToEntityForSave(posterDTO);
-        poster = posterService.savePoster(poster);
+        poster = posterService.save(poster);
         posterDTO = posterMapper.mapToDto(poster);
         return new ResponseEntity<PosterDTO>(posterDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
-    ResponseEntity<PosterDTO> updatePoster(@PathVariable("id") Long id, @RequestBody PosterDTO posterDTO) {
+    @PutMapping("/{id}")
+    ResponseEntity<PosterDTO> update(@PathVariable("id") Long id, @RequestBody PosterDTO posterDTO) {
         Poster poster = posterMapper.mapToEntityForUpdate(posterDTO, id);
-        poster = posterService.updatePoster(poster);
+        poster = posterService.update(poster);
         posterDTO = posterMapper.mapToDto(poster);
         return new ResponseEntity<PosterDTO>(posterDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/show/{id}")
-    public ResponseEntity<PosterDTO> showPoster(@PathVariable Long id) {
-        Poster poster = posterService.findPosterById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<PosterDTO> show(@PathVariable Long id) {
+        Poster poster = posterService.findById(id);
         return new ResponseEntity<>(posterMapper.mapToDto(poster), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> fullyDeletePoster(@PathVariable Long id) {
-        posterService.deletePoster(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> completelyDelete(@PathVariable Long id) {
+        posterService.deleteById(id);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 

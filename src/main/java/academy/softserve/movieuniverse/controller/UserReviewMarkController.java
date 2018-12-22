@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -24,6 +25,7 @@ import academy.softserve.movieuniverse.service.UserReviewMarkService;
 import academy.softserve.movieuniverse.service.mapper.UserReviewMarkMapper;
 @CrossOrigin
 @RestController
+@RequestMapping("/userReviewMark")
 public class UserReviewMarkController {
 	
 	@Autowired
@@ -31,7 +33,7 @@ public class UserReviewMarkController {
 	@Autowired
 	private UserReviewMarkMapper userReviewMarkMapper;
 	
-	@GetMapping("/userReviewMarks")
+	@GetMapping("/all")
     public ResponseEntity<List<UserReviewMarkDTO>> listAllUserReviewMarks() {
         List<UserReviewMark> userReviewMarks = userReviewMarkService.findAll();
         if (userReviewMarks.isEmpty()) {
@@ -40,26 +42,26 @@ public class UserReviewMarkController {
         List<UserReviewMarkDTO> userReviewMarkDTOs = userReviewMarkMapper.mapListToDto(userReviewMarks);
         return new ResponseEntity<List<UserReviewMarkDTO>>(userReviewMarkDTOs, HttpStatus.OK);
     }
-	@PostMapping("/userReviewMark")
+	@PostMapping
 	ResponseEntity<UserReviewMarkDTO> createUserReviewMark(@RequestBody UserReviewMarkDTO userReviewMarkDTO) {
 		UserReviewMark userReviewMark = userReviewMarkMapper.mapToEntityForSave(userReviewMarkDTO);
-		userReviewMark = userReviewMarkService.saveUserReviewMark(userReviewMark);
+		userReviewMark = userReviewMarkService.save(userReviewMark);
 		userReviewMarkDTO = userReviewMarkMapper.mapToDto(userReviewMark);
 		return new ResponseEntity<UserReviewMarkDTO>(userReviewMarkDTO, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/userReviewMark/{id}")
+	@PutMapping("/{id}")
 	ResponseEntity<UserReviewMarkDTO> updateUserReviewMark(@PathVariable("id") Long id, @RequestBody UserReviewMarkDTO userReviewMarkDTO) {
 		UserReviewMark userReviewMark = userReviewMarkMapper.mapToEntityForUpdate(userReviewMarkDTO, id);
-		userReviewMark = userReviewMarkService.updateUserReviewMark(userReviewMark);
+		userReviewMark = userReviewMarkService.update(userReviewMark);
 		userReviewMarkDTO = userReviewMarkMapper.mapToDto(userReviewMark);
 		return new ResponseEntity<UserReviewMarkDTO>(userReviewMarkDTO, HttpStatus.OK);
 	}
 	
 	
-	@GetMapping("/userReviewMark/{id}")
+	@GetMapping("/{id}")
     public ResponseEntity<UserReviewMarkDTO> showOneUserReviewMark(@PathVariable Long id) {
-		UserReviewMark userReviewMark = userReviewMarkService.findUserReviewMarkById(id);
+		UserReviewMark userReviewMark = userReviewMarkService.findById(id);
         return new ResponseEntity<>(userReviewMarkMapper.mapToDto(userReviewMark), HttpStatus.OK);
     }
 	

@@ -22,7 +22,7 @@ public class TrailerController {
     @PostMapping("/trailer")
     ResponseEntity<TrailerDTO> createTrailer(@RequestBody TrailerDTO trailerDTO) {
         Trailer trailer = trailerMapper.mapToEntityForSave(trailerDTO);
-        trailer = trailerService.saveTrailer(trailer);
+        trailer = trailerService.save(trailer);
         trailerDTO = trailerMapper.mapToDto(trailer);
         return new ResponseEntity<TrailerDTO>(trailerDTO, HttpStatus.CREATED);
     }
@@ -30,7 +30,7 @@ public class TrailerController {
     @PutMapping("/trailer/{id}")
     ResponseEntity<TrailerDTO> updateTrailer(@PathVariable("id") Long id, @RequestBody TrailerDTO trailerDTO) {
         Trailer trailer = trailerMapper.mapToEntityForUpdate(trailerDTO, id);
-        trailer = trailerService.updateTrailer(trailer);
+        trailer = trailerService.update(trailer);
         trailerDTO = trailerMapper.mapToDto(trailer);
         return new ResponseEntity<TrailerDTO>(trailerDTO, HttpStatus.OK);
     }
@@ -47,14 +47,14 @@ public class TrailerController {
 
     @GetMapping("/trailer/{id}")
     public ResponseEntity<TrailerDTO> showOneTrailer(@PathVariable Long id) {
-        Trailer trailer = trailerService.findTrailerById(id);
+        Trailer trailer = trailerService.findById(id);
         TrailerDTO trailerDTO = trailerMapper.mapToDto(trailer);
         return new ResponseEntity<TrailerDTO>(trailerDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/trailer/{id}")
     public ResponseEntity<String> completelyDeleteTrailer(@PathVariable Long id) {
-        trailerService.deleteTrailer(id);
+        trailerService.deleteById(id);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
