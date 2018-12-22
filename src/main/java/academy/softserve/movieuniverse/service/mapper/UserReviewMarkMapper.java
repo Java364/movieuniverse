@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import academy.softserve.movieuniverse.dto.UserReviewMarkDTO;
-import academy.softserve.movieuniverse.dto.UserReviewMarkDTO;
+
 import academy.softserve.movieuniverse.entity.UserReviewMark;
-import academy.softserve.movieuniverse.entity.UserReviewMark;
+
 
 import academy.softserve.movieuniverse.service.UserReviewService;
 import academy.softserve.movieuniverse.service.UserService;
