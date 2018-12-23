@@ -19,7 +19,7 @@ public class MovieMapper {
     private CountryMapper countryMapper;
 
     @Autowired
-    private GenreDtoMapper genreDtoMapper;
+    private GenreMapper genreMapper;
 
     @Autowired
     private MovieMarkMapper movieMarkMapper;
@@ -49,7 +49,7 @@ public class MovieMapper {
         movie.setMovieMarks(movieMarkMapper.mapMovieMarksListToEntity(dto.getMovieMarks()));
         movie.setRoles(dto.getRoles().stream().map(roleId -> starActivityInMoviesService.getStarActivityInMovies(roleId)).collect(Collectors.toList()));
         movie.setStars(dto.getStars().stream().map(starId -> starService.findStarById(starId)).collect(Collectors.toList()));
-        movie.setUserReviews(new ArrayList<>());
+        movie.setComments(new ArrayList<>());
         return movie;
     }
 
@@ -67,7 +67,7 @@ public class MovieMapper {
         dto.setMovieMarks(movieMarkMapper.mapListToDto(entity.getMovieMarks()));
         dto.setRoles(entity.getRoles().stream().map(role -> role.getId()).collect(Collectors.toList()));
         dto.setStars(entity.getStars().stream().map(star -> star.getId()).collect(Collectors.toList()));
-        dto.setUserReviews(entity.getUserReviews().stream().map(review -> review.getId()).collect(Collectors.toList()));
+        dto.setComments(entity.getComments().stream().map(review -> review.getId()).collect(Collectors.toList()));
         return dto;
     }
 

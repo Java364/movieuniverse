@@ -110,11 +110,11 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
         this.stars = stars;
     }
 
-    public List<Long> getUserReviews() {
+    public List<Long> getComments() {
         return userReviews;
     }
 
-    public void setUserReviews(List<Long> userReviews) {
+    public void setComments(List<Long> userReviews) {
         this.userReviews = userReviews;
     }
 

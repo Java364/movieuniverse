@@ -6,7 +6,8 @@ import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreRequest;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.GenreService;
-import academy.softserve.movieuniverse.service.mapper.GenreDtoMapper;
+import academy.softserve.movieuniverse.service.mapper.GenreMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
@@ -23,44 +24,44 @@ import java.util.List;
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class GenreController {
     private GenreService genreService;
-    private GenreDtoMapper genreDtoMapper;
+    private GenreMapper genreMapper;
 
     @Autowired
-    public GenreController(GenreService genreService, GenreDtoMapper genreDtoMapper) {
+    public GenreController(GenreService genreService, GenreMapper genreMapper) {
         this.genreService = genreService;
-        this.genreDtoMapper = genreDtoMapper;
+        this.genreMapper = genreMapper;
     }
 
     @GetMapping(value = "/all")
     public ResponseEntity<Resources<GenreDTO>> showAllGenres() {
         List<Genre> genres = genreService.findAllGenres();
-        List<GenreDTO> resources = genreDtoMapper.mapToDtoList(genres);
+        List<GenreDTO> resources = genreMapper.mapToDTOList(genres);
         return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(resources));
     }
 
     @PostMapping
-    public ResponseEntity<GenreDTO> createGenre(@RequestBody GenreRequest genreRequest)
+    public ResponseEntity<GenreDTO> create(@RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
-        Genre newGenre = genreDtoMapper.mapToEntity(genreRequest);
+        Genre newGenre = genreMapper.mapToEntity(genreRequest);
         Genre genre = genreService.saveGenre(newGenre);
-        GenreDTO genreDto = genreDtoMapper.mapToDTO(genre);
-        URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDto);
-        return ResponseEntity.created(locationHeaderUri).body(genreDto);
+        GenreDTO genreDTO = genreMapper.mapToDTO(genre);
+        URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDTO);
+        return ResponseEntity.created(locationHeaderUri).body(genreDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenreDTO> updateGenre(@PathVariable("id") Long genreId,
+    public ResponseEntity<GenreDTO> update(@PathVariable("id") Long genreId,
                                                 @RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
-        Genre updatedGenre = genreDtoMapper.mapToEntity(genreRequest);
+        Genre updatedGenre = genreMapper.mapToEntity(genreRequest);
         Genre genre = genreService.updateGenre(genreId, updatedGenre);
-        GenreDTO genreDto = genreDtoMapper.mapToDTO(genre);
-        URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDto);
-        return ResponseEntity.created(locationHeaderUri).body(genreDto);
+        GenreDTO genreDTO = genreMapper.mapToDTO(genre);
+        URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDTO);
+        return ResponseEntity.created(locationHeaderUri).body(genreDTO);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteGenre(@PathVariable("id") Long genreId) {
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long genreId) {
         genreService.deleteGenreById(genreId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
