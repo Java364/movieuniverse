@@ -3,8 +3,8 @@ package academy.softserve.movieuniverse.dto.userreview;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 
-@Relation(value = "userReview", collectionRelation = "userReviews")
-public class UserReviewDTO extends ResourceSupport implements UserReviewRequest {
+@Relation(value = "comment", collectionRelation = "comments")
+public class CommentDTO extends ResourceSupport implements CommentRequest {
     private Long userReviewId;
     private String title;
     private String text;
@@ -13,11 +13,11 @@ public class UserReviewDTO extends ResourceSupport implements UserReviewRequest 
     private Long creationTime;
     private Long lastUpdate;
 
-    public Long getUserReviewId() {
+    public Long getCommentId() {
         return userReviewId;
     }
 
-    public void setUserReviewId(Long userReviewId) {
+    public void setCommentId(Long userReviewId) {
         this.userReviewId = userReviewId;
     }
 

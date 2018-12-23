@@ -41,8 +41,8 @@ public class Movie extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "star_id"))
     private List<Star> stars = new ArrayList<>();
 
-    @OneToMany(mappedBy = "reviewedMovie", cascade = CascadeType.ALL)
-    private List<UserReview> userReviews = new ArrayList<>();
+    @OneToMany(mappedBy = "commentedMovie", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<MovieMark> movieMarks = new ArrayList<>();
@@ -138,12 +138,12 @@ public class Movie extends AbstractEntity {
         this.mediaContent = mediaContent;
     }
 
-    public List<UserReview> getUserReviews() {
-        return userReviews;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public Movie setUserReviews(List<UserReview> userReviews) {
-        this.userReviews = userReviews;
+    public Movie setComments(List<Comment> comments) {
+        this.comments = comments;
         return this;
     }
 }
