@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    @Query("select ur from Comments ur where ur.commentator.id = :userId")
+    @Query("select c from Comment c where c.commentator.id = :userId")
     Optional<Comment> findCommentByUserId(@Param("userId") Long userId);
 
-    List<Comment> findAllByReviewer(User user);
+    List<Comment> findAllByCommentator(User user);
 }

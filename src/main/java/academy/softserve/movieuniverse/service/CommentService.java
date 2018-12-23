@@ -53,6 +53,6 @@ public class CommentService {
     }
 
     public List<Comment> findAllByUser(Long id){
-        return commentRepository.findAllByReviewer(userService.findById(id));
+        return commentRepository.findAllByCommentator(userService.findById(id));
     }
 }
