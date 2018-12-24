@@ -70,12 +70,10 @@ public class DbInitService {
 
     }
 
-    
-
     @PreDestroy
     public void removeData() {
-        
         countryRepository.deleteAll();
         professionRepository.deleteAll();
+
     }
 }

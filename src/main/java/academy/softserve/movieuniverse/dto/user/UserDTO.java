@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.dto.user;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.hateoas.ResourceSupport;
 

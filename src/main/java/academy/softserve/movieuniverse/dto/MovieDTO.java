@@ -3,6 +3,7 @@ package academy.softserve.movieuniverse.dto;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
+import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
 
 import java.util.ArrayList;
 import java.util.List;

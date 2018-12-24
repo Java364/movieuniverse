@@ -18,7 +18,6 @@ public class MovieMarkService {
     @Autowired
     private MovieMarkRepository movieMarkRepository;
 
-
     public List<MovieMark> findAll() {
         return movieMarkRepository.findAll();
     }

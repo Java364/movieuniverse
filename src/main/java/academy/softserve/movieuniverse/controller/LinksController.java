@@ -5,11 +5,15 @@ import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.service.LinksService;
 import academy.softserve.movieuniverse.service.mapper.LinksMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @CrossOrigin
 @RestController
@@ -21,7 +25,7 @@ public class LinksController {
     @Autowired
     private LinksMapper linksMapper = new LinksMapper();
 
-    @PostMapping("/createLinks")
+    @PostMapping
     ResponseEntity<LinksDTO> createLink(@RequestBody LinksDTO linksDTO) {
         Links links = linksMapper.mapToEntityAndSaveLinks(linksDTO);
         linksService.saveLinks(links);
@@ -29,10 +33,18 @@ public class LinksController {
         return new ResponseEntity<LinksDTO>(linksDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping("/listAll")
+    /*@GetMapping
     public List<LinksDTO> findAllLinks() {
         List<Links> linksList = linksService.findAll();
         return linksMapper.mapListToDto(linksList);
+    }*/
+    @GetMapping
+    public ResponseEntity<Resources<LinksDTO>> showAllLinks() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new Resources<>(linksMapper.mapListToDto(
+                        linksService.findAll()),
+                        linkTo(methodOn(LinksController.class).showAllLinks()).withSelfRel()));
     }
 
     @GetMapping("/link/{id}")

@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.dto;
+package academy.softserve.movieuniverse.dto.country;
 
 
 public class CountryDTO {
