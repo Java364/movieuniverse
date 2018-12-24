@@ -1,14 +1,15 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import academy.softserve.movieuniverse.controller.CommentController;
 import academy.softserve.movieuniverse.controller.MovieMarkController;
 import academy.softserve.movieuniverse.controller.UserController;
-import academy.softserve.movieuniverse.controller.CommentController;
 import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserDTO;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
 import academy.softserve.movieuniverse.dto.user.UserShortInfo;
 import academy.softserve.movieuniverse.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,13 +21,9 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Service
 public class UserMapper {
 
-    private final MovieMarkMapper movieMarkMapper;
-    private final CommentMapper commentMapper;
-
     @Autowired
-    public UserMapper(MovieMarkMapper movieMarkMapper, CommentMapper commentMapper) {
-        this.movieMarkMapper = movieMarkMapper;
-        this.commentMapper = commentMapper;
+    public UserMapper() {
+
     }
 
     private UserDTO copyEntityPropertiesToDTO(User user) {
@@ -61,23 +58,24 @@ public class UserMapper {
         return userDTO;
     }
 
-    public UserCreateInfo mapUserEntityToUserDTOWithShortInfoAndPassword(User user) {
+    public UserCreateInfo mapUserEntityToUserDTOCreateInfo(User user) {
         UserDTO userDTO = copyEntityPropertiesToDTO(user);
         userDTO.setPassword(user.getPassword());
         return userDTO;
     }
 
     public UserShortInfo mapUserEntityToUserDTOWithShortInfo(User user) {
-        UserDTO userDTO = copyEntityPropertiesToDTO(user);
-        return userDTO;
+        return copyEntityPropertiesToDTO(user);
     }
 
-    public List<UserFullInfo> mapUserEntityListToUserWithFullInfoList(List<User> users) {
-        return users.stream().map(this::mapUserEntityToUserDTOWithFullInfo).collect(Collectors.toList());
+    public Resources<UserFullInfo> mapUserEntityListToUserWithFullInfoList(List<User> users) {
+        return new Resources<>(users.stream().map(this::mapUserEntityToUserDTOWithFullInfo).collect(Collectors.toList()),
+                linkTo(methodOn(UserController.class).showAllNonRemoved()).withSelfRel());
     }
 
-    public List<UserShortInfo> mapUserEntityListToUserWithShortInfoList(List<User> users) {
-        return users.stream().map(this::mapUserEntityToUserDTOWithShortInfo).collect(Collectors.toList());
+    public Resources<UserShortInfo> mapUserEntityListToUserWithShortInfoList(List<User> users) {
+        return new Resources<>(users.stream().map(this::mapUserEntityToUserDTOWithShortInfo).collect(Collectors.toList()),
+                linkTo(methodOn(UserController.class).showAllNonRemoved()).withSelfRel());
     }
 
 

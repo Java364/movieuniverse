@@ -11,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @CrossOrigin
 @RestController
@@ -32,9 +30,7 @@ public class UserController {
     public ResponseEntity<Resources<UserShortInfo>> showAll() {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new Resources<>(userMapper.mapUserEntityListToUserWithShortInfoList(
-                        userService.findAll()),
-                        linkTo(methodOn(UserController.class).showAll()).withSelfRel()));
+                .body(userMapper.mapUserEntityListToUserWithShortInfoList(userService.findAll()));
     }
 
 
@@ -42,9 +38,7 @@ public class UserController {
     public ResponseEntity<Resources<UserShortInfo>> showAllNonRemoved() {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new Resources<>(userMapper.mapUserEntityListToUserWithShortInfoList(
-                        userService.findAllNonRemoved()),
-                        linkTo(methodOn(UserController.class).showAllNonRemoved()).withSelfRel()));
+                .body(userMapper.mapUserEntityListToUserWithShortInfoList(userService.findAllNonRemoved()));
     }
 
     @PostMapping
