@@ -4,10 +4,6 @@ import java.time.LocalDateTime;
 
 public interface UserFullInfo {
 
-    Long getUserId();
-
-    void setUserId(Long id);
-
     String getEmail();
 
     void setEmail(String email);

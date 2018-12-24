@@ -31,15 +31,14 @@ public class UserMapper {
 
     private UserDTO copyEntityPropertiesToDTO(User user) {
         UserDTO userDTO = new UserDTO();
-        userDTO.setUserId(user.getId());
         userDTO.setEmail(user.getEmail());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setBirthday(user.getBirthday());
-        userDTO.add(linkTo(methodOn(UserController.class).showById(userDTO.getUserId())).withSelfRel());
+        userDTO.add(linkTo(methodOn(UserController.class).showById(user.getId())).withSelfRel());
         userDTO.add(linkTo(methodOn(UserController.class).showAllNonRemoved()).withRel("users"));
-        userDTO.add(linkTo(methodOn(CommentController.class).findAllByUserId(userDTO.getUserId())).withRel("comments"));
-        userDTO.add(linkTo(methodOn(MovieMarkController.class).showAllByUserId(userDTO.getUserId())).withRel("movieMarks"));
+        userDTO.add(linkTo(methodOn(CommentController.class).findAllByUserId(user.getId())).withRel("comments"));
+        userDTO.add(linkTo(methodOn(MovieMarkController.class).showAllByUserId(user.getId())).withRel("movieMarks"));
         return userDTO;
     }
 
