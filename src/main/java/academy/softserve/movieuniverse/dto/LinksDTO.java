@@ -2,9 +2,10 @@ package academy.softserve.movieuniverse.dto;
 
 
 import academy.softserve.movieuniverse.entity.Links;
+import org.springframework.hateoas.ResourceSupport;
 
-public class LinksDTO {
-    private Long id;
+public class LinksDTO extends ResourceSupport {
+
     private String linkName;
     private Links.SocialNetworkingSites socialNetworkingSite;
     private Long starID;
@@ -13,13 +14,6 @@ public class LinksDTO {
     public LinksDTO() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getLinkName() {
         return linkName;
