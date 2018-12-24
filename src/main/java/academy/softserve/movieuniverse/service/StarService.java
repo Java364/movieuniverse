@@ -7,7 +7,6 @@ import academy.softserve.movieuniverse.repository.StarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.plugin.javascript.navig.Link;
 
 import java.util.List;
 import java.util.Optional;
@@ -86,7 +85,6 @@ public class StarService {
         return star;
     }
     public Star findAllByLinks(Links links) {
-
         return starRepository.findByLinks(links);
     }
 

@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Movie;
+import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.exception.MovieException;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,10 @@ public class MovieService {
         if (value == null)
             return false;
         return !value.trim().isEmpty();
+    }
+    
+    public List<Movie> findAllByMovieMark(MovieMark movieMark) {
+    	return movieRepository.findAllByMovieMark(movieMark);
     }
 
 }

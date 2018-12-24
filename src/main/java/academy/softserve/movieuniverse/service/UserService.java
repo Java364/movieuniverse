@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
+import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.exception.UserException;
 import academy.softserve.movieuniverse.repository.UserRepository;
@@ -80,5 +81,8 @@ public class UserService {
     public List<User> findAllNonRemoved() {
         return userRepository.findAllByIsRemoved(false);
     }
-
+    
+    public List<User> findAllByMovieMark(MovieMark movieMark) {
+    	return userRepository.findAllByMovieMark(movieMark);
+    }
 }

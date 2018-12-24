@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import academy.softserve.movieuniverse.dto.CountryDTO;
+import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.service.CountryService;
 import academy.softserve.movieuniverse.service.MovieService;
