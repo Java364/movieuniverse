@@ -82,7 +82,7 @@ public class UserService {
         return userRepository.findAllByIsRemoved(false);
     }
     
-    public List<User> findAllByMovieMark(MovieMark movieMark) {
-    	return userRepository.findAllByMovieMark(movieMark);
+    public User findAllByMovieMark(MovieMark movieMark) {
+    	return userRepository.findAllByMovieMarks(movieMark);
     }
 }
