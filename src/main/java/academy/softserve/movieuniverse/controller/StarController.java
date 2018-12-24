@@ -3,8 +3,10 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.controller.hateoas.StarResourceAssembler;
 import academy.softserve.movieuniverse.dto.StarDTO;
 import academy.softserve.movieuniverse.dto.StarProfessionDTO;
+import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.entity.StarProfession;
+import academy.softserve.movieuniverse.service.LinksService;
 import academy.softserve.movieuniverse.service.StarProfessionService;
 import academy.softserve.movieuniverse.service.StarService;
 import academy.softserve.movieuniverse.service.mapper.StarMapper;
@@ -34,6 +36,8 @@ public class StarController {
     private StarProfessionMapper starProfessionMapper;
     @Autowired
     private StarResourceAssembler essembler;
+    @Autowired
+    private LinksService linksService;
 
 
     @GetMapping("/list")
@@ -91,5 +95,10 @@ public class StarController {
     public ResponseEntity<StarDTO> makeActive(@PathVariable Long id) {
         service.makeActive(id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+    @GetMapping("/links/{id}")
+    public StarDTO showAllByLinksId(@PathVariable Long id) {
+        Links links = linksService.getOneLinks(id);
+        return mapper.mapProfileToDto(service.findAllByLinks(links));
     }
 }
