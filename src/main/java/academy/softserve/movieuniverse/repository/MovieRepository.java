@@ -8,5 +8,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-	List<Movie> findAllByMovieMark(MovieMark movieMark);
+	Movie findAllByMovieMarks(MovieMark movieMark);
 }

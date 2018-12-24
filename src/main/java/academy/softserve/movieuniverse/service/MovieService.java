@@ -87,8 +87,8 @@ public class MovieService {
         return !value.trim().isEmpty();
     }
     
-    public List<Movie> findAllByMovieMark(MovieMark movieMark) {
-    	return movieRepository.findAllByMovieMark(movieMark);
+    public Movie findAllByMovieMarks(MovieMark movieMark) {
+    	return movieRepository.findAllByMovieMarks(movieMark);
     }
 
 }
