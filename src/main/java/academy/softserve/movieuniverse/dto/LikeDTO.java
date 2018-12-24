@@ -2,7 +2,7 @@ package academy.softserve.movieuniverse.dto;
 
 import academy.softserve.movieuniverse.entity.Like;
 
-public class LikeDTO {
+public class LikeDTO  {
 
     private Long id;
     private Like.Mark mark;
