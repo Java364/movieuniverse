@@ -16,20 +16,19 @@ import javax.annotation.PreDestroy;
 public class DbInitService {
 
     private final CountryRepository countryRepository;
-    private final GenreRepository genreRepository;
+    
     private final ProfessionRepository professionRepository;
 
     @Autowired
-    public DbInitService(CountryRepository countryRepository, GenreRepository genreRepository, ProfessionRepository professionRepository) {
+    public DbInitService(CountryRepository countryRepository, ProfessionRepository professionRepository) {
         this.countryRepository = countryRepository;
-        this.genreRepository = genreRepository;
         this.professionRepository = professionRepository;
     }
 
     @PostConstruct
     public void dbInit() {
         insertCountries();
-        insertGenres();
+       
         insertProfessions();
 
     }
@@ -71,27 +70,10 @@ public class DbInitService {
 
     }
 
-    private void insertGenres() {
-        Genre genre1 = new Genre();
-        Genre genre2 = new Genre();
-        Genre genre3 = new Genre();
-        Genre genre4 = new Genre();
-        Genre genre5 = new Genre();
-        genre1.setName("Action");
-        genre2.setName("Comedy");
-        genre3.setName("Drama");
-        genre4.setName("Horror");
-        genre5.setName("Thriller");
-        genreRepository.save(genre1);
-        genreRepository.save(genre2);
-        genreRepository.save(genre3);
-        genreRepository.save(genre4);
-        genreRepository.save(genre5);
-    }
-
     @PreDestroy
     public void removeData() {
-        genreRepository.deleteAll();
         countryRepository.deleteAll();
+        professionRepository.deleteAll();
+
     }
 }

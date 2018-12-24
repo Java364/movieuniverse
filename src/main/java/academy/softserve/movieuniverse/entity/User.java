@@ -14,8 +14,8 @@ public class User extends Person {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
-    private List<UserReview> userReviews = new ArrayList<>();
+    @OneToMany(mappedBy = "commentator", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MovieMark> movieMarks = new ArrayList<>();
@@ -49,12 +49,12 @@ public class User extends Person {
     }
 
 
-    public List<UserReview> getUserReviews() {
-        return userReviews;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setUserReviews(List<UserReview> userReviews) {
-        this.userReviews = userReviews;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override
@@ -64,13 +64,13 @@ public class User extends Person {
         User user = (User) o;
         return Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(userReviews, user.userReviews) &&
+                Objects.equals(comments, user.comments) &&
                 Objects.equals(movieMarks, user.movieMarks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, password, userReviews, movieMarks);
+        return Objects.hash(email, password, comments, movieMarks);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class User extends Person {
         return "User{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", userReviews=" + userReviews +
+                ", comments=" + comments +
                 ", movieMarks=" + movieMarks +
                 '}';
     }

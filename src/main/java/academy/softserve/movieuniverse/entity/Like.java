@@ -9,32 +9,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_review_mark")
-public class UserReviewMark extends AbstractEntity {
-    @ManyToOne(fetch = FetchType.LAZY)
-    private UserReview userReview;
+@Table(name = "likes")
+public class Like extends AbstractEntity {
+  
+	@ManyToOne(fetch = FetchType.LAZY)
+    private Comment comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User reviewer;
+    private User commentator;
 
     @Column(name = "mark")
     @Enumerated(EnumType.STRING)
     private Mark mark;
 
-    public UserReview getUserReview() {
-        return userReview;
+    public Comment getComment() {
+        return comment;
     }
 
-    public void setUserReview(UserReview userReview) {
-        this.userReview = userReview;
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 
-    public User getReviewer() {
-        return reviewer;
+    public User getCommentator() {
+        return commentator;
     }
 
-    public void setReviewer(User reviewer) {
-        this.reviewer = reviewer;
+    public void setCommentator(User commentator) {
+        this.commentator = commentator;
     }
     
     public Mark getMark() {

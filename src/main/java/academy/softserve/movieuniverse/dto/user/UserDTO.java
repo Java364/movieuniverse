@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDTO extends ResourceSupport implements UserShortInfo, UserCreateInfo, UserFullInfo, UserLoginInfo {
-    private Long userId;
     private String email;
     private String password;
     private String confirmPassword;
@@ -22,15 +21,6 @@ public class UserDTO extends ResourceSupport implements UserShortInfo, UserCreat
     public UserDTO() {
     }
 
-    @Override
-    public Long getUserId() {
-        return userId;
-    }
-
-    @Override
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     @Override
     public String getEmail() {

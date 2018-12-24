@@ -2,7 +2,7 @@ package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.controller.MovieMarkController;
 import academy.softserve.movieuniverse.controller.UserController;
-import academy.softserve.movieuniverse.controller.UserReviewController;
+import academy.softserve.movieuniverse.controller.CommentController;
 import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserDTO;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
@@ -21,25 +21,24 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class UserMapper {
 
     private final MovieMarkMapper movieMarkMapper;
-    private final UserReviewDtoMapper userReviewDtoMapper;
+    private final CommentMapper commentMapper;
 
     @Autowired
-    public UserMapper(MovieMarkMapper movieMarkMapper, UserReviewDtoMapper userReviewDtoMapper) {
+    public UserMapper(MovieMarkMapper movieMarkMapper, CommentMapper commentMapper) {
         this.movieMarkMapper = movieMarkMapper;
-        this.userReviewDtoMapper = userReviewDtoMapper;
+        this.commentMapper = commentMapper;
     }
 
     private UserDTO copyEntityPropertiesToDTO(User user) {
         UserDTO userDTO = new UserDTO();
-        userDTO.setUserId(user.getId());
         userDTO.setEmail(user.getEmail());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setBirthday(user.getBirthday());
-        userDTO.add(linkTo(methodOn(UserController.class).showById(userDTO.getUserId())).withSelfRel());
+        userDTO.add(linkTo(methodOn(UserController.class).showById(user.getId())).withSelfRel());
         userDTO.add(linkTo(methodOn(UserController.class).showAllNonRemoved()).withRel("users"));
-        userDTO.add(linkTo(methodOn(UserReviewController.class).findAllByUserId(userDTO.getUserId())).withRel("reviews"));
-        userDTO.add(linkTo(methodOn(MovieMarkController.class).showAllByUserId(userDTO.getUserId())).withRel("movieMarks"));
+        userDTO.add(linkTo(methodOn(CommentController.class).findAllByUserId(user.getId())).withRel("comments"));
+        userDTO.add(linkTo(methodOn(MovieMarkController.class).showAllByUserId(user.getId())).withRel("movieMarks"));
         return userDTO;
     }
 

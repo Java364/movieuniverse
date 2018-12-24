@@ -42,7 +42,6 @@ public class Links extends AbstractEntity {
     public void setSocialNetworkingSite(SocialNetworkingSites socialNetworkingSite) {
         this.socialNetworkingSite = socialNetworkingSite;
     }
-
     public Star getStar() {
         return star;
     }

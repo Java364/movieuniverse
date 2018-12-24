@@ -12,10 +12,12 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class GenreService {
     private static final String NULL_GENRE_ENTITY_MSG = "Genre entity must not be null";
+
     private GenreRepository genreRepository;
     private EntityExistsValidator<Genre, Long> entityExistsValidator;
 
@@ -34,10 +36,6 @@ public class GenreService {
 
     public List<Genre> findAllGenres() {
         return genreRepository.findAll();
-    }
-
-    public Genre findById(Long genreId) {
-        return genreRepository.findById(genreId).orElse(new Genre());
     }
 
     public Genre updateGenre(Long genreId, @NotNull Genre updatedGenre) throws EntityNotFoundException,
@@ -62,4 +60,11 @@ public class GenreService {
         }
     }
 
+    public Genre findById(Long id) {
+       Optional<Genre> genre =  genreRepository.findById(id);
+       if (genre.isPresent()) {
+           return  genre.get();
+       }
+       return null;
+    }
 }
