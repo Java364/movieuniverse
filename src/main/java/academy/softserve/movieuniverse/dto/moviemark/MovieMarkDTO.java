@@ -1,18 +1,14 @@
-package academy.softserve.movieuniverse.dto;
+package academy.softserve.movieuniverse.dto.moviemark;
 
-public class MovieMarkDTO {
-    private Long id;
+import org.springframework.hateoas.ResourceSupport;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class MovieMarkDTO extends ResourceSupport{
     private double mark;
     private Long movieId;
     private Long userId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public double getMark() {
         return mark;
@@ -37,5 +33,4 @@ public class MovieMarkDTO {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-
 }

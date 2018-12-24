@@ -3,6 +3,8 @@ package academy.softserve.movieuniverse.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import academy.softserve.movieuniverse.dto.country.CountryDTO;
+
 public class StarDTO {
     private Long id;
     private String firstName;

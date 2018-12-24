@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.MovieMarkDTO;
+import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.service.MovieMarkService;
