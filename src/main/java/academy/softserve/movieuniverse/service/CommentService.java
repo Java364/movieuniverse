@@ -37,7 +37,7 @@ public class CommentService {
     @Transactional
     public Comment save(Comment comment) {
         Objects.requireNonNull(comment, "entity must not be null");
-        return commentRepository.save(comment);
+        return commentRepository.saveAndFlush(comment);
     }
 
     @Transactional

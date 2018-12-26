@@ -31,7 +31,7 @@ public class LikeMapper {
 		Like like = new Like();
 		like.setMark(dto.getMark());
 		like.setCommentator(userService.findById(dto.getCommentatorId()));
-		like.setComment(commentMapper.mapToEntity(commentService.findById(dto.getCommentId())));
+//		like.setComment(commentMapper.mapToEntity(commentService.findById(dto.getCommentId())));
 		return like;
 
 	}
@@ -40,7 +40,7 @@ public class LikeMapper {
 		Like like = new Like();
 		like.setMark(dto.getMark());
 		like.setCommentator(userService.findById(dto.getCommentatorId()));
-		like.setComment(commentMapper.mapToEntity(commentService.findById(dto.getCommentId())));
+//		like.setComment(commentMapper.mapToEntity(commentService.findById(dto.getCommentId())));
 		return like;
 	}
 
@@ -49,7 +49,7 @@ public class LikeMapper {
 		like.setId(likeId);
 		like.setMark(dto.getMark());
 		like.setCommentator(userService.findById(dto.getCommentatorId()));
-		like.setComment(commentMapper.mapToEntity(commentService.findById(dto.getCommentId())));
+//		like.setComment(commentMapper.mapToEntity(commentService.findById(dto.getCommentId())));
 		return like;
 	}
 

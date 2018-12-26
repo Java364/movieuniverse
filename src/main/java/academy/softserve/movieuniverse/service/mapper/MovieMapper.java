@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import academy.softserve.movieuniverse.controller.MovieController;
 import academy.softserve.movieuniverse.dto.MovieDTO;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.service.CountryService;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
 public class MovieMapper {
@@ -68,6 +72,7 @@ public class MovieMapper {
         dto.setRoles(entity.getRoles().stream().map(role -> role.getId()).collect(Collectors.toList()));
         dto.setStars(entity.getStars().stream().map(star -> star.getId()).collect(Collectors.toList()));
         dto.setComments(entity.getComments().stream().map(review -> review.getId()).collect(Collectors.toList()));
+        dto.setComments(linkTo(methodOn(MovieController.class).showComments(entity.getId())).withRel("comments").getHref());
         return dto;
     }
 

@@ -1,25 +1,20 @@
-package academy.softserve.movieuniverse.dto.userreview;
+package academy.softserve.movieuniverse.dto.comment;
 
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 
 @Relation(value = "comment", collectionRelation = "comments")
-public class CommentDTO extends ResourceSupport implements CommentRequest {
-    private Long userReviewId;
+public class CommentDTO implements CommentRequest {
     private String title;
     private String text;
     private String userName;
     private String movieName;
     private Long creationTime;
     private Long lastUpdate;
-
-    public Long getCommentId() {
-        return userReviewId;
-    }
-
-    public void setCommentId(Long userReviewId) {
-        this.userReviewId = userReviewId;
-    }
+    private String self;
+    private String movie;
+    private String user;
 
     @Override
     public String getTitle() {
@@ -69,5 +64,33 @@ public class CommentDTO extends ResourceSupport implements CommentRequest {
 
     public void setLastUpdate(Long lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getSelf() {
+        return self;
+    }
+
+    public void setSelf(String self) {
+        this.self = self;
+    }
+
+    public String getMovie() {
+        return movie;
+    }
+
+    public void setMovie(String movie) {
+        this.movie = movie;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

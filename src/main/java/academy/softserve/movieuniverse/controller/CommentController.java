@@ -1,8 +1,8 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.controller.util.ControllerHateoasUtil;
-import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
-import academy.softserve.movieuniverse.dto.userreview.CommentRequest;
+import academy.softserve.movieuniverse.dto.comment.CommentDTO;
+import academy.softserve.movieuniverse.dto.comment.CommentRequest;
 import academy.softserve.movieuniverse.entity.Comment;
 import academy.softserve.movieuniverse.service.CommentService;
 
@@ -28,11 +28,17 @@ public class CommentController {
         this.commentMapper = commentMapper;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<Resources<CommentDTO>> showAll() {
+    @GetMapping("/{id}")
+    public ResponseEntity<CommentDTO> showById(@PathVariable Long id){
+      return ResponseEntity.status(HttpStatus.OK)
+              .body(commentMapper.mapToDTO(commentService.findById(id)));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CommentDTO>> showAll() {
         List<Comment> comments = commentService.findAll();
         List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(comments);
-        return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(commentDTOS));
+        return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
     }
 
     @PostMapping
@@ -40,7 +46,8 @@ public class CommentController {
         Comment comment = commentMapper.mapToEntity(commentRequest);
         commentService.save(comment);
         CommentDTO commentDTO = commentMapper.mapToDTO(comment);
-        return ResponseEntity.created(ControllerHateoasUtil.createLocationHeaderUri(commentDTO)).body(commentDTO);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(commentDTO);
     }
 
     @PutMapping("/{id}")
@@ -49,7 +56,8 @@ public class CommentController {
         Comment comment = commentMapper.mapToEntity(commentRequest);
         Comment updatedUser = commentService.update(commentId, comment);
         CommentDTO commentDTO = commentMapper.mapToDTO(updatedUser);
-        return ResponseEntity.created(ControllerHateoasUtil.createLocationHeaderUri(commentDTO)).body(commentDTO);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(commentDTO);
     }
 
     @DeleteMapping("/{id}")

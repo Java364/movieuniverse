@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.dto.userreview;
+package academy.softserve.movieuniverse.dto.comment;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
