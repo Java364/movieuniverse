@@ -25,7 +25,6 @@ public class ImageMapper {
 
     }
 
-
     public Image mapToEntity(ImageCreateInfo imageDTO) {
         Image image = new Image();
         image.setImageUrl(imageDTO.getImageUrl());

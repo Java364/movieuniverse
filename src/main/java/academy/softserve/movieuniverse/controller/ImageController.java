@@ -29,7 +29,7 @@ public class ImageController {
 
     @GetMapping
     public ResponseEntity<List<ImageDTO>> showAll(@PathVariable Long galleryId) {
-        List<Image> images = imageService.findAll(galleryService.findGalleryById(galleryId));
+        List<Image> images = imageService.findAll(galleryService.findById(galleryId));
         if (images.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -40,7 +40,7 @@ public class ImageController {
     @PostMapping
     ResponseEntity<ImageDTO> create(@RequestBody ImageDTO imageDTO, @PathVariable Long galleryId) {
         Image image = imageMapper.mapToEntity(imageDTO);
-        image.setGallery(galleryService.findGalleryById(galleryId));
+        image.setGallery(galleryService.findById(galleryId));
         image = imageService.save(image);
         imageDTO = imageMapper.mapToDto(image, galleryId);
         return new ResponseEntity<ImageDTO>(imageDTO, HttpStatus.CREATED);

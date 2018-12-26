@@ -28,9 +28,9 @@ public class CommentMapper implements DTOMapper<CommentDTO, Comment> {
 
     @Override
     public CommentDTO mapToDTO(Comment entity) {
-        CommentDTO userReviewDTO = modelMapper.map(entity, CommentDTO.class);
-        userReviewDTO.add(linkTo(CommentController.class).slash(userReviewDTO.getCommentId()).withSelfRel());
-        return userReviewDTO;
+        CommentDTO commentDTO = modelMapper.map(entity, CommentDTO.class);
+        commentDTO.add(linkTo(CommentController.class).slash(commentDTO.getCommentId()).withSelfRel());
+        return commentDTO;
     }
 
     public <T> List<Comment> mapToEntityList(List<T> dtos) {

@@ -39,6 +39,7 @@ public class ImageService {
     }
 
     public Image findById(Long id) {
+<<<<<<< HEAD
         return imageRepository.findById(id).orElseThrow(() -> ImageException.createSelectException("no such image", new Exception()));
     }
 
@@ -48,6 +49,20 @@ public class ImageService {
         } else {
             imageRepository.deleteById(id);
         }
+=======
+        Optional<Image> imageOptional = imageRepository.findById(id);
+        if (!imageOptional.isPresent()) {
+            throw ImageException.createSelectException("no such image", new Exception());
+        }
+        Image image = imageOptional.get();
+        return image;
+    }
+
+    public void deleteById(Long id) {
+        if (id == null || !imageRepository.findById(id).isPresent())
+            throw ImageException.createDeleteException("no exist such image to delete", null);
+        imageRepository.deleteById(id);
+>>>>>>> 2bb357331f722c5f9a6cf8262d4657c5a43f82ba
     }
 
     public List<Image> findAll(Gallery gallery) {

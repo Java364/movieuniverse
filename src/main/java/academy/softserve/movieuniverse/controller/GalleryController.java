@@ -41,7 +41,7 @@ public class GalleryController {
     @PostMapping
     ResponseEntity<GalleryDTO> create(@RequestBody GalleryDTO galleryDTO) {
         Gallery gallery = galleryMapper.mapToEntityForSave(galleryDTO);
-        gallery = galleryService.saveGallery(gallery);
+        gallery = galleryService.save(gallery);
         galleryDTO = galleryMapper.mapToDto(gallery);
         return new ResponseEntity<>(galleryDTO, HttpStatus.CREATED);
     }
@@ -49,22 +49,23 @@ public class GalleryController {
     @PutMapping("/{id}")
     ResponseEntity<GalleryDTO> update(@PathVariable("id") Long id, @RequestBody GalleryDTO galleryDTO) {
         Gallery gallery = galleryMapper.mapToEntityForUpdate(galleryDTO, id);
-        gallery = galleryService.updateGallery(gallery);
+        gallery = galleryService.update(gallery);
         galleryDTO = galleryMapper.mapToDto(gallery);
         return new ResponseEntity<>(galleryDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<GalleryDTO> showById(@PathVariable Long id) {
-        Gallery gallery = galleryService.findGalleryById(id);
+        Gallery gallery = galleryService.findById(id);
         GalleryDTO galleryDTO = galleryMapper.mapToDto(gallery);
         return new ResponseEntity<>(galleryDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity completelyDelete(@PathVariable Long id) {
-        galleryService.deleteGallery(id);
-        return new ResponseEntity(HttpStatus.OK);
+
+        galleryService.deleteById(id);
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
     @GetMapping("/{id}/")
