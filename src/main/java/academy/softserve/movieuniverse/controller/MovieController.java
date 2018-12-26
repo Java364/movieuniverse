@@ -4,6 +4,8 @@ import academy.softserve.movieuniverse.dto.MovieDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
 import academy.softserve.movieuniverse.entity.Movie;
+import academy.softserve.movieuniverse.entity.MovieMark;
+import academy.softserve.movieuniverse.service.MovieMarkService;
 import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.mapper.MovieMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class MovieController {
 
     @Autowired
     private MovieMapper movieMapper;
+    
+    @Autowired
+    private MovieMarkService movieMarkService;
 
     @GetMapping("")
     List<MovieDTO> showAllMovies() {
@@ -57,5 +62,11 @@ public class MovieController {
     ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
         service.deleteMovie(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+    
+    @GetMapping("/mark/{id}")
+    public MovieDTO showByMovieMark(@PathVariable Long id) {
+        MovieMark movieMark = movieMarkService.findById(id);
+        return movieMapper.mapToDto(service.findAllByMovieMarks(movieMark));
     }
 }

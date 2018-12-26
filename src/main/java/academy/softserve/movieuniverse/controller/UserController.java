@@ -1,8 +1,11 @@
 package academy.softserve.movieuniverse.controller;
 
+import academy.softserve.movieuniverse.dto.MovieDTO;
 import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
 import academy.softserve.movieuniverse.dto.user.UserShortInfo;
+import academy.softserve.movieuniverse.entity.MovieMark;
+import academy.softserve.movieuniverse.service.MovieMarkService;
 import academy.softserve.movieuniverse.service.UserService;
 import academy.softserve.movieuniverse.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,81 +22,72 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RequestMapping(value = "/users", produces = "application/hal+json")
 public class UserController {
 
-    private final UserService userService;
-    private final UserMapper userMapper;
+	private final UserService userService;
+	private final UserMapper userMapper;
+	private final MovieMarkService movieMarkService;
 
-    @Autowired
-    public UserController(UserService userService, UserMapper userMapper) {
-        this.userService = userService;
-        this.userMapper = userMapper;
-    }
+	@Autowired
+	public UserController(UserService userService, UserMapper userMapper, MovieMarkService movieMarkService) {
+		this.userService = userService;
+		this.userMapper = userMapper;
+		this.movieMarkService = movieMarkService;
+	}
 
-    @GetMapping("/include-removed")
-    public ResponseEntity<Resources<UserShortInfo>> showAll() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(new Resources<>(userMapper.mapUserEntityListToUserWithShortInfoList(
-                        userService.findAll()),
-                        linkTo(methodOn(UserController.class).showAll()).withSelfRel()));
-    }
+	@GetMapping("/include-removed")
+	public ResponseEntity<Resources<UserShortInfo>> showAll() {
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new Resources<>(userMapper.mapUserEntityListToUserWithShortInfoList(userService.findAll()),
+						linkTo(methodOn(UserController.class).showAll()).withSelfRel()));
+	}
 
+	@GetMapping
+	public ResponseEntity<Resources<UserShortInfo>> showAllNonRemoved() {
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new Resources<>(
+						userMapper.mapUserEntityListToUserWithShortInfoList(userService.findAllNonRemoved()),
+						linkTo(methodOn(UserController.class).showAllNonRemoved()).withSelfRel()));
+	}
 
-    @GetMapping
-    public ResponseEntity<Resources<UserShortInfo>> showAllNonRemoved() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(new Resources<>(userMapper.mapUserEntityListToUserWithShortInfoList(
-                        userService.findAllNonRemoved()),
-                        linkTo(methodOn(UserController.class).showAllNonRemoved()).withSelfRel()));
-    }
+	@PostMapping
+	public ResponseEntity<UserFullInfo> create(@RequestBody UserCreateInfo userDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
+				userService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
+	}
 
-    @PostMapping
-    public ResponseEntity<UserFullInfo> create(@RequestBody UserCreateInfo userDTO) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(userMapper.mapUserEntityToUserDTOWithFullInfo(
-                        userService.createUser(
-                                userMapper.mapUserShortInfoWithPasswordToEntity(userDTO)
-                        )
-                ));
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<UserFullInfo> showById(@PathVariable Long id) {
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(userMapper.mapUserEntityToUserDTOWithFullInfo(userService.findById(id)));
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserFullInfo> showById(@PathVariable Long id) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(userMapper.mapUserEntityToUserDTOWithFullInfo(
-                        userService.findById(id))
-                );
-    }
+	@PutMapping("/{id}")
+	public ResponseEntity<UserFullInfo> update(@PathVariable Long id, @RequestBody UserCreateInfo userDTO) {
+		return ResponseEntity.status(HttpStatus.OK).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
+				userService.update(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO), id)));
+	}
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserFullInfo> update(@PathVariable Long id, @RequestBody UserCreateInfo userDTO) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(userMapper.mapUserEntityToUserDTOWithFullInfo(
-                        userService.update(
-                                userMapper.mapUserShortInfoWithPasswordToEntity(userDTO), id)
-                ));
-    }
+	@DeleteMapping("/{id}/remove")
+	public ResponseEntity<?> removeById(@PathVariable Long id) {
+		userService.removeById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
-    @DeleteMapping("/{id}/remove")
-    public ResponseEntity<?> removeById(@PathVariable Long id) {
-        userService.removeById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+	@GetMapping("/{id}/restore")
+	public ResponseEntity<?> restoreById(@PathVariable Long id) {
+		userService.restoreById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
-    @GetMapping("/{id}/restore")
-    public ResponseEntity<?> restoreById(@PathVariable Long id) {
-        userService.restoreById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteById(@PathVariable Long id) {
+		userService.deleteById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        userService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
+	@GetMapping("/marks/{id}")
+	public ResponseEntity<UserFullInfo> showByMovieMark(@PathVariable Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(userMapper
+				.mapUserEntityToUserDTOWithFullInfo(userService.findByMovieMarks(movieMarkService.findById(id))));
+	}
 
 }
