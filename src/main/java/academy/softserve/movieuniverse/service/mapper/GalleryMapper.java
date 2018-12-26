@@ -66,7 +66,7 @@ public class GalleryMapper {
     private List<Image> mapIdsToImages(List<Long> imageIds) {
         List<Image> images = new ArrayList<>();
         for (Long id : imageIds) {
-            images.add(imageService.findImageById(id));
+            images.add(imageService.findById(id));
         }
         return images;
     }

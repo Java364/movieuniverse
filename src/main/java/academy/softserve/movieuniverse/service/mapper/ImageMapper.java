@@ -17,7 +17,7 @@ public class ImageMapper {
 
     public Image mapToEntityForSave(ImageDTO dto) {
         Image image = new Image();
-        image.setGallery(galleryService.findGalleryById(dto.getGalleryId()));
+        image.setGallery(galleryService.findById(dto.getGalleryId()));
         image.setId(null);
         image.setImageUrl(dto.getImageUrl());
         image.setIsRemoved(new Boolean(false));
@@ -27,7 +27,7 @@ public class ImageMapper {
 
     public Image mapToEntity(ImageDTO dto) {
         Image image = new Image();
-        image.setGallery(galleryService.findGalleryById(dto.getGalleryId()));
+        image.setGallery(galleryService.findById(dto.getGalleryId()));
         image.setId(dto.getId());
         image.setImageUrl(dto.getImageUrl());
         image.setIsRemoved(new Boolean(false));
@@ -37,7 +37,7 @@ public class ImageMapper {
 
     public Image mapToEntityForUpdate(ImageDTO dto, Long id) {
         Image image = new Image();
-        image.setGallery(galleryService.findGalleryById(dto.getGalleryId()));
+        image.setGallery(galleryService.findById(dto.getGalleryId()));
         image.setId(id);
         image.setImageUrl(dto.getImageUrl());
         image.setIsRemoved(new Boolean(false));
