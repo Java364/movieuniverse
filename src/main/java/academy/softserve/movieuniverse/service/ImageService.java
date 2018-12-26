@@ -15,7 +15,7 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    public Image saveImage(Image image) {
+    public Image save(Image image) {
         if (image == null || image.getId() != null)
             throw ImageException.createSaveException("couldn't save image", null);
         image = imageRepository.save(image);
@@ -23,7 +23,7 @@ public class ImageService {
         return image;
     }
 
-    public Image updateImage(Image image) {
+    public Image update(Image image) {
         if (image == null || image.getId() == null || !imageRepository.findById(image.getId()).isPresent())
             throw ImageException.createUpdateException("no image to update", null);
         image = imageRepository.save(image);
@@ -31,7 +31,7 @@ public class ImageService {
         return image;
     }
 
-    public Image findImageById(Long id) {
+    public Image findById(Long id) {
         Optional<Image> imageOptional = imageRepository.findById(id);
         if (!imageOptional.isPresent()) {
             throw ImageException.createSelectException("no such image", new Exception());
@@ -40,7 +40,7 @@ public class ImageService {
         return image;
     }
 
-    public void deleteImage(Long id) {
+    public void deleteById(Long id) {
         if (id == null || !imageRepository.findById(id).isPresent())
             throw ImageException.createDeleteException("no exist such image to delete", null);
         imageRepository.deleteById(id);

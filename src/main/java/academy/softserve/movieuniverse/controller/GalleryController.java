@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/gallery")
 public class GalleryController {
 
     @Autowired
@@ -19,8 +20,8 @@ public class GalleryController {
     @Autowired
     private GalleryMapper galleryMapper;
 
-    @GetMapping("/galleries")
-    public ResponseEntity<List<GalleryDTO>> listAllGalleries() {
+    @GetMapping("/all")
+    public ResponseEntity<List<GalleryDTO>> showAll() {
         List<Gallery> galleries = galleryService.findAll();
         if (galleries.isEmpty()) {
             return new ResponseEntity<List<GalleryDTO>>(HttpStatus.NO_CONTENT);
@@ -29,32 +30,32 @@ public class GalleryController {
         return new ResponseEntity<List<GalleryDTO>>(galleryDTOs, HttpStatus.OK);
     }
 
-    @PostMapping("/gallery")
-    ResponseEntity<GalleryDTO> createGallery(@RequestBody GalleryDTO galleryDTO) {
+    @PostMapping
+    ResponseEntity<GalleryDTO> create(@RequestBody GalleryDTO galleryDTO) {
         Gallery gallery = galleryMapper.mapToEntityForSave(galleryDTO);
-        gallery = galleryService.saveGallery(gallery);
+        gallery = galleryService.save(gallery);
         galleryDTO = galleryMapper.mapToDto(gallery);
         return new ResponseEntity<GalleryDTO>(galleryDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/gallery/{id}")
-    ResponseEntity<GalleryDTO> updateGallery(@PathVariable("id") Long id, @RequestBody GalleryDTO galleryDTO) {
+    @PutMapping("/{id}")
+    ResponseEntity<GalleryDTO> update(@PathVariable("id") Long id, @RequestBody GalleryDTO galleryDTO) {
         Gallery gallery = galleryMapper.mapToEntityForUpdate(galleryDTO, id);
-        gallery = galleryService.updateGallery(gallery);
+        gallery = galleryService.update(gallery);
         galleryDTO = galleryMapper.mapToDto(gallery);
         return new ResponseEntity<GalleryDTO>(galleryDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/gallery/{id}")
-    public ResponseEntity<GalleryDTO> showOneGallery(@PathVariable Long id) {
-        Gallery gallery = galleryService.findGalleryById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<GalleryDTO> showById(@PathVariable Long id) {
+        Gallery gallery = galleryService.findById(id);
         GalleryDTO galleryDTO = galleryMapper.mapToDto(gallery);
         return new ResponseEntity<GalleryDTO>(galleryDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/gallery/{id}")
-    public ResponseEntity<String> completelyDeleteGallery(@PathVariable Long id) {
-        galleryService.deleteGallery(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+        galleryService.deleteById(id);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 

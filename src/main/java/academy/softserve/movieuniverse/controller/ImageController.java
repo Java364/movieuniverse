@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/image")
 public class ImageController {
     @Autowired
     private ImageService imageService;
     @Autowired
     private ImageMapper imageMapper;
 
-    @GetMapping("/images")
-    public ResponseEntity<List<ImageDTO>> listAllImages() {
+    @GetMapping("/all")
+    public ResponseEntity<List<ImageDTO>> showAll() {
         List<Image> images = imageService.findAll();
         if (images.isEmpty()) {
             return new ResponseEntity<List<ImageDTO>>(HttpStatus.NO_CONTENT);
@@ -28,32 +29,32 @@ public class ImageController {
         return new ResponseEntity<List<ImageDTO>>(imageDTOs, HttpStatus.OK);
     }
 
-    @PostMapping("/image")
-    ResponseEntity<ImageDTO> createImage(@RequestBody ImageDTO imageDTO) {
+    @PostMapping
+    ResponseEntity<ImageDTO> create(@RequestBody ImageDTO imageDTO) {
         Image image = imageMapper.mapToEntityForSave(imageDTO);
-        image = imageService.saveImage(image);
+        image = imageService.save(image);
         imageDTO = imageMapper.mapToDto(image);
         return new ResponseEntity<ImageDTO>(imageDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/image/{id}")
-    ResponseEntity<ImageDTO> updateImage(@PathVariable("id") Long id, @RequestBody ImageDTO imageDTO) {
+    @PutMapping("/{id}")
+    ResponseEntity<ImageDTO> update(@PathVariable("id") Long id, @RequestBody ImageDTO imageDTO) {
         Image image = imageMapper.mapToEntityForUpdate(imageDTO, id);
-        image = imageService.updateImage(image);
+        image = imageService.update(image);
         imageDTO = imageMapper.mapToDto(image);
         return new ResponseEntity<ImageDTO>(imageDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/image/{id}")
-    public ResponseEntity<ImageDTO> showOneImage(@PathVariable Long id) {
-        Image image = imageService.findImageById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<ImageDTO> showById(@PathVariable Long id) {
+        Image image = imageService.findById(id);
         ImageDTO imageDTO = imageMapper.mapToDto(image);
         return new ResponseEntity<ImageDTO>(imageDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/image/{id}")
-    public ResponseEntity<String> completelyDeleteImage(@PathVariable Long id) {
-        imageService.deleteImage(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+        imageService.deleteById(id);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 }
