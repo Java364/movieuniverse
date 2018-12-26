@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.controller.hateoas.StarResourceAssembler;
 import academy.softserve.movieuniverse.dto.StarDTO;
 import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.entity.Links;
@@ -34,24 +33,24 @@ public class StarController {
     private StarMapper mapper;
     @Autowired
     private StarProfessionMapper starProfessionMapper;
-    @Autowired
-    private StarResourceAssembler essembler;
+//    @Autowired
+//    private StarResourceAssembler essembler;
     @Autowired
     private LinksService linksService;
 
 
     @GetMapping("/list")
     public ResponseEntity<Resources<Resource<StarDTO>>> showAll() {
-        List<Resource<StarDTO>> resources = mapper.mapListsToDto(service.showAllStars()).stream().map(essembler::toResource).collect(Collectors.toList());
-        return new ResponseEntity<>(new Resources<>(resources), HttpStatus.OK);
+//        List<Resource<StarDTO>> resources = mapper.mapListsToDto(service.showAllStars()).stream().map().collect(Collectors.toList());
+        return new ResponseEntity<>(new Resources<>(null), HttpStatus.OK);
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<Resource<StarDTO>> showOne(@PathVariable Long id) {
         Star star = service.findStarById(id);
-        Resource<StarDTO> resource = essembler.toResource(mapper.mapProfileToDto(star));
-        return new ResponseEntity<>(resource, HttpStatus.OK);
+//        Resource<StarDTO> resource = essembler.toResource(mapper.mapProfileToDto(star));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

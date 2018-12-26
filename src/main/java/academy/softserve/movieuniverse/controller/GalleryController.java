@@ -3,6 +3,7 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.GalleryDTO;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.service.GalleryService;
+import academy.softserve.movieuniverse.service.ImageService;
 import academy.softserve.movieuniverse.service.mapper.GalleryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,50 +13,63 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
+@RequestMapping(value = "/galleries", produces = "application/hal+json")
 public class GalleryController {
 
-    @Autowired
-    private GalleryService galleryService;
-    @Autowired
-    private GalleryMapper galleryMapper;
+    private final GalleryService galleryService;
+    private final GalleryMapper galleryMapper;
+    private final ImageService imageService;
 
-    @GetMapping("/galleries")
-    public ResponseEntity<List<GalleryDTO>> listAllGalleries() {
-        List<Gallery> galleries = galleryService.findAll();
-        if (galleries.isEmpty()) {
-            return new ResponseEntity<List<GalleryDTO>>(HttpStatus.NO_CONTENT);
-        }
-        List<GalleryDTO> galleryDTOs = galleryMapper.mapListEntityToDto(galleries);
-        return new ResponseEntity<List<GalleryDTO>>(galleryDTOs, HttpStatus.OK);
+    @Autowired
+    public GalleryController(GalleryService galleryService, GalleryMapper galleryMapper, ImageService imageService) {
+        this.galleryService = galleryService;
+        this.galleryMapper = galleryMapper;
+        this.imageService = imageService;
     }
 
-    @PostMapping("/gallery")
-    ResponseEntity<GalleryDTO> createGallery(@RequestBody GalleryDTO galleryDTO) {
+    @GetMapping
+    public ResponseEntity<List<GalleryDTO>> showAll() {
+        List<Gallery> galleries = galleryService.findAll();
+        if (galleries.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        List<GalleryDTO> galleryDTOs = galleryMapper.mapListEntityToDto(galleries);
+        return new ResponseEntity<>(galleryDTOs, HttpStatus.OK);
+    }
+
+    @PostMapping
+    ResponseEntity<GalleryDTO> create(@RequestBody GalleryDTO galleryDTO) {
         Gallery gallery = galleryMapper.mapToEntityForSave(galleryDTO);
         gallery = galleryService.saveGallery(gallery);
         galleryDTO = galleryMapper.mapToDto(gallery);
-        return new ResponseEntity<GalleryDTO>(galleryDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(galleryDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/gallery/{id}")
-    ResponseEntity<GalleryDTO> updateGallery(@PathVariable("id") Long id, @RequestBody GalleryDTO galleryDTO) {
+    @PutMapping("/{id}")
+    ResponseEntity<GalleryDTO> update(@PathVariable("id") Long id, @RequestBody GalleryDTO galleryDTO) {
         Gallery gallery = galleryMapper.mapToEntityForUpdate(galleryDTO, id);
         gallery = galleryService.updateGallery(gallery);
         galleryDTO = galleryMapper.mapToDto(gallery);
-        return new ResponseEntity<GalleryDTO>(galleryDTO, HttpStatus.OK);
+        return new ResponseEntity<>(galleryDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/gallery/{id}")
-    public ResponseEntity<GalleryDTO> showOneGallery(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<GalleryDTO> showById(@PathVariable Long id) {
         Gallery gallery = galleryService.findGalleryById(id);
         GalleryDTO galleryDTO = galleryMapper.mapToDto(gallery);
-        return new ResponseEntity<GalleryDTO>(galleryDTO, HttpStatus.OK);
+        return new ResponseEntity<>(galleryDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/gallery/{id}")
-    public ResponseEntity<String> completelyDeleteGallery(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity completelyDelete(@PathVariable Long id) {
         galleryService.deleteGallery(id);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/")
+    public Gallery showByImage(Long id) {
+        Gallery byImage = galleryService.findByImage(imageService.findById(id));
+        return byImage;
+    }
 }

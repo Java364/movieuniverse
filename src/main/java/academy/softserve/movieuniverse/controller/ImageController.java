@@ -1,7 +1,8 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.ImageDTO;
+import academy.softserve.movieuniverse.dto.image.ImageDTO;
 import academy.softserve.movieuniverse.entity.Image;
+import academy.softserve.movieuniverse.service.GalleryService;
 import academy.softserve.movieuniverse.service.ImageService;
 import academy.softserve.movieuniverse.service.mapper.ImageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,48 +13,57 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
+@RequestMapping(value = "/galleries/{galleryId}/images/", produces = "application/hal+json")
 public class ImageController {
-    @Autowired
-    private ImageService imageService;
-    @Autowired
-    private ImageMapper imageMapper;
+    private final ImageService imageService;
+    private final ImageMapper imageMapper;
+    private final GalleryService galleryService;
 
-    @GetMapping("/images")
-    public ResponseEntity<List<ImageDTO>> listAllImages() {
-        List<Image> images = imageService.findAll();
-        if (images.isEmpty()) {
-            return new ResponseEntity<List<ImageDTO>>(HttpStatus.NO_CONTENT);
-        }
-        List<ImageDTO> imageDTOs = imageMapper.mapListEntityToDto(images);
-        return new ResponseEntity<List<ImageDTO>>(imageDTOs, HttpStatus.OK);
+    @Autowired
+     public ImageController(ImageService imageService, ImageMapper imageMapper, GalleryService galleryService) {
+        this.imageService = imageService;
+        this.imageMapper = imageMapper;
+        this.galleryService = galleryService;
     }
 
-    @PostMapping("/image")
-    ResponseEntity<ImageDTO> createImage(@RequestBody ImageDTO imageDTO) {
-        Image image = imageMapper.mapToEntityForSave(imageDTO);
-        image = imageService.saveImage(image);
-        imageDTO = imageMapper.mapToDto(image);
+    @GetMapping
+    public ResponseEntity<List<ImageDTO>> showAll(@PathVariable Long galleryId) {
+        List<Image> images = imageService.findAll(galleryService.findGalleryById(galleryId));
+        if (images.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        List<ImageDTO> imageDTOs = imageMapper.mapListEntityToDto(images, galleryId);
+        return new ResponseEntity<>(imageDTOs, HttpStatus.OK);
+    }
+
+    @PostMapping
+    ResponseEntity<ImageDTO> create(@RequestBody ImageDTO imageDTO, @PathVariable Long galleryId) {
+        Image image = imageMapper.mapToEntity(imageDTO);
+        image.setGallery(galleryService.findGalleryById(galleryId));
+        image = imageService.save(image);
+        imageDTO = imageMapper.mapToDto(image, galleryId);
         return new ResponseEntity<ImageDTO>(imageDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/image/{id}")
-    ResponseEntity<ImageDTO> updateImage(@PathVariable("id") Long id, @RequestBody ImageDTO imageDTO) {
-        Image image = imageMapper.mapToEntityForUpdate(imageDTO, id);
-        image = imageService.updateImage(image);
-        imageDTO = imageMapper.mapToDto(image);
+    @PutMapping("/{imageId}")
+    ResponseEntity<ImageDTO> update(@PathVariable Long imageId, @RequestBody ImageDTO imageDTO, @PathVariable Long galleryId) {
+        Image image = imageMapper.mapToEntity(imageDTO);
+        image = imageService.update(image);
+        imageDTO = imageMapper.mapToDto(image, galleryId);
         return new ResponseEntity<ImageDTO>(imageDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/image/{id}")
-    public ResponseEntity<ImageDTO> showOneImage(@PathVariable Long id) {
-        Image image = imageService.findImageById(id);
-        ImageDTO imageDTO = imageMapper.mapToDto(image);
+    @GetMapping("/{imageId}")
+    public ResponseEntity<ImageDTO> showById(@PathVariable Long imageId, @PathVariable Long galleryId) {
+        Image image = imageService.findById(imageId);
+        ImageDTO imageDTO = imageMapper.mapToDto(image, galleryId);
         return new ResponseEntity<ImageDTO>(imageDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/image/{id}")
-    public ResponseEntity<String> completelyDeleteImage(@PathVariable Long id) {
-        imageService.deleteImage(id);
+    @DeleteMapping("/{imageId}")
+    public ResponseEntity<String> completelyDeleteImage(@PathVariable Long imageId, @PathVariable Long galleryId) {
+        imageService.delete(imageId);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 }

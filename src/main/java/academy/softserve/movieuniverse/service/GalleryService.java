@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Gallery;
+import academy.softserve.movieuniverse.entity.Image;
 import academy.softserve.movieuniverse.exception.GalleryException;
 import academy.softserve.movieuniverse.repository.GalleryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,43 +13,48 @@ import java.util.Optional;
 
 @Service
 public class GalleryService {
+    private final GalleryRepository galleryRepository;
+
     @Autowired
-    private GalleryRepository galleryRepository;
+    public GalleryService(GalleryRepository galleryRepository) {
+        this.galleryRepository = galleryRepository;
+    }
 
     public Gallery saveGallery(Gallery gallery) {
         if (gallery == null || gallery.getId() != null)
-            throw GalleryException.createSaveException("couldn't save gallery", null);
+            throw GalleryException.createSaveException("couldn't save gallery");
         gallery = galleryRepository.save(gallery);
-        if (gallery == null) throw GalleryException.createSaveException("couldn't save gallery", null);
+        if (gallery == null) throw GalleryException.createSaveException("couldn't save gallery");
         return gallery;
     }
 
     public Gallery updateGallery(Gallery gallery) {
         if (gallery == null || gallery.getId() == null || !galleryRepository.findById(gallery.getId()).isPresent())
-            throw GalleryException.createUpdateException("no gallery to update", null);
+            throw GalleryException.createUpdateException("no gallery to update");
         gallery = galleryRepository.save(gallery);
-        if (gallery == null) throw GalleryException.createUpdateException("couldn't update gallery", null);
+        if (gallery == null) throw GalleryException.createUpdateException("couldn't update gallery");
         return gallery;
     }
 
     public Gallery findGalleryById(Long id) {
         Optional<Gallery> galleryOptional = galleryRepository.findById(id);
         if (!galleryOptional.isPresent()) {
-            throw GalleryException.createSelectException("no such gallery", new Exception());
+            throw GalleryException.createSelectException("no such gallery");
         }
-        Gallery trailer = galleryOptional.get();
-        return trailer;
+        return galleryOptional.get();
     }
 
     public void deleteGallery(Long id) {
         if (id == null || !galleryRepository.findById(id).isPresent())
-            throw GalleryException.createDeleteException("no exist such gallery to delete", null);
+            throw GalleryException.createDeleteException("no exist such gallery to delete");
         galleryRepository.deleteById(id);
     }
 
     public List<Gallery> findAll() {
-        List<Gallery> galleries = new ArrayList<>();
-        galleries = galleryRepository.findAll();
-        return galleries;
+        return galleryRepository.findAll();
+    }
+
+    public Gallery findByImage(Image image) {
+        return galleryRepository.findByImages(image);
     }
 }

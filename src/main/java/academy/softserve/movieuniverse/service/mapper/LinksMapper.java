@@ -2,7 +2,6 @@ package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.controller.LinksController;
 import academy.softserve.movieuniverse.controller.StarController;
-import academy.softserve.movieuniverse.controller.UserController;
 import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.service.StarService;
