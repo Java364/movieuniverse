@@ -14,6 +14,7 @@ public class StarDTO {
     private Double growth;
     private String cityOfBirth;
     private Long galleryId;
+
     //private GalleryDTO galleryDto;
     private List<Long> rolesIds = new ArrayList<Long>();
     private List<Long> professionsIds = new ArrayList<Long>();

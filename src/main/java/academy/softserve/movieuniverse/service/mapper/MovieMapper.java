@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import academy.softserve.movieuniverse.dto.MovieDTO;
+import academy.softserve.movieuniverse.dto.movie.MovieDTO;
+import academy.softserve.movieuniverse.dto.movie.MovieCreateDTO;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.service.CountryService;
 import academy.softserve.movieuniverse.service.GenreService;
@@ -52,6 +53,7 @@ public class MovieMapper {
         movie.setComments(new ArrayList<>());
         return movie;
     }
+
 
 
     public MovieDTO mapToDto(Movie entity) {
