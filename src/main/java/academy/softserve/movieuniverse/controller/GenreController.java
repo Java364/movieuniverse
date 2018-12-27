@@ -31,7 +31,7 @@ public class GenreController {
 
     @GetMapping
     public ResponseEntity<Resources<GenreDTO>> showAll() {
-        List<Genre> genres = genreService.findAllGenres();
+        List<Genre> genres = genreService.findAll();
         List<GenreDTO> resources = genreMapper.mapToDTOList(genres);
         return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(resources));
     }
@@ -40,7 +40,7 @@ public class GenreController {
     public ResponseEntity<GenreDTO> create(@RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
         Genre newGenre = genreMapper.mapToEntity(genreRequest);
-        Genre genre = genreService.saveGenre(newGenre);
+        Genre genre = genreService.save(newGenre);
         GenreDTO genreDTO = genreMapper.mapToDTO(genre);
         URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDTO);
         return ResponseEntity.created(locationHeaderUri).body(genreDTO);
@@ -51,7 +51,7 @@ public class GenreController {
                                                 @RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
         Genre updatedGenre = genreMapper.mapToEntity(genreRequest);
-        Genre genre = genreService.updateGenre(genreId, updatedGenre);
+        Genre genre = genreService.update(genreId, updatedGenre);
         GenreDTO genreDTO = genreMapper.mapToDTO(genre);
         URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDTO);
         return ResponseEntity.created(locationHeaderUri).body(genreDTO);
@@ -59,7 +59,7 @@ public class GenreController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable("id") Long genreId) {
-        genreService.deleteGenreById(genreId);
+        genreService.deleteById(genreId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
