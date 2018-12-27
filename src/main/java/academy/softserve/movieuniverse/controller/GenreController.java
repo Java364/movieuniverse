@@ -1,7 +1,6 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.controller.exception.LocationHeaderCreationException;
-import academy.softserve.movieuniverse.controller.util.ControllerHateoasUtil;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreRequest;
 import academy.softserve.movieuniverse.entity.Genre;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -42,8 +40,7 @@ public class GenreController {
         Genre newGenre = genreMapper.mapToEntity(genreRequest);
         Genre genre = genreService.save(newGenre);
         GenreDTO genreDTO = genreMapper.mapToDTO(genre);
-        URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDTO);
-        return ResponseEntity.created(locationHeaderUri).body(genreDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(genreDTO);
     }
 
     @PutMapping("/{id}")
@@ -53,8 +50,7 @@ public class GenreController {
         Genre updatedGenre = genreMapper.mapToEntity(genreRequest);
         Genre genre = genreService.update(genreId, updatedGenre);
         GenreDTO genreDTO = genreMapper.mapToDTO(genre);
-        URI locationHeaderUri = ControllerHateoasUtil.createLocationHeaderUri(genreDTO);
-        return ResponseEntity.created(locationHeaderUri).body(genreDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(genreDTO);
     }
 
     @DeleteMapping("/{id}")
