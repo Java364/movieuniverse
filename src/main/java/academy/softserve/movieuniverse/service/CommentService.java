@@ -1,7 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Comment;
-import academy.softserve.movieuniverse.repository.UserRepository;
 import academy.softserve.movieuniverse.repository.CommentRepository;
 import academy.softserve.movieuniverse.service.validator.EntityExistsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
+@Transactional(readOnly = true)
 public class CommentService {
     private CommentRepository commentRepository;
     private final UserService userService;
@@ -46,6 +46,7 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
+    @Transactional
     public Comment update(Long commentId, Comment comment) {
         entityExistsValidator.checkIfEntityExists(commentId);
         comment.setId(commentId);
