@@ -41,8 +41,6 @@ public class LinksMapper {
         linksDTO.setRemoved(links.getIsRemoved());
         linksDTO.add(linkTo(methodOn(LinksController.class).getOneLink(links.getId())).withSelfRel());
         linksDTO.add(linkTo(methodOn(StarController.class).showAllByLinksId(links.getId())).withRel("star"));
-
-
         return linksDTO;
     }
 
