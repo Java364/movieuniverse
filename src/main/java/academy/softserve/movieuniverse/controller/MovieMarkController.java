@@ -22,7 +22,6 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-//@RequestMapping("/moviemark")
 @RequestMapping("/movie/{movieId}/moviemark")
 public class MovieMarkController {
 
@@ -35,31 +34,13 @@ public class MovieMarkController {
 	@Autowired
 	private MovieService movieService;
 
-//	@PostMapping
-//	public ResponseEntity<MovieMarkDTO> create(@RequestBody MovieMarkDTO movieMarkDTO) {
-//		MovieMark movieMark = movieMarkMapper.mapToEntityForSave(movieMarkDTO);
-//		movieMark = movieMarkService.create(movieMark);
-//		movieMarkDTO = movieMarkMapper.mapToDto(movieMark);
-//		return new ResponseEntity<MovieMarkDTO>(movieMarkDTO, HttpStatus.CREATED);
-//	}
-
 	@PostMapping
 	public ResponseEntity<MovieMarkDTO> create(@RequestBody MovieMarkDTO movieMarkDTO, @PathVariable Long movieId) {
 		User user = userService.findById(1L);
 		Movie movie = movieService.findMovieById(movieId);
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(
-				movieMarkMapper.mapToDto(
-						movieMarkService.create(
-								movieMarkMapper.mapToEntityForSave(movieMarkDTO,user, movie)
-								)
-						));
+		return ResponseEntity.status(HttpStatus.CREATED).body(movieMarkMapper
+				.mapToDto(movieMarkService.create(movieMarkMapper.mapToEntityForSave(movieMarkDTO, user, movie))));
 	}
-
-//    @GetMapping
-//    List<MovieMarkDTO> showAll() {
-//        return movieMarkMapper.mapListToDto(movieMarkService.findAll());
-//    }
 
 	@GetMapping
 	public ResponseEntity<Resources<MovieMarkDTO>> showAll() {
@@ -70,17 +51,14 @@ public class MovieMarkController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<MovieMarkDTO> showById(@PathVariable Long id) {
-		MovieMark movieMark = movieMarkService.findById(id);
-		MovieMarkDTO movieMarkDTO = movieMarkMapper.mapToDto(movieMark);
-		return new ResponseEntity<MovieMarkDTO>(movieMarkDTO, HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDto(movieMarkService.findById(id)));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<MovieMarkDTO> update(@RequestBody MovieMarkDTO movieMarkDto, @PathVariable Long id) {
 		MovieMark movieMark = movieMarkMapper.mapToEntityForUpdate(movieMarkDto, id);
 		movieMark = movieMarkService.update(movieMark);
-		movieMarkDto = movieMarkMapper.mapToDto(movieMark);
-		return new ResponseEntity<MovieMarkDTO>(movieMarkDto, HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDto(movieMark));
 	}
 
 	@DeleteMapping("/{id}")
@@ -94,5 +72,4 @@ public class MovieMarkController {
 		User user = userService.findById(id);
 		return movieMarkMapper.mapToDTOList(movieMarkService.findAllByUser(user));
 	}
-
 }
