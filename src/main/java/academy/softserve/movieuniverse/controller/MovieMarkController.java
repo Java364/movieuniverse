@@ -1,8 +1,6 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
-import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
-import academy.softserve.movieuniverse.dto.user.UserFullInfo;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.User;
@@ -11,7 +9,6 @@ import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.UserService;
 import academy.softserve.movieuniverse.service.mapper.MovieMarkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,10 +40,8 @@ public class MovieMarkController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Resources<MovieMarkDTO>> showAll() {
-		return ResponseEntity.status(HttpStatus.OK)
-				.body(new Resources<>(movieMarkMapper.mapToDTOList(movieMarkService.findAll()),
-						linkTo(methodOn(MovieMarkController.class).showAll()).withSelfRel()));
+	public ResponseEntity<List<MovieMarkDTO>> showAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDTOList(movieMarkService.findAll()));
 	}
 
 	@GetMapping("/{id}")
@@ -68,8 +63,8 @@ public class MovieMarkController {
 	}
 
 	@GetMapping("/users/{id}")
-	public List<MovieMarkDTO> showAllByUserId(@PathVariable Long id) {
+	public ResponseEntity<List<MovieMarkDTO>> showAllByUserId(@PathVariable Long id) {
 		User user = userService.findById(id);
-		return movieMarkMapper.mapToDTOList(movieMarkService.findAllByUser(user));
+		return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDTOList(movieMarkService.findAllByUser(user)));
 	}
 }
