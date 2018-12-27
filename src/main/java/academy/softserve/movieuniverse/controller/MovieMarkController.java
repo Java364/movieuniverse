@@ -35,7 +35,7 @@ public class MovieMarkController {
 
     @GetMapping("/list")
     List<MovieMarkDTO> showAll() {
-        return movieMarkMapper.mapListToDto(movieMarkService.findAll());
+        return movieMarkMapper.mapToDTOList(movieMarkService.findAll());
     }
 
     @GetMapping("/show/{id}")
@@ -62,6 +62,6 @@ public class MovieMarkController {
     @GetMapping("/users/{id}")
     public List<MovieMarkDTO> showAllByUserId(@PathVariable Long id) {
         User user = userService.findById(id);
-        return movieMarkMapper.mapListToDto(movieMarkService.findAllByUser(user));
+        return movieMarkMapper.mapToDTOList(movieMarkService.findAllByUser(user));
     }
 }

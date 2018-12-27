@@ -1,54 +1,39 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import academy.softserve.movieuniverse.dto.TrailerDTO;
+import academy.softserve.movieuniverse.controller.MovieController;
+import academy.softserve.movieuniverse.controller.TrailerController;
+import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
+import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Trailer;
-import academy.softserve.movieuniverse.service.MovieService;
-import academy.softserve.movieuniverse.service.TrailerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
 public class TrailerMapper {
 
-    @Autowired
-    MovieService movieService;
-    @Autowired
-    TrailerService trailerService;
-
-    public Trailer mapToEntityForSave(TrailerDTO dto) {
+    public Trailer mapToEntity(CreateTrailerInfo trailerDTO) {
         Trailer trailer = new Trailer();
-        trailer.setTrailerUrl(dto.getTrailerUrl());
-        trailer.setId(null);
-        trailer.setIsRemoved(new Boolean(false));
-        trailer.setMovie(movieService.findMovieById(dto.getMovieId()));
+        trailer.setTrailerUrl(trailerDTO.getTrailerUrl());
         return trailer;
     }
 
-    public Trailer mapToEntityForUpdate(TrailerDTO dto, Long trailerId) {
-        Trailer trailer = new Trailer();
-        trailer.setId(trailerId);
-        trailer.setMovie(movieService.findMovieById(dto.getMovieId()));
-        trailer.setTrailerUrl(dto.getTrailerUrl());
-        trailer.setIsRemoved(new Boolean(false));
-        return trailer;
-    }
-
-    public TrailerDTO mapToDto(Trailer entity) {
+    public TrailerDTO mapToDTO(Trailer trailer) {
         TrailerDTO trailerDTO = new TrailerDTO();
-        trailerDTO.setId(entity.getId());
-        trailerDTO.setTrailerUrl(entity.getTrailerUrl());
-        trailerDTO.setMovieId(entity.getMovie().getId());
+        trailerDTO.setId(trailer.getId());
+        trailerDTO.setTrailerUrl(trailer.getTrailerUrl());
+        trailerDTO.setCreated(trailer.getEntryCreationDate().getTime());
+        trailerDTO.setUpdated(trailer.getEntryLastUpdate().getTime());
+        trailerDTO.setSelf(linkTo(methodOn(TrailerController.class).showById(trailer.getId())).withSelfRel().getHref());
+        trailerDTO.setMovie(linkTo(methodOn(MovieController.class).showById(trailer.getMovie().getId())).withRel("movie").getHref());
         return trailerDTO;
     }
 
-    public List<TrailerDTO> mapListToDto(List<Trailer> trailers) {
-        List<TrailerDTO> trailerDTOs = new ArrayList<>();
-        for (Trailer t : trailers) {
-            trailerDTOs.add(this.mapToDto(t));
-        }
-        return trailerDTOs;
+    public List<TrailerDTO> maptoDTOList(List<Trailer> trailers) {
+        return trailers.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 }
