@@ -32,12 +32,7 @@ public class GalleryController {
         this.galleryMapper = galleryMapper;
         this.imageService = imageService;
         this.imageMapper = imageMapper;
-    }
 
-    @GetMapping
-    public ResponseEntity<List<GalleryDTO>> showAll() {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(galleryMapper.mapToDTOList(galleryService.findAll()));
     }
 
     @GetMapping("/{id}")
@@ -61,7 +56,7 @@ public class GalleryController {
     }
 
     @PostMapping("/{id}/images")
-    public ResponseEntity<ImageDTO> createImage(@PathVariable Long id, @RequestBody ImageCreateInfo imageDTO) {
+       public ResponseEntity<ImageDTO> createImage(@PathVariable Long id, @RequestBody ImageDTO imageDTO) {
         Image image = imageMapper.mapToEntity(imageDTO);
         image.setGallery(galleryService.findById(id));
         return ResponseEntity.status(HttpStatus.CREATED)

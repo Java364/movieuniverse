@@ -1,12 +1,10 @@
 package academy.softserve.movieuniverse.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.hateoas.ResourceSupport;
-
-import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDTO extends ResourceSupport implements UserShortInfo, UserCreateInfo, UserFullInfo, UserLoginInfo {
+public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, UserLoginInfo {
+    private Long id;
     private String email;
     private String password;
     private String confirmPassword;
@@ -16,6 +14,10 @@ public class UserDTO extends ResourceSupport implements UserShortInfo, UserCreat
     private Long entryCreationDate;
     private Long entryLastUpdate;
     private Boolean isRemoved;
+    private String self;
+    private String users;
+    private String comments;
+    private String movieMarks;
 
     public UserDTO() {
     }
@@ -111,5 +113,63 @@ public class UserDTO extends ResourceSupport implements UserShortInfo, UserCreat
         isRemoved = removed;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSelf() {
+        return self;
+    }
+
+    public void setSelf(String self) {
+        this.self = self;
+    }
+
+    public String getUsers() {
+        return users;
+    }
+
+    public void setUsers(String users) {
+        this.users = users;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getMovieMarks() {
+        return movieMarks;
+    }
+
+    public void setMovieMarks(String movieMarks) {
+        this.movieMarks = movieMarks;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthday=" + birthday +
+                ", entryCreationDate=" + entryCreationDate +
+                ", entryLastUpdate=" + entryLastUpdate +
+                ", isRemoved=" + isRemoved +
+                ", self='" + self + '\'' +
+                ", users='" + users + '\'' +
+                ", comments='" + comments + '\'' +
+                ", movieMarks='" + movieMarks + '\'' +
+                '}';
+    }
 }

@@ -8,19 +8,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
-public class GalleryMapper implements DTOMapper<GalleryDTO, GalleryDTO,  Gallery> {
-    @Override
-    public Gallery mapToEntity(GalleryDTO dto) {
-        GalleryDTO galleryDTO = dto;
-        Gallery gallery = new Gallery();
-        return gallery;
-    }
+public class GalleryMapper {
 
-    @Override
     public GalleryDTO mapToDTO(Gallery gallery) {
         GalleryDTO galleryDTO = new GalleryDTO();
         galleryDTO.setId(gallery.getId());
@@ -31,12 +25,6 @@ public class GalleryMapper implements DTOMapper<GalleryDTO, GalleryDTO,  Gallery
         return galleryDTO;
     }
 
-    @Override
-    public List<Gallery> mapToEntityList(List<GalleryDTO> dtos) {
-        return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
-    }
-
-    @Override
     public List<GalleryDTO> mapToDTOList(List<Gallery> entities) {
         return entities.stream().map(this::mapToDTO).collect(Collectors.toList());
     }

@@ -20,6 +20,7 @@ public class GalleryService {
     @Autowired
     public GalleryService(GalleryRepository galleryRepository) {
         this.galleryRepository = galleryRepository;
+
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -33,7 +34,11 @@ public class GalleryService {
         gallery = galleryRepository.save(gallery);
         if (gallery == null) throw GalleryException.createUpdateException("couldn't update gallery");
         return gallery;
+
     }
+
+
+
 
     public Gallery findById(Long id) {
         Optional<Gallery> galleryOptional = galleryRepository.findById(id);
@@ -51,9 +56,12 @@ public class GalleryService {
 
     public List<Gallery> findAll() {
         return galleryRepository.findAll();
+
     }
 
     public Gallery findByImage(Image image) {
         return galleryRepository.findByImages(image);
+
     }
+
 }

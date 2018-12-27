@@ -17,6 +17,7 @@ public abstract class AbstractEntity {
 //    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 //    private Date entryLastUpdate;
 
+
     @Column(name = "created_at", updatable = false)
     private Date entryCreationDate = new Date();
 

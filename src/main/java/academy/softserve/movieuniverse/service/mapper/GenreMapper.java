@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
@@ -34,10 +31,6 @@ public class GenreMapper implements DTOMapper<GenreDTO, GenreRequest,  Genre> {
     @Override
     public Genre mapToEntity(GenreRequest dto) {
         return modelMapper.map(dto, Genre.class);
-    }
 
-    @Override
-    public List<GenreDTO> mapToDTOList(List<Genre> genres) {
-        return genres.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 }
