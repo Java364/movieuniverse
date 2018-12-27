@@ -5,6 +5,7 @@ import academy.softserve.movieuniverse.controller.ImageController;
 import academy.softserve.movieuniverse.dto.image.ImageCreateInfo;
 import academy.softserve.movieuniverse.dto.image.ImageDTO;
 import academy.softserve.movieuniverse.entity.Image;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

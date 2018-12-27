@@ -24,6 +24,7 @@ import java.util.List;
 @RequestMapping(value = "/users", produces = "application/hal+json")
 public class UserController {
 
+
     private final UserService userService;
     private final UserMapper userMapper;
     private final CommentMapper commentMapper;
