@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
+import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.exception.StarException;
@@ -12,12 +13,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class StarService {
 
-    @Autowired
-    private StarRepository starRepository;
+    private final StarRepository starRepository;
+    private final GalleryService galleryService;
 
-    @Transactional
+    @Autowired
+    public StarService(StarRepository starRepository, GalleryService galleryService) {
+        this.starRepository = starRepository;
+        this.galleryService = galleryService;
+    }
+
     public Star create(Star star) {
         if (star == null) {
             throw StarException.createSaveException("Couldn't create star", null);
@@ -26,7 +33,6 @@ public class StarService {
         return star;
     }
 
-    @Transactional
     public Star update(Star star, Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
@@ -37,11 +43,11 @@ public class StarService {
         return star;
     }
 
-    public List<Star> showAllStars() {
+    public List<Star> showAll() {
         return starRepository.findAll();
     }
 
-    public Star findStarById(Long id) {
+    public Star findById(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
             throw StarException.createSelectException("There is no such star", new Exception());
@@ -50,7 +56,6 @@ public class StarService {
         return star;
     }
 
-    @Transactional
     public void deleteById(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
@@ -59,7 +64,6 @@ public class StarService {
         starRepository.deleteById(id);
     }
 
-    @Transactional
     public Star remove(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
@@ -72,7 +76,6 @@ public class StarService {
         return star;
     }
 
-    @Transactional
     public Star makeActive(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
@@ -84,8 +87,18 @@ public class StarService {
         star = starRepository.save(star);
         return star;
     }
+
     public Star findAllByLinks(Links links) {
         return starRepository.findByLinks(links);
+    }
+
+
+    public Gallery addNewGallery(Long starId) {
+        Star star = findById(starId);
+        Gallery gallery = galleryService.save();
+        star.setGallery(gallery);
+        update(star, starId);
+        return gallery;
     }
 
 }

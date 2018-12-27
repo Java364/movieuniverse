@@ -1,7 +1,9 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.ImageDTO;
+import academy.softserve.movieuniverse.dto.image.ImageCreateInfo;
+import academy.softserve.movieuniverse.dto.image.ImageDTO;
 import academy.softserve.movieuniverse.entity.Image;
+import academy.softserve.movieuniverse.service.GalleryService;
 import academy.softserve.movieuniverse.service.ImageService;
 import academy.softserve.movieuniverse.service.mapper.ImageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,49 +14,45 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/image")
+@CrossOrigin
+@RequestMapping(value = "/images/", produces = "application/hal+json")
 public class ImageController {
-    @Autowired
-    private ImageService imageService;
-    @Autowired
-    private ImageMapper imageMapper;
+    private final ImageService imageService;
+    private final ImageMapper imageMapper;
 
-    @GetMapping("/all")
+    @Autowired
+    public ImageController(ImageService imageService, ImageMapper imageMapper, GalleryService galleryService) {
+        this.imageService = imageService;
+        this.imageMapper = imageMapper;
+    }
+
+    @GetMapping
     public ResponseEntity<List<ImageDTO>> showAll() {
-        List<Image> images = imageService.findAll();
-        if (images.isEmpty()) {
-            return new ResponseEntity<List<ImageDTO>>(HttpStatus.NO_CONTENT);
-        }
-        List<ImageDTO> imageDTOs = imageMapper.mapListEntityToDto(images);
-        return new ResponseEntity<List<ImageDTO>>(imageDTOs, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(
+                        imageMapper.mapToDTOList(imageService.findAll())
+                );
     }
 
-    @PostMapping
-    ResponseEntity<ImageDTO> create(@RequestBody ImageDTO imageDTO) {
-        Image image = imageMapper.mapToEntityForSave(imageDTO);
-        image = imageService.save(image);
-        imageDTO = imageMapper.mapToDto(image);
-        return new ResponseEntity<ImageDTO>(imageDTO, HttpStatus.CREATED);
-    }
 
     @PutMapping("/{id}")
-    ResponseEntity<ImageDTO> update(@PathVariable("id") Long id, @RequestBody ImageDTO imageDTO) {
-        Image image = imageMapper.mapToEntityForUpdate(imageDTO, id);
-        image = imageService.update(image);
-        imageDTO = imageMapper.mapToDto(image);
-        return new ResponseEntity<ImageDTO>(imageDTO, HttpStatus.OK);
+    ResponseEntity<ImageDTO> update(@PathVariable Long id, @RequestBody ImageCreateInfo imageDTO) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(
+                        imageMapper.mapToDTO(imageService.update(imageMapper.mapToEntity(imageDTO), id))
+                );
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ImageDTO> showById(@PathVariable Long id) {
         Image image = imageService.findById(id);
-        ImageDTO imageDTO = imageMapper.mapToDto(image);
+        ImageDTO imageDTO = imageMapper.mapToDTO(image);
         return new ResponseEntity<ImageDTO>(imageDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Long id) {
-        imageService.deleteById(id);
+    public ResponseEntity<String> completelyDeleteImage(@PathVariable Long imageId, @PathVariable Long galleryId) {
+        imageService.delete(imageId);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 }
