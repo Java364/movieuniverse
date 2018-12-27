@@ -64,7 +64,7 @@ public class MovieMarkController {
 	@GetMapping
 	public ResponseEntity<Resources<MovieMarkDTO>> showAll() {
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(new Resources<>(movieMarkMapper.mapListToDto(movieMarkService.findAll()),
+				.body(new Resources<>(movieMarkMapper.mapToDTOList(movieMarkService.findAll()),
 						linkTo(methodOn(MovieMarkController.class).showAll()).withSelfRel()));
 	}
 
@@ -92,6 +92,7 @@ public class MovieMarkController {
 	@GetMapping("/users/{id}")
 	public List<MovieMarkDTO> showAllByUserId(@PathVariable Long id) {
 		User user = userService.findById(id);
-		return movieMarkMapper.mapListToDto(movieMarkService.findAllByUser(user));
+		return movieMarkMapper.mapToDTOList(movieMarkService.findAllByUser(user));
 	}
+
 }

@@ -5,6 +5,8 @@ import academy.softserve.movieuniverse.controller.ImageController;
 import academy.softserve.movieuniverse.dto.image.ImageCreateInfo;
 import academy.softserve.movieuniverse.dto.image.ImageDTO;
 import academy.softserve.movieuniverse.entity.Image;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +16,17 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
-public class ImageMapper {
+public class ImageMapper{
 
-    public Image mapToEntity(ImageDTO dto) {
-        ImageDTO imageDTO = dto;
+    @Autowired
+    public ImageMapper() {
+
+    }
+
+    public Image mapToEntity(ImageCreateInfo imageDTO) {
         Image entity = new Image();
-        entity.setImageUrl(dto.getImageUrl());
-        entity.setName(dto.getName());
+        entity.setImageUrl(imageDTO.getImageUrl());
+        entity.setName(imageDTO.getName());
         return entity;
     }
 
@@ -36,7 +42,7 @@ public class ImageMapper {
         return imageDTO;
     }
 
-    public List<Image> mapToEntityList(List<ImageDTO> dtos) {
+    public List<Image> mapToEntityList(List<ImageCreateInfo> dtos) {
         return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 

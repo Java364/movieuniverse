@@ -55,7 +55,7 @@ public class MovieMarkMapper {
         return movieMarkDTO;
     }
 
-    public List<MovieMarkDTO> mapListToDto(List<MovieMark> movieMarks) {
+    public List<MovieMarkDTO> mapToDTOList(List<MovieMark> movieMarks) {
         List<MovieMarkDTO> movieMarkDTOs = new ArrayList<>();
         for (MovieMark m : movieMarks) {
             movieMarkDTOs.add(this.mapToDto(m));

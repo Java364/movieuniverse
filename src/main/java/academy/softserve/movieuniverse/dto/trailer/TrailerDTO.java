@@ -1,14 +1,15 @@
-package academy.softserve.movieuniverse.dto.gallery;
+package academy.softserve.movieuniverse.dto.trailer;
 
-public class GalleryDTO {
+public class TrailerDTO implements CreateTrailerInfo {
 
     private Long id;
+    private String trailerUrl;
     private Long created;
     private Long updated;
     private String self;
-    private String images;
+    private String movie;
 
-    public GalleryDTO() {
+    public TrailerDTO() {
     }
 
     public Long getId() {
@@ -17,6 +18,16 @@ public class GalleryDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String getTrailerUrl() {
+        return trailerUrl;
+    }
+
+    @Override
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
     }
 
     public Long getCreated() {
@@ -43,11 +54,11 @@ public class GalleryDTO {
         this.self = self;
     }
 
-    public String getImages() {
-        return images;
+    public String getMovie() {
+        return movie;
     }
 
-    public void setImages(String images) {
-        this.images = images;
+    public void setMovie(String movie) {
+        this.movie = movie;
     }
 }
