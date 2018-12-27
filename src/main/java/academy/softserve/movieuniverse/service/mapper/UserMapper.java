@@ -53,8 +53,8 @@ public class UserMapper {
         UserDTO userDTO = copyEntityPropertiesToDTO(user);
         userDTO.setPassword(user.getPassword());
         userDTO.setRemoved(user.getIsRemoved());
-        userDTO.setEntryCreationDate(user.getEntryCreationDate());
-        userDTO.setEntryLastUpdate(user.getEntryLastUpdate());
+        userDTO.setEntryCreationDate(user.getEntryCreationDate().getTime());
+        userDTO.setEntryLastUpdate(user.getEntryLastUpdate().getTime());
         return userDTO;
     }
 

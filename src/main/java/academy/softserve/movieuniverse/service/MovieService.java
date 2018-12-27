@@ -1,20 +1,29 @@
 package academy.softserve.movieuniverse.service;
 
+import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.exception.MovieException;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class MovieService {
+    private final MovieRepository movieRepository;
+    private final GalleryService galleryService;
+
     @Autowired
-    private MovieRepository movieRepository;
+    public MovieService(MovieRepository movieRepository, GalleryService galleryService) {
+        this.movieRepository = movieRepository;
+        this.galleryService = galleryService;
+    }
 
     public Movie saveMovie(Movie movie) {
         if (movie == null) {
@@ -89,6 +98,14 @@ public class MovieService {
     
     public Movie findAllByMovieMarks(MovieMark movieMark) {
     	return movieRepository.findAllByMovieMarks(movieMark);
+    }
+
+    public Gallery addNewGallery(Long id){
+        Movie movie = findMovieById(id);
+        Gallery gallery = galleryService.save();
+        movie.getMediaContent().setGallery(gallery);
+        updateMovie(movie, id);
+        return gallery;
     }
 
 }

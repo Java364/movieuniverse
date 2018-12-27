@@ -28,10 +28,10 @@ public class StarProfessionService {
         if (starProfession == null) {
             throw StarProfessionException.createSaveException("New star's profession couldn't be saved", null);
         }
-        if (starService.findStarById(starId) == null) {
+        if (starService.findById(starId) == null) {
             throw StarException.createSelectException("No such user", null);
         }
-        starProfession.setStar(starService.findStarById(starId));
+        starProfession.setStar(starService.findById(starId));
         starProfessionRepository.save(starProfession);
     }
 

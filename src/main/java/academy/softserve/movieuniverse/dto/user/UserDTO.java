@@ -13,8 +13,8 @@ public class UserDTO extends ResourceSupport implements UserShortInfo, UserCreat
     private String firstName;
     private String lastName;
     private Long birthday;
-    private LocalDateTime entryCreationDate;
-    private LocalDateTime entryLastUpdate;
+    private Long entryCreationDate;
+    private Long entryLastUpdate;
     private Boolean isRemoved;
 
     public UserDTO() {
@@ -82,21 +82,22 @@ public class UserDTO extends ResourceSupport implements UserShortInfo, UserCreat
     }
 
     @Override
-    public LocalDateTime getEntryCreationDate() {
+    public Long getEntryCreationDate() {
         return entryCreationDate;
     }
 
     @Override
-    public void setEntryCreationDate(LocalDateTime entryCreationDate) {
+    public void setEntryCreationDate(Long entryCreationDate) {
         this.entryCreationDate = entryCreationDate;
     }
 
     @Override
-    public LocalDateTime getEntryLastUpdate() {
+    public Long getEntryLastUpdate() {
         return entryLastUpdate;
     }
 
-    public void setEntryLastUpdate(LocalDateTime entryLastUpdate) {
+    @Override
+    public void setEntryLastUpdate(Long entryLastUpdate) {
         this.entryLastUpdate = entryLastUpdate;
     }
 
