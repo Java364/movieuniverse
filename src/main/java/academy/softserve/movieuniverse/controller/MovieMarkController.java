@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.util.List;
 
@@ -65,6 +63,7 @@ public class MovieMarkController {
 	@GetMapping("/users/{id}")
 	public ResponseEntity<List<MovieMarkDTO>> showAllByUserId(@PathVariable Long id) {
 		User user = userService.findById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDTOList(movieMarkService.findAllByUser(user)));
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(movieMarkMapper.mapToDTOList(movieMarkService.findAllByUser(user)));
 	}
 }
