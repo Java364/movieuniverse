@@ -6,12 +6,14 @@ import academy.softserve.movieuniverse.exception.GalleryException;
 import academy.softserve.movieuniverse.repository.GalleryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class GalleryService {
     private final GalleryRepository galleryRepository;
 
@@ -20,12 +22,9 @@ public class GalleryService {
         this.galleryRepository = galleryRepository;
     }
 
-    public Gallery save(Gallery gallery) {
-        if (gallery == null || gallery.getId() != null)
-            throw GalleryException.createSaveException("couldn't save gallery");
-        gallery = galleryRepository.save(gallery);
-        if (gallery == null) throw GalleryException.createSaveException("couldn't save gallery");
-        return gallery;
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public Gallery save() {
+        return galleryRepository.saveAndFlush(new Gallery());
     }
 
     public Gallery update(Gallery gallery) {

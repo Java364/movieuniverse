@@ -1,73 +1,45 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import academy.softserve.movieuniverse.dto.GalleryDTO;
+import academy.softserve.movieuniverse.controller.GalleryController;
+import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.entity.Gallery;
-import academy.softserve.movieuniverse.entity.Image;
-import academy.softserve.movieuniverse.service.ImageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
-public class GalleryMapper {
+public class GalleryMapper implements DTOMapper<GalleryDTO, Gallery> {
 
-    @Autowired
-    private ImageService imageService;
 
-    public Gallery mapToEntity(GalleryDTO dto) {
+    @Override
+    public <T> Gallery mapToEntity(T dto) {
+        GalleryDTO galleryDTO = (GalleryDTO) dto;
         Gallery gallery = new Gallery();
-        gallery.setId(dto.getId());
-        gallery.setIsRemoved(false);
-        gallery.setImages(mapIdsToImages(dto.getImageIds()));
         return gallery;
     }
 
-    public Gallery mapToEntityForSave(GalleryDTO dto) {
-        Gallery gallery = new Gallery();
-        gallery.setId(null);
-        gallery.setIsRemoved(false);
-        gallery.setImages(mapIdsToImages(dto.getImageIds()));
-        return gallery;
-    }
-
-    public Gallery mapToEntityForUpdate(GalleryDTO dto, Long id) {
-        Gallery gallery = new Gallery();
-        gallery.setId(id);
-        gallery.setIsRemoved(false);
-        gallery.setImages(mapIdsToImages(dto.getImageIds()));
-        return gallery;
-    }
-
-    public GalleryDTO mapToDto(Gallery entity) {
+    @Override
+    public GalleryDTO mapToDTO(Gallery gallery) {
         GalleryDTO galleryDTO = new GalleryDTO();
-        galleryDTO.setId(entity.getId());
-        galleryDTO.setImageIds(this.mapEntityToId(entity.getImages()));
+        galleryDTO.setId(gallery.getId());
+        galleryDTO.setCreated(gallery.getEntryCreationDate().getTime());
+        galleryDTO.setUpdated(gallery.getEntryLastUpdate().getTime());
+        galleryDTO.setSelf(linkTo(methodOn(GalleryController.class).showById(gallery.getId())).withSelfRel().getHref());
+        galleryDTO.setImages(linkTo(methodOn(GalleryController.class).showImagesByGalleryId(gallery.getId())).withRel("images").getHref());
         return galleryDTO;
     }
 
-    public List<GalleryDTO> mapListEntityToDto(List<Gallery> galleries) {
-        List<GalleryDTO> galleryDTOs = new ArrayList<>();
-        for (Gallery g : galleries) {
-            galleryDTOs.add(this.mapToDto(g));
-        }
-        return galleryDTOs;
+    @Override
+    public <T> List<Gallery> mapToEntityList(List<T> dtos) {
+        return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 
-    private List<Long> mapEntityToId(List<Image> images) {
-        List<Long> imageIds = new ArrayList<>();
-        for (Image i : images) {
-            imageIds.add(i.getId());
-        }
-        return imageIds;
-    }
-
-    private List<Image> mapIdsToImages(List<Long> imageIds) {
-        List<Image> images = new ArrayList<>();
-        for (Long id : imageIds) {
-            images.add(imageService.findById(id));
-        }
-        return images;
+    @Override
+    public List<GalleryDTO> mapToDTOList(List<Gallery> entities) {
+        return entities.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 }

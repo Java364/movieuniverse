@@ -4,13 +4,10 @@ import academy.softserve.movieuniverse.controller.GalleryController;
 import academy.softserve.movieuniverse.controller.ImageController;
 import academy.softserve.movieuniverse.dto.image.ImageCreateInfo;
 import academy.softserve.movieuniverse.dto.image.ImageDTO;
-import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Image;
-import academy.softserve.movieuniverse.service.GalleryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,35 +15,43 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
-public class ImageMapper {
+public class ImageMapper implements DTOMapper<ImageDTO, Image>{
 
     @Autowired
     public ImageMapper() {
 
     }
 
-    public Image mapToEntity(ImageCreateInfo imageDTO) {
-        Image image = new Image();
-        image.setImageUrl(imageDTO.getImageUrl());
-        image.setName(imageDTO.getName());
-        return image;
+
+    @Override
+    public <T> Image mapToEntity(T dto) {
+        ImageDTO imageDTO = (ImageDTO) dto;
+        Image entity = new Image();
+        entity.setImageUrl(imageDTO.getImageUrl());
+        entity.setName(imageDTO.getName());
+        return entity;
     }
 
-    public ImageDTO mapToDto(Image entity, Long galleryId) {
+    @Override
+    public ImageDTO mapToDTO(Image entity) {
         ImageDTO imageDTO = new ImageDTO();
+        imageDTO.setId(entity.getId());
         imageDTO.setImageUrl(entity.getImageUrl());
         imageDTO.setName(entity.getName());
-        imageDTO.add(linkTo(methodOn(ImageController.class).showById(entity.getId(), galleryId)).withSelfRel());
-        imageDTO.add(linkTo(methodOn(GalleryController.class).showById(galleryId)).withRel("gallery"));
+        imageDTO.setCreated(entity.getEntryCreationDate().getTime());
+        imageDTO.setUpdated(entity.getEntryLastUpdate().getTime());
+        imageDTO.setSelf(linkTo(methodOn(ImageController.class).showById(entity.getId())).withSelfRel().getHref());
+        imageDTO.setGallery(linkTo(methodOn(GalleryController.class).showById(entity.getGallery().getId())).withRel("gallery").getHref());
         return imageDTO;
     }
 
-    public List<ImageDTO> mapListEntityToDto(List<Image> images, Long galleryId) {
-        return images.stream().map((Image entity) -> mapToDto(entity, galleryId)).collect(Collectors.toList());
+    @Override
+    public <T> List<Image> mapToEntityList(List<T> dtos) {
+        return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 
-    public List<Image> mapListDtoToEntity(List<ImageDTO> imageDTOs) {
-        return imageDTOs.stream().map(this::mapToEntity).collect(Collectors.toList());
+    @Override
+    public List<ImageDTO> mapToDTOList(List<Image> entities) {
+        return entities.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
-
 }
