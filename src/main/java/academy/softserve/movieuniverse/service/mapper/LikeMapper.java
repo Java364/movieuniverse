@@ -1,17 +1,15 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
-import org.springframework.stereotype.Service;
-
 import academy.softserve.movieuniverse.controller.LikeController;
 import academy.softserve.movieuniverse.dto.like.LikeDTO;
 import academy.softserve.movieuniverse.entity.Like;
 import academy.softserve.movieuniverse.service.CommentService;
 import academy.softserve.movieuniverse.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -31,7 +29,7 @@ public class LikeMapper {
 		Like like = new Like();
 		like.setMark(dto.getMark());
 		like.setCommentator(userService.findById(dto.getCommentatorId()));
-		like.setComment(commentMapper.mapToEntity(commentService.findById(dto.getCommentId())));
+		like.setComment(commentService.findById(dto.getCommentId()));
 		return like;
 
 	}
@@ -40,7 +38,7 @@ public class LikeMapper {
 		Like like = new Like();
 		like.setMark(dto.getMark());
 		like.setCommentator(userService.findById(dto.getCommentatorId()));
-		like.setComment(commentMapper.mapToEntity(commentService.findById(dto.getCommentId())));
+		like.setComment(commentService.findById(dto.getCommentId()));
 		return like;
 	}
 
@@ -49,7 +47,7 @@ public class LikeMapper {
 		like.setId(likeId);
 		like.setMark(dto.getMark());
 		like.setCommentator(userService.findById(dto.getCommentatorId()));
-		like.setComment(commentMapper.mapToEntity(commentService.findById(dto.getCommentId())));
+		like.setComment(commentService.findById(dto.getCommentId()));
 		return like;
 	}
 
