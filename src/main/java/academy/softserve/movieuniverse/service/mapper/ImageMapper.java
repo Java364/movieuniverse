@@ -2,6 +2,7 @@ package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.controller.GalleryController;
 import academy.softserve.movieuniverse.controller.ImageController;
+import academy.softserve.movieuniverse.dto.image.ImageCreateInfo;
 import academy.softserve.movieuniverse.dto.image.ImageDTO;
 import academy.softserve.movieuniverse.entity.Image;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class ImageMapper {
     public Image mapToEntity(ImageDTO dto) {
         ImageDTO imageDTO = dto;
         Image entity = new Image();
-        entity.setImageUrl(imageDTO.getImageUrl());
-        entity.setName(imageDTO.getName());
+        entity.setImageUrl(dto.getImageUrl());
+        entity.setName(dto.getName());
         return entity;
     }
 

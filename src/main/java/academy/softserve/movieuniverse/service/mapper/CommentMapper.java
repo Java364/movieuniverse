@@ -35,12 +35,6 @@ public class CommentMapper implements DTOMapper<CommentDTO, CommentRequest, Comm
     }
 
     @Override
-    public List<Comment> mapToEntityList(List<CommentRequest> dtos) {
-        return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
-    }
-
-
-    @Override
     public List<CommentDTO> mapToDTOList(List<Comment> entities) {
         return  entities.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
