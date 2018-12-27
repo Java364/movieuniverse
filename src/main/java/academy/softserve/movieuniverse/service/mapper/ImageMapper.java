@@ -15,20 +15,18 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
-public class ImageMapper implements DTOMapper<ImageDTO, Image>{
+public class ImageMapper implements DTOMapper<ImageDTO, ImageCreateInfo, Image>{
 
     @Autowired
     public ImageMapper() {
 
     }
 
-
     @Override
-    public <T> Image mapToEntity(T dto) {
-        ImageDTO imageDTO = (ImageDTO) dto;
+    public Image mapToEntity(ImageCreateInfo dto) {
         Image entity = new Image();
-        entity.setImageUrl(imageDTO.getImageUrl());
-        entity.setName(imageDTO.getName());
+        entity.setImageUrl(dto.getImageUrl());
+        entity.setName(dto.getName());
         return entity;
     }
 
@@ -46,7 +44,7 @@ public class ImageMapper implements DTOMapper<ImageDTO, Image>{
     }
 
     @Override
-    public <T> List<Image> mapToEntityList(List<T> dtos) {
+    public List<Image> mapToEntityList(List<ImageCreateInfo> dtos) {
         return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 

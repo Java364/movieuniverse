@@ -12,12 +12,10 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
-public class GalleryMapper implements DTOMapper<GalleryDTO, Gallery> {
-
-
+public class GalleryMapper implements DTOMapper<GalleryDTO, GalleryDTO,  Gallery> {
     @Override
-    public <T> Gallery mapToEntity(T dto) {
-        GalleryDTO galleryDTO = (GalleryDTO) dto;
+    public Gallery mapToEntity(GalleryDTO dto) {
+        GalleryDTO galleryDTO = dto;
         Gallery gallery = new Gallery();
         return gallery;
     }
@@ -34,7 +32,7 @@ public class GalleryMapper implements DTOMapper<GalleryDTO, Gallery> {
     }
 
     @Override
-    public <T> List<Gallery> mapToEntityList(List<T> dtos) {
+    public List<Gallery> mapToEntityList(List<GalleryDTO> dtos) {
         return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 
