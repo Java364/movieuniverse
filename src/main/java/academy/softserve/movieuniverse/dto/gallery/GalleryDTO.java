@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.dto.gallery;
 
-public class GalleryDTO implements GalleryCreateInfo{
+public class GalleryDTO{
 
     private Long id;
     private Long created;
