@@ -17,7 +17,7 @@ public interface DTOMapper<D, I, E> {
         return dtos.stream().map(mappingFunction).collect(Collectors.toList());
     }
 
-    default List<D> mapToDtoList(List<E> entities, Function<E, D> mappingFunction) {
+    default List<D> mapToDTOList(List<E> entities, Function<E, D> mappingFunction) {
         return entities.stream().map(mappingFunction).collect(Collectors.toList());
     }
 }
