@@ -15,8 +15,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Service
 public class ImageMapper {
 
-    public <T> Image mapToEntity(T dto) {
-        ImageDTO imageDTO = (ImageDTO) dto;
+    public Image mapToEntity(ImageDTO dto) {
+        ImageDTO imageDTO = dto;
         Image entity = new Image();
         entity.setImageUrl(imageDTO.getImageUrl());
         entity.setName(imageDTO.getName());
@@ -35,7 +35,7 @@ public class ImageMapper {
         return imageDTO;
     }
 
-    public <T> List<Image> mapToEntityList(List<T> dtos) {
+    public List<Image> mapToEntityList(List<ImageDTO> dtos) {
         return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
     }
 
