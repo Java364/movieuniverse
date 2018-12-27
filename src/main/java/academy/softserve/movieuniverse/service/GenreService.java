@@ -29,28 +29,28 @@ public class GenreService {
     }
 
     @Transactional
-    public Genre saveGenre(@NotNull Genre genre) throws NullPointerException, DuplicateEntryException {
+    public Genre save(@NotNull Genre genre) throws NullPointerException, DuplicateEntryException {
         Objects.requireNonNull(genre, NULL_GENRE_ENTITY_MSG);
         checkDuplicate(genre);
         return genreRepository.save(genre);
     }
 
-    public List<Genre> findAllGenres() {
+    public List<Genre> findAll() {
         return genreRepository.findAll();
     }
 
     @Transactional
-    public Genre updateGenre(Long genreId, @NotNull Genre updatedGenre) throws EntityNotFoundException,
+    public Genre update(Long genreId, @NotNull Genre updatedGenre) throws EntityNotFoundException,
             NullPointerException, DuplicateEntryException {
         Objects.requireNonNull(updatedGenre, NULL_GENRE_ENTITY_MSG);
         entityExistsValidator.checkIfEntityExists(genreId);
         checkDuplicate(updatedGenre);
         updatedGenre.setId(genreId);
-        return saveGenre(updatedGenre);
+        return save(updatedGenre);
     }
 
     @Transactional
-    public void deleteGenreById(@NotNull Long id) throws EntityNotFoundException, NullPointerException {
+    public void deleteById(@NotNull Long id) throws EntityNotFoundException, NullPointerException {
         entityExistsValidator.checkIfEntityExists(id);
         genreRepository.deleteById(id);
     }
@@ -64,9 +64,6 @@ public class GenreService {
 
     public Genre findById(Long id) {
        Optional<Genre> genre =  genreRepository.findById(id);
-       if (genre.isPresent()) {
-           return  genre.get();
-       }
-       return null;
+        return genre.orElseThrow(() -> new EntityNotFoundException("Genre entity with id: " + id + " doesn't exist."));
     }
 }
