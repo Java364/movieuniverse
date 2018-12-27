@@ -48,7 +48,7 @@ public class MovieMapper {
         movie.setGenres(dto.getGenres().stream().map(genreId -> genreService.findById(genreId)).collect(Collectors.toList()));
         movie.setMovieMarks(movieMarkMapper.mapMovieMarksListToEntity(dto.getMovieMarks()));
         movie.setRoles(dto.getRoles().stream().map(roleId -> starActivityInMoviesService.getStarActivityInMovies(roleId)).collect(Collectors.toList()));
-        movie.setStars(dto.getStars().stream().map(starId -> starService.findStarById(starId)).collect(Collectors.toList()));
+        movie.setStars(dto.getStars().stream().map(starId -> starService.findById(starId)).collect(Collectors.toList()));
         movie.setComments(new ArrayList<>());
         return movie;
     }

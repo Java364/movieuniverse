@@ -43,11 +43,11 @@ public class StarService {
         return star;
     }
 
-    public List<Star> showAllStars() {
+    public List<Star> showAll() {
         return starRepository.findAll();
     }
 
-    public Star findStarById(Long id) {
+    public Star findById(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
             throw StarException.createSelectException("There is no such star", new Exception());
@@ -94,7 +94,7 @@ public class StarService {
 
 
     public Gallery addNewGallery(Long starId) {
-        Star star = findStarById(starId);
+        Star star = findById(starId);
         Gallery gallery = galleryService.save();
         star.setGallery(gallery);
         update(star, starId);

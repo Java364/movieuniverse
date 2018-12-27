@@ -25,7 +25,7 @@ public class LinksMapper {
 
         links.setLinkName(dto.getLinkName());
         links.setSocialNetworkingSite(dto.getSocialNetworkingSite());
-        links.setStar(starService.findStarById(dto.getStarID()));
+        links.setStar(starService.findById(dto.getStarID()));
         links.setIsRemoved(false);
 
         return links;
@@ -66,7 +66,7 @@ public class LinksMapper {
         links.setId(id);
         links.setLinkName(dto.getLinkName());
         links.setSocialNetworkingSite(dto.getSocialNetworkingSite());
-        links.setStar(starService.findStarById(dto.getStarID()));
+        links.setStar(starService.findById(dto.getStarID()));
         links.setIsRemoved(dto.getRemoved());
         return links;
     }

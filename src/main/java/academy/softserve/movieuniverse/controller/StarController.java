@@ -50,14 +50,14 @@ public class StarController {
 
     @GetMapping("/list")
     public ResponseEntity<Resources<Resource<StarDTO>>> showAll() {
-//        List<Resource<StarDTO>> resources = mapper.mapListsToDto(service.showAllStars()).stream().map().collect(Collectors.toList());
+//        List<Resource<StarDTO>> resources = mapper.mapListsToDto(service.showAll()).stream().map().collect(Collectors.toList());
         return new ResponseEntity<>(new Resources<>(null), HttpStatus.OK);
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<Resource<StarDTO>> showOne(@PathVariable Long id) {
-        Star star = starService.findStarById(id);
+        Star star = starService.findById(id);
 //        Resource<StarDTO> resource = essembler.toResource(mapper.mapProfileToDto(star));
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -113,7 +113,7 @@ public class StarController {
 
     @GetMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> showStarGallery(@PathVariable Long id) {
-        Star star = starService.findStarById(id);
+        Star star = starService.findById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(galleryMapper.mapToDTO(star.getGallery()));
     }
@@ -123,7 +123,7 @@ public class StarController {
         Gallery gallery = starService.addNewGallery(id);
         System.out.println(gallery);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(galleryMapper.mapToDTO(starService.findStarById(id).getGallery()));
+                .body(galleryMapper.mapToDTO(starService.findById(id).getGallery()));
     }
 
 }
