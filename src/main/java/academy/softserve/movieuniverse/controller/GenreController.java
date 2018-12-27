@@ -7,10 +7,8 @@ import academy.softserve.movieuniverse.dto.genre.GenreRequest;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.GenreService;
 import academy.softserve.movieuniverse.service.mapper.GenreMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +17,8 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/genre")
+@RequestMapping("/genres")
 @CrossOrigin
-@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class GenreController {
     private GenreService genreService;
     private GenreMapper genreMapper;
@@ -32,8 +29,8 @@ public class GenreController {
         this.genreMapper = genreMapper;
     }
 
-    @GetMapping(value = "/all")
-    public ResponseEntity<Resources<GenreDTO>> showAllGenres() {
+    @GetMapping
+    public ResponseEntity<Resources<GenreDTO>> showAll() {
         List<Genre> genres = genreService.findAllGenres();
         List<GenreDTO> resources = genreMapper.mapToDTOList(genres);
         return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(resources));
