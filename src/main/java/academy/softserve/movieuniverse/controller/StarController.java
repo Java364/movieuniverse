@@ -126,4 +126,10 @@ public class StarController {
                 .body(galleryMapper.mapToDTO(starService.findById(id).getGallery()));
     }
 
+    @GetMapping("/{id}/links")
+    public ResponseEntity<StarDTO> showById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(mapper.mapProfileToDto(starService.findById(id)));
+    }
+
 }

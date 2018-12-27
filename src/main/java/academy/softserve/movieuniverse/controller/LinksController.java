@@ -25,13 +25,7 @@ public class LinksController {
     @Autowired
     private LinksMapper linksMapper = new LinksMapper();
 
-  /*  @PostMapping
-    ResponseEntity<LinksDTO> createLink(@RequestBody LinksDTO linksDTO) {
-        Links links = linksMapper.mapToEntityAndSaveLinks(linksDTO);
-        linksService.saveLinks(links);
-        linksDTO = linksMapper.mapEntityToDto(links);
-        return new ResponseEntity<LinksDTO>(linksDTO, HttpStatus.CREATED);
-    }*/
+
   @PostMapping("/create")
   public ResponseEntity<LinksDTO> create(@RequestBody LinksDTO linksDTO) {
       return ResponseEntity
@@ -55,8 +49,8 @@ public class LinksController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new Resources<>(linksMapper.mapListToDto(
-                        linksService.findAll()),
-                        linkTo(methodOn(LinksController.class).showAllLinks()).withSelfRel()));
+                linksService.findAll()),
+                linkTo(methodOn(LinksController.class).showAllLinks()).withSelfRel()));
     }
 
     @GetMapping("/link/{id}")
