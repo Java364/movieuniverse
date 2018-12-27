@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.MovieDTO;
+import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
@@ -14,6 +15,7 @@ import academy.softserve.movieuniverse.entity.Trailer;
 import academy.softserve.movieuniverse.service.CountryService;
 import academy.softserve.movieuniverse.service.MovieMarkService;
 import academy.softserve.movieuniverse.service.MovieService;
+import academy.softserve.movieuniverse.service.PosterService;
 import academy.softserve.movieuniverse.service.TrailerService;
 import academy.softserve.movieuniverse.service.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +39,11 @@ public class MovieController {
     private final CommentMapper commentMapper;
     private final CountryMapper countryMapper;
     private final MovieMarkService movieMarkService;
+    private final PosterService posterService;
+    private final PosterMapper posterMapper;
 
     @Autowired
-    public MovieController(MovieService movieService, MovieMapper movieMapper, GalleryMapper galleryMapper, TrailerMapper trailerMapper, TrailerService trailerService, CountryService countryService, CommentMapper commentMapper, CountryMapper countryMapper, MovieMarkService movieMarkService) {
+    public MovieController(PosterMapper posterMapper, MovieService movieService, MovieMapper movieMapper, GalleryMapper galleryMapper, TrailerMapper trailerMapper, TrailerService trailerService, CountryService countryService, CommentMapper commentMapper, CountryMapper countryMapper, MovieMarkService movieMarkService, PosterService posterService) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
         this.galleryMapper = galleryMapper;
@@ -49,6 +53,8 @@ public class MovieController {
         this.commentMapper = commentMapper;
         this.countryMapper = countryMapper;
         this.movieMarkService = movieMarkService;
+        this.posterService = posterService;
+        this.posterMapper = posterMapper;
     }
 
     @GetMapping
@@ -119,6 +125,12 @@ public class MovieController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(trailerMapper.mapToDTO(trailerService.save(trailer)));
     }
+    
+    @PostMapping("/{id}/posters")
+	public ResponseEntity<PosterDTO> createMoviePoster(@RequestBody PosterDTO posterDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(posterMapper.mapToDto(posterService.save(posterMapper.mapToEntityForSave(posterDTO))));
+	}
 
     @GetMapping("/{id}/countries")
     public ResponseEntity<List<CountryDTO>> showMovieCountries(@PathVariable Long id){
