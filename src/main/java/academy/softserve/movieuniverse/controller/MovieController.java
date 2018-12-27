@@ -1,18 +1,19 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.MovieDTO;
+import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
+import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.Trailer;
+import academy.softserve.movieuniverse.service.CountryService;
 import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.TrailerService;
-import academy.softserve.movieuniverse.service.mapper.GalleryMapper;
-import academy.softserve.movieuniverse.service.mapper.MovieMapper;
-import academy.softserve.movieuniverse.service.mapper.TrailerMapper;
+import academy.softserve.movieuniverse.service.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,17 +32,23 @@ public class MovieController {
     private final GalleryMapper galleryMapper;
     private final TrailerMapper trailerMapper;
     private final TrailerService trailerService;
+    private final CountryService countryService;
+    private final CommentMapper commentMapper;
+    private final CountryMapper countryMapper;
 
     @Autowired
-    public MovieController(MovieService movieService, MovieMapper movieMapper, GalleryMapper galleryMapper, TrailerMapper trailerMapper, TrailerService trailerService) {
+    public MovieController(MovieService movieService, MovieMapper movieMapper, GalleryMapper galleryMapper, TrailerMapper trailerMapper, TrailerService trailerService, CountryService countryService, CommentMapper commentMapper, CountryMapper countryMapper) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
         this.galleryMapper = galleryMapper;
         this.trailerMapper = trailerMapper;
         this.trailerService = trailerService;
+        this.countryService = countryService;
+        this.commentMapper = commentMapper;
+        this.countryMapper = countryMapper;
     }
 
-    @GetMapping("")
+    @GetMapping
     List<MovieDTO> showAllMovies() {
         List<Movie> movies = movieService.showAllMovies();
         return movieMapper.mapListToDTO(movies);
@@ -54,7 +61,7 @@ public class MovieController {
         return new ResponseEntity<MovieInfoDTO>(movieInfoDTO, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping
     ResponseEntity<MovieCreateDTO> createMovie(@RequestBody MovieCreateDTO movieCreateDTO) {
         Movie movie = movieMapper.mapToEntity((MovieDTO) movieCreateDTO);
         movie = movieService.saveMovie(movie);
@@ -102,5 +109,22 @@ public class MovieController {
         trailer.setMovie(movieService.findMovieById(id));
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(trailerMapper.mapToDTO(trailerService.save(trailer)));
+    }
+
+    @GetMapping("/{id}/countries")
+    public ResponseEntity<List<CountryDTO>> showMovieCountries(@PathVariable Long id){
+        Movie movie = movieService.findMovieById(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(countryMapper.mapListToDto(movie.getCountries()));
+    }
+
+    @PostMapping("/{id}/countries")
+    public ResponseEntity<List<CountryDTO>> addMovieCountries(@PathVariable Long id, @RequestBody List<CountryDTO> countryDTOS){
+        Movie movie = movieService.findMovieById(id);
+        List<Country> countries = countryMapper.mapCountriesListToEntity(countryDTOS);
+        movie.setCountries(countries);
+        movieService.updateMovie(movie, id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(countryMapper.mapListToDto(movie.getCountries()));
     }
 }
