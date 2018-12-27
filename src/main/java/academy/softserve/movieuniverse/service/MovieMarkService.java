@@ -23,7 +23,6 @@ public class MovieMarkService {
     }
 
     public List<MovieMark> findAllByUser(User user) {
-
         return movieMarkRepository.findAllByUser(user);
     }
 

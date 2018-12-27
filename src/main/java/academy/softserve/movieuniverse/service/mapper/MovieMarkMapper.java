@@ -51,7 +51,7 @@ public class MovieMarkMapper {
         movieMarkDTO.add(linkTo(methodOn(MovieMarkController.class).showById(entity.getId())).withSelfRel());
         movieMarkDTO.setMark(entity.getMark());
         movieMarkDTO.add(linkTo(methodOn(MovieController.class).showByMovieMark(entity.getId())).withRel("movie"));
-        movieMarkDTO.add(linkTo(methodOn(UserController.class).showByMovieMark(entity.getId())).withRel("user"));
+//        movieMarkDTO.add(linkTo(methodOn(UserController.class).showByMovieMark(entity.getId())).withRel("user"));
         return movieMarkDTO;
     }
 

@@ -15,7 +15,7 @@ public class GalleryService {
     @Autowired
     private GalleryRepository galleryRepository;
 
-    public Gallery saveGallery(Gallery gallery) {
+    public Gallery save(Gallery gallery) {
         if (gallery == null || gallery.getId() != null)
             throw GalleryException.createSaveException("couldn't save gallery", null);
         gallery = galleryRepository.save(gallery);
@@ -23,7 +23,7 @@ public class GalleryService {
         return gallery;
     }
 
-    public Gallery updateGallery(Gallery gallery) {
+    public Gallery update(Gallery gallery) {
         if (gallery == null || gallery.getId() == null || !galleryRepository.findById(gallery.getId()).isPresent())
             throw GalleryException.createUpdateException("no gallery to update", null);
         gallery = galleryRepository.save(gallery);
@@ -31,7 +31,7 @@ public class GalleryService {
         return gallery;
     }
 
-    public Gallery findGalleryById(Long id) {
+    public Gallery findById(Long id) {
         Optional<Gallery> galleryOptional = galleryRepository.findById(id);
         if (!galleryOptional.isPresent()) {
             throw GalleryException.createSelectException("no such gallery", new Exception());
@@ -40,7 +40,7 @@ public class GalleryService {
         return trailer;
     }
 
-    public void deleteGallery(Long id) {
+    public void deleteById(Long id) {
         if (id == null || !galleryRepository.findById(id).isPresent())
             throw GalleryException.createDeleteException("no exist such gallery to delete", null);
         galleryRepository.deleteById(id);
