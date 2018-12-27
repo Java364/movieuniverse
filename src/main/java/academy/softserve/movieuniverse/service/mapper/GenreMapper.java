@@ -37,11 +37,6 @@ public class GenreMapper implements DTOMapper<GenreDTO, GenreRequest,  Genre> {
     }
 
     @Override
-    public List<Genre> mapToEntityList(List<GenreRequest> dtos) {
-        return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
-    }
-
-    @Override
     public List<GenreDTO> mapToDTOList(List<Genre> genres) {
         return genres.stream().map(this::mapToDTO).collect(Collectors.toList());
     }

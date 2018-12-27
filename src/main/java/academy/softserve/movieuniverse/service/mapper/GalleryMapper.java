@@ -15,12 +15,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class GalleryMapper  {
 
 
-    public <T> Gallery mapToEntity(T dto) {
-        GalleryDTO galleryDTO = (GalleryDTO) dto;
-        Gallery gallery = new Gallery();
-        return gallery;
-    }
-
     public GalleryDTO mapToDTO(Gallery gallery) {
         GalleryDTO galleryDTO = new GalleryDTO();
         galleryDTO.setId(gallery.getId());
@@ -31,9 +25,6 @@ public class GalleryMapper  {
         return galleryDTO;
     }
 
-    public <T> List<Gallery> mapToEntityList(List<T> dtos) {
-        return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
-    }
 
     public List<GalleryDTO> mapToDTOList(List<Gallery> entities) {
         return entities.stream().map(this::mapToDTO).collect(Collectors.toList());
