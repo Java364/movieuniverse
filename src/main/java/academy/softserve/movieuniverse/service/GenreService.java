@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 public class GenreService {
     private static final String NULL_GENRE_ENTITY_MSG = "Genre entity must not be null";
 
@@ -38,6 +39,7 @@ public class GenreService {
         return genreRepository.findAll();
     }
 
+    @Transactional
     public Genre updateGenre(Long genreId, @NotNull Genre updatedGenre) throws EntityNotFoundException,
             NullPointerException, DuplicateEntryException {
         Objects.requireNonNull(updatedGenre, NULL_GENRE_ENTITY_MSG);
