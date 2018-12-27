@@ -24,13 +24,13 @@ public interface UserFullInfo {
 
     void setBirthday(Long birthday);
 
-    LocalDateTime getEntryCreationDate();
+    Long getEntryCreationDate();
 
-    void setEntryCreationDate(LocalDateTime entryCreationDate);
+    void setEntryCreationDate(Long entryCreationDate);
 
-    LocalDateTime getEntryLastUpdate();
+    Long getEntryLastUpdate();
 
-    void setEntryLastUpdate(LocalDateTime entryLastUpdate);
+    void setEntryLastUpdate(Long entryLastUpdate);
 
     Boolean getRemoved();
 

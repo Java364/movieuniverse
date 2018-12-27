@@ -5,9 +5,7 @@ import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentRequest;
 import academy.softserve.movieuniverse.entity.Comment;
 import academy.softserve.movieuniverse.service.CommentService;
-
 import academy.softserve.movieuniverse.service.mapper.CommentMapper;
-
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/comment")
-
+@RequestMapping("/comments")
 public class CommentController {
     private CommentService commentService;
     private CommentMapper commentMapper;
@@ -28,7 +25,7 @@ public class CommentController {
         this.commentMapper = commentMapper;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<Resources<CommentDTO>> showAll() {
         List<Comment> comments = commentService.findAll();
         List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(comments);
@@ -45,7 +42,7 @@ public class CommentController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CommentDTO> update(@PathVariable("id") Long commentId,
-                                                          @RequestBody CommentRequest commentRequest) {
+                                             @RequestBody CommentRequest commentRequest) {
         Comment comment = commentMapper.mapToEntity(commentRequest);
         Comment updatedUser = commentService.update(commentId, comment);
         CommentDTO commentDTO = commentMapper.mapToDTO(updatedUser);

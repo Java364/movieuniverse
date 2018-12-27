@@ -2,7 +2,6 @@ package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.controller.LinksController;
 import academy.softserve.movieuniverse.controller.StarController;
-import academy.softserve.movieuniverse.controller.UserController;
 import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.service.StarService;
@@ -26,7 +25,7 @@ public class LinksMapper {
 
         links.setLinkName(dto.getLinkName());
         links.setSocialNetworkingSite(dto.getSocialNetworkingSite());
-        links.setStar(starService.findStarById(dto.getStarID()));
+        links.setStar(starService.findById(dto.getStarID()));
         links.setIsRemoved(false);
 
         return links;
@@ -65,7 +64,7 @@ public class LinksMapper {
         links.setId(id);
         links.setLinkName(dto.getLinkName());
         links.setSocialNetworkingSite(dto.getSocialNetworkingSite());
-        links.setStar(starService.findStarById(dto.getStarID()));
+        links.setStar(starService.findById(dto.getStarID()));
         links.setIsRemoved(dto.getRemoved());
         return links;
     }

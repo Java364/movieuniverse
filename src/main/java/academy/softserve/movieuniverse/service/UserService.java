@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -26,12 +27,10 @@ public class UserService {
     }
 
 
-    @Transactional
     public User createUser(User user) {
         return userRepository.saveAndFlush(user);
     }
 
-    @Transactional
     public void deleteById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
         if (user.getIsRemoved()) {
@@ -41,7 +40,6 @@ public class UserService {
         }
     }
 
-    @Transactional
     public void removeById(Long id) {
         userRepository.findById(id)
                 .map(user -> {
@@ -51,7 +49,6 @@ public class UserService {
                 .orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
     }
 
-    @Transactional
     public void restoreById(Long id) {
         userRepository.findById(id)
                 .map(user -> {
@@ -61,7 +58,6 @@ public class UserService {
                 .orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
     }
 
-    @Transactional
     public User update(User user, Long id) {
         return userRepository.findById(id)
                 .map(userDB -> {
@@ -81,8 +77,8 @@ public class UserService {
     public List<User> findAllNonRemoved() {
         return userRepository.findAllByIsRemoved(false);
     }
-    
+
     public User findAllByMovieMark(MovieMark movieMark) {
-    	return userRepository.findAllByMovieMarks(movieMark);
+        return userRepository.findAllByMovieMarks(movieMark);
     }
 }
