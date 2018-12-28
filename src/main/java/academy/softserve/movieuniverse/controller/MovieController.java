@@ -1,13 +1,12 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.MovieDTO;
+
 
 import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
-import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
-import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
+
 
 
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
@@ -15,6 +14,18 @@ import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Country;
+
+
+import academy.softserve.movieuniverse.dto.PosterDTO;
+import academy.softserve.movieuniverse.dto.country.CountryDTO;
+import academy.softserve.movieuniverse.controller.exception.LocationHeaderCreationException;
+import academy.softserve.movieuniverse.dto.movie.MovieDTO;
+import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
+import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
+import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
+import academy.softserve.movieuniverse.entity.Country;
+import academy.softserve.movieuniverse.dto.movie.MovieCreateDTO;
+import academy.softserve.movieuniverse.dto.movie.MovieInfoDTO;
 
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
@@ -33,10 +44,12 @@ import academy.softserve.movieuniverse.service.TrailerService;
 import academy.softserve.movieuniverse.service.mapper.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -45,6 +58,7 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
+
     private final MovieMapper movieMapper;
     private final GalleryMapper galleryMapper;
     private final TrailerMapper trailerMapper;
@@ -73,8 +87,8 @@ public class MovieController {
 
     }
 
-    @GetMapping
-    List<MovieDTO> showAllMovies() {
+    @GetMapping("")
+    public List<MovieDTO> showAllMovies() {
         List<Movie> movies = movieService.showAllMovies();
         return movieMapper.mapListToDTO(movies);
     }
@@ -86,15 +100,19 @@ public class MovieController {
     }
 
     @PostMapping
-    ResponseEntity<MovieCreateDTO> createMovie(@RequestBody MovieCreateDTO movieCreateDTO) {
-        Movie movie = movieMapper.mapToEntity((MovieDTO) movieCreateDTO);
-        movie = movieService.saveMovie(movie);
-        movieCreateDTO = movieMapper.mapToDto(movie);
-        return new ResponseEntity<MovieCreateDTO>(movieCreateDTO, HttpStatus.CREATED);
+    public ResponseEntity<MovieDTO> create(@RequestBody MovieDTO movieDTO) throws LocationHeaderCreationException {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.mapToDto(
+                        movieService.create(
+                                movieMapper.mapToEntity(movieDTO)
+                        )
+                ));
+
+
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<MovieCreateDTO> updateMovie(@RequestBody MovieCreateDTO movieCreateDTO, @PathVariable Long id) {
+    public ResponseEntity<MovieCreateDTO> updateMovie(@RequestBody MovieCreateDTO movieCreateDTO, @PathVariable Long id) {
         Movie movie = movieMapper.mapToEntity((MovieDTO) movieCreateDTO);
         movie = movieService.updateMovie(movie, id);
         movieCreateDTO = movieMapper.mapToDto(movie);
@@ -102,12 +120,12 @@ public class MovieController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
         movieService.deleteMovie(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    
+
     @GetMapping("/mark/{id}")
     public MovieDTO showByMovieMark(@PathVariable Long id) {
         MovieMark movieMark = movieMarkService.findById(id);
@@ -156,7 +174,7 @@ public class MovieController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(trailerMapper.mapToDTO(trailerService.save(trailer)));
     }
-    
+
     @PostMapping("/{id}/posters")
 	public ResponseEntity<PosterDTO> createMoviePoster(@RequestBody PosterDTO posterDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED)

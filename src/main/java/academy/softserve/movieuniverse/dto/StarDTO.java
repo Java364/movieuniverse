@@ -14,6 +14,7 @@ public class StarDTO {
     private Double growth;
     private String cityOfBirth;
     private Long galleryId;
+
     //private GalleryDTO galleryDto;
     private List<Long> rolesIds = new ArrayList<Long>();
     private List<Long> professionsIds = new ArrayList<Long>();
@@ -21,10 +22,74 @@ public class StarDTO {
     private List<Long> countriesIds = new ArrayList<>();
     private List<Long> moviesIds = new ArrayList<Long>();
     private List<LinksDTO> links = new ArrayList<LinksDTO>();
-    private List<StarProfessionDTO> professions = new ArrayList<StarProfessionDTO>();
+    public String getSelf() {
+		return self;
+	}
+
+	public void setSelf(String self) {
+		this.self = self;
+	}
+
+	public String getGallery() {
+		return gallery;
+	}
+
+	public void setGallery(String gallery) {
+		this.gallery = gallery;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
+	public String getLinksu() {
+		return linksu;
+	}
+
+	public void setLinksu(String linksu) {
+		this.linksu = linksu;
+	}
+
+	public String getCountriesu() {
+		return countriesu;
+	}
+
+	public void setCountriesu(String countriesu) {
+		this.countriesu = countriesu;
+	}
+
+	public String getMoviesu() {
+		return moviesu;
+	}
+
+	public void setMoviesu(String moviesu) {
+		this.moviesu = moviesu;
+	}
+
+	public String getProfessionsu() {
+		return professionsu;
+	}
+
+	public void setProfessionsu(String professionsu) {
+		this.professionsu = professionsu;
+	}
+
+	private List<StarProfessionDTO> professions = new ArrayList<StarProfessionDTO>();
     private List<CountryDTO> countries = new ArrayList<CountryDTO>();
     private List<StarActivityInMoviesDTO> activities = new ArrayList<StarActivityInMoviesDTO>();
     private Boolean isRemoved;
+    
+    private String self;
+    private String gallery;
+    private String roles;
+    private String linksu;
+    private String countriesu;
+    private String moviesu;
+    private String professionsu;
 
     public List<Long> getRolesIds() {
         return rolesIds;

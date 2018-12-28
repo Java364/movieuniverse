@@ -1,7 +1,5 @@
-package academy.softserve.movieuniverse.dto.interfaces;
+package academy.softserve.movieuniverse.dto.movie;
 
-import academy.softserve.movieuniverse.dto.MovieDTO;
-import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
