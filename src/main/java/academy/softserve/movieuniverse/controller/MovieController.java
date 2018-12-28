@@ -65,16 +65,14 @@ public class MovieController {
     }
 
     @GetMapping("")
-    public List<MovieDTO> showAllMovies() {
-        List<Movie> movies = movieService.showAllMovies();
-        return movieMapper.mapListToDTO(movies);
+    public ResponseEntity<List<MovieDTO>> showAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapListToDTO(movieService.showAllMovies()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovieInfoDTO> showById(@PathVariable Long id) {
+    public ResponseEntity<MovieDTO> showById(@PathVariable Long id) {
         Movie movie = movieService.findMovieById(id);
-        MovieInfoDTO movieInfoDTO = movieMapper.mapToDto(movie);
-        return new ResponseEntity<MovieInfoDTO>(movieInfoDTO, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapToDto(movie));
     }
 
     @PostMapping
@@ -86,18 +84,16 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieCreateDTO> updateMovie(@RequestBody MovieCreateDTO movieCreateDTO,
-            @PathVariable Long id) {
-        Movie movie = movieMapper.mapToEntity((MovieDTO) movieCreateDTO);
-        movie = movieService.updateMovie(movie, id);
-        movieCreateDTO = movieMapper.mapToDto(movie);
-        return new ResponseEntity<MovieCreateDTO>(movieCreateDTO, HttpStatus.OK);
+    public ResponseEntity<MovieDTO> update(@PathVariable Long id, @RequestBody MovieDTO movieDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapToDto(
+                movieService.updateMovie(movieMapper.mapToEntity(movieDTO), id)));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
-        movieService.deleteMovie(id);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+            movieService.deleteMovie(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+
     }
 
     @GetMapping("/mark/{id}")
