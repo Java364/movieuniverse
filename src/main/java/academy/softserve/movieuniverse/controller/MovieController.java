@@ -1,14 +1,11 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.MovieDTO;
+
 import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.controller.exception.LocationHeaderCreationException;
-import academy.softserve.movieuniverse.controller.util.ControllerHateoasUtil;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
-import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
-import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Country;
