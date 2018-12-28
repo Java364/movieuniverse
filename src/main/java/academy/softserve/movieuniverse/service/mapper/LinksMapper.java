@@ -20,7 +20,6 @@ public class LinksMapper {
     @Autowired
     private StarService starService;
 
-
     public Links mapToEntityAndSaveLinks(LinksDTO dto) {
         Links links = new Links();
         links.setLinkName(dto.getLinkName());
@@ -33,10 +32,12 @@ public class LinksMapper {
         LinksDTO linksDTO = new LinksDTO();
         linksDTO.setLinkName(links.getLinkName());
         linksDTO.setSocialNetworkingSite(links.getSocialNetworkingSite());
+
         linksDTO.setCreated(links.getEntryCreationDate().getTime());
         linksDTO.setUpdated(links.getEntryLastUpdate().getTime());
         linksDTO.setSelf(linkTo(methodOn(LinksController.class).getOneLink(links.getId())).withSelfRel().getHref());
         linksDTO.setStar(linkTo(methodOn(StarController.class).showById(links.getStar().getId())).withRel("star").getHref());
+
         return linksDTO;
     }
 

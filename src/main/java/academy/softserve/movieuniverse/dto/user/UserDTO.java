@@ -22,7 +22,6 @@ public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, Use
     public UserDTO() {
     }
 
-
     @Override
     public String getEmail() {
         return email;
@@ -155,21 +154,11 @@ public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, Use
 
     @Override
     public String toString() {
-        return "UserDTO{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthday=" + birthday +
-                ", entryCreationDate=" + entryCreationDate +
-                ", entryLastUpdate=" + entryLastUpdate +
-                ", isRemoved=" + isRemoved +
-                ", self='" + self + '\'' +
-                ", users='" + users + '\'' +
-                ", comments='" + comments + '\'' +
-                ", movieMarks='" + movieMarks + '\'' +
-                '}';
+        return "UserDTO{" + "id=" + id + ", email='" + email + '\'' + ", password='" + password + '\''
+                + ", confirmPassword='" + confirmPassword + '\'' + ", firstName='" + firstName + '\'' + ", lastName='"
+                + lastName + '\'' + ", birthday=" + birthday + ", entryCreationDate=" + entryCreationDate
+                + ", entryLastUpdate=" + entryLastUpdate + ", isRemoved=" + isRemoved + ", self='" + self + '\''
+                + ", users='" + users + '\'' + ", comments='" + comments + '\'' + ", movieMarks='" + movieMarks + '\''
+                + '}';
     }
 }

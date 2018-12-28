@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 
 public class HerokuController {
-	@RequestMapping("/")
-	String index() {
-    return "hello";
-  }
+    @RequestMapping("/")
+    String index() {
+        return "hello";
+    }
 }

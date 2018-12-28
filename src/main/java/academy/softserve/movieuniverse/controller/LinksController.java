@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -39,18 +37,17 @@ public class LinksController {
 
   }
 
-    /*@GetMapping
-    public List<LinksDTO> findAllLinks() {
-        List<Links> linksList = linksService.findAll();
-        return linksMapper.mapListToDto(linksList);
-    }*/
-    @GetMapping("/listAll")
+
+    /*
+     * @GetMapping public List<LinksDTO> findAllLinks() { List<Links> linksList = linksService.findAll(); return
+     * linksMapper.mapListToDto(linksList); }
+     */
+    @GetMapping
     public ResponseEntity<Resources<LinksDTO>> showAllLinks() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(new Resources<>(linksMapper.mapListToDto(
-                linksService.findAll()),
-                linkTo(methodOn(LinksController.class).showAllLinks()).withSelfRel()));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Resources<>(linksMapper.mapListToDto(linksService.findAll()),
+                        linkTo(methodOn(LinksController.class).showAllLinks()).withSelfRel()));
+
     }
 
     @GetMapping("/link/{id}")
@@ -67,12 +64,11 @@ public class LinksController {
 
     @PutMapping("/link/{id}")
     ResponseEntity<LinksDTO> updateLink(@PathVariable("id") Long id, @RequestBody LinksDTO linksDTO) {
+
         Links links = linksMapper.mapToEntityForUpdateLinks(linksDTO, id);
         links = linksService.updateLinks(links);
         linksDTO = linksMapper.mapEntityToDto(links);
         return new ResponseEntity<LinksDTO>(linksDTO, HttpStatus.OK);
     }
 
-
 }
-

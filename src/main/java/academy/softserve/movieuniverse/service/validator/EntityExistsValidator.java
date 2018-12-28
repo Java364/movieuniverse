@@ -9,7 +9,6 @@ public class EntityExistsValidator<T, ID> {
     private JpaRepository<T, ID> jpaRepository;
     private String className;
 
-
     public EntityExistsValidator(JpaRepository<T, ID> jpaRepository, Class entity) {
         this.jpaRepository = jpaRepository;
         this.className = entity.getSimpleName();

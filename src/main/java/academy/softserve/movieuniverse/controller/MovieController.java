@@ -1,21 +1,6 @@
 package academy.softserve.movieuniverse.controller;
 
 
-
-import academy.softserve.movieuniverse.dto.PosterDTO;
-import academy.softserve.movieuniverse.dto.country.CountryDTO;
-
-import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
-
-
-
-import academy.softserve.movieuniverse.dto.country.CountryDTO;
-
-import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
-import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
-import academy.softserve.movieuniverse.entity.Country;
-
-
 import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.controller.exception.LocationHeaderCreationException;
@@ -71,7 +56,10 @@ public class MovieController {
     private final PosterMapper posterMapper;
 
     @Autowired
-    public MovieController(PosterMapper posterMapper, MovieService movieService, MovieMapper movieMapper, GalleryMapper galleryMapper, TrailerMapper trailerMapper, TrailerService trailerService, CountryService countryService, CommentMapper commentMapper, CountryMapper countryMapper, MovieMarkService movieMarkService, PosterService posterService) {
+    public MovieController(PosterMapper posterMapper, MovieService movieService, MovieMapper movieMapper,
+            GalleryMapper galleryMapper, TrailerMapper trailerMapper, TrailerService trailerService,
+            CountryService countryService, CommentMapper commentMapper, CountryMapper countryMapper,
+            MovieMarkService movieMarkService, PosterService posterService) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
         this.galleryMapper = galleryMapper;
@@ -102,17 +90,14 @@ public class MovieController {
     @PostMapping
     public ResponseEntity<MovieDTO> create(@RequestBody MovieDTO movieDTO) throws LocationHeaderCreationException {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.mapToDto(
-                        movieService.create(
-                                movieMapper.mapToEntity(movieDTO)
-                        )
-                ));
-
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(movieMapper.mapToDto(movieService.create(movieMapper.mapToEntity(movieDTO))));
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieCreateDTO> updateMovie(@RequestBody MovieCreateDTO movieCreateDTO, @PathVariable Long id) {
+    public ResponseEntity<MovieCreateDTO> updateMovie(@RequestBody MovieCreateDTO movieCreateDTO,
+            @PathVariable Long id) {
         Movie movie = movieMapper.mapToEntity((MovieDTO) movieCreateDTO);
         movie = movieService.updateMovie(movie, id);
         movieCreateDTO = movieMapper.mapToDto(movie);
@@ -136,14 +121,12 @@ public class MovieController {
     @GetMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> showMovieGallery(@PathVariable Long id) {
         Movie movie = movieService.findMovieById(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(galleryMapper.mapToDTO(movie.getMediaContent().getGallery()));
+        return ResponseEntity.status(HttpStatus.OK).body(galleryMapper.mapToDTO(movie.getMediaContent().getGallery()));
     }
 
     @PostMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> createMovieGallery(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(galleryMapper.mapToDTO(movieService.addNewGallery(id)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(galleryMapper.mapToDTO(movieService.addNewGallery(id)));
     }
 
 
@@ -171,31 +154,29 @@ public class MovieController {
     public ResponseEntity<TrailerDTO> createMovieTrailer(@PathVariable Long id, @RequestBody CreateTrailerInfo dto) {
         Trailer trailer = trailerMapper.mapToEntity(dto);
         trailer.setMovie(movieService.findMovieById(id));
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(trailerMapper.mapToDTO(trailerService.save(trailer)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(trailerMapper.mapToDTO(trailerService.save(trailer)));
     }
 
     @PostMapping("/{id}/posters")
-	public ResponseEntity<PosterDTO> createMoviePoster(@RequestBody PosterDTO posterDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(posterMapper.mapToDto(posterService.save(posterMapper.mapToEntityForSave(posterDTO))));
-	}
+    public ResponseEntity<PosterDTO> createMoviePoster(@RequestBody PosterDTO posterDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(posterMapper.mapToDto(posterService.save(posterMapper.mapToEntityForSave(posterDTO))));
+    }
 
     @GetMapping("/{id}/countries")
-    public ResponseEntity<List<CountryDTO>> showMovieCountries(@PathVariable Long id){
+    public ResponseEntity<List<CountryDTO>> showMovieCountries(@PathVariable Long id) {
         Movie movie = movieService.findMovieById(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(countryMapper.mapListToDto(movie.getCountries()));
+        return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(movie.getCountries()));
     }
 
     @PostMapping("/{id}/countries")
-    public ResponseEntity<List<CountryDTO>> addMovieCountries(@PathVariable Long id, @RequestBody List<CountryDTO> countryDTOS){
+    public ResponseEntity<List<CountryDTO>> addMovieCountries(@PathVariable Long id,
+            @RequestBody List<CountryDTO> countryDTOS) {
         Movie movie = movieService.findMovieById(id);
         List<Country> countries = countryMapper.mapCountriesListToEntity(countryDTOS);
         movie.setCountries(countries);
         movieService.updateMovie(movie, id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(countryMapper.mapListToDto(movie.getCountries()));
+        return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(movie.getCountries()));
     }
 
 }

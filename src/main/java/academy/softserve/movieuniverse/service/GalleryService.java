@@ -1,7 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Gallery;
-import academy.softserve.movieuniverse.entity.Image;
 import academy.softserve.movieuniverse.exception.GalleryException;
 import academy.softserve.movieuniverse.repository.GalleryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +58,9 @@ public class GalleryService {
 
     }
 
-    public Gallery findByImage(Image image) {
+   /* public Gallery findByImage(Image image) {
         return galleryRepository.findByImages(image);
 
-    }
+    }*/
 
 }

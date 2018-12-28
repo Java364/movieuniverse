@@ -27,7 +27,8 @@ public class GalleryController {
     private final ImageService imageService;
 
     @Autowired
-    public GalleryController(GalleryService galleryService, GalleryMapper galleryMapper, ImageService imageService, ImageMapper imageMapper) {
+    public GalleryController(GalleryService galleryService, GalleryMapper galleryMapper, ImageService imageService,
+            ImageMapper imageMapper) {
         this.galleryService = galleryService;
         this.galleryMapper = galleryMapper;
         this.imageService = imageService;
@@ -35,10 +36,14 @@ public class GalleryController {
 
     }
 
+    @GetMapping
+    public ResponseEntity<List<GalleryDTO>> showAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(galleryMapper.mapToDTOList(galleryService.findAll()));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<GalleryDTO> showById(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(galleryMapper.mapToDTO(galleryService.findById(id)));
+        return ResponseEntity.status(HttpStatus.OK).body(galleryMapper.mapToDTO(galleryService.findById(id)));
     }
 
     @DeleteMapping("/{id}")
@@ -51,15 +56,13 @@ public class GalleryController {
     @GetMapping("/{id}/images")
     public ResponseEntity<List<ImageDTO>> showImagesByGalleryId(@PathVariable Long id) {
         Gallery gallery = galleryService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(imageMapper.mapToDTOList(gallery.getImages()));
+        return ResponseEntity.status(HttpStatus.OK).body(imageMapper.mapToDTOList(gallery.getImages()));
     }
 
     @PostMapping("/{id}/images")
        public ResponseEntity<ImageDTO> createImage(@PathVariable Long id, @RequestBody ImageDTO imageDTO) {
         Image image = imageMapper.mapToEntity(imageDTO);
         image.setGallery(galleryService.findById(id));
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(imageMapper.mapToDTO(imageService.save(image)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(imageMapper.mapToDTO(imageService.save(image)));
     }
 }

@@ -28,8 +28,8 @@ public class StarProfessionMapper {
         starProfessionDTO.setId(starProfessionEntity.getId());
         starProfessionDTO.setStarId(starProfessionEntity.getStar().getId());
         starProfessionDTO.setStarProfessionId(starProfessionEntity.getProfession().getId());
-        starProfessionDTO.setStarName(starProfessionEntity.getStar().getFirstName() + " "
-                + starProfessionEntity.getStar().getLastName());
+        starProfessionDTO.setStarName(
+                starProfessionEntity.getStar().getFirstName() + " " + starProfessionEntity.getStar().getLastName());
         starProfessionDTO.setStarProfession(starProfessionEntity.getProfession().getType());
         return starProfessionDTO;
     }
@@ -49,6 +49,5 @@ public class StarProfessionMapper {
         }
         return starProfessions;
     }
-
 
 }

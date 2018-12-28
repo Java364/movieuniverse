@@ -6,7 +6,7 @@ import academy.softserve.movieuniverse.entity.Genre;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GenreMapper implements DTOMapper<GenreDTO, GenreRequest,  Genre> {
+public class GenreMapper implements DTOMapper<GenreDTO, GenreRequest, Genre> {
     @Override
     public GenreDTO mapToDTO(Genre genre) {
         GenreDTO genreDTO = new GenreDTO();

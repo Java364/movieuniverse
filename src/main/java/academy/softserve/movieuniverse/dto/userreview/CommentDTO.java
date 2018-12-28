@@ -26,13 +26,13 @@ public class CommentDTO extends ResourceSupport implements CommentRequest {
         return title;
     }
 
-    public String getText() {
-        return text;
-    }
-
     @Override
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getText() {
+        return text;
     }
 
     public void setText(String text) {
