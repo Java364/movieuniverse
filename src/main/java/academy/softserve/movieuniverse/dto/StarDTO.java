@@ -22,6 +22,20 @@ public class StarDTO {
     private List<Long> countriesIds = new ArrayList<>();
     private List<Long> moviesIds = new ArrayList<Long>();
     private List<LinksDTO> links = new ArrayList<LinksDTO>();
+    
+    private List<StarProfessionDTO> professions = new ArrayList<StarProfessionDTO>();
+    private List<CountryDTO> countries = new ArrayList<CountryDTO>();
+    private List<StarActivityInMoviesDTO> activities = new ArrayList<StarActivityInMoviesDTO>();
+    private Boolean isRemoved;
+    
+    private String self;
+    private String gallery;
+    private String roles;
+    private String linksu;
+    private String countriesu;
+    private String moviesu;
+    private String professionsu;
+    
     public String getSelf() {
 		return self;
 	}
@@ -77,19 +91,6 @@ public class StarDTO {
 	public void setProfessionsu(String professionsu) {
 		this.professionsu = professionsu;
 	}
-
-	private List<StarProfessionDTO> professions = new ArrayList<StarProfessionDTO>();
-    private List<CountryDTO> countries = new ArrayList<CountryDTO>();
-    private List<StarActivityInMoviesDTO> activities = new ArrayList<StarActivityInMoviesDTO>();
-    private Boolean isRemoved;
-    
-    private String self;
-    private String gallery;
-    private String roles;
-    private String linksu;
-    private String countriesu;
-    private String moviesu;
-    private String professionsu;
 
     public List<Long> getRolesIds() {
         return rolesIds;
