@@ -1,9 +1,9 @@
 package academy.softserve.movieuniverse.dto;
 
+import academy.softserve.movieuniverse.dto.country.CountryDTO;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import academy.softserve.movieuniverse.dto.country.CountryDTO;
 
 public class StarDTO {
     private Long id;
@@ -14,7 +14,7 @@ public class StarDTO {
     private Double growth;
     private String cityOfBirth;
     private Long galleryId;
-    //private GalleryDTO galleryDto;
+    // private GalleryDTO galleryDto;
     private List<Long> rolesIds = new ArrayList<Long>();
     private List<Long> professionsIds = new ArrayList<Long>();
     private List<Long> linksIds = new ArrayList<Long>();

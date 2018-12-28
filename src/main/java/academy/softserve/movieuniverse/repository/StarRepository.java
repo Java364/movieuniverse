@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StarRepository extends JpaRepository<Star, Long> {
-    Star findByLinks (Links links);
+    Star findByLinks(Links links);
 
 }

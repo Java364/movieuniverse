@@ -1,7 +1,5 @@
 package academy.softserve.movieuniverse.dto.user;
 
-import java.time.LocalDateTime;
-
 public interface UserFullInfo {
 
     String getEmail();

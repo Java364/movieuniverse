@@ -30,14 +30,16 @@ public class StarController {
     private final StarProfessionService starProfessionService;
     private final StarMapper mapper;
     private final StarProfessionMapper starProfessionMapper;
-    //    @Autowired
-//    private StarResourceAssembler essembler;
+    // @Autowired
+    // private StarResourceAssembler essembler;
     private final LinksService linksService;
     private final GalleryService galleryService;
     private final GalleryMapper galleryMapper;
 
     @Autowired
-    public StarController(StarService starService, StarProfessionService starProfessionService, StarMapper mapper, StarProfessionMapper starProfessionMapper, LinksService linksService, GalleryService galleryService, GalleryMapper galleryMapper) {
+    public StarController(StarService starService, StarProfessionService starProfessionService, StarMapper mapper,
+            StarProfessionMapper starProfessionMapper, LinksService linksService, GalleryService galleryService,
+            GalleryMapper galleryMapper) {
         this.starService = starService;
         this.starProfessionService = starProfessionService;
         this.mapper = mapper;
@@ -47,21 +49,19 @@ public class StarController {
         this.galleryMapper = galleryMapper;
     }
 
-
     @GetMapping("/list")
     public ResponseEntity<Resources<Resource<StarDTO>>> showAll() {
-//        List<Resource<StarDTO>> resources = mapper.mapListsToDto(service.showAll()).stream().map().collect(Collectors.toList());
+        // List<Resource<StarDTO>> resources =
+        // mapper.mapListsToDto(service.showAll()).stream().map().collect(Collectors.toList());
         return new ResponseEntity<>(new Resources<>(null), HttpStatus.OK);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Resource<StarDTO>> showOne(@PathVariable Long id) {
         Star star = starService.findById(id);
-//        Resource<StarDTO> resource = essembler.toResource(mapper.mapProfileToDto(star));
+        // Resource<StarDTO> resource = essembler.toResource(mapper.mapProfileToDto(star));
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
     @PostMapping("/create")
     public ResponseEntity<StarDTO> create(@RequestBody StarDTO starDTO) {
@@ -80,7 +80,8 @@ public class StarController {
     }
 
     @PostMapping("/{id}/create-profession")
-    public ResponseEntity<StarProfessionDTO> createProfession(@RequestBody StarProfessionDTO starProfessionDTO, @PathVariable("id") Long starId) {
+    public ResponseEntity<StarProfessionDTO> createProfession(@RequestBody StarProfessionDTO starProfessionDTO,
+            @PathVariable("id") Long starId) {
         StarProfession starProfession = starProfessionMapper.mapToEntity(starProfessionDTO);
         starProfessionService.createStarProfession(starProfession, starId);
         starProfessionDTO = starProfessionMapper.mapToDto(starProfession);
@@ -114,8 +115,7 @@ public class StarController {
     @GetMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> showStarGallery(@PathVariable Long id) {
         Star star = starService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(galleryMapper.mapToDTO(star.getGallery()));
+        return ResponseEntity.status(HttpStatus.OK).body(galleryMapper.mapToDTO(star.getGallery()));
     }
 
     @PostMapping("/{id}/gallery")

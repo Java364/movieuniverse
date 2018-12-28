@@ -7,7 +7,6 @@ import academy.softserve.movieuniverse.dto.genre.GenreRequest;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.GenreService;
 import academy.softserve.movieuniverse.service.mapper.GenreMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
@@ -50,8 +49,7 @@ public class GenreController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenreDTO> update(@PathVariable("id") Long genreId,
-                                                @RequestBody GenreRequest genreRequest)
+    public ResponseEntity<GenreDTO> update(@PathVariable("id") Long genreId, @RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
         Genre updatedGenre = genreMapper.mapToEntity(genreRequest);
         Genre genre = genreService.updateGenre(genreId, updatedGenre);

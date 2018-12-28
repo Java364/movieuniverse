@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
-public class GenreMapper implements DTOMapper<GenreDTO, GenreRequest,  Genre> {
+public class GenreMapper implements DTOMapper<GenreDTO, GenreRequest, Genre> {
     private ModelMapper modelMapper;
 
     @Autowired

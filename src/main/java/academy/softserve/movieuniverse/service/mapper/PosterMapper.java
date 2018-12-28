@@ -1,11 +1,11 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.entity.Poster;
 import academy.softserve.movieuniverse.service.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 @Component
 public class PosterMapper {
     @Autowired
@@ -50,6 +50,5 @@ public class PosterMapper {
         dto.setMovieId(entity.getMovie().getId());
         return dto;
     }
-
 
 }

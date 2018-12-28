@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.dto;
 
-import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
 import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
 import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
@@ -9,19 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
-    private Long               id;
-    private String             movieName;
-    private int                year;
-    private String             description;
-    private Long               duration;
-    private MediaContentDTO    mediaContentDTO;
-    private String             ageLimitation;
-    private List<Long>         genres      = new ArrayList<>();
-    private List<Long>         countries   = new ArrayList<>();
-    private List<Long>         roles       = new ArrayList<Long>();
-    private List<Long>         userReviews = new ArrayList<>();
-    private List<Long>         stars       = new ArrayList<Long>();
-    private List<MovieMarkDTO> movieMarks  = new ArrayList<>();
+    private Long id;
+    private String movieName;
+    private int year;
+    private String description;
+    private Long duration;
+    private MediaContentDTO mediaContentDTO;
+    private String ageLimitation;
+    private List<Long> genres = new ArrayList<>();
+    private List<Long> countries = new ArrayList<>();
+    private List<Long> roles = new ArrayList<Long>();
+    private List<Long> userReviews = new ArrayList<>();
+    private List<Long> stars = new ArrayList<Long>();
+    private List<MovieMarkDTO> movieMarks = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -126,6 +125,5 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
     public void setMovieMarks(List<MovieMarkDTO> movieMarks) {
         this.movieMarks = movieMarks;
     }
-
 
 }

@@ -1,7 +1,6 @@
 package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @MappedSuperclass
@@ -16,7 +15,6 @@ public abstract class AbstractEntity {
 
     @Column(name = "updated_at")
     private Date entryLastUpdate = new Date();
-
 
     @Column(name = "is_removed")
     private Boolean isRemoved = false;
@@ -63,11 +61,7 @@ public abstract class AbstractEntity {
 
     @Override
     public String toString() {
-        return "AbstractEntity{" +
-                "id=" + id +
-                ", entryCreationDate=" + entryCreationDate +
-                ", entryLastUpdate=" + entryLastUpdate +
-                ", isRemoved=" + isRemoved +
-                '}';
+        return "AbstractEntity{" + "id=" + id + ", entryCreationDate=" + entryCreationDate + ", entryLastUpdate="
+                + entryLastUpdate + ", isRemoved=" + isRemoved + '}';
     }
 }

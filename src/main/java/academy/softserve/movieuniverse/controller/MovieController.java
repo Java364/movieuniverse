@@ -33,7 +33,8 @@ public class MovieController {
     private final TrailerService trailerService;
 
     @Autowired
-    public MovieController(MovieService movieService, MovieMapper movieMapper, GalleryMapper galleryMapper, TrailerMapper trailerMapper, TrailerService trailerService) {
+    public MovieController(MovieService movieService, MovieMapper movieMapper, GalleryMapper galleryMapper,
+            TrailerMapper trailerMapper, TrailerService trailerService) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
         this.galleryMapper = galleryMapper;
@@ -79,14 +80,12 @@ public class MovieController {
     @GetMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> showMovieGallery(@PathVariable Long id) {
         Movie movie = movieService.findMovieById(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(galleryMapper.mapToDTO(movie.getMediaContent().getGallery()));
+        return ResponseEntity.status(HttpStatus.OK).body(galleryMapper.mapToDTO(movie.getMediaContent().getGallery()));
     }
 
     @PostMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> createMovieGallery(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(galleryMapper.mapToDTO(movieService.addNewGallery(id)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(galleryMapper.mapToDTO(movieService.addNewGallery(id)));
     }
 
     @GetMapping("/{id}/trailers/")
@@ -100,7 +99,6 @@ public class MovieController {
     public ResponseEntity<TrailerDTO> createMovieTrailer(@PathVariable Long id, @RequestBody CreateTrailerInfo dto) {
         Trailer trailer = trailerMapper.mapToEntity(dto);
         trailer.setMovie(movieService.findMovieById(id));
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(trailerMapper.mapToDTO(trailerService.save(trailer)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(trailerMapper.mapToDTO(trailerService.save(trailer)));
     }
 }

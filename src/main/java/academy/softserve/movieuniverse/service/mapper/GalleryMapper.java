@@ -12,8 +12,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
-public class GalleryMapper  {
-
+public class GalleryMapper {
 
     public <T> Gallery mapToEntity(T dto) {
         GalleryDTO galleryDTO = (GalleryDTO) dto;
@@ -27,7 +26,8 @@ public class GalleryMapper  {
         galleryDTO.setCreated(gallery.getEntryCreationDate().getTime());
         galleryDTO.setUpdated(gallery.getEntryLastUpdate().getTime());
         galleryDTO.setSelf(linkTo(methodOn(GalleryController.class).showById(gallery.getId())).withSelfRel().getHref());
-        galleryDTO.setImages(linkTo(methodOn(GalleryController.class).showImagesByGalleryId(gallery.getId())).withRel("images").getHref());
+        galleryDTO.setImages(linkTo(methodOn(GalleryController.class).showImagesByGalleryId(gallery.getId()))
+                .withRel("images").getHref());
         return galleryDTO;
     }
 

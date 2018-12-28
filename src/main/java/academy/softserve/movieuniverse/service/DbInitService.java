@@ -1,10 +1,8 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Country;
-import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.entity.Profession;
 import academy.softserve.movieuniverse.repository.CountryRepository;
-import academy.softserve.movieuniverse.repository.GenreRepository;
 import academy.softserve.movieuniverse.repository.ProfessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +14,7 @@ import javax.annotation.PreDestroy;
 public class DbInitService {
 
     private final CountryRepository countryRepository;
-    
+
     private final ProfessionRepository professionRepository;
 
     @Autowired
@@ -28,7 +26,7 @@ public class DbInitService {
     @PostConstruct
     public void dbInit() {
         insertCountries();
-       
+
         insertProfessions();
 
     }

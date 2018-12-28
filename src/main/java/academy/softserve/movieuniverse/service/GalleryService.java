@@ -1,12 +1,10 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Gallery;
-import academy.softserve.movieuniverse.entity.Image;
 import academy.softserve.movieuniverse.exception.GalleryException;
 import academy.softserve.movieuniverse.repository.GalleryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

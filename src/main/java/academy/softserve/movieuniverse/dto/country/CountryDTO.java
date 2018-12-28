@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.dto.country;
 
-
 public class CountryDTO {
     private Long id;
     private String name;

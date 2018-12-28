@@ -41,18 +41,22 @@ public class MovieMapper {
         movie.setId(dto.getId());
         movie.setMovieName(dto.getMovieName());
         movie.setAgeLimitation(dto.getAgeLimitation());
-        movie.setCountries(dto.getCountries().stream().map((countryId -> countryService.findById(countryId))).collect(Collectors.toList()));
+        movie.setCountries(dto.getCountries().stream().map((countryId -> countryService.findById(countryId)))
+                .collect(Collectors.toList()));
         movie.setDuration(dto.getDuration());
         movie.setYear(dto.getYear());
         movie.setDescription(dto.getDescription());
-        movie.setGenres(dto.getGenres().stream().map(genreId -> genreService.findById(genreId)).collect(Collectors.toList()));
+        movie.setGenres(
+                dto.getGenres().stream().map(genreId -> genreService.findById(genreId)).collect(Collectors.toList()));
         movie.setMovieMarks(movieMarkMapper.mapMovieMarksListToEntity(dto.getMovieMarks()));
-        movie.setRoles(dto.getRoles().stream().map(roleId -> starActivityInMoviesService.getStarActivityInMovies(roleId)).collect(Collectors.toList()));
-        movie.setStars(dto.getStars().stream().map(starId -> starService.findById(starId)).collect(Collectors.toList()));
+        movie.setRoles(
+                dto.getRoles().stream().map(roleId -> starActivityInMoviesService.getStarActivityInMovies(roleId))
+                        .collect(Collectors.toList()));
+        movie.setStars(
+                dto.getStars().stream().map(starId -> starService.findById(starId)).collect(Collectors.toList()));
         movie.setComments(new ArrayList<>());
         return movie;
     }
-
 
     public MovieDTO mapToDto(Movie entity) {
         MovieDTO dto = new MovieDTO();

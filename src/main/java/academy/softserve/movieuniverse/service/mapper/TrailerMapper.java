@@ -29,7 +29,8 @@ public class TrailerMapper {
         trailerDTO.setCreated(trailer.getEntryCreationDate().getTime());
         trailerDTO.setUpdated(trailer.getEntryLastUpdate().getTime());
         trailerDTO.setSelf(linkTo(methodOn(TrailerController.class).showById(trailer.getId())).withSelfRel().getHref());
-        trailerDTO.setMovie(linkTo(methodOn(MovieController.class).showById(trailer.getMovie().getId())).withRel("movie").getHref());
+        trailerDTO.setMovie(linkTo(methodOn(MovieController.class).showById(trailer.getMovie().getId()))
+                .withRel("movie").getHref());
         return trailerDTO;
     }
 

@@ -20,7 +20,7 @@ public class MovieMarkMapper {
 
     public MovieMark mapToEntityForSave(MovieMarkDTO dto) {
         MovieMark movieMark = new MovieMark();
-//      movieMark.setId(dto.getId());
+        // movieMark.setId(dto.getId());
         movieMark.setMark(dto.getMark());
         movieMark.setMovie(movieRepository.getOne(dto.getMovieId()));
         movieMark.setUser(userRepository.getOne(dto.getUserId()));
@@ -38,7 +38,7 @@ public class MovieMarkMapper {
 
     public MovieMarkDTO mapToDto(MovieMark entity) {
         MovieMarkDTO movieMarkDTO = new MovieMarkDTO();
-//        movieMarkDTO.setId(entity.getId());
+        // movieMarkDTO.setId(entity.getId());
         movieMarkDTO.setMark(entity.getMark());
         movieMarkDTO.setMovieId(entity.getMovie().getId());
         movieMarkDTO.setUserId(entity.getUser().getId());

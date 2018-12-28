@@ -38,8 +38,8 @@ public class GenreService {
         return genreRepository.findAll();
     }
 
-    public Genre updateGenre(Long genreId, @NotNull Genre updatedGenre) throws EntityNotFoundException,
-            NullPointerException, DuplicateEntryException {
+    public Genre updateGenre(Long genreId, @NotNull Genre updatedGenre)
+            throws EntityNotFoundException, NullPointerException, DuplicateEntryException {
         Objects.requireNonNull(updatedGenre, NULL_GENRE_ENTITY_MSG);
         entityExistsValidator.checkIfEntityExists(genreId);
         checkDuplicate(updatedGenre);
@@ -61,10 +61,10 @@ public class GenreService {
     }
 
     public Genre findById(Long id) {
-       Optional<Genre> genre =  genreRepository.findById(id);
-       if (genre.isPresent()) {
-           return  genre.get();
-       }
-       return null;
+        Optional<Genre> genre = genreRepository.findById(id);
+        if (genre.isPresent()) {
+            return genre.get();
+        }
+        return null;
     }
 }

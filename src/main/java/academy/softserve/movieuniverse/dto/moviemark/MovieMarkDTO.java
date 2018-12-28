@@ -1,11 +1,10 @@
 package academy.softserve.movieuniverse.dto.moviemark;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.hateoas.ResourceSupport;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MovieMarkDTO extends ResourceSupport{
+public class MovieMarkDTO extends ResourceSupport {
     private double mark;
     private Long movieId;
     private Long userId;

@@ -11,13 +11,11 @@ import academy.softserve.movieuniverse.service.mapper.CommentMapper;
 import academy.softserve.movieuniverse.service.mapper.MovieMarkMapper;
 import academy.softserve.movieuniverse.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @CrossOrigin
 @RestController
@@ -30,7 +28,8 @@ public class UserController {
     private final MovieMarkMapper movieMarkMapper;
 
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper, CommentMapper commentMapper, MovieMarkMapper movieMarkMapper) {
+    public UserController(UserService userService, UserMapper userMapper, CommentMapper commentMapper,
+            MovieMarkMapper movieMarkMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
         this.commentMapper = commentMapper;
@@ -39,47 +38,32 @@ public class UserController {
 
     @GetMapping("/include-removed")
     public ResponseEntity<List<UserShortInfo>> showAll() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(userMapper.mapUserEntityListToUserWithShortInfoList(userService.findAll()));
     }
 
-
     @GetMapping
     public ResponseEntity<List<UserShortInfo>> showAllNonRemoved() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(userMapper.mapUserEntityListToUserWithShortInfoList(userService.findAllNonRemoved()));
     }
 
     @PostMapping
     public ResponseEntity<UserFullInfo> create(@RequestBody UserCreateInfo userDTO) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(userMapper.mapUserEntityToUserDTOWithFullInfo(
-                        userService.createUser(
-                                userMapper.mapUserShortInfoWithPasswordToEntity(userDTO)
-                        )
-                ));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
+                userService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserFullInfo> showById(@PathVariable Long id) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(userMapper.mapUserEntityToUserDTOWithFullInfo(
-                        userService.findById(id))
-                );
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(userMapper.mapUserEntityToUserDTOWithFullInfo(userService.findById(id)));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UserFullInfo> update(@PathVariable Long id, @RequestBody UserCreateInfo userDTO) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(userMapper.mapUserEntityToUserDTOWithFullInfo(
-                        userService.update(
-                                userMapper.mapUserShortInfoWithPasswordToEntity(userDTO), id)
-                ));
+        return ResponseEntity.status(HttpStatus.OK).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
+                userService.update(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO), id)));
     }
 
     @DeleteMapping("/{id}/remove")
@@ -103,16 +87,13 @@ public class UserController {
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentDTO>> showUserComments(@PathVariable Long id) {
         User user = userService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(commentMapper.mapToDTOList(user.getComments()));
+        return ResponseEntity.status(HttpStatus.OK).body(commentMapper.mapToDTOList(user.getComments()));
     }
 
     @GetMapping("/{id}/movie-marks")
     public ResponseEntity<List<MovieMarkDTO>> showUserMovieMarks(@PathVariable Long id) {
         User user = userService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(movieMarkMapper.mapToDTOList(user.getMovieMarks()));
+        return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDTOList(user.getMovieMarks()));
     }
-
 
 }

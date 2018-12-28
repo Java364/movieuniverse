@@ -23,16 +23,17 @@ public class UserService {
     }
 
     public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> UserException.createSelectException(String.format("No such user with id = %d", id), new Exception()));
+        return userRepository.findById(id).orElseThrow(() -> UserException
+                .createSelectException(String.format("No such user with id = %d", id), new Exception()));
     }
-
 
     public User createUser(User user) {
         return userRepository.saveAndFlush(user);
     }
 
     public void deleteById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
+        User user = userRepository.findById(id).orElseThrow(() -> UserException
+                .createDeleteException(String.format("No such user with id = %d", id), new Exception()));
         if (user.getIsRemoved()) {
             userRepository.deleteById(id);
         } else {
@@ -41,33 +42,31 @@ public class UserService {
     }
 
     public void removeById(Long id) {
-        userRepository.findById(id)
-                .map(user -> {
-                    user.setIsRemoved(true);
-                    return userRepository.saveAndFlush(user);
-                })
-                .orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
+        userRepository.findById(id).map(user -> {
+            user.setIsRemoved(true);
+            return userRepository.saveAndFlush(user);
+        }).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id),
+                new Exception()));
     }
 
     public void restoreById(Long id) {
-        userRepository.findById(id)
-                .map(user -> {
-                    user.setIsRemoved(false);
-                    return userRepository.saveAndFlush(user);
-                })
-                .orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
+        userRepository.findById(id).map(user -> {
+            user.setIsRemoved(false);
+            return userRepository.saveAndFlush(user);
+        }).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id),
+                new Exception()));
     }
 
     public User update(User user, Long id) {
-        return userRepository.findById(id)
-                .map(userDB -> {
-                    userDB.setEmail(user.getEmail());
-                    userDB.setPassword(user.getPassword());
-                    userDB.setFirstName(user.getFirstName());
-                    userDB.setLastName(user.getLastName());
-                    userDB.setBirthday(user.getBirthday());
-                    return userRepository.saveAndFlush(userDB);
-                }).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id), new Exception()));
+        return userRepository.findById(id).map(userDB -> {
+            userDB.setEmail(user.getEmail());
+            userDB.setPassword(user.getPassword());
+            userDB.setFirstName(user.getFirstName());
+            userDB.setLastName(user.getLastName());
+            userDB.setBirthday(user.getBirthday());
+            return userRepository.saveAndFlush(userDB);
+        }).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id),
+                new Exception()));
     }
 
     public List<User> findAll() {
