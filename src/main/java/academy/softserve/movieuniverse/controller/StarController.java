@@ -1,39 +1,23 @@
 package academy.softserve.movieuniverse.controller;
 
-import java.util.List;
-
 import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
 import academy.softserve.movieuniverse.dto.StarDTO;
 import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
-import academy.softserve.movieuniverse.dto.image.ImageCreateInfo;
-import academy.softserve.movieuniverse.dto.image.ImageDTO;
-import academy.softserve.movieuniverse.entity.Country;
-import academy.softserve.movieuniverse.entity.Gallery;
-import academy.softserve.movieuniverse.entity.Image;
-import academy.softserve.movieuniverse.entity.Links;
-import academy.softserve.movieuniverse.entity.Star;
-import academy.softserve.movieuniverse.entity.StarActivityInMovies;
-import academy.softserve.movieuniverse.entity.StarProfession;
+import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.service.GalleryService;
 import academy.softserve.movieuniverse.service.LinksService;
 import academy.softserve.movieuniverse.service.StarProfessionService;
 import academy.softserve.movieuniverse.service.StarService;
-import academy.softserve.movieuniverse.service.mapper.CountryMapper;
-import academy.softserve.movieuniverse.service.mapper.GalleryMapper;
-import academy.softserve.movieuniverse.service.mapper.LinksMapper;
-import academy.softserve.movieuniverse.service.mapper.StarActivityInMoviesMapper;
-import academy.softserve.movieuniverse.service.mapper.StarMapper;
-import academy.softserve.movieuniverse.service.mapper.StarProfessionMapper;
-
+import academy.softserve.movieuniverse.service.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
