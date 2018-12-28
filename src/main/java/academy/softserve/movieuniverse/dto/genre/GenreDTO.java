@@ -1,13 +1,10 @@
 package academy.softserve.movieuniverse.dto.genre;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.core.Relation;
 
-@Relation(value = "genre", collectionRelation = "genres")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GenreDTO extends ResourceSupport implements GenreRequest {
-    private Long genreId;
+public class GenreDTO implements GenreRequest {
+    private Long id;
     private String genreName;
 
     public String getGenreName() {
@@ -18,11 +15,12 @@ public class GenreDTO extends ResourceSupport implements GenreRequest {
         this.genreName = genreName;
     }
 
-    public Long getGenreId() {
-        return genreId;
+    public Long getId() {
+        return id;
     }
 
-    public void setGenreId(Long genreId) {
-        this.genreId = genreId;
+    public void setId(Long id) {
+        this.id = id;
     }
+
 }

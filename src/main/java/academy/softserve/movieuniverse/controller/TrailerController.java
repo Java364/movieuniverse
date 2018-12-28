@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.TrailerDTO;
+import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
+import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Trailer;
 import academy.softserve.movieuniverse.service.TrailerService;
 import academy.softserve.movieuniverse.service.mapper.TrailerMapper;
@@ -12,50 +13,44 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
+@RequestMapping("/trailers")
 public class TrailerController {
 
+    private final TrailerService trailerService;
+    private final TrailerMapper trailerMapper;
+
     @Autowired
-    private TrailerService trailerService;
-    @Autowired
-    private TrailerMapper trailerMapper;
-
-    @PostMapping("/trailer")
-    ResponseEntity<TrailerDTO> createTrailer(@RequestBody TrailerDTO trailerDTO) {
-        Trailer trailer = trailerMapper.mapToEntityForSave(trailerDTO);
-        trailer = trailerService.save(trailer);
-        trailerDTO = trailerMapper.mapToDto(trailer);
-        return new ResponseEntity<TrailerDTO>(trailerDTO, HttpStatus.CREATED);
+    public TrailerController(TrailerService trailerService, TrailerMapper trailerMapper) {
+        this.trailerService = trailerService;
+        this.trailerMapper = trailerMapper;
     }
 
-    @PutMapping("/trailer/{id}")
-    ResponseEntity<TrailerDTO> updateTrailer(@PathVariable("id") Long id, @RequestBody TrailerDTO trailerDTO) {
-        Trailer trailer = trailerMapper.mapToEntityForUpdate(trailerDTO, id);
-        trailer = trailerService.update(trailer);
-        trailerDTO = trailerMapper.mapToDto(trailer);
-        return new ResponseEntity<TrailerDTO>(trailerDTO, HttpStatus.OK);
+
+    @PutMapping("/{id}")
+    ResponseEntity<TrailerDTO> update(@PathVariable("id") Long id, @RequestBody CreateTrailerInfo trailerDTO) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(trailerMapper.mapToDTO(trailerService.update(trailerMapper.mapToEntity(trailerDTO), id)));
     }
 
-    @GetMapping("/trailers")
-    public ResponseEntity<List<TrailerDTO>> listAllTrailers() {
-        List<Trailer> trailers = trailerService.findAll();
-        if (trailers.isEmpty()) {
-            return new ResponseEntity<List<TrailerDTO>>(HttpStatus.NO_CONTENT);
-        }
-        List<TrailerDTO> trailerDTOs = trailerMapper.mapListToDto(trailers);
-        return new ResponseEntity<List<TrailerDTO>>(trailerDTOs, HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<TrailerDTO>> showAll() {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(trailerMapper.maptoDTOList(trailerService.findAll()));
     }
 
-    @GetMapping("/trailer/{id}")
-    public ResponseEntity<TrailerDTO> showOneTrailer(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<TrailerDTO> showById(@PathVariable Long id) {
         Trailer trailer = trailerService.findById(id);
-        TrailerDTO trailerDTO = trailerMapper.mapToDto(trailer);
-        return new ResponseEntity<TrailerDTO>(trailerDTO, HttpStatus.OK);
+        TrailerDTO trailerDTO = trailerMapper.mapToDTO(trailer);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(trailerDTO);
     }
 
-    @DeleteMapping("/trailer/{id}")
-    public ResponseEntity<String> completelyDeleteTrailer(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity completelyDelete(@PathVariable Long id) {
         trailerService.deleteById(id);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

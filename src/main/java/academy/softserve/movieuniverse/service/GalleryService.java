@@ -22,17 +22,8 @@ public class GalleryService {
         this.galleryRepository = galleryRepository;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Gallery save() {
         return galleryRepository.saveAndFlush(new Gallery());
-    }
-
-    public Gallery update(Gallery gallery) {
-        if (gallery == null || gallery.getId() == null || !galleryRepository.findById(gallery.getId()).isPresent())
-            throw GalleryException.createUpdateException("no gallery to update");
-        gallery = galleryRepository.save(gallery);
-        if (gallery == null) throw GalleryException.createUpdateException("couldn't update gallery");
-        return gallery;
     }
 
     public Gallery findById(Long id) {
@@ -53,7 +44,4 @@ public class GalleryService {
         return galleryRepository.findAll();
     }
 
-    public Gallery findByImage(Image image) {
-        return galleryRepository.findByImages(image);
-    }
 }

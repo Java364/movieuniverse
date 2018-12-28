@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -16,42 +15,39 @@ import java.util.List;
 @RequestMapping("/country")
 public class CountryController {
 
-    @Autowired
-    private CountryService countryService;
-    @Autowired
-    private CountryMapper countryMapper = new CountryMapper();
+	@Autowired
+	private CountryService countryService;
+	@Autowired
+	private CountryMapper countryMapper = new CountryMapper();
 
-    @PostMapping("/create")
-    ResponseEntity<CountryDTO> create(@RequestBody CountryDTO countryDTO) {
-        Country country = countryMapper.mapToEntityForSave(countryDTO);
-        country = countryService.create(country);
-        countryDTO = countryMapper.mapToDto(country);
-        return new ResponseEntity<CountryDTO>(countryDTO, HttpStatus.CREATED);
-    }
+	@PostMapping
+	public ResponseEntity<CountryDTO> create(@RequestBody CountryDTO countryDTO) {
+		Country country = countryMapper.mapToEntityForSave(countryDTO);
+		country = countryService.create(country);
+		return ResponseEntity.status(HttpStatus.CREATED).body(countryMapper.mapToDto(country));
+	}
 
-    @GetMapping("/list")
-    List<CountryDTO> showAll() {
-        return countryMapper.mapListToDto(countryService.findAll());
-    }
+	@GetMapping
+	public ResponseEntity<List<CountryDTO>> showAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(countryService.findAll()));
+	}
 
-    @GetMapping("/show/{id}")
-    ResponseEntity<CountryDTO> showOne(@PathVariable Long id) {
-        Country country = countryService.findById(id);
-        CountryDTO countryDTO = countryMapper.mapToDto(country);
-        return new ResponseEntity<CountryDTO>(countryDTO, HttpStatus.OK);
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<CountryDTO> showById(@PathVariable Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapToDto(countryService.findById(id)));
+	}
 
-    @DeleteMapping("/delete/{id}")
-    ResponseEntity<Country> delete(@PathVariable Long id) {
-        countryService.delete(id);
-        return new ResponseEntity<Country>(HttpStatus.OK);
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		countryService.delete(id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 
-    @PutMapping("/update/{id}")
-    ResponseEntity<CountryDTO> update(@PathVariable Long id, @RequestBody CountryDTO countryDTO) {
-        Country country = countryMapper.mapToEntityForUpdate(countryDTO, id);
-        country = countryService.update(country);
-        countryDTO = countryMapper.mapToDto(country);
-        return new ResponseEntity<CountryDTO>(countryDTO, HttpStatus.OK);
-    }
+	@PutMapping("/{id}")
+	public ResponseEntity<CountryDTO> update(@PathVariable Long id, @RequestBody CountryDTO countryDTO) {
+		Country country = countryMapper.mapToEntityForUpdate(countryDTO, id);
+		country = countryService.update(country);
+		countryDTO = countryMapper.mapToDto(country);
+		return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapToDto(countryService.update(country)));
+	}
 }

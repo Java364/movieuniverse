@@ -6,53 +6,58 @@ import academy.softserve.movieuniverse.repository.TrailerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TrailerService {
 
-	@Autowired
-	private TrailerRepository trailerRepository;
+    private final TrailerRepository trailerRepository;
 
-	public Trailer save(Trailer trailer) {
-		if (trailer == null || trailer.getId() != null)
-			throw TrailerException.createSaveException("couldn't save trailer", null);
-		trailer = trailerRepository.save(trailer);
-		if (trailer == null)
-			throw TrailerException.createSaveException("couldn't save trailer", null);
-		return trailer;
-	}
+    @Autowired
+    public TrailerService(TrailerRepository trailerRepository) {
+        this.trailerRepository = trailerRepository;
+    }
 
-	public Trailer update(Trailer trailer) {
-		if (trailer == null || trailer.getId() == null || !trailerRepository.findById(trailer.getId()).isPresent())
-			throw TrailerException.createUpdateException("no trailer to update", null);
-		trailer = trailerRepository.save(trailer);
-		if (trailer == null)
-			throw TrailerException.createUpdateException("couldn't update trailer", null);
-		return trailer;
-	}
+    public Trailer save(Trailer trailer) {
+        if (trailer == null || trailer.getId() != null)
+            throw TrailerException.createSaveException("couldn't save trailer", null);
+        trailer = trailerRepository.save(trailer);
+        if (trailer == null)
+            throw TrailerException.createSaveException("couldn't save trailer", null);
+        return trailer;
+    }
 
-	public Trailer findById(Long id) {
-		Optional<Trailer> trailerOptional = trailerRepository.findById(id);
-		if (!trailerOptional.isPresent()) {
-			throw TrailerException.createSelectException("no such trailer", new Exception());
-		}
-		Trailer trailer = trailerOptional.get();
-		return trailer;
-	}
+    public Trailer update(Trailer newTrailer, Long id) {
+        if (newTrailer == null) {
+            throw TrailerException.createUpdateException("no trailer to update", null);
+        }
+        return trailerRepository.findById(id)
+                .map(trailer -> {
+                    trailer.setTrailerUrl(newTrailer.getTrailerUrl());
+                    trailer.setEntryLastUpdate(new Date());
+                    return trailerRepository.saveAndFlush(trailer);
+                })
+                .orElseThrow(() -> TrailerException.createUpdateException("no trailer to update", null));
+    }
 
-	public void deleteById(Long id) {
-		if (id == null || !trailerRepository.findById(id).isPresent())
-			throw TrailerException.createDeleteException("no exist such trailer to delete", null);
-		trailerRepository.deleteById(id);
-	}
+    public Trailer findById(Long id) {
+        Optional<Trailer> trailerOptional = trailerRepository.findById(id);
+        if (!trailerOptional.isPresent()) {
+            throw TrailerException.createSelectException("no such trailer", new Exception());
+        }
+        return trailerOptional.get();
+    }
 
-	public List<Trailer> findAll() {
-		List<Trailer> trailers = new ArrayList<>();
-		trailers = trailerRepository.findAll();
-		return trailers;
-	}
+    public void deleteById(Long id) {
+        if (id == null || !trailerRepository.findById(id).isPresent())
+            throw TrailerException.createDeleteException("no exist such trailer to delete", null);
+        trailerRepository.deleteById(id);
+    }
+
+    public List<Trailer> findAll() {
+        return trailerRepository.findAll();
+    }
 
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByIsRemoved(Boolean isRemoved);
-    User findAllByMovieMarks(MovieMark movieMark);
+    User findByMovieMarks(MovieMark movieMark);
 }
