@@ -3,7 +3,6 @@ package academy.softserve.movieuniverse.controller;
 import java.util.List;
 
 import academy.softserve.movieuniverse.dto.LinksDTO;
-import academy.softserve.movieuniverse.dto.MovieDTO;
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
 import academy.softserve.movieuniverse.dto.StarDTO;
 import academy.softserve.movieuniverse.dto.StarProfessionDTO;
