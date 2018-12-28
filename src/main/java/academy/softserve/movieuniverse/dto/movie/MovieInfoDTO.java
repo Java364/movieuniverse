@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.dto.interfaces;
+package academy.softserve.movieuniverse.dto.movie;
 
 //@JsonDeserialize(as = MovieDTO.class)
 public interface MovieInfoDTO {

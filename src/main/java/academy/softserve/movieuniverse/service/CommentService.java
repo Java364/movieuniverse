@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
+@Transactional(readOnly = true)
 public class CommentService {
     private final UserService userService;
     private CommentRepository commentRepository;
@@ -45,6 +46,7 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
+    @Transactional
     public Comment update(Long commentId, Comment comment) {
         entityExistsValidator.checkIfEntityExists(commentId);
         comment.setId(commentId);

@@ -9,15 +9,11 @@ public interface DTOMapper<D, I, E> {
 
     D mapToDTO(E entity);
 
-    List<E> mapToEntityList(List<I> dtos);
-
-    List<D> mapToDTOList(List<E> entities);
+    default List<D> mapToDTOList(List<E> entities) {
+        return entities.stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
 
     default <T> List<E> mapToEntityList(List<T> dtos, Function<T, E> mappingFunction) {
         return dtos.stream().map(mappingFunction).collect(Collectors.toList());
-    }
-
-    default List<D> mapToDTOList(List<E> entities, Function<E, D> mappingFunction) {
-        return entities.stream().map(mappingFunction).collect(Collectors.toList());
     }
 }

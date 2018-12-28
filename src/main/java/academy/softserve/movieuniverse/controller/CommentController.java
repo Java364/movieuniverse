@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.controller.util.ControllerHateoasUtil;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentRequest;
 import academy.softserve.movieuniverse.entity.Comment;
@@ -15,8 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/comment")
-
+@RequestMapping("/comments")
 public class CommentController {
     private CommentService commentService;
     private CommentMapper commentMapper;
@@ -26,7 +24,7 @@ public class CommentController {
         this.commentMapper = commentMapper;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<Resources<CommentDTO>> showAll() {
         List<Comment> comments = commentService.findAll();
         List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(comments);
@@ -38,7 +36,7 @@ public class CommentController {
         Comment comment = commentMapper.mapToEntity(commentRequest);
         commentService.save(comment);
         CommentDTO commentDTO = commentMapper.mapToDTO(comment);
-        return ResponseEntity.created(ControllerHateoasUtil.createLocationHeaderUri(commentDTO)).body(commentDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentDTO);
     }
 
     @PutMapping("/{id}")
@@ -47,7 +45,7 @@ public class CommentController {
         Comment comment = commentMapper.mapToEntity(commentRequest);
         Comment updatedUser = commentService.update(commentId, comment);
         CommentDTO commentDTO = commentMapper.mapToDTO(updatedUser);
-        return ResponseEntity.created(ControllerHateoasUtil.createLocationHeaderUri(commentDTO)).body(commentDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentDTO);
     }
 
     @DeleteMapping("/{id}")

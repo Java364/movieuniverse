@@ -32,7 +32,7 @@ public class ImageController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<ImageDTO> update(@PathVariable Long id, @RequestBody ImageCreateInfo imageDTO) {
+    ResponseEntity<ImageDTO> update(@PathVariable Long id, @RequestBody ImageDTO imageDTO) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(imageMapper.mapToDTO(imageService.update(imageMapper.mapToEntity(imageDTO), id)));
     }

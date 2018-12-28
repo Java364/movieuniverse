@@ -13,7 +13,7 @@ public class MediaContentDTO {
     }
 
     public void setPosterDTO(PosterDTO posterDTO) {
-        this.posterDTO = posterDTO;
+        // this.posterDTO = posterDTO;
     }
 
     public List<Long> getTrailer() {

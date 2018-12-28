@@ -1,7 +1,6 @@
-package academy.softserve.movieuniverse.dto;
+package academy.softserve.movieuniverse.dto.movie;
 
-import academy.softserve.movieuniverse.dto.interfaces.MovieCreateDTO;
-import academy.softserve.movieuniverse.dto.interfaces.MovieInfoDTO;
+import academy.softserve.movieuniverse.dto.MediaContentDTO;
 import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
 
 import java.util.ArrayList;

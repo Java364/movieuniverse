@@ -5,6 +5,8 @@ public class PosterDTO {
     private String name;
     private String imageUrl;
     private Long movieId;
+    private String self;
+    private String movie;
 
     public PosterDTO() {
     }
@@ -31,6 +33,22 @@ public class PosterDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getMovie() {
+        return movie;
+    }
+
+    public void setMovie(String movie) {
+        this.movie = movie;
+    }
+
+    public String getSelf() {
+        return self;
+    }
+
+    public void setSelf(String self) {
+        this.self = self;
     }
 
     public Long getMovieId() {

@@ -1,10 +1,15 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import academy.softserve.movieuniverse.controller.MovieController;
+import academy.softserve.movieuniverse.controller.PosterController;
 import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.entity.Poster;
 import academy.softserve.movieuniverse.service.MovieService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Component
 public class PosterMapper {
@@ -14,7 +19,6 @@ public class PosterMapper {
     public Poster mapToEntityForSave(PosterDTO dto) {
         Poster poster = new Poster();
         poster.setImageUrl(dto.getImageUrl());
-        poster.setId(null);
         poster.setIsRemoved(new Boolean(false));
         poster.setName(dto.getName());
         poster.setMovie(movieService.findMovieById(dto.getMovieId()));
@@ -31,24 +35,15 @@ public class PosterMapper {
         return poster;
     }
 
-    public Poster mapToEntity(PosterDTO dto) {
-
-        Poster poster = new Poster();
-        poster.setName(dto.getName());
-        poster.setId(dto.getId());
-        poster.setName(dto.getName());
-        poster.setImageUrl(dto.getImageUrl());
-        poster.setMovie(movieService.findMovieById(dto.getMovieId()));
-        return poster;
-    }
-
-    public PosterDTO mapToDto(Poster entity) {
+    public PosterDTO mapToDto(Poster poster) {
         PosterDTO dto = new PosterDTO();
-        dto.setId(entity.getId());
-        dto.setName(entity.getName());
-        dto.setImageUrl(entity.getImageUrl());
-        dto.setMovieId(entity.getMovie().getId());
+        dto.setId(poster.getId());
+        dto.setName(poster.getName());
+        dto.setImageUrl(poster.getImageUrl());
+        dto.setMovieId(poster.getMovie().getId());
+        dto.setSelf(linkTo(methodOn(PosterController.class).showById(poster.getId())).withSelfRel().getHref());
+        dto.setMovie(
+                linkTo(methodOn(MovieController.class).showById(poster.getMovie().getId())).withRel("movie").getHref());
         return dto;
     }
-
 }

@@ -1,9 +1,11 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
+import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.service.MovieMarkService;
+import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.UserService;
 import academy.softserve.movieuniverse.service.mapper.MovieMarkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/movieMark")
+@RequestMapping("/movie/{movieId}/moviemark")
 public class MovieMarkController {
 
     @Autowired
@@ -24,44 +26,44 @@ public class MovieMarkController {
     private UserService userService;
     @Autowired
     private MovieMarkMapper movieMarkMapper;
+    @Autowired
+    private MovieService movieService;
 
-    @PostMapping("/create")
-    ResponseEntity<MovieMarkDTO> create(@RequestBody MovieMarkDTO movieMarkDTO) {
-        MovieMark movieMark = movieMarkMapper.mapToEntityForSave(movieMarkDTO);
-        movieMark = movieMarkService.create(movieMark);
-        movieMarkDTO = movieMarkMapper.mapToDto(movieMark);
-        return new ResponseEntity<MovieMarkDTO>(movieMarkDTO, HttpStatus.CREATED);
+    @PostMapping
+    public ResponseEntity<MovieMarkDTO> create(@RequestBody MovieMarkDTO movieMarkDTO, @PathVariable Long movieId) {
+        User user = userService.findById(1L);
+        Movie movie = movieService.findMovieById(movieId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(movieMarkMapper
+                .mapToDto(movieMarkService.create(movieMarkMapper.mapToEntityForSave(movieMarkDTO, user, movie))));
     }
 
-    @GetMapping("/list")
-    List<MovieMarkDTO> showAll() {
-        return movieMarkMapper.mapToDTOList(movieMarkService.findAll());
+    @GetMapping
+    public ResponseEntity<List<MovieMarkDTO>> showAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDTOList(movieMarkService.findAll()));
     }
 
-    @GetMapping("/show/{id}")
-    ResponseEntity<MovieMarkDTO> findById(@PathVariable Long id) {
-        MovieMark movieMark = movieMarkService.findById(id);
-        MovieMarkDTO movieMarkDTO = movieMarkMapper.mapToDto(movieMark);
-        return new ResponseEntity<MovieMarkDTO>(movieMarkDTO, HttpStatus.OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<MovieMarkDTO> showById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDto(movieMarkService.findById(id)));
     }
 
-    @PutMapping("/update/{id}")
-    ResponseEntity<MovieMarkDTO> update(@RequestBody MovieMarkDTO movieMarkDto, @PathVariable Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<MovieMarkDTO> update(@RequestBody MovieMarkDTO movieMarkDto, @PathVariable Long id) {
         MovieMark movieMark = movieMarkMapper.mapToEntityForUpdate(movieMarkDto, id);
         movieMark = movieMarkService.update(movieMark);
-        movieMarkDto = movieMarkMapper.mapToDto(movieMark);
-        return new ResponseEntity<MovieMarkDTO>(movieMarkDto, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDto(movieMark));
     }
 
-    @DeleteMapping("/delete/{id}")
-    ResponseEntity<Void> delete(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         movieMarkService.delete(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
-    public List<MovieMarkDTO> showAllByUserId(@PathVariable Long id) {
+    public ResponseEntity<List<MovieMarkDTO>> showAllByUserId(@PathVariable Long id) {
         User user = userService.findById(id);
-        return movieMarkMapper.mapToDTOList(movieMarkService.findAllByUser(user));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(movieMarkMapper.mapToDTOList(movieMarkService.findAllByUser(user)));
     }
 }

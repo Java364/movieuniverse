@@ -77,7 +77,7 @@ public class UserService {
         return userRepository.findAllByIsRemoved(false);
     }
 
-    public User findAllByMovieMark(MovieMark movieMark) {
-        return userRepository.findAllByMovieMarks(movieMark);
+    public User findByMovieMarks(MovieMark movieMark) {
+        return userRepository.findByMovieMarks(movieMark);
     }
 }

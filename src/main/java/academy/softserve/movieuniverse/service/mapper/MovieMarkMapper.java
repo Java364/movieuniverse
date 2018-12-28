@@ -1,11 +1,18 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import academy.softserve.movieuniverse.controller.MovieController;
+import academy.softserve.movieuniverse.controller.MovieMarkController;
+import academy.softserve.movieuniverse.controller.UserController;
 import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
+import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
+import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import academy.softserve.movieuniverse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +25,17 @@ public class MovieMarkMapper {
     @Autowired
     UserRepository userRepository;
 
+    public MovieMark mapToEntityForSave(MovieMarkDTO dto, User user, Movie movie) {
+        MovieMark movieMark = new MovieMark();
+        movieMark.setUser(user);
+        movieMark.setMovie(movie);
+        movieMark.setMark(dto.getMark());
+        return movieMark;
+    }
+
     public MovieMark mapToEntityForSave(MovieMarkDTO dto) {
         MovieMark movieMark = new MovieMark();
-        // movieMark.setId(dto.getId());
         movieMark.setMark(dto.getMark());
-        movieMark.setMovie(movieRepository.getOne(dto.getMovieId()));
-        movieMark.setUser(userRepository.getOne(dto.getUserId()));
         return movieMark;
     }
 
@@ -31,17 +43,18 @@ public class MovieMarkMapper {
         MovieMark movieMark = new MovieMark();
         movieMark.setId(id);
         movieMark.setMark(dto.getMark());
-        movieMark.setMovie(movieRepository.getOne(dto.getMovieId()));
-        movieMark.setUser(userRepository.getOne(dto.getUserId()));
         return movieMark;
     }
 
-    public MovieMarkDTO mapToDto(MovieMark entity) {
+    public MovieMarkDTO mapToDto(MovieMark movieMark) {
         MovieMarkDTO movieMarkDTO = new MovieMarkDTO();
-        // movieMarkDTO.setId(entity.getId());
-        movieMarkDTO.setMark(entity.getMark());
-        movieMarkDTO.setMovieId(entity.getMovie().getId());
-        movieMarkDTO.setUserId(entity.getUser().getId());
+        movieMarkDTO.setMark(movieMark.getMark());
+        movieMarkDTO.setSelf(
+                linkTo(methodOn(MovieMarkController.class).showById(movieMark.getId())).withSelfRel().getHref());
+        movieMarkDTO.setMovie(linkTo(methodOn(MovieController.class).showById(movieMark.getMovie().getId()))
+                .withRel("movie").getHref());
+        movieMarkDTO.setUser(
+                linkTo(methodOn(UserController.class).showById(movieMark.getUser().getId())).withRel("user").getHref());
         return movieMarkDTO;
     }
 

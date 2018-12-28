@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.hateoas.ResourceSupport;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MovieMarkDTO extends ResourceSupport {
+public class MovieMarkDTO {
     private double mark;
-    private Long movieId;
-    private Long userId;
+    private String self;
+    private String user;
+    private String movie;
 
     public double getMark() {
         return mark;
@@ -17,19 +18,27 @@ public class MovieMarkDTO extends ResourceSupport {
         this.mark = mark;
     }
 
-    public Long getMovieId() {
-        return movieId;
+    public String getSelf() {
+        return self;
     }
 
-    public void setMovieId(Long movieId) {
-        this.movieId = movieId;
+    public void setSelf(String self) {
+        this.self = self;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getMovie() {
+        return movie;
+    }
+
+    public void setMovie(String movie) {
+        this.movie = movie;
     }
 }
