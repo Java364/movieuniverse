@@ -127,11 +127,11 @@ public class StarController {
                 .body(galleryMapper.mapToDTO(starService.findById(id).getGallery()));
     }
     
-    @GetMapping("/{id}/links")
+    /*@GetMapping("/{id}/links")
     public ResponseEntity<List<LinksDTO>> showLinksByStarId(@PathVariable Long id) {
         Star star = starService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(linksMapper.mapListToDto(star.getLinks()));
-    }
+    }*/
     
     @PostMapping("/{id}/links")
     public ResponseEntity<List<LinksDTO>> addStarLinks(@PathVariable Long id, @RequestBody List<LinksDTO> linksDTOS){
