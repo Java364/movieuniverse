@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/movie/{movieId}/moviemark")
+@RequestMapping("/moviemark")
 public class MovieMarkController {
 
 	@Autowired
