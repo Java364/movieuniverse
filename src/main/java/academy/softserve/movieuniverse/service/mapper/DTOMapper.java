@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.service.mapper;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public interface DTOMapper<D, I, E> {
@@ -15,7 +16,9 @@ public interface DTOMapper<D, I, E> {
     }
 
 
+
     default List<E> mapToEntityList(List<I> dtos) {
         return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());
-    }
-}
+
+
+}}
