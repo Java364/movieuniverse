@@ -92,7 +92,6 @@ public class StarService {
         return starRepository.findByLinks(links);
     }
 
-
     public Gallery addNewGallery(Long starId) {
         Star star = findById(starId);
         Gallery gallery = galleryService.save();

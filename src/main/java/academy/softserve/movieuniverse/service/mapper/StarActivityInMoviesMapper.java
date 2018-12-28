@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class StarActivityInMoviesMapper {
@@ -25,5 +26,22 @@ public class StarActivityInMoviesMapper {
             ids.add(profession.getId());
         }
         return starActivityInMoviesDTO;
+    }
+
+    public List<StarActivityInMoviesDTO> mapActivityListsToDto(List<StarActivityInMovies> stars) {
+        List<StarActivityInMoviesDTO> starDTOs = new ArrayList<>();
+        for (StarActivityInMovies t : stars) {
+            starDTOs.add(this.mapActivityToDto(t));
+        }
+        return starDTOs;
+    }
+
+    public StarActivityInMoviesDTO mapActivityToDto(StarActivityInMovies entity) {
+        StarActivityInMoviesDTO dto = new StarActivityInMoviesDTO();
+        dto.setId(entity.getId());
+        dto.setMovieId(entity.getMovie().getId());
+        dto.setStarId(entity.getStar().getId());
+        dto.setProfessionIds(entity.getProfessions().stream().map(p -> p.getId()).collect(Collectors.toList()));
+        return dto;
     }
 }

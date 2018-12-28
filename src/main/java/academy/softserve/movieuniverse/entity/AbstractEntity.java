@@ -1,7 +1,6 @@
 package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @MappedSuperclass
@@ -11,12 +10,18 @@ public abstract class AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+//    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false)
+//    private Date entryCreationDate;
+//
+//    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+//    private Date entryLastUpdate;
+
+
     @Column(name = "created_at", updatable = false)
     private Date entryCreationDate = new Date();
 
     @Column(name = "updated_at")
     private Date entryLastUpdate = new Date();
-
 
     @Column(name = "is_removed")
     private Boolean isRemoved = false;
@@ -63,11 +68,7 @@ public abstract class AbstractEntity {
 
     @Override
     public String toString() {
-        return "AbstractEntity{" +
-                "id=" + id +
-                ", entryCreationDate=" + entryCreationDate +
-                ", entryLastUpdate=" + entryLastUpdate +
-                ", isRemoved=" + isRemoved +
-                '}';
+        return "AbstractEntity{" + "id=" + id + ", entryCreationDate=" + entryCreationDate + ", entryLastUpdate="
+                + entryLastUpdate + ", isRemoved=" + isRemoved + '}';
     }
 }

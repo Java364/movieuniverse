@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.controller.util.ControllerHateoasUtil;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentRequest;
 import academy.softserve.movieuniverse.entity.Comment;
@@ -37,16 +36,16 @@ public class CommentController {
         Comment comment = commentMapper.mapToEntity(commentRequest);
         commentService.save(comment);
         CommentDTO commentDTO = commentMapper.mapToDTO(comment);
-        return ResponseEntity.created(ControllerHateoasUtil.createLocationHeaderUri(commentDTO)).body(commentDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentDTO);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CommentDTO> update(@PathVariable("id") Long commentId,
-                                             @RequestBody CommentRequest commentRequest) {
+            @RequestBody CommentRequest commentRequest) {
         Comment comment = commentMapper.mapToEntity(commentRequest);
         Comment updatedUser = commentService.update(commentId, comment);
         CommentDTO commentDTO = commentMapper.mapToDTO(updatedUser);
-        return ResponseEntity.created(ControllerHateoasUtil.createLocationHeaderUri(commentDTO)).body(commentDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -56,7 +55,7 @@ public class CommentController {
     }
 
     @GetMapping("/user/{id}")
-    public List<CommentDTO> findAllByUserId(@PathVariable Long id){
-        return  commentMapper.mapToDTOList(commentService.findAllByUser(id));
+    public List<CommentDTO> findAllByUserId(@PathVariable Long id) {
+        return commentMapper.mapToDTOList(commentService.findAllByUser(id));
     }
 }

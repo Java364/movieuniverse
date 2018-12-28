@@ -1,12 +1,10 @@
 package academy.softserve.movieuniverse.dto.like;
 
+import academy.softserve.movieuniverse.entity.Like;
 import org.springframework.hateoas.ResourceSupport;
 
-import academy.softserve.movieuniverse.entity.Like;
+public class LikeDTO extends ResourceSupport implements LikeFullInfo {
 
-public class LikeDTO extends ResourceSupport implements LikeFullInfo{
-
- 
     private Like.Mark mark;
     private Long commentatorId;
     private Long commentId;
@@ -27,12 +25,12 @@ public class LikeDTO extends ResourceSupport implements LikeFullInfo{
         this.commentatorId = commentatorId;
     }
 
-	public Like.Mark getMark() {
-		return mark;
-	}
+    public Like.Mark getMark() {
+        return mark;
+    }
 
-	public void setMark(Like.Mark mark) {
-		this.mark = mark;
-	}
+    public void setMark(Like.Mark mark) {
+        this.mark = mark;
+    }
 
 }

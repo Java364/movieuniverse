@@ -1,18 +1,12 @@
 package academy.softserve.movieuniverse.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "likes")
 public class Like extends AbstractEntity {
-  
-	@ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Comment comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,16 +31,16 @@ public class Like extends AbstractEntity {
     public void setCommentator(User commentator) {
         this.commentator = commentator;
     }
-    
+
     public Mark getMark() {
-		return mark;
-	}
+        return mark;
+    }
 
-	public void setMark(Mark mark) {
-		this.mark = mark;
-	}
+    public void setMark(Mark mark) {
+        this.mark = mark;
+    }
 
-	public enum Mark {
-       LIKE,DISLIKE
+    public enum Mark {
+        LIKE, DISLIKE
     }
 }

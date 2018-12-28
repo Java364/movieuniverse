@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface CommentRequest {
     String getTitle();
 
-    String getText();
-
     void setTitle(String title);
+
+    String getText();
 
     void setText(String text);
 }
