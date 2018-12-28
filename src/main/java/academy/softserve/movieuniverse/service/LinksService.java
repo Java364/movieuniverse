@@ -20,11 +20,11 @@ public class LinksService {
     @Autowired
     private StarRepository starRepository;
 
-    public void saveLinks(Links links) {
+    public Links saveLinks(Links links) {
         if (links.getLinkName().isEmpty() || links == null)
             throw LinkException.createSaveException(ExceptionType.SAVE.getMessage() + "Link");
         {
-            linksRepository.save(links);
+            return linksRepository.save(links);
         }
     }
 

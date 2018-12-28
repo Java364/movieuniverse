@@ -3,6 +3,7 @@ package academy.softserve.movieuniverse.service.mapper;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import academy.softserve.movieuniverse.controller.GalleryController;
+import academy.softserve.movieuniverse.controller.LinksController;
 import academy.softserve.movieuniverse.controller.StarController;
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
 import academy.softserve.movieuniverse.dto.StarDTO;
@@ -109,6 +110,7 @@ public class StarMapper {
     // return star;
     // }
 
+
     public StarDTO mapProfileToDto(Star entity) {
         StarDTO dto = new StarDTO();
         dto.setId(entity.getId());
@@ -130,6 +132,7 @@ public class StarMapper {
         // dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
         // dto.setProfessionsIds(
         // entity.getProfessions().stream().map(p -> p.getProfession().getId()).collect(Collectors.toList()));
+
 
         dto.setSelf(linkTo(methodOn(StarController.class).showOne(entity.getId())).withSelfRel().getHref());
         dto.setLinksu(
