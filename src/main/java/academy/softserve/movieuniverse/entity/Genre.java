@@ -12,8 +12,7 @@ public class Genre extends AbstractEntity {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "movies_genres", joinColumns = @JoinColumn(name = "genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    @JoinTable(name = "movies_genres", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private List<Movie> movies = new ArrayList<>();
 
     public Genre() {

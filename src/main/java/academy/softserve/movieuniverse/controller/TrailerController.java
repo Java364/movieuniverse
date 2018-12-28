@@ -26,7 +26,6 @@ public class TrailerController {
         this.trailerMapper = trailerMapper;
     }
 
-
     @PutMapping("/{id}")
     ResponseEntity<TrailerDTO> update(@PathVariable("id") Long id, @RequestBody CreateTrailerInfo trailerDTO) {
         return ResponseEntity.status(HttpStatus.OK)
@@ -35,16 +34,14 @@ public class TrailerController {
 
     @GetMapping
     public ResponseEntity<List<TrailerDTO>> showAll() {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(trailerMapper.maptoDTOList(trailerService.findAll()));
+        return ResponseEntity.status(HttpStatus.OK).body(trailerMapper.maptoDTOList(trailerService.findAll()));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TrailerDTO> showById(@PathVariable Long id) {
         Trailer trailer = trailerService.findById(id);
         TrailerDTO trailerDTO = trailerMapper.mapToDTO(trailer);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(trailerDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(trailerDTO);
     }
 
     @DeleteMapping("/{id}")

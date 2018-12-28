@@ -15,7 +15,6 @@ public class ProfessionServise {
     @Autowired
     private ProfessionRepository professionRepository;
 
-
     public void saveProfession(Profession profession) {
         if (profession.getType().isEmpty() || profession == null)
             throw ProfessionException.createSaveException(ExceptionType.SAVE.getMessage() + "Profession");
@@ -30,7 +29,8 @@ public class ProfessionServise {
 
     public void deleteProfession(Long id) {
         if (!professionRepository.findById(id).isPresent())
-            throw ProfessionException.createDeleteException(ExceptionType.DELETE.getMessage() + "profession with ID - " + id.toString());
+            throw ProfessionException
+                    .createDeleteException(ExceptionType.DELETE.getMessage() + "profession with ID - " + id.toString());
 
         professionRepository.deleteById(id);
     }
@@ -46,7 +46,8 @@ public class ProfessionServise {
     public Profession getOneProfession(Long id) {
         Optional<Profession> profession = professionRepository.findById(id);
         if (!profession.isPresent()) {
-            throw ProfessionException.createSelectException(ExceptionType.SELECT.getMessage() + "profession with ID - " + id.toString());
+            throw ProfessionException
+                    .createSelectException(ExceptionType.SELECT.getMessage() + "profession with ID - " + id.toString());
         }
         Profession profession1 = professionRepository.getOne(id);
         return profession1;

@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.dto;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +30,11 @@ public class ProfessionDTO {
         this.professionType = professionType;
     }
 
-    /*public Long getStarsID() {
-        return starsID;
-    }
-
-    public void setStarsID(Long starsID) {
-        this.starsID = starsID;
-    }*/
+    /*
+     * public Long getStarsID() { return starsID; }
+     *
+     * public void setStarsID(Long starsID) { this.starsID = starsID; }
+     */
 
     public List<Long> getStarIds() {
         return starIds;
@@ -47,13 +44,12 @@ public class ProfessionDTO {
         this.starIds = starIds;
     }
 
-    /*public List<StarProfessionDTO> getStarsProfessionDTO() {
-                    return starsProfessionDTO;
-                }
-
-                public void setStarsProfessionDTO(List<StarProfessionDTO> starsProfessionDTO) {
-                    this.starsProfessionDTO = starsProfessionDTO;
-                }*/
+    /*
+     * public List<StarProfessionDTO> getStarsProfessionDTO() { return starsProfessionDTO; }
+     *
+     * public void setStarsProfessionDTO(List<StarProfessionDTO> starsProfessionDTO) { this.starsProfessionDTO =
+     * starsProfessionDTO; }
+     */
     public Boolean getRemoved() {
         return isRemoved;
     }

@@ -46,8 +46,8 @@ public class StarProfessionService {
     public void deleteStarProfession(Long id) {
         Optional<StarProfession> starProfession = starProfessionRepository.findById(id);
         if (!starProfession.isPresent()) {
-            throw StarProfessionException.createDeleteException("Can't delete StarProfession with ID:" + id
-                    + "ID doesn't exist", null);
+            throw StarProfessionException
+                    .createDeleteException("Can't delete StarProfession with ID:" + id + "ID doesn't exist", null);
         }
         starProfessionRepository.deleteById(id);
     }
