@@ -1,11 +1,17 @@
 package academy.softserve.movieuniverse.controller;
 
 
+
+import academy.softserve.movieuniverse.controller.exception.LocationHeaderCreationException;
 import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.controller.exception.LocationHeaderCreationException;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
+import academy.softserve.movieuniverse.dto.genre.GenreDTO;
+import academy.softserve.movieuniverse.dto.movie.MovieCreateDTO;
+import academy.softserve.movieuniverse.dto.movie.MovieDTO;
+import academy.softserve.movieuniverse.dto.movie.MovieInfoDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Country;
@@ -15,16 +21,15 @@ import academy.softserve.movieuniverse.dto.movie.MovieInfoDTO;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.Trailer;
+import academy.softserve.movieuniverse.exception.MovieException;
+import academy.softserve.movieuniverse.repository.MovieRepository;
+import academy.softserve.movieuniverse.service.*;
 import academy.softserve.movieuniverse.service.CountryService;
 import academy.softserve.movieuniverse.service.MovieMarkService;
 import academy.softserve.movieuniverse.service.MovieService;
-
-
 import academy.softserve.movieuniverse.service.mapper.GalleryMapper;
 import academy.softserve.movieuniverse.service.mapper.MovieMapper;
-
 import academy.softserve.movieuniverse.service.PosterService;
-
 import academy.softserve.movieuniverse.service.TrailerService;
 import academy.softserve.movieuniverse.service.mapper.*;
 
@@ -81,10 +86,18 @@ public class MovieController {
         return movieMapper.mapListToDTO(movies);
     }
 
-      public ResponseEntity<MovieInfoDTO> showById(@PathVariable Long id) {
-        Movie movie = movieService.findMovieById(id);
-        MovieInfoDTO movieInfoDTO = movieMapper.mapToDto(movie);
-        return new ResponseEntity<MovieInfoDTO>(movieInfoDTO, HttpStatus.OK);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MovieInfoDTO> showById(@PathVariable Long id) {
+
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(movieMapper.mapToDto(
+                        movieService.findMovieById(id))
+                );
+
+
     }
 
     @PostMapping
@@ -105,9 +118,9 @@ public class MovieController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
+    public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
         movieService.deleteMovie(id);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
