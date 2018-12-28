@@ -155,23 +155,4 @@ public class StarMapper {
 		}
 		return stars;
 	}
-
-	// ACTIVITIES
-	public List<StarActivityInMoviesDTO> mapActivityListsToDto(List<StarActivityInMovies> stars) {
-		List<StarActivityInMoviesDTO> starDTOs = new ArrayList<>();
-		for (StarActivityInMovies t : stars) {
-			starDTOs.add(this.mapActivityToDto(t));
-		}
-		return starDTOs;
-	}
-
-	public StarActivityInMoviesDTO mapActivityToDto(StarActivityInMovies entity) {
-		StarActivityInMoviesDTO dto = new StarActivityInMoviesDTO();
-		dto.setId(entity.getId());
-		dto.setMovieId(entity.getMovie().getId());
-		dto.setStarId(entity.getStar().getId());
-		dto.setProfessionIds(entity.getProfessions().stream().map(p -> p.getId()).collect(Collectors.toList()));
-		return dto;
-	}
-	// THE END OF ACTIVITIES
 }
