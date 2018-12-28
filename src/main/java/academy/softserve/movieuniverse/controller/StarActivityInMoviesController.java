@@ -19,7 +19,8 @@ public class StarActivityInMoviesController {
     private StarActivityInMoviesMapper starActivityInMoviesMapper;
 
     @Autowired
-    public StarActivityInMoviesController(StarActivityInMoviesService starActivityInMoviesService, StarActivityInMoviesMapper starActivityInMoviesMapper) {
+    public StarActivityInMoviesController(StarActivityInMoviesService starActivityInMoviesService,
+            StarActivityInMoviesMapper starActivityInMoviesMapper) {
         this.starActivityInMoviesService = starActivityInMoviesService;
         this.starActivityInMoviesMapper = starActivityInMoviesMapper;
     }

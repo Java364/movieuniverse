@@ -7,8 +7,8 @@ import java.util.List;
 @Entity
 @Table(name = "comments")
 public class Comment extends AbstractEntity {
-   
-	@ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private User commentator;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -44,8 +44,7 @@ public class GenreController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenreDTO> update(@PathVariable("id") Long genreId,
-                                                @RequestBody GenreRequest genreRequest)
+    public ResponseEntity<GenreDTO> update(@PathVariable("id") Long genreId, @RequestBody GenreRequest genreRequest)
             throws LocationHeaderCreationException {
         Genre updatedGenre = genreMapper.mapToEntity(genreRequest);
         Genre genre = genreService.update(genreId, updatedGenre);

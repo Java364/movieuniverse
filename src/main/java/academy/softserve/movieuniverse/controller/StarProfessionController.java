@@ -19,7 +19,8 @@ public class StarProfessionController {
     private StarProfessionMapper starProfessionMapper;
 
     @Autowired
-    public StarProfessionController(StarProfessionService starProfessionService, StarProfessionMapper starProfessionMapper) {
+    public StarProfessionController(StarProfessionService starProfessionService,
+            StarProfessionMapper starProfessionMapper) {
         this.starProfessionService = starProfessionService;
         this.starProfessionMapper = starProfessionMapper;
     }

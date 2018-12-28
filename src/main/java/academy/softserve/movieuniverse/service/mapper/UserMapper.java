@@ -1,7 +1,5 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import academy.softserve.movieuniverse.controller.CommentController;
-import academy.softserve.movieuniverse.controller.MovieMarkController;
 import academy.softserve.movieuniverse.controller.UserController;
 import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserDTO;
@@ -9,7 +7,6 @@ import academy.softserve.movieuniverse.dto.user.UserFullInfo;
 import academy.softserve.movieuniverse.dto.user.UserShortInfo;
 import academy.softserve.movieuniverse.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +31,10 @@ public class UserMapper {
         userDTO.setBirthday(user.getBirthday());
         userDTO.setSelf(linkTo(methodOn(UserController.class).showById(user.getId())).withSelfRel().getHref());
         userDTO.setUsers(linkTo(methodOn(UserController.class).showAllNonRemoved()).withRel("users").getHref());
-        userDTO.setComments(linkTo(methodOn(UserController.class).showUserComments(user.getId())).withRel("comments").getHref());
-        userDTO.setComments(linkTo(methodOn(UserController.class).showUserMovieMarks(user.getId())).withRel("movieMarks").getHref());
+        userDTO.setComments(
+                linkTo(methodOn(UserController.class).showUserComments(user.getId())).withRel("comments").getHref());
+        userDTO.setComments(linkTo(methodOn(UserController.class).showUserMovieMarks(user.getId()))
+                .withRel("movieMarks").getHref());
         return userDTO;
     }
 
@@ -75,6 +74,5 @@ public class UserMapper {
     public List<UserShortInfo> mapUserEntityListToUserWithShortInfoList(List<User> users) {
         return users.stream().map(this::mapUserEntityToUserDTOWithShortInfo).collect(Collectors.toList());
     }
-
 
 }
