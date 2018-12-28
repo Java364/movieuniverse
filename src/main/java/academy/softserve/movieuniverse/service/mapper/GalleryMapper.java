@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -20,7 +21,8 @@ public class GalleryMapper {
         galleryDTO.setCreated(gallery.getEntryCreationDate().getTime());
         galleryDTO.setUpdated(gallery.getEntryLastUpdate().getTime());
         galleryDTO.setSelf(linkTo(methodOn(GalleryController.class).showById(gallery.getId())).withSelfRel().getHref());
-        galleryDTO.setImages(linkTo(methodOn(GalleryController.class).showImagesByGalleryId(gallery.getId())).withRel("images").getHref());
+        galleryDTO.setImages(linkTo(methodOn(GalleryController.class).showImagesByGalleryId(gallery.getId()))
+                .withRel("images").getHref());
         return galleryDTO;
     }
 

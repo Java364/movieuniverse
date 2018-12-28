@@ -16,7 +16,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
+
+
+
 public class ImageMapper{
+
 
     @Autowired
     public ImageMapper() {
@@ -30,6 +34,7 @@ public class ImageMapper{
         return entity;
     }
 
+
     public ImageDTO mapToDTO(Image entity) {
         ImageDTO imageDTO = new ImageDTO();
         imageDTO.setId(entity.getId());
@@ -38,9 +43,12 @@ public class ImageMapper{
         imageDTO.setCreated(entity.getEntryCreationDate().getTime());
         imageDTO.setUpdated(entity.getEntryLastUpdate().getTime());
         imageDTO.setSelf(linkTo(methodOn(ImageController.class).showById(entity.getId())).withSelfRel().getHref());
-        imageDTO.setGallery(linkTo(methodOn(GalleryController.class).showById(entity.getGallery().getId())).withRel("gallery").getHref());
+        imageDTO.setGallery(linkTo(methodOn(GalleryController.class).showById(entity.getGallery().getId()))
+                .withRel("gallery").getHref());
         return imageDTO;
     }
+
+
 
     public List<Image> mapToEntityList(List<ImageCreateInfo> dtos) {
         return dtos.stream().map(this::mapToEntity).collect(Collectors.toList());

@@ -13,36 +13,37 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Component
 public class PosterMapper {
-	@Autowired
-	MovieService movieService;
+    @Autowired
+    MovieService movieService;
 
-	public Poster mapToEntityForSave(PosterDTO dto) {
-		Poster poster = new Poster();
-		poster.setImageUrl(dto.getImageUrl());
-		poster.setIsRemoved(new Boolean(false));
-		poster.setName(dto.getName());
-		poster.setMovie(movieService.findMovieById(dto.getMovieId()));
-		return poster;
-	}
+    public Poster mapToEntityForSave(PosterDTO dto) {
+        Poster poster = new Poster();
+        poster.setImageUrl(dto.getImageUrl());
+        poster.setIsRemoved(new Boolean(false));
+        poster.setName(dto.getName());
+        poster.setMovie(movieService.findMovieById(dto.getMovieId()));
+        return poster;
+    }
 
-	public Poster mapToEntityForUpdate(PosterDTO dto, Long posterId) {
-		Poster poster = new Poster();
-		poster.setImageUrl(dto.getImageUrl());
-		poster.setIsRemoved(new Boolean(false));
-		poster.setId(posterId);
-		poster.setName(dto.getName());
-		poster.setMovie(movieService.findMovieById(dto.getMovieId()));
-		return poster;
-	}
+    public Poster mapToEntityForUpdate(PosterDTO dto, Long posterId) {
+        Poster poster = new Poster();
+        poster.setImageUrl(dto.getImageUrl());
+        poster.setIsRemoved(new Boolean(false));
+        poster.setId(posterId);
+        poster.setName(dto.getName());
+        poster.setMovie(movieService.findMovieById(dto.getMovieId()));
+        return poster;
+    }
 
-	public PosterDTO mapToDto(Poster poster) {
-		PosterDTO dto = new PosterDTO();
-		dto.setId(poster.getId());
-		dto.setName(poster.getName());
-		dto.setImageUrl(poster.getImageUrl());
-		dto.setMovieId(poster.getMovie().getId());
-		dto.setSelf(linkTo(methodOn(PosterController.class).showById(poster.getId())).withSelfRel().getHref());
-		dto.setMovie(linkTo(methodOn(MovieController.class).showById(poster.getMovie().getId())).withRel("movie").getHref());
-		return dto;
-	}
+    public PosterDTO mapToDto(Poster poster) {
+        PosterDTO dto = new PosterDTO();
+        dto.setId(poster.getId());
+        dto.setName(poster.getName());
+        dto.setImageUrl(poster.getImageUrl());
+        dto.setMovieId(poster.getMovie().getId());
+        dto.setSelf(linkTo(methodOn(PosterController.class).showById(poster.getId())).withSelfRel().getHref());
+        dto.setMovie(
+                linkTo(methodOn(MovieController.class).showById(poster.getMovie().getId())).withRel("movie").getHref());
+        return dto;
+    }
 }

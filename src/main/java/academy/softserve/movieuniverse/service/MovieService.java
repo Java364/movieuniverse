@@ -103,12 +103,12 @@ public class MovieService {
             return false;
         return !value.trim().isEmpty();
     }
-    
+
     public Movie findAllByMovieMarks(MovieMark movieMark) {
-    	return movieRepository.findAllByMovieMarks(movieMark);
+        return movieRepository.findAllByMovieMarks(movieMark);
     }
 
-    public Gallery addNewGallery(Long id){
+    public Gallery addNewGallery(Long id) {
         Movie movie = findMovieById(id);
         Gallery gallery = galleryService.save();
         movie.getMediaContent().setGallery(gallery);

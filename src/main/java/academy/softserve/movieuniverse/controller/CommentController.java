@@ -41,7 +41,7 @@ public class CommentController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CommentDTO> update(@PathVariable("id") Long commentId,
-                                             @RequestBody CommentRequest commentRequest) {
+            @RequestBody CommentRequest commentRequest) {
         Comment comment = commentMapper.mapToEntity(commentRequest);
         Comment updatedUser = commentService.update(commentId, comment);
         CommentDTO commentDTO = commentMapper.mapToDTO(updatedUser);
@@ -55,7 +55,7 @@ public class CommentController {
     }
 
     @GetMapping("/user/{id}")
-    public List<CommentDTO> findAllByUserId(@PathVariable Long id){
-        return  commentMapper.mapToDTOList(commentService.findAllByUser(id));
+    public List<CommentDTO> findAllByUserId(@PathVariable Long id) {
+        return commentMapper.mapToDTOList(commentService.findAllByUser(id));
     }
 }

@@ -15,8 +15,7 @@ public class Star extends Person {
     private Double growth;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "star_id"),
-            inverseJoinColumns = @JoinColumn(name = "country_id"))
+    @JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "star_id"), inverseJoinColumns = @JoinColumn(name = "country_id"))
     private List<Country> countries = new ArrayList<>();
 
     @Column(name = "star_city")
@@ -32,9 +31,7 @@ public class Star extends Person {
     private List<Links> links = new ArrayList<Links>();
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "star_movie",
-            joinColumns = @JoinColumn(name = "star_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    @JoinTable(name = "star_movie", joinColumns = @JoinColumn(name = "star_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private List<Movie> movies = new ArrayList<Movie>();
 
     @OneToOne
