@@ -7,9 +7,9 @@ import java.util.List;
 
 @JsonDeserialize(as = MovieDTO.class)
 public interface MovieCreateDTO extends  MovieInfoDTO {
-    List<Long> getGenres();
-    void setGenres(List<Long> genres);
+    String getGenres();
+    void setGenres(String genres);
 
-    List<Long> getCountries();
-    void setCountries(List<Long> countries);
+    String getCountries();
+    void setCountries(String countries);
 }
