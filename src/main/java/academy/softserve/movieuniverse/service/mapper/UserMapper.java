@@ -32,10 +32,10 @@ public class UserMapper {
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setBirthday(user.getBirthday());
-        userDTO.add(linkTo(methodOn(UserController.class).showById(user.getId())).withSelfRel());
-        userDTO.add(linkTo(methodOn(UserController.class).showAllNonRemoved()).withRel("users"));
-        userDTO.add(linkTo(methodOn(CommentController.class).findAllByUserId(user.getId())).withRel("comments"));
-        userDTO.add(linkTo(methodOn(MovieMarkController.class).showAllByUserId(user.getId())).withRel("movieMarks"));
+        userDTO.setSelf(linkTo(methodOn(UserController.class).showById(user.getId())).withSelfRel().getHref());
+        userDTO.setUsers(linkTo(methodOn(UserController.class).showAllNonRemoved()).withRel("users").getHref());
+        userDTO.setComments(linkTo(methodOn(UserController.class).showUserComments(user.getId())).withRel("comments").getHref());
+        userDTO.setComments(linkTo(methodOn(UserController.class).showUserMovieMarks(user.getId())).withRel("movieMarks").getHref());
         return userDTO;
     }
 
@@ -68,14 +68,12 @@ public class UserMapper {
         return copyEntityPropertiesToDTO(user);
     }
 
-    public Resources<UserFullInfo> mapUserEntityListToUserWithFullInfoList(List<User> users) {
-        return new Resources<>(users.stream().map(this::mapUserEntityToUserDTOWithFullInfo).collect(Collectors.toList()),
-                linkTo(methodOn(UserController.class).showAllNonRemoved()).withSelfRel());
+    public List<UserFullInfo> mapUserEntityListToUserWithFullInfoList(List<User> users) {
+        return users.stream().map(this::mapUserEntityToUserDTOWithFullInfo).collect(Collectors.toList());
     }
 
-    public Resources<UserShortInfo> mapUserEntityListToUserWithShortInfoList(List<User> users) {
-        return new Resources<>(users.stream().map(this::mapUserEntityToUserDTOWithShortInfo).collect(Collectors.toList()),
-                linkTo(methodOn(UserController.class).showAllNonRemoved()).withSelfRel());
+    public List<UserShortInfo> mapUserEntityListToUserWithShortInfoList(List<User> users) {
+        return users.stream().map(this::mapUserEntityToUserDTOWithShortInfo).collect(Collectors.toList());
     }
 
 

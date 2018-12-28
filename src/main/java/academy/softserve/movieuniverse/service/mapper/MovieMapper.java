@@ -66,7 +66,7 @@ public class MovieMapper {
         dto.setYear(entity.getYear());
         dto.setDescription(entity.getDescription());
         dto.setGenres(entity.getGenres().stream().map(genre -> genre.getId()).collect(Collectors.toList()));
-        dto.setMovieMarks(movieMarkMapper.mapListToDto(entity.getMovieMarks()));
+        dto.setMovieMarks(movieMarkMapper.mapToDTOList(entity.getMovieMarks()));
         dto.setRoles(entity.getRoles().stream().map(role -> role.getId()).collect(Collectors.toList()));
         dto.setStars(entity.getStars().stream().map(star -> star.getId()).collect(Collectors.toList()));
         dto.setComments(entity.getComments().stream().map(review -> review.getId()).collect(Collectors.toList()));

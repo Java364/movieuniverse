@@ -1,6 +1,9 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import academy.softserve.movieuniverse.controller.CountryController;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.service.CountryService;
 import academy.softserve.movieuniverse.service.MovieService;
@@ -35,10 +38,11 @@ public class CountryMapper {
         return country;
     }
 
-    public CountryDTO mapToDto(Country entity) {
+    public CountryDTO mapToDto(Country country) {
         CountryDTO countryDTO = new CountryDTO();
-        countryDTO.setId(entity.getId());
-        countryDTO.setName(entity.getName());
+        countryDTO.setId(country.getId());
+        countryDTO.setName(country.getName());
+        countryDTO.setSelf(linkTo(methodOn(CountryController.class).showById(country.getId())).withSelfRel().getHref());
         return countryDTO;
     }
 

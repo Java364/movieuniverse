@@ -11,12 +11,6 @@ public abstract class AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false)
-//    private Date entryCreationDate;
-//
-//    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-//    private Date entryLastUpdate;
-
     @Column(name = "created_at", updatable = false)
     private Date entryCreationDate = new Date();
 
