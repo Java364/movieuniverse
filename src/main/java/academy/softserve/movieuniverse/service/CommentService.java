@@ -52,8 +52,4 @@ public class CommentService {
         comment.setId(commentId);
         return save(comment);
     }
-
-    public List<Comment> findAllByUser(Long id) {
-        return commentRepository.findAllByCommentator(userService.findById(id));
-    }
 }
