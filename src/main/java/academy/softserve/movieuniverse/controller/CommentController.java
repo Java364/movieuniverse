@@ -53,9 +53,4 @@ public class CommentController {
         commentService.deleteById(commentId);
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping("/user/{id}")
-    public List<CommentDTO> findAllByUserId(@PathVariable Long id) {
-        return commentMapper.mapToDTOList(commentService.findAllByUser(id));
-    }
 }

@@ -1,45 +1,22 @@
 package academy.softserve.movieuniverse.controller;
 
-
-
-import academy.softserve.movieuniverse.controller.exception.LocationHeaderCreationException;
 import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
-import academy.softserve.movieuniverse.controller.exception.LocationHeaderCreationException;
-import academy.softserve.movieuniverse.dto.movie.MovieDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
-import academy.softserve.movieuniverse.dto.genre.GenreDTO;
-import academy.softserve.movieuniverse.dto.movie.MovieCreateDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
-import academy.softserve.movieuniverse.dto.movie.MovieInfoDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.entity.Country;
-import academy.softserve.movieuniverse.dto.movie.MovieCreateDTO;
-import academy.softserve.movieuniverse.dto.movie.MovieInfoDTO;
-
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.Trailer;
-import academy.softserve.movieuniverse.exception.MovieException;
-import academy.softserve.movieuniverse.repository.MovieRepository;
 import academy.softserve.movieuniverse.service.*;
-import academy.softserve.movieuniverse.service.CountryService;
-import academy.softserve.movieuniverse.service.MovieMarkService;
-import academy.softserve.movieuniverse.service.MovieService;
-import academy.softserve.movieuniverse.service.mapper.GalleryMapper;
-import academy.softserve.movieuniverse.service.mapper.MovieMapper;
-import academy.softserve.movieuniverse.service.PosterService;
-import academy.softserve.movieuniverse.service.TrailerService;
 import academy.softserve.movieuniverse.service.mapper.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -74,34 +51,23 @@ public class MovieController {
         this.commentMapper = commentMapper;
         this.countryMapper = countryMapper;
         this.movieMarkService = movieMarkService;
-
         this.posterService = posterService;
         this.posterMapper = posterMapper;
-
     }
 
     @GetMapping("")
-    public List<MovieDTO> showAllMovies() {
-        List<Movie> movies = movieService.showAllMovies();
-        return movieMapper.mapListToDTO(movies);
+    public ResponseEntity<List<MovieDTO>> showAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapListToDTO(movieService.showAllMovies()));
     }
 
-
     @GetMapping("/{id}")
-    public ResponseEntity<MovieInfoDTO> showById(@PathVariable Long id) {
-
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(movieMapper.mapToDto(
-                        movieService.findMovieById(id))
-                );
-
-
+    public ResponseEntity<MovieDTO> showById(@PathVariable Long id) {
+        Movie movie = movieService.findMovieById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapToDto(movie));
     }
 
     @PostMapping
-    public ResponseEntity<MovieDTO> create(@RequestBody MovieDTO movieDTO) throws LocationHeaderCreationException {
+    public ResponseEntity<MovieDTO> create(@RequestBody MovieDTO movieDTO) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(movieMapper.mapToDto(movieService.create(movieMapper.mapToEntity(movieDTO))));
@@ -109,27 +75,23 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieCreateDTO> updateMovie(@RequestBody MovieCreateDTO movieCreateDTO,
-            @PathVariable Long id) {
-        Movie movie = movieMapper.mapToEntity((MovieDTO) movieCreateDTO);
-        movie = movieService.updateMovie(movie, id);
-        movieCreateDTO = movieMapper.mapToDto(movie);
-        return new ResponseEntity<MovieCreateDTO>(movieCreateDTO, HttpStatus.OK);
+    public ResponseEntity<MovieDTO> update(@PathVariable Long id, @RequestBody MovieDTO movieDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapToDto(
+                movieService.updateMovie(movieMapper.mapToEntity(movieDTO), id)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
-        movieService.deleteMovie(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+    public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
+            movieService.deleteMovie(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
 
+    }
 
     @GetMapping("/mark/{id}")
     public MovieDTO showByMovieMark(@PathVariable Long id) {
         MovieMark movieMark = movieMarkService.findById(id);
         return movieMapper.mapToDto(movieService.findAllByMovieMarks(movieMark));
     }
-
 
     @GetMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> showMovieGallery(@PathVariable Long id) {
@@ -141,20 +103,6 @@ public class MovieController {
     public ResponseEntity<GalleryDTO> createMovieGallery(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.CREATED).body(galleryMapper.mapToDTO(movieService.addNewGallery(id)));
     }
-
-
-//    @GetMapping("/{id}/trailers/")
-//    public ResponseEntity<GalleryDTO> showMovieTrailers(@PathVariable Long id) {
-//        Movie movie = movieService.findMovieById(id);
-//        return ResponseEntity.status(HttpStatus.OK)
-//                .body(galleryMapper.mapToDTO(movie.getMediaContent().getGallery()));
-//    }
-//
-//    @PostMapping("/{id}/trailers/")
-//    public ResponseEntity<GalleryDTO> createMovieTrailer(@PathVariable Long id) {
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body(galleryMapper.mapToDTO(movieService.addNewGallery(id)));
-//    }
 
     @GetMapping("/{id}/trailers/")
     public ResponseEntity<List<TrailerDTO>> showMovieTrailers(@PathVariable Long id) {
@@ -191,5 +139,4 @@ public class MovieController {
         movieService.updateMovie(movie, id);
         return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(movie.getCountries()));
     }
-
 }
