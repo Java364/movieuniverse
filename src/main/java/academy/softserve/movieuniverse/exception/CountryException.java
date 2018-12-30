@@ -1,3 +1,4 @@
+/*
 package academy.softserve.movieuniverse.exception;
 
 public class CountryException extends CustomValidationException {
@@ -25,3 +26,4 @@ public class CountryException extends CustomValidationException {
     }
 
 }
+*/

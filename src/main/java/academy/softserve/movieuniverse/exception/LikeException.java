@@ -1,3 +1,4 @@
+/*
 package academy.softserve.movieuniverse.exception;
 
 public class LikeException extends CustomValidationException {
@@ -23,3 +24,4 @@ public class LikeException extends CustomValidationException {
         return new LikeException(message, ExceptionType.UPDATE, ex);
     }
 }
+*/

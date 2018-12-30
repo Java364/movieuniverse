@@ -1,3 +1,4 @@
+/*
 package academy.softserve.movieuniverse.exception;
 
 public class TrailerException extends CustomValidationException {
@@ -24,3 +25,4 @@ public class TrailerException extends CustomValidationException {
         return new TrailerException(message, ExceptionType.UPDATE, ex);
     }
 }
+*/

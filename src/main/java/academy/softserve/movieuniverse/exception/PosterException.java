@@ -1,3 +1,4 @@
+/*
 package academy.softserve.movieuniverse.exception;
 
 public class PosterException extends CustomValidationException {
@@ -24,3 +25,4 @@ public class PosterException extends CustomValidationException {
         return new PosterException(message, ExceptionType.UPDATE, ex);
     }
 }
+*/

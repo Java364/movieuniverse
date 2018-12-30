@@ -3,7 +3,9 @@ package academy.softserve.movieuniverse.service;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
-import academy.softserve.movieuniverse.exception.MovieException;
+import academy.softserve.movieuniverse.exception.ExceptionType;
+
+import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class MovieService {
 
     public Movie create(Movie movie) {
         if (movie == null) {
-            throw MovieException.movieSaveException("Couldn't create movie", null);
+            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " movie");
         }
         movie = movieRepository.save(movie);
         return movie;
@@ -35,12 +37,12 @@ public class MovieService {
 
     public Movie saveMovie(Movie movie) {
         if (movie == null) {
-            throw MovieException.movieSaveException("Can't save null object", null);
+            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " movie");
         }
         try {
             movie = movieRepository.save(movie);
         } catch (Exception ex) {
-            throw MovieException.movieSaveException("Can't save movie object", ex);
+            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " movie");
         }
         return movie;
     }
@@ -50,7 +52,7 @@ public class MovieService {
         try {
             result.addAll(movieRepository.findAll());
         } catch (Exception ex) {
-            throw MovieException.movieSelectException("Can't get movies", ex);
+            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage());
         }
         return result;
     }
@@ -58,7 +60,7 @@ public class MovieService {
     public Movie findMovieById(Long id) {
         Optional<Movie> movie = movieRepository.findById(id);
         if (!movie.isPresent()) {
-            throw MovieException.movieSelectException("Movie with id:" + id + " not found", null);
+            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "movie with " + id.toString() + " ID");
         }
         return movie.get();
     }
@@ -84,7 +86,7 @@ public class MovieService {
             }
             exist = movieRepository.save(exist);
         } catch (Exception ex) {
-            throw MovieException.movieUpdateException("Can't update movie", ex);
+            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " movie");
         }
         return exist;
     }
@@ -94,7 +96,7 @@ public class MovieService {
             Movie movie = findMovieById(id);
             movieRepository.delete(movie);
         } catch (Exception ex) {
-            throw MovieException.movieDeleteException("Can't delete movie", ex);
+            throw NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "movie with " + id.toString() + " ID");
         }
     }
 

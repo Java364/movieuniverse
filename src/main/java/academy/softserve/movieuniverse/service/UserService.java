@@ -2,7 +2,9 @@ package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.User;
-import academy.softserve.movieuniverse.exception.UserException;
+import academy.softserve.movieuniverse.exception.ExceptionType;
+import academy.softserve.movieuniverse.exception.NotFoundException;
+
 import academy.softserve.movieuniverse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,8 @@ public class UserService {
     }
 
     public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> UserException
-                .createSelectException(String.format("No such user with id = %d", id), new Exception()));
+        return userRepository.findById(id).orElseThrow(() -> NotFoundException
+                .createSelectException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
     }
 
     public User createUser(User user) {
@@ -32,12 +34,12 @@ public class UserService {
     }
 
     public void deleteById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> UserException
-                .createDeleteException(String.format("No such user with id = %d", id), new Exception()));
+        User user = userRepository.findById(id).orElseThrow(() -> NotFoundException
+                .createDeleteException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
         if (user.getIsRemoved()) {
             userRepository.deleteById(id);
         } else {
-            throw UserException.createDeleteException("Wrong operation for such status", new Exception());
+            throw NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID");
         }
     }
 
@@ -45,16 +47,14 @@ public class UserService {
         userRepository.findById(id).map(user -> {
             user.setIsRemoved(true);
             return userRepository.saveAndFlush(user);
-        }).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id),
-                new Exception()));
+        }).orElseThrow(() -> NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
     }
 
     public void restoreById(Long id) {
         userRepository.findById(id).map(user -> {
             user.setIsRemoved(false);
             return userRepository.saveAndFlush(user);
-        }).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id),
-                new Exception()));
+        }).orElseThrow(() -> NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
     }
 
     public User update(User user, Long id) {
@@ -65,8 +65,7 @@ public class UserService {
             userDB.setLastName(user.getLastName());
             userDB.setBirthday(user.getBirthday());
             return userRepository.saveAndFlush(userDB);
-        }).orElseThrow(() -> UserException.createDeleteException(String.format("No such user with id = %d", id),
-                new Exception()));
+        }).orElseThrow(() -> NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " user"));
     }
 
     public List<User> findAll() {

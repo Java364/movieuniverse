@@ -1,3 +1,4 @@
+/*
 package academy.softserve.movieuniverse.exception;
 
 public class StarProfessionException extends CustomValidationException {
@@ -24,3 +25,4 @@ public class StarProfessionException extends CustomValidationException {
         return new StarProfessionException(message, ExceptionType.SELECT, ex);
     }
 }
+*/

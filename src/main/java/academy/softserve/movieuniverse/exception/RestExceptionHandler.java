@@ -9,14 +9,14 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @ControllerAdvice
 public class RestExceptionHandler {
 
-    @ExceptionHandler(LinkException.class)
+    @ExceptionHandler(NotFoundException.class)
     protected ResponseEntity<Object> notFoundLink(CustomValidationException ex) {
         ApiError apiError = new ApiError(NOT_FOUND);
         apiError.setMessage(ex.getCustomMessage());
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(ProfessionException.class)
+    /*@ExceptionHandler(ProfessionException.class)
     protected ResponseEntity<Object> notFoundProfession(CustomValidationException ex) {
         ApiError apiError = new ApiError(NOT_FOUND);
         apiError.setMessage(ex.getCustomMessage());
@@ -49,7 +49,7 @@ public class RestExceptionHandler {
         ApiError apiError = new ApiError(NOT_FOUND);
         apiError.setMessage(ex.getCustomMessage());
         return buildResponseEntity(apiError);
-    }
+    }*/
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());

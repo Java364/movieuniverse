@@ -1,7 +1,9 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.StarActivityInMovies;
-import academy.softserve.movieuniverse.exception.StarActivityInMoviesException;
+import academy.softserve.movieuniverse.exception.ExceptionType;
+import academy.softserve.movieuniverse.exception.NotFoundException;
+
 import academy.softserve.movieuniverse.repository.StarActivityInMoviesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ public class StarActivityInMoviesService {
 
     public void createStarActivityInMovies(StarActivityInMovies starActivityInMovies) {
         if (starActivityInMovies == null) {
-            throw StarActivityInMoviesException.createSaveException("StarActivityInMovies was not saved", null);
+            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " StarActivityInMovies");
         }
         starActivityInMoviesRepository.save(starActivityInMovies);
     }
@@ -29,8 +31,7 @@ public class StarActivityInMoviesService {
     public StarActivityInMovies getStarActivityInMovies(Long id) {
         Optional<StarActivityInMovies> starActivityInMovies = starActivityInMoviesRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
-            throw StarActivityInMoviesException.createSelectException("Can't find StarActivityInMovies with ID:" + id,
-                    null);
+            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "StarActivityInMovies with " + id.toString() + " ID");
         }
         return starActivityInMovies.get();
     }
@@ -38,8 +39,8 @@ public class StarActivityInMoviesService {
     public void deleteStarActivityInMovies(Long id) {
         Optional<StarActivityInMovies> starActivityInMovies = starActivityInMoviesRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
-            throw StarActivityInMoviesException.createDeleteException(
-                    "Can't delete StarActivityInMovies with ID:" + id + "ID doesn't exist", null);
+            throw NotFoundException.createDeleteException(
+                    ExceptionType.DELETE.getMessage() + "StarActivityInMovies with " + id.toString() + " ID");
         }
         starActivityInMoviesRepository.deleteById(id);
     }
