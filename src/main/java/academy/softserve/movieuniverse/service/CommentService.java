@@ -14,15 +14,13 @@ import java.util.Objects;
 @Service
 @Transactional(readOnly = true)
 public class CommentService {
-    private final UserService userService;
     private CommentRepository commentRepository;
     private EntityExistsValidator<Comment, Long> entityExistsValidator;
 
     @Autowired
-    public CommentService(CommentRepository commentRepository, UserService userService) {
+    public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
         entityExistsValidator = new EntityExistsValidator<>(commentRepository, Comment.class);
-        this.userService = userService;
     }
 
     public Comment findById(Long commentId) {
