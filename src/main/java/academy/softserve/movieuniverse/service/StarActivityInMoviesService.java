@@ -23,7 +23,7 @@ public class StarActivityInMoviesService {
 
     public void createStarActivityInMovies(StarActivityInMovies starActivityInMovies) {
         if (starActivityInMovies == null) {
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " StarActivityInMovies");
+            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " StarActivityInMovies");
         }
         starActivityInMoviesRepository.save(starActivityInMovies);
     }
@@ -31,7 +31,7 @@ public class StarActivityInMoviesService {
     public StarActivityInMovies getStarActivityInMovies(Long id) {
         Optional<StarActivityInMovies> starActivityInMovies = starActivityInMoviesRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
-            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "StarActivityInMovies with " + id.toString() + " ID");
+            throw new  NotFoundException(ExceptionType.SELECT.getMessage() + "StarActivityInMovies with " + id.toString() + " ID");
         }
         return starActivityInMovies.get();
     }
@@ -39,7 +39,8 @@ public class StarActivityInMoviesService {
     public void deleteStarActivityInMovies(Long id) {
         Optional<StarActivityInMovies> starActivityInMovies = starActivityInMoviesRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
-            throw NotFoundException.createDeleteException(
+            throw new
+            NotFoundException(
                     ExceptionType.DELETE.getMessage() + "StarActivityInMovies with " + id.toString() + " ID");
         }
         starActivityInMoviesRepository.deleteById(id);

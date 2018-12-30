@@ -29,16 +29,16 @@ public class ImageService {
 
     public Image save(Image image) {
         if (image == null || image.getId() != null)
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " image");
+            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " image");
         image = imageRepository.save(image);
         if (image == null)
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " image");
+            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " image");
         return image;
     }
 
     public Image update(Image newImage, Long id) {
         if (newImage == null) {
-            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " image");
+            throw new  NotFoundException(ExceptionType.UPDATE.getMessage() + " image");
         }
 
         return imageRepository.findById(id).map(image -> {
@@ -46,19 +46,20 @@ public class ImageService {
             image.setImageUrl(newImage.getImageUrl());
             image.setEntryLastUpdate(new Date());
             return imageRepository.saveAndFlush(image);
-        }).orElseThrow(() -> NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " image"));
+        }).orElseThrow(() ->new NotFoundException(ExceptionType.UPDATE.getMessage() + " image"));
 
 
     }
 
     public Image findById(Long id) {
         return imageRepository.findById(id)
-                .orElseThrow(() -> NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "image with " + id.toString() + " ID"));
+                .orElseThrow(() -> new NotFoundException(ExceptionType.SELECT.getMessage() + "image with " + id.toString() + " ID"));
     }
 
     public void delete(Long id) {
         if (id == null || !imageRepository.findById(id).isPresent()) {
-            throw NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "image with " + id.toString() + " ID");
+            throw new
+            NotFoundException(ExceptionType.DELETE.getMessage() + "image with " + id.toString() + " ID");
         } else {
             imageRepository.deleteById(id);
         }
