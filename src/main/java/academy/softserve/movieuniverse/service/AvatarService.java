@@ -24,9 +24,7 @@ public class AvatarService {
 	public Avatar save(Avatar avatar) {
 		avatar = repository.save(avatar);
 		if (avatar == null)
-
 			throw new  NotFoundException(ExceptionType.SAVE
-
 					.getMessage() + " avatar");
 		return avatar;
 	}
@@ -35,9 +33,7 @@ public class AvatarService {
 		avatar.setId(id);
 		avatar = repository.save(avatar);
 		if (avatar == null)
-
 			throw new  NotFoundException(ExceptionType.UPDATE
-
 					.getMessage() + " avatar");
 		return avatar;
 	}
@@ -49,9 +45,7 @@ public class AvatarService {
 	public Avatar findById(Long id) {
 		Optional<Avatar> avatarOptional = repository.findById(id);
 		if (!avatarOptional.isPresent()) {
-
 			throw new  NotFoundException(ExceptionType.SELECT
-
 					.getMessage() + "avatar with " + id.toString() + " ID");
 		}
 		Avatar avatar = avatarOptional.get();
