@@ -27,5 +27,6 @@ public class GenreMapper implements DTOMapper<GenreDTO, GenreRequest, Genre> {
         genre.setId(genreDTO.getId());
         genre.setName(genreDTO.getGenreName());
         return genre;
+
     }
 }

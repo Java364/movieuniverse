@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.Date;
+
 import java.util.List;
 
 @Service
@@ -36,12 +38,14 @@ public class ImageService {
         if (newImage == null) {
             throw ImageException.createUpdateException("no image to update", null);
         }
+
         return imageRepository.findById(id).map(image -> {
             image.setName(newImage.getName());
             image.setImageUrl(newImage.getImageUrl());
             image.setEntryLastUpdate(new Date());
             return imageRepository.saveAndFlush(image);
         }).orElseThrow(() -> ImageException.createUpdateException("no image to update", null));
+
 
     }
 

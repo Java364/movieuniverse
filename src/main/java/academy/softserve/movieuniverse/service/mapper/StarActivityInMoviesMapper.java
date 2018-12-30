@@ -3,7 +3,6 @@ package academy.softserve.movieuniverse.service.mapper;
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
 import academy.softserve.movieuniverse.entity.StarActivityInMovies;
 import academy.softserve.movieuniverse.entity.StarProfession;
-
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

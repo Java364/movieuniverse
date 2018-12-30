@@ -3,6 +3,7 @@ package academy.softserve.movieuniverse.service.mapper;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import academy.softserve.movieuniverse.controller.GalleryController;
+import academy.softserve.movieuniverse.controller.LinksController;
 import academy.softserve.movieuniverse.controller.StarController;
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
 import academy.softserve.movieuniverse.dto.StarDTO;
@@ -109,36 +110,40 @@ public class StarMapper {
     // return star;
     // }
 
-	public StarDTO mapProfileToDto(Star entity) {
-		StarDTO dto = new StarDTO();
-		dto.setId(entity.getId());
-		dto.setFirstName(entity.getFirstName());
-		dto.setLastName(entity.getLastName());
-		dto.setGrowth(entity.getGrowth());
-		dto.setBirthday(entity.getBirthday());
-		dto.setBiography(entity.getBiography());
-		dto.setCityOfBirth(entity.getCityOfBirth());
-		dto.setIsRemoved(entity.getIsRemoved());
-//		dto.setLinks(linksMapper.mapListToDto(entity.getLinks()));
-//		dto.setGalleryId(entity.getGallery().getId());
-		// dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
-//		dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));
-		// dto.setProfessions(starProfessionMapper.mapListEntityToDTO(entity.getProfessions()));
-//		dto.setActivities(this.mapActivityListsToDto(entity.getRoles())); // TODO edit when StarActivityDTO will be
-																			// created
-//		dto.setMoviesIds(entity.getRoles().stream().map(p -> p.getMovie().getId()).collect(Collectors.toList()));
-//		dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
-//		dto.setProfessionsIds(
-//				entity.getProfessions().stream().map(p -> p.getProfession().getId()).collect(Collectors.toList()));
-		
-		
-		dto.setSelf(linkTo(methodOn(StarController.class).showOne(entity.getId())).withSelfRel().getHref());
-		dto.setLinksu(linkTo(methodOn(StarController.class).showAllByLinksId(entity.getId())).withRel("links").getHref());
-		dto.setCountriesu(linkTo(methodOn(StarController.class).showCountriesByStarId(entity.getId())).withRel("countries").getHref());
-		dto.setProfessionsu(linkTo(methodOn(StarController.class).showProfessionsByStarId(entity.getId())).withRel("professions").getHref());
-		dto.setRoles(linkTo(methodOn(StarController.class).showRolesByStarId(entity.getId())).withRel("roles").getHref());
-		return dto;
-	}
+    public StarDTO mapProfileToDto(Star entity) {
+        StarDTO dto = new StarDTO();
+        dto.setId(entity.getId());
+        dto.setFirstName(entity.getFirstName());
+        dto.setLastName(entity.getLastName());
+        dto.setGrowth(entity.getGrowth());
+        dto.setBirthday(entity.getBirthday());
+        dto.setBiography(entity.getBiography());
+        dto.setCityOfBirth(entity.getCityOfBirth());
+        dto.setIsRemoved(entity.getIsRemoved());
+        // dto.setLinks(linksMapper.mapListToDto(entity.getLinks()));
+        // dto.setGalleryId(entity.getGallery().getId());
+        // dto.setCountries(countryMapper.mapListToDto(entity.getCountries()));
+        // dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));
+        // dto.setProfessions(starProfessionMapper.mapListEntityToDTO(entity.getProfessions()));
+        // dto.setActivities(this.mapActivityListsToDto(entity.getRoles())); // TODO edit when StarActivityDTO will be
+        // created
+        // dto.setMoviesIds(entity.getRoles().stream().map(p -> p.getMovie().getId()).collect(Collectors.toList()));
+        // dto.setLinksIds(entity.getLinks().stream().map(p -> p.getId()).collect(Collectors.toList()));
+        // dto.setProfessionsIds(
+        // entity.getProfessions().stream().map(p -> p.getProfession().getId()).collect(Collectors.toList()));
+
+
+        dto.setSelf(linkTo(methodOn(StarController.class).showOne(entity.getId())).withSelfRel().getHref());
+        dto.setLinksu(
+                linkTo(methodOn(StarController.class).showLinksByStarId(entity.getId())).withRel("links").getHref());
+        dto.setCountriesu(linkTo(methodOn(StarController.class).showCountriesByStarId(entity.getId()))
+                .withRel("countries").getHref());
+        dto.setProfessionsu(linkTo(methodOn(StarController.class).showProfessionsByStarId(entity.getId()))
+                .withRel("professions").getHref());
+        dto.setRoles(
+                linkTo(methodOn(StarController.class).showRolesByStarId(entity.getId())).withRel("roles").getHref());
+        return dto;
+    }
 
     public List<StarDTO> mapListsToDto(List<Star> stars) {
         List<StarDTO> starDTOs = new ArrayList<>();

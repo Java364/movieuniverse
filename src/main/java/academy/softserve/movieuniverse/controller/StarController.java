@@ -126,6 +126,15 @@ public class StarController {
                 .body(galleryMapper.mapToDTO(starService.findById(id).getGallery()));
     }
 
+    
+    /*@GetMapping("/{id}/links")
+    public ResponseEntity<List<LinksDTO>> showLinksByStarId(@PathVariable Long id) {
+        Star star = starService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(linksMapper.mapListToDto(star.getLinks()));
+    }*/
+    
+
+
     @GetMapping("/{id}/links")
     public ResponseEntity<List<LinksDTO>> showLinksByStarId(@PathVariable Long id) {
         Star star = starService.findById(id);
@@ -179,6 +188,12 @@ public class StarController {
     public ResponseEntity<List<StarActivityInMoviesDTO>> showRolesByStarId(@PathVariable Long id) {
         Star star = starService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(starActivityMapper.mapActivityListsToDto(star.getRoles()));
+    }
+
+    @GetMapping("/{id}/linkss")
+    public ResponseEntity<StarDTO> showById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(mapper.mapProfileToDto(starService.findById(id)));
     }
 
 }
