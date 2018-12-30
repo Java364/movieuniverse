@@ -73,6 +73,17 @@ public class StarMapper {
         star.setAvatar(avatar);
         return star;
     }
+    
+    public Star mapUpdateToEntity(StarDTO dto) {
+        Star star = new Star();
+        star.setBiography(dto.getBiography());
+        star.setBirthday(dto.getBirthday());
+        star.setCityOfBirth(dto.getCityOfBirth());
+        star.setGrowth(dto.getGrowth());
+        star.setLastName(dto.getLastName());
+        star.setFirstName(dto.getFirstName());
+        return star;
+    }
 
     public StarDTO mapCreateToDto(Star entity) {
         StarDTO dto = new StarDTO();
