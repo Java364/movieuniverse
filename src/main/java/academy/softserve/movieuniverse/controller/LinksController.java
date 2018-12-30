@@ -29,8 +29,7 @@ public class LinksController {
       return ResponseEntity
               .status(HttpStatus.CREATED)
               .body(linksMapper.mapEntityToDto(
-                      linksService.saveLinks(linksMapper
-                                      .mapToEntityAndSaveLinks(linksDTO)
+                      linksService.saveLinks(linksMapper.mapToEntityAndSaveLinks(linksDTO)
                               )
               )
               );

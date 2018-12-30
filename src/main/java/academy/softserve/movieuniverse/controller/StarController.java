@@ -194,5 +194,11 @@ public class StarController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(mapper.mapProfileToDto(starService.findById(id)));
     }
+    @PostMapping("/{id}/addLinks")
+    public ResponseEntity<LinksDTO> createLinks(@PathVariable Long id, @RequestBody LinksDTO linksDTO) {
+        Links links = linksMapper.mapToEntityAndSaveLinks(linksDTO);
+        links.setStar(starService.findById(id));
+        return ResponseEntity.status(HttpStatus.CREATED).body(linksMapper.mapEntityToDto(linksService.saveLinks(links)));
+    }
 
 }
