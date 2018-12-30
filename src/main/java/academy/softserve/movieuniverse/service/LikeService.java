@@ -20,21 +20,21 @@ public class LikeService {
     public Like save(Like like) {
         like = likeRepository.save(like);
         if (like == null)
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " like");
+            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " like");
         return like;
     }
 
     public Like update(Like like) {
         like = likeRepository.save(like);
         if (like == null)
-            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " like");
+            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " like");
         return like;
     }
 
     public Like findById(Long id) {
         Optional<Like> likeOptional = likeRepository.findById(id);
         if (!likeOptional.isPresent()) {
-            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "like with " + id.toString() + " ID");
+            throw NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage() + "like with " + id.toString() + " ID");
         }
         Like like = likeOptional.get();
         return like;
@@ -48,7 +48,7 @@ public class LikeService {
 
     public void deleteById(Long id) {
         if (id == null || findById(id) == null)
-            throw NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "like with " + id.toString() + " ID");
+            throw NotFoundException.createNotFoundException(ExceptionType.DELETE.getMessage() + "like with " + id.toString() + " ID");
         likeRepository.deleteById(id);
     }
 }

@@ -43,7 +43,7 @@ public class ProfessionMapper {
         professionDTO.setId(profession.getId());
         professionDTO.setProfessionType(profession.getType());
         professionDTO.setSelf(linkTo(methodOn(ProfessionController.class).getOneProfession(profession.getId())).withSelfRel().getHref());
-        
+
         professionDTO.setRemoved(profession.getIsRemoved());
         return professionDTO;
     }

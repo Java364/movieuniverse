@@ -22,7 +22,7 @@ public class LinksService {
 
     public Links saveLinks(Links links) {
         if (links.getLinkName().isEmpty() || links == null)
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + "Link");
+            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + "Link");
         {
             return linksRepository.save(links);
         }
@@ -35,7 +35,7 @@ public class LinksService {
     public void deleteLinks(Long id) {
         if (!linksRepository.findById(id).isPresent())
             throw NotFoundException
-                    .createDeleteException(ExceptionType.DELETE.getMessage() + "link with ID - " + id.toString());
+                    .createNotFoundException(ExceptionType.DELETE.getMessage() + "link with ID - " + id.toString());
         linksRepository.deleteById(id);
     }
 
@@ -43,7 +43,7 @@ public class LinksService {
         Optional<Links> linksOptional = linksRepository.findById(id);
         if (!linksOptional.isPresent()) {
             throw NotFoundException
-                    .createSelectException(ExceptionType.SELECT.getMessage() + "link with ID - " + id.toString());
+                    .createNotFoundException(ExceptionType.SELECT.getMessage() + "link with ID - " + id.toString());
         }
         Links links = linksRepository.getOne(id);
         return links;
@@ -51,7 +51,7 @@ public class LinksService {
 
     public Links updateLinks(Links links) {
         if (links == null || !linksRepository.findById(links.getId()).isPresent())
-            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + "Link");
+            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + "Link");
         links = linksRepository.save(links);
         return links;
     }

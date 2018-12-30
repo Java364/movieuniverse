@@ -29,7 +29,7 @@ public class MovieService {
 
     public Movie create(Movie movie) {
         if (movie == null) {
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " movie");
+            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " movie");
         }
         movie = movieRepository.save(movie);
         return movie;
@@ -37,12 +37,12 @@ public class MovieService {
 
     public Movie saveMovie(Movie movie) {
         if (movie == null) {
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " movie");
+            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " movie");
         }
         try {
             movie = movieRepository.save(movie);
         } catch (Exception ex) {
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " movie");
+            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " movie");
         }
         return movie;
     }
@@ -52,7 +52,7 @@ public class MovieService {
         try {
             result.addAll(movieRepository.findAll());
         } catch (Exception ex) {
-            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage());
+            throw NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage());
         }
         return result;
     }
@@ -60,7 +60,7 @@ public class MovieService {
     public Movie findMovieById(Long id) {
         Optional<Movie> movie = movieRepository.findById(id);
         if (!movie.isPresent()) {
-            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "movie with " + id.toString() + " ID");
+            throw NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage() + "movie with " + id.toString() + " ID");
         }
         return movie.get();
     }
@@ -86,7 +86,7 @@ public class MovieService {
             }
             exist = movieRepository.save(exist);
         } catch (Exception ex) {
-            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " movie");
+            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " movie");
         }
         return exist;
     }
@@ -96,7 +96,7 @@ public class MovieService {
             Movie movie = findMovieById(id);
             movieRepository.delete(movie);
         } catch (Exception ex) {
-            throw NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "movie with " + id.toString() + " ID");
+            throw NotFoundException.createNotFoundException(ExceptionType.DELETE.getMessage() + "movie with " + id.toString() + " ID");
         }
     }
 
