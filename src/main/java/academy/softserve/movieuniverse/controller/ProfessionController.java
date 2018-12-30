@@ -1,9 +1,11 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.ProfessionDTO;
+import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.entity.Profession;
 import academy.softserve.movieuniverse.service.ProfessionServise;
 import academy.softserve.movieuniverse.service.mapper.ProfessionMapper;
+import academy.softserve.movieuniverse.service.mapper.StarProfessionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class ProfessionController {
     private ProfessionServise professionServise;
     @Autowired
     private ProfessionMapper professionMapper = new ProfessionMapper();
+    @Autowired
+    private StarProfessionMapper starProfessionMapper;
 
     @PostMapping("/createProfession")
     ResponseEntity<ProfessionDTO> createProfession(@RequestBody ProfessionDTO professionDTO) {
@@ -56,4 +60,5 @@ public class ProfessionController {
         professionDTO = professionMapper.mapToDto(professions);
         return new ResponseEntity<ProfessionDTO>(professionDTO, HttpStatus.OK);
     }
+
 }

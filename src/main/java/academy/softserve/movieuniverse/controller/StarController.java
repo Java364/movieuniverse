@@ -7,10 +7,7 @@ import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.entity.*;
-import academy.softserve.movieuniverse.service.GalleryService;
-import academy.softserve.movieuniverse.service.LinksService;
-import academy.softserve.movieuniverse.service.StarProfessionService;
-import academy.softserve.movieuniverse.service.StarService;
+import academy.softserve.movieuniverse.service.*;
 import academy.softserve.movieuniverse.service.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +31,8 @@ public class StarController {
     private final GalleryMapper galleryMapper;
     private final CountryMapper countryMapper;
     private final StarActivityInMoviesMapper starActivityMapper;
+    @Autowired
+    private ProfessionServise professionServise;
 
     @Autowired
     public StarController(StarService starService, StarProfessionService starProfessionService, StarMapper mapper,
@@ -171,6 +170,12 @@ public class StarController {
         Star star = starService.findById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(starProfessionMapper.mapListEntityToDTO(star.getProfessions()));
+    }
+    @GetMapping("/{id}/professionsss")
+    public ResponseEntity<List<StarProfessionDTO>> showProfessionsByStarIds(@PathVariable Long id) {
+        Profession profession = professionServise.getOneProfession(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(starProfessionMapper.mapListEntityToDTO(profession.getStars()));
     }
 
 //    @PostMapping("/{id}/professions")
