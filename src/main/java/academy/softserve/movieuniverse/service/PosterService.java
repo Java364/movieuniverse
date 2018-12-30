@@ -20,21 +20,21 @@ public class PosterService {
     public Poster save(Poster poster) {
         poster = posterRepository.save(poster);
         if (poster == null)
-            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " poster");
+            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " poster");
         return poster;
     }
 
     public Poster update(Poster poster) {
         poster = posterRepository.save(poster);
         if (poster == null)
-            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " poster");
+            throw new  NotFoundException(ExceptionType.UPDATE.getMessage() + " poster");
         return poster;
 }
 
     public Poster findById(Long id) {
         Optional<Poster> posterOptional = posterRepository.findById(id);
         if (!posterOptional.isPresent()) {
-            throw NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage() + "poster with " + id.toString() + " ID");
+            throw new NotFoundException(ExceptionType.SELECT.getMessage() + "poster with " + id.toString() + " ID");
         }
         Poster poster = posterOptional.get();
         return poster;
@@ -42,7 +42,7 @@ public class PosterService {
 
     public void deleteById(Long id) {
         if (id == null || findById(id) == null)
-            throw NotFoundException.createNotFoundException(ExceptionType.DELETE.getMessage() + "poster with " + id.toString() + " ID");
+            throw new  NotFoundException(ExceptionType.DELETE.getMessage() + "poster with " + id.toString() + " ID");
         posterRepository.deleteById(id);
     }
 
@@ -50,7 +50,7 @@ public class PosterService {
     public Poster remove(Long id) {
         Optional<Poster> posterOptional = posterRepository.findById(id);
         if (!posterOptional.isPresent()) {
-            throw NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage() + "poster with " + id.toString() + " ID");
+            throw new  NotFoundException(ExceptionType.SELECT.getMessage() + "poster with " + id.toString() + " ID");
         }
         Poster poster = posterOptional.get();
         poster.setId(id);

@@ -30,7 +30,7 @@ public class MovieMarkService {
     @Transactional
     public MovieMark create(MovieMark movieMark) {
         if (movieMark == null) {
-            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " movieMark");
+            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " movieMark");
         }
         return movieMarkRepository.save(movieMark);
     }
@@ -38,7 +38,7 @@ public class MovieMarkService {
     @Transactional
     public void delete(Long id) {
         if (id == null || !movieMarkRepository.findById(id).isPresent()) {
-            throw NotFoundException.createNotFoundException(
+            throw new  NotFoundException(
                     ExceptionType.DELETE.getMessage() + " movieMark with " + id.toString() + " ID");
         }
         movieMarkRepository.deleteById(id);
@@ -48,14 +48,14 @@ public class MovieMarkService {
     public MovieMark update(MovieMark movieMark) {
         MovieMark existMovieMark = movieMarkRepository.getOne(movieMark.getId());
         if (movieMark == null || movieMark.getId() == null || existMovieMark == null) {
-            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " movieMark");
+            throw new  NotFoundException(ExceptionType.UPDATE.getMessage() + " movieMark");
         }
         existMovieMark.setMark(movieMark.getMark());
         existMovieMark.setUser(movieMark.getUser());
         existMovieMark.setMovie(movieMark.getMovie());
         movieMark = movieMarkRepository.save(existMovieMark);
         if (movieMark == null) {
-            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " movieMark");
+            throw new  NotFoundException(ExceptionType.UPDATE.getMessage() + " movieMark");
         }
         return movieMark;
     }
@@ -63,7 +63,7 @@ public class MovieMarkService {
     public MovieMark findById(Long id) {
         Optional<MovieMark> movieMarkOptional = movieMarkRepository.findById(id);
         if (id == null || !movieMarkOptional.isPresent()) {
-            throw NotFoundException.createNotFoundException(
+            throw new  NotFoundException(
                     ExceptionType.SELECT.getMessage() + " movieMark with " + id.toString() + " ID");
         }
         MovieMark movieMark = movieMarkOptional.get();

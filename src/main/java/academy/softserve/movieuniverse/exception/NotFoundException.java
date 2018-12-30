@@ -6,8 +6,8 @@ public class NotFoundException extends CustomValidationException {
         super(customMessage);
     }
 
-    public static NotFoundException createNotFoundException(String message) {
+   /* public static NotFoundException createNotFoundException(String message) {
         return new NotFoundException(message);
-    }
+    }*/
 
 }

@@ -27,10 +27,10 @@ public class StarProfessionService {
     @Transactional
     public void createStarProfession(StarProfession starProfession, Long starId) {
         if (starProfession == null) {
-            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " StarProfession");
+            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " StarProfession");
         }
         if (starService.findById(starId) == null) {
-            throw NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage() + "StarProfession");
+            throw new  NotFoundException(ExceptionType.SELECT.getMessage() + "StarProfession");
         }
         starProfession.setStar(starService.findById(starId));
         starProfessionRepository.save(starProfession);
@@ -39,7 +39,7 @@ public class StarProfessionService {
     public StarProfession getStarProfession(Long id) {
         Optional<StarProfession> starProfession = starProfessionRepository.findById(id);
         if (!starProfession.isPresent()) {
-            throw NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage() + "StarProfession with " + id.toString() + " ID");
+            throw new  NotFoundException(ExceptionType.SELECT.getMessage() + "StarProfession with " + id.toString() + " ID");
         }
         return starProfession.get();
     }
@@ -47,8 +47,8 @@ public class StarProfessionService {
     public void deleteStarProfession(Long id) {
         Optional<StarProfession> starProfession = starProfessionRepository.findById(id);
         if (!starProfession.isPresent()) {
-            throw NotFoundException
-                    .createNotFoundException(ExceptionType.DELETE.getMessage() + "StarProfession with " + id.toString() + " ID");
+            throw new NotFoundException
+                    (ExceptionType.DELETE.getMessage() + "StarProfession with " + id.toString() + " ID");
         }
         starProfessionRepository.deleteById(id);
     }

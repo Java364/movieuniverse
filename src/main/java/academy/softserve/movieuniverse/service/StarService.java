@@ -30,7 +30,7 @@ public class StarService {
 
     public Star create(Star star) {
         if (star == null) {
-            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " star");
+            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " star");
         }
         star = starRepository.save(star);
         return star;
@@ -39,7 +39,7 @@ public class StarService {
     public Star update(Star star, Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " star");
+            throw new  NotFoundException(ExceptionType.UPDATE.getMessage() + " star");
         }
         star.setId(id);
         star = starRepository.save(star);
@@ -53,7 +53,7 @@ public class StarService {
     public Star findById(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage() + "star with " + id.toString() + " ID");
+            throw new NotFoundException(ExceptionType.SELECT.getMessage() + "star with " + id.toString() + " ID");
         }
         Star star = starOptional.get();
         return star;
@@ -62,7 +62,7 @@ public class StarService {
     public void deleteById(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw NotFoundException.createNotFoundException(ExceptionType.DELETE.getMessage() + "star with " + id.toString() + " ID");
+            throw new NotFoundException(ExceptionType.DELETE.getMessage() + "star with " + id.toString() + " ID");
         }
         starRepository.deleteById(id);
     }
@@ -70,7 +70,7 @@ public class StarService {
     public Star remove(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw NotFoundException.createNotFoundException(ExceptionType.DELETE.getMessage() + "star with " + id.toString() + " ID");
+            throw new  NotFoundException(ExceptionType.DELETE.getMessage() + "star with " + id.toString() + " ID");
         }
         Star star = starOptional.get();
         star.setId(id);
@@ -82,7 +82,8 @@ public class StarService {
     public Star makeActive(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage() + "star with " + id.toString() + " ID");
+            throw new
+            NotFoundException(ExceptionType.SELECT.getMessage() + "star with " + id.toString() + " ID");
         }
         Star star = starOptional.get();
         star.setId(id);
