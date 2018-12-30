@@ -4,6 +4,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import academy.softserve.movieuniverse.controller.StarController;
 import academy.softserve.movieuniverse.dto.StarDTO;
+import academy.softserve.movieuniverse.entity.Avatar;
+import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.service.*;
 
@@ -24,6 +26,8 @@ public class StarMapper {
     private GalleryService galleryService;
     @Autowired
     private LinksService linkService;
+    @Autowired
+    private AvatarService avatarService;
     @Autowired
     private StarProfessionService starProfessionService;
     @Autowired
@@ -63,6 +67,10 @@ public class StarMapper {
         if (dto.getIsRemoved() == null) {
             star.setIsRemoved(false);
         }
+        Long id = (long) 1;
+        Avatar avatar = avatarService.save(avatarService.findById(id));
+        star.setGallery(galleryService.findById(id));
+        star.setAvatar(avatar);
         return star;
     }
 
@@ -99,6 +107,7 @@ public class StarMapper {
         dto.setRoles(
                 linkTo(methodOn(StarController.class).showRolesByStarId(entity.getId())).withRel("roles").getHref());
         dto.setGallery(linkTo(methodOn(StarController.class).showStarGallery(entity.getId())).withRel("gallery").getHref());
+        dto.setAvatar(linkTo(methodOn(StarController.class).showStarAvatar(entity.getId())).withRel("avatar").getHref());
         return dto;
     }
 
