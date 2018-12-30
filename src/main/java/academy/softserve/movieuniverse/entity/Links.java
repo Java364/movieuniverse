@@ -2,7 +2,6 @@ package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "links")
 public class Links extends AbstractEntity {
@@ -14,7 +13,7 @@ public class Links extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private SocialNetworkingSites socialNetworkingSite;
 
-    @ManyToOne/*(cascade = CascadeType.ALL)*/
+    @ManyToOne /* (cascade = CascadeType.ALL) */
     @JoinColumn(name = "star_id")
     private Star star;
 
@@ -42,6 +41,7 @@ public class Links extends AbstractEntity {
     public void setSocialNetworkingSite(SocialNetworkingSites socialNetworkingSite) {
         this.socialNetworkingSite = socialNetworkingSite;
     }
+
     public Star getStar() {
         return star;
     }
@@ -55,5 +55,3 @@ public class Links extends AbstractEntity {
 
     }
 }
-
-

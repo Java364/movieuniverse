@@ -27,7 +27,8 @@ public class ImageService {
         if (image == null || image.getId() != null)
             throw ImageException.createSaveException("couldn't save image", null);
         image = imageRepository.save(image);
-        if (image == null) throw ImageException.createSaveException("couldn't save image", null);
+        if (image == null)
+            throw ImageException.createSaveException("couldn't save image", null);
         return image;
     }
 
@@ -35,19 +36,18 @@ public class ImageService {
         if (newImage == null) {
             throw ImageException.createUpdateException("no image to update", null);
         }
-        return imageRepository.findById(id)
-                .map(image -> {
-                    image.setName(newImage.getName());
-                    image.setImageUrl(newImage.getImageUrl());
-                    image.setEntryLastUpdate(new Date());
-                    return imageRepository.saveAndFlush(image);
-                })
-                .orElseThrow(() -> ImageException.createUpdateException("no image to update", null));
+        return imageRepository.findById(id).map(image -> {
+            image.setName(newImage.getName());
+            image.setImageUrl(newImage.getImageUrl());
+            image.setEntryLastUpdate(new Date());
+            return imageRepository.saveAndFlush(image);
+        }).orElseThrow(() -> ImageException.createUpdateException("no image to update", null));
 
     }
 
     public Image findById(Long id) {
-        return imageRepository.findById(id).orElseThrow(() -> ImageException.createSelectException("no such image", new Exception()));
+        return imageRepository.findById(id)
+                .orElseThrow(() -> ImageException.createSelectException("no such image", new Exception()));
     }
 
     public void delete(Long id) {

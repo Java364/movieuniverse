@@ -43,11 +43,11 @@ public class User extends Person {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getUsername(){
+
+    public String getUsername() {
         String[] split = this.email.split("@");
         return split[0];
     }
-
 
     public List<Comment> getComments() {
         return comments;
@@ -59,13 +59,13 @@ public class User extends Person {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         User user = (User) o;
-        return Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(comments, user.comments) &&
-                Objects.equals(movieMarks, user.movieMarks);
+        return Objects.equals(email, user.email) && Objects.equals(password, user.password)
+                && Objects.equals(comments, user.comments) && Objects.equals(movieMarks, user.movieMarks);
     }
 
     @Override
@@ -75,11 +75,7 @@ public class User extends Person {
 
     @Override
     public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", comments=" + comments +
-                ", movieMarks=" + movieMarks +
-                '}';
+        return "User{" + "email='" + email + '\'' + ", password='" + password + '\'' + ", comments=" + comments
+                + ", movieMarks=" + movieMarks + '}';
     }
 }

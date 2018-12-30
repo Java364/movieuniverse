@@ -28,19 +28,13 @@ public class ImageController {
 
     @GetMapping
     public ResponseEntity<List<ImageDTO>> showAll() {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(
-                        imageMapper.mapToDTOList(imageService.findAll())
-                );
+        return ResponseEntity.status(HttpStatus.OK).body(imageMapper.mapToDTOList(imageService.findAll()));
     }
-
 
     @PutMapping("/{id}")
     ResponseEntity<ImageDTO> update(@PathVariable Long id, @RequestBody ImageDTO imageDTO) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(
-                        imageMapper.mapToDTO(imageService.update(imageMapper.mapToEntity(imageDTO), id))
-                );
+                .body(imageMapper.mapToDTO(imageService.update(imageMapper.mapToEntity(imageDTO), id)));
     }
 
     @GetMapping("/{id}")

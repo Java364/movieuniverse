@@ -23,22 +23,18 @@ public class Movie extends AbstractEntity {
     private MediaContent mediaContent;
 
     @ManyToMany
-    @JoinTable(name = "movies_genres", joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @JoinTable(name = "movies_genres", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genres = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "movies_countries", joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "country_id"))
+    @JoinTable(name = "movies_countries", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "country_id"))
     private List<Country> countries = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie")
     private List<StarActivityInMovies> roles = new ArrayList<StarActivityInMovies>();
 
     @ManyToMany
-    @JoinTable(name = "star_movie",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "star_id"))
+    @JoinTable(name = "star_movie", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "star_id"))
     private List<Star> stars = new ArrayList<>();
 
     @OneToMany(mappedBy = "commentedMovie", cascade = CascadeType.ALL)

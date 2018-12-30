@@ -33,13 +33,11 @@ public class TrailerService {
         if (newTrailer == null) {
             throw TrailerException.createUpdateException("no trailer to update", null);
         }
-        return trailerRepository.findById(id)
-                .map(trailer -> {
-                    trailer.setTrailerUrl(newTrailer.getTrailerUrl());
-                    trailer.setEntryLastUpdate(new Date());
-                    return trailerRepository.saveAndFlush(trailer);
-                })
-                .orElseThrow(() -> TrailerException.createUpdateException("no trailer to update", null));
+        return trailerRepository.findById(id).map(trailer -> {
+            trailer.setTrailerUrl(newTrailer.getTrailerUrl());
+            trailer.setEntryLastUpdate(new Date());
+            return trailerRepository.saveAndFlush(trailer);
+        }).orElseThrow(() -> TrailerException.createUpdateException("no trailer to update", null));
     }
 
     public Trailer findById(Long id) {

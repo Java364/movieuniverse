@@ -36,7 +36,6 @@ public class ProfessionController {
         return professionMapper.mapListProfessionToDto(professionList);
     }
 
-
     @GetMapping("/profession/{id}")
     public ResponseEntity<ProfessionDTO> getOneProfession(@PathVariable Long id) {
         Profession profession = professionServise.getOneProfession(id);
@@ -50,7 +49,8 @@ public class ProfessionController {
     }
 
     @PutMapping("/profession/{id}")
-    ResponseEntity<ProfessionDTO> updateProfession(@PathVariable("id") Long id, @RequestBody ProfessionDTO professionDTO) {
+    ResponseEntity<ProfessionDTO> updateProfession(@PathVariable("id") Long id,
+            @RequestBody ProfessionDTO professionDTO) {
         Profession professions = professionMapper.mapToEntityForUpdateProfession(professionDTO, id);
         professions = professionServise.updateProfession(professions);
         professionDTO = professionMapper.mapToDto(professions);

@@ -20,94 +20,94 @@ import java.util.stream.Collectors;
 @Service
 public class StarMapper {
 
-	@Autowired
-	private StarService starService;
-	@Autowired
-	private CountryService countryService;
-	@Autowired
-	private GalleryService galleryService;
-	@Autowired
-	private LinksService linkService;
-	@Autowired
-	private StarProfessionService starProfessionService;
-	@Autowired
-	private CountryMapper countryMapper;
-	@Autowired
-	private LinksMapper linksMapper;
-	@Autowired
-	private GalleryMapper galleryMapper;
-	@Autowired
-	private StarProfessionMapper starProfessionMapper;
+    @Autowired
+    private StarService starService;
+    @Autowired
+    private CountryService countryService;
+    @Autowired
+    private GalleryService galleryService;
+    @Autowired
+    private LinksService linkService;
+    @Autowired
+    private StarProfessionService starProfessionService;
+    @Autowired
+    private CountryMapper countryMapper;
+    @Autowired
+    private LinksMapper linksMapper;
+    @Autowired
+    private GalleryMapper galleryMapper;
+    @Autowired
+    private StarProfessionMapper starProfessionMapper;
 
-	public Star mapListToEntity(StarDTO dto) {
-		Star star = new Star();
-		star.setFirstName(dto.getFirstName());
-		star.setLastName(dto.getLastName());
-		star.setId(dto.getId());
-		star.setIsRemoved(new Boolean(false));
-		return star;
-	}
+    public Star mapListToEntity(StarDTO dto) {
+        Star star = new Star();
+        star.setFirstName(dto.getFirstName());
+        star.setLastName(dto.getLastName());
+        star.setId(dto.getId());
+        star.setIsRemoved(new Boolean(false));
+        return star;
+    }
 
-	public StarDTO mapListToDto(Star entity) {
-		StarDTO dto = new StarDTO();
-		dto.setFirstName(entity.getFirstName());
-		dto.setLastName(entity.getLastName());
-		dto.setId(entity.getId());
-		return dto;
-	}
+    public StarDTO mapListToDto(Star entity) {
+        StarDTO dto = new StarDTO();
+        dto.setFirstName(entity.getFirstName());
+        dto.setLastName(entity.getLastName());
+        dto.setId(entity.getId());
+        return dto;
+    }
 
-	public Star mapCreateToEntity(StarDTO dto) {
-		Star star = new Star();
-		star.setBiography(dto.getBiography());
-		star.setBirthday(dto.getBirthday());
-		star.setCityOfBirth(dto.getCityOfBirth());
-		star.setCountries(
-				dto.getCountriesIds().stream().map(p -> countryService.findById(p)).collect(Collectors.toList()));
-		star.setFirstName(dto.getFirstName());
-		if (dto.getGalleryId() == null || galleryService.findById(dto.getGalleryId()) == null) {
-			Long id = (long) 1;
-			dto.setGalleryId(id);
-		}
-		star.setGallery(galleryService.findById(dto.getGalleryId()));
-		star.setGrowth(dto.getGrowth());
-		star.setId(null);
-		star.setLastName(dto.getLastName());
-		if (dto.getIsRemoved() == null) {
-			star.setIsRemoved(false);
-		}
-		return star;
-	}
+    public Star mapCreateToEntity(StarDTO dto) {
+        Star star = new Star();
+        star.setBiography(dto.getBiography());
+        star.setBirthday(dto.getBirthday());
+        star.setCityOfBirth(dto.getCityOfBirth());
+        star.setCountries(
+                dto.getCountriesIds().stream().map(p -> countryService.findById(p)).collect(Collectors.toList()));
+        star.setFirstName(dto.getFirstName());
+        if (dto.getGalleryId() == null || galleryService.findById(dto.getGalleryId()) == null) {
+            Long id = (long) 1;
+            dto.setGalleryId(id);
+        }
+        star.setGallery(galleryService.findById(dto.getGalleryId()));
+        star.setGrowth(dto.getGrowth());
+        star.setId(null);
+        star.setLastName(dto.getLastName());
+        if (dto.getIsRemoved() == null) {
+            star.setIsRemoved(false);
+        }
+        return star;
+    }
 
-	public StarDTO mapCreateToDto(Star entity) {
-		StarDTO dto = new StarDTO();
-		dto.setBiography(entity.getBiography());
-		dto.setBirthday(entity.getBirthday());
-		dto.setCityOfBirth(entity.getCityOfBirth());
-		dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));
-		dto.setFirstName(entity.getFirstName());
-		dto.setGalleryId(entity.getGallery().getId());
-		dto.setGrowth(entity.getGrowth());
-		dto.setId(entity.getId());
-		dto.setLastName(entity.getLastName());
-		dto.setIsRemoved(entity.getIsRemoved());
-		return dto;
-	}
+    public StarDTO mapCreateToDto(Star entity) {
+        StarDTO dto = new StarDTO();
+        dto.setBiography(entity.getBiography());
+        dto.setBirthday(entity.getBirthday());
+        dto.setCityOfBirth(entity.getCityOfBirth());
+        dto.setCountriesIds(entity.getCountries().stream().map(p -> p.getId()).collect(Collectors.toList()));
+        dto.setFirstName(entity.getFirstName());
+        dto.setGalleryId(entity.getGallery().getId());
+        dto.setGrowth(entity.getGrowth());
+        dto.setId(entity.getId());
+        dto.setLastName(entity.getLastName());
+        dto.setIsRemoved(entity.getIsRemoved());
+        return dto;
+    }
 
-//	public Star mapProfileToEntity(StarDTO dto) {
-//		Star star = new Star();
-//		star.setBiography(dto.getBiography());
-//		star.setBirthday(dto.getBirthday());
-//		star.setCityOfBirth(dto.getCityOfBirth());
-//		star.setFirstName(dto.getFirstName());
-//		star.setGallery(galleryMapper.mapToEntity(dto.getGalleryDto()));
-//		star.setGrowth(dto.getGrowth());
-//		star.setId(dto.getId());
-//		star.setLastName(dto.getLastName());
-//		star.setCountries(countryMapper.mapCountriesListToEntity(dto.getCountries()));
-//		star.setLinks(linksMapper.mapLinksListToEntity(dto.getLinks()));
-//		star.setLinks(dto.getLinksIds().stream().map(p -> linkService.getOneLinks(p)).collect(Collectors.toList()));
-//		return star;
-//	}
+    // public Star mapProfileToEntity(StarDTO dto) {
+    // Star star = new Star();
+    // star.setBiography(dto.getBiography());
+    // star.setBirthday(dto.getBirthday());
+    // star.setCityOfBirth(dto.getCityOfBirth());
+    // star.setFirstName(dto.getFirstName());
+    // star.setGallery(galleryMapper.mapToEntity(dto.getGalleryDto()));
+    // star.setGrowth(dto.getGrowth());
+    // star.setId(dto.getId());
+    // star.setLastName(dto.getLastName());
+    // star.setCountries(countryMapper.mapCountriesListToEntity(dto.getCountries()));
+    // star.setLinks(linksMapper.mapLinksListToEntity(dto.getLinks()));
+    // star.setLinks(dto.getLinksIds().stream().map(p -> linkService.getOneLinks(p)).collect(Collectors.toList()));
+    // return star;
+    // }
 
 	public StarDTO mapProfileToDto(Star entity) {
 		StarDTO dto = new StarDTO();
@@ -140,19 +140,19 @@ public class StarMapper {
 		return dto;
 	}
 
-	public List<StarDTO> mapListsToDto(List<Star> stars) {
-		List<StarDTO> starDTOs = new ArrayList<>();
-		for (Star t : stars) {
-			starDTOs.add(this.mapListToDto(t));
-		}
-		return starDTOs;
-	}
+    public List<StarDTO> mapListsToDto(List<Star> stars) {
+        List<StarDTO> starDTOs = new ArrayList<>();
+        for (Star t : stars) {
+            starDTOs.add(this.mapListToDto(t));
+        }
+        return starDTOs;
+    }
 
-	public List<Star> mapListsToEntity(List<StarDTO> starsDTOs) {
-		List<Star> stars = new ArrayList<>();
-		for (StarDTO t : starsDTOs) {
-			stars.add(this.mapListToEntity(t));
-		}
-		return stars;
-	}
+    public List<Star> mapListsToEntity(List<StarDTO> starsDTOs) {
+        List<Star> stars = new ArrayList<>();
+        for (StarDTO t : starsDTOs) {
+            stars.add(this.mapListToEntity(t));
+        }
+        return stars;
+    }
 }

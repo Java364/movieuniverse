@@ -1,9 +1,9 @@
 package academy.softserve.movieuniverse.dto;
 
+import academy.softserve.movieuniverse.dto.country.CountryDTO;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import academy.softserve.movieuniverse.dto.country.CountryDTO;
 
 public class StarDTO {
     private Long id;
@@ -14,14 +14,13 @@ public class StarDTO {
     private Double growth;
     private String cityOfBirth;
     private Long galleryId;
-
-    //private GalleryDTO galleryDto;
     private List<Long> rolesIds = new ArrayList<Long>();
     private List<Long> professionsIds = new ArrayList<Long>();
     private List<Long> linksIds = new ArrayList<Long>();
     private List<Long> countriesIds = new ArrayList<>();
     private List<Long> moviesIds = new ArrayList<Long>();
     private List<LinksDTO> links = new ArrayList<LinksDTO>();
+
     
     private List<StarProfessionDTO> professions = new ArrayList<StarProfessionDTO>();
     private List<CountryDTO> countries = new ArrayList<CountryDTO>();
@@ -35,62 +34,62 @@ public class StarDTO {
     private String countriesu;
     private String moviesu;
     private String professionsu;
-    
+
     public String getSelf() {
-		return self;
-	}
+        return self;
+    }
 
-	public void setSelf(String self) {
-		this.self = self;
-	}
+    public void setSelf(String self) {
+        this.self = self;
+    }
 
-	public String getGallery() {
-		return gallery;
-	}
+    public String getGallery() {
+        return gallery;
+    }
 
-	public void setGallery(String gallery) {
-		this.gallery = gallery;
-	}
+    public void setGallery(String gallery) {
+        this.gallery = gallery;
+    }
 
-	public String getRoles() {
-		return roles;
-	}
+    public String getRoles() {
+        return roles;
+    }
 
-	public void setRoles(String roles) {
-		this.roles = roles;
-	}
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 
-	public String getLinksu() {
-		return linksu;
-	}
+    public String getLinksu() {
+        return linksu;
+    }
 
-	public void setLinksu(String linksu) {
-		this.linksu = linksu;
-	}
+    public void setLinksu(String linksu) {
+        this.linksu = linksu;
+    }
 
-	public String getCountriesu() {
-		return countriesu;
-	}
+    public String getCountriesu() {
+        return countriesu;
+    }
 
-	public void setCountriesu(String countriesu) {
-		this.countriesu = countriesu;
-	}
+    public void setCountriesu(String countriesu) {
+        this.countriesu = countriesu;
+    }
 
-	public String getMoviesu() {
-		return moviesu;
-	}
+    public String getMoviesu() {
+        return moviesu;
+    }
 
-	public void setMoviesu(String moviesu) {
-		this.moviesu = moviesu;
-	}
+    public void setMoviesu(String moviesu) {
+        this.moviesu = moviesu;
+    }
 
-	public String getProfessionsu() {
-		return professionsu;
-	}
+    public String getProfessionsu() {
+        return professionsu;
+    }
 
-	public void setProfessionsu(String professionsu) {
-		this.professionsu = professionsu;
-	}
+    public void setProfessionsu(String professionsu) {
+        this.professionsu = professionsu;
+    }
 
     public List<Long> getRolesIds() {
         return rolesIds;

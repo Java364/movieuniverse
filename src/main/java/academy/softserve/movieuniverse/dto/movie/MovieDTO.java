@@ -1,8 +1,6 @@
 package academy.softserve.movieuniverse.dto.movie;
 
 import academy.softserve.movieuniverse.dto.MediaContentDTO;
-import academy.softserve.movieuniverse.dto.movie.MovieCreateDTO;
-import academy.softserve.movieuniverse.dto.movie.MovieInfoDTO;
 import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
 
 import java.util.ArrayList;
@@ -126,6 +124,5 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
     public void setMovieMarks(List<MovieMarkDTO> movieMarks) {
         this.movieMarks = movieMarks;
     }
-
 
 }

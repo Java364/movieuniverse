@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.exception;
 
-
 public class CountryException extends CustomValidationException {
 
     private static final long serialVersionUID = -6283677404347365061L;
@@ -24,6 +23,5 @@ public class CountryException extends CustomValidationException {
     public static CountryException createSelectException(String message) {
         return new CountryException(message);
     }
-
 
 }

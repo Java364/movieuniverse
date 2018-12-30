@@ -34,14 +34,16 @@ public class LinksService {
 
     public void deleteLinks(Long id) {
         if (!linksRepository.findById(id).isPresent())
-            throw LinkException.createDeleteException(ExceptionType.DELETE.getMessage() + "link with ID - " + id.toString());
+            throw LinkException
+                    .createDeleteException(ExceptionType.DELETE.getMessage() + "link with ID - " + id.toString());
         linksRepository.deleteById(id);
     }
 
     public Links getOneLinks(Long id) {
         Optional<Links> linksOptional = linksRepository.findById(id);
         if (!linksOptional.isPresent()) {
-            throw LinkException.createSelectException(ExceptionType.SELECT.getMessage() + "link with ID - " + id.toString());
+            throw LinkException
+                    .createSelectException(ExceptionType.SELECT.getMessage() + "link with ID - " + id.toString());
         }
         Links links = linksRepository.getOne(id);
         return links;
