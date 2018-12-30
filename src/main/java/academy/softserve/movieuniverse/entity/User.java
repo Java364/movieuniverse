@@ -1,9 +1,7 @@
 package academy.softserve.movieuniverse.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +11,9 @@ import java.util.Objects;
 public class User extends Person {
     private String email;
     private String password;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role userRole;
 
     @OneToMany(mappedBy = "commentator", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
@@ -55,6 +56,14 @@ public class User extends Person {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Role getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Role userRole) {
+        this.userRole = userRole;
     }
 
     @Override
