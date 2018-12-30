@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Comment;
+import academy.softserve.movieuniverse.exception.NoSuchEntityException;
 import academy.softserve.movieuniverse.repository.CommentRepository;
 import academy.softserve.movieuniverse.service.validator.EntityExistsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,10 @@ public class CommentService {
     }
 
     public Comment findById(Long commentId) {
+        NoSuchEntityException noSuchEntityException = new NoSuchEntityException("Unable to find " + getClass().getName()
+                                                                                + " with id " + commentId);
         return commentRepository.findById(commentId)
-                .orElseThrow(() -> new EntityNotFoundException("Entity doesn't exists"));
+                .orElseThrow(() -> noSuchEntityException);
     }
 
     public List<Comment> findAll() {

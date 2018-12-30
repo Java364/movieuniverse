@@ -2,6 +2,7 @@ package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.exception.DuplicateEntryException;
+import academy.softserve.movieuniverse.exception.NoSuchEntityException;
 import academy.softserve.movieuniverse.repository.GenreRepository;
 import academy.softserve.movieuniverse.service.validator.EntityExistsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,12 +59,14 @@ public class GenreService {
     private void checkDuplicate(Genre genre) throws DuplicateEntryException {
         Genre duplicate = genreRepository.findGenreByName(genre.getName());
         if (duplicate != null) {
-            throw new DuplicateEntryException(DuplicateEntryException.createMsg("duplicate name.", Genre.class));
+            throw new DuplicateEntryException(getClass().getName() + " duplicate entry " + duplicate.getName());
         }
     }
 
     public Genre findById(Long id) {
         Optional<Genre> genre = genreRepository.findById(id);
-        return genre.orElseThrow(() -> new EntityNotFoundException("Genre entity with id: " + id + " doesn't exist."));
+        NoSuchEntityException noSuchEntityException = new NoSuchEntityException("Unable to find " + getClass().getName()
+                                                                                + " with id " + id);
+        return genre.orElseThrow(() -> noSuchEntityException);
     }
 }
