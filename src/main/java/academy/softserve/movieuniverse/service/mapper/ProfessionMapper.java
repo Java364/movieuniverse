@@ -1,5 +1,8 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import academy.softserve.movieuniverse.controller.LinksController;
+import academy.softserve.movieuniverse.controller.ProfessionController;
+import academy.softserve.movieuniverse.controller.StarController;
 import academy.softserve.movieuniverse.dto.ProfessionDTO;
 import academy.softserve.movieuniverse.entity.Profession;
 import academy.softserve.movieuniverse.service.ProfessionServise;
@@ -10,6 +13,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
 public class ProfessionMapper {
@@ -36,10 +42,8 @@ public class ProfessionMapper {
         ProfessionDTO professionDTO = new ProfessionDTO();
         professionDTO.setId(profession.getId());
         professionDTO.setProfessionType(profession.getType());
-        /* professionDTO.setStarsIDs(entity.getStars().stream().map(p ->p.getId()).collect(Collectors.toList())); */
-        /* professionDTO.setStarsProfessionDTO(starProfessionMapper.mapListEntityToDTO(profession.getStars())); */
-        professionDTO
-                .setStarIds(profession.getStars().stream().map(p -> p.getStar().getId()).collect(Collectors.toList()));
+        professionDTO.setSelf(linkTo(methodOn(ProfessionController.class).getOneProfession(profession.getId())).withSelfRel().getHref());
+        
         professionDTO.setRemoved(profession.getIsRemoved());
         return professionDTO;
     }
