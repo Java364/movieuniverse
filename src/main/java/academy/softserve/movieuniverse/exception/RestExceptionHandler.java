@@ -15,6 +15,7 @@ public class RestExceptionHandler {
         apiError.setMessage(ex.getCustomMessage());
         return buildResponseEntity(apiError);
     }
+
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
