@@ -37,6 +37,10 @@ public class Star extends Person {
     @OneToOne
     @JoinColumn(name = "gallery_id")
     private Gallery gallery;
+    
+    @OneToOne
+    @JoinColumn(name = "avatar_id")
+    private Avatar avatar;
 
     public Star() {
     }
@@ -112,4 +116,12 @@ public class Star extends Person {
     public void setProfessions(List<StarProfession> professions) {
         this.professions = professions;
     }
+
+	public Avatar getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Avatar avatar) {
+		this.avatar = avatar;
+	}
 }
