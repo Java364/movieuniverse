@@ -17,6 +17,7 @@ public class StarDTO {
     
     private String self;
     private String gallery;
+    private String avatar;
     private String roles;
     private String linksu;
     private String countriesu;
@@ -111,6 +112,12 @@ public class StarDTO {
 	}
 	public void setProfessionsu(String professionsu) {
 		this.professionsu = professionsu;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 }

@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.controller;
 
+import academy.softserve.movieuniverse.dto.AvatarDTO;
 import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
 import academy.softserve.movieuniverse.dto.StarDTO;
@@ -9,6 +10,7 @@ import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.service.*;
 import academy.softserve.movieuniverse.service.mapper.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,7 @@ public class StarController {
     private final GalleryService galleryService;
     private final GalleryMapper galleryMapper;
     private final CountryMapper countryMapper;
+    private final AvatarMapper avatarMapper;
     private final StarActivityInMoviesMapper starActivityMapper;
     @Autowired
     private ProfessionServise professionServise;
@@ -38,7 +41,7 @@ public class StarController {
     public StarController(StarService starService, StarProfessionService starProfessionService, StarMapper mapper,
             StarProfessionMapper starProfessionMapper, LinksMapper linksMapper, LinksService linksService,
             GalleryService galleryService, GalleryMapper galleryMapper, CountryMapper countryMapper,
-            StarActivityInMoviesMapper starActivityMapper) {
+            StarActivityInMoviesMapper starActivityMapper, AvatarMapper avatarMapper) {
         this.starService = starService;
         this.starProfessionService = starProfessionService;
         this.mapper = mapper;
@@ -49,6 +52,7 @@ public class StarController {
         this.galleryMapper = galleryMapper;
         this.countryMapper = countryMapper;
         this.starActivityMapper = starActivityMapper;
+        this.avatarMapper = avatarMapper;
     }
 
     @GetMapping("/list")
@@ -124,6 +128,12 @@ public class StarController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(galleryMapper.mapToDTO(starService.findById(id).getGallery()));
     }
+    
+    @GetMapping("/{id}/avatar")
+    public ResponseEntity<AvatarDTO> showStarAvatar(@PathVariable Long id) {
+        Star star = starService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(avatarMapper.mapToDTO(star.getAvatar()));
+    }
 
     @GetMapping("/{id}/links")
     public ResponseEntity<List<LinksDTO>> showLinksByStarId(@PathVariable Long id) {
@@ -171,6 +181,13 @@ public class StarController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(starProfessionMapper.mapListEntityToDTO(star.getProfessions()));
     }
+    
+    @GetMapping("/{id}/roles")
+    public ResponseEntity<List<StarActivityInMoviesDTO>> showRolesByStarId(@PathVariable Long id) {
+        Star star = starService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(starActivityMapper.mapActivityListsToDto(star.getRoles()));
+    }
+    
     @GetMapping("/{id}/professionsss")
     public ResponseEntity<List<StarProfessionDTO>> showProfessionsByStarIds(@PathVariable Long id) {
         Profession profession = professionServise.getOneProfession(id);
@@ -187,12 +204,6 @@ public class StarController {
 //        starService.update(star, id);
 //        return ResponseEntity.status(HttpStatus.OK).body(starProfessionMapper.mapListEntityToDTO(professions));
 //    }
-
-    @GetMapping("/{id}/roles")
-    public ResponseEntity<List<StarActivityInMoviesDTO>> showRolesByStarId(@PathVariable Long id) {
-        Star star = starService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(starActivityMapper.mapActivityListsToDto(star.getRoles()));
-    }
 
     @GetMapping("/{id}/linkss")
     public ResponseEntity<StarDTO> showById(@PathVariable Long id) {
