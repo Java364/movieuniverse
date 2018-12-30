@@ -3,8 +3,11 @@ package academy.softserve.movieuniverse.service;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.entity.Star;
-import academy.softserve.movieuniverse.exception.StarException;
+import academy.softserve.movieuniverse.exception.ExceptionType;
+import academy.softserve.movieuniverse.exception.NotFoundException;
+
 import academy.softserve.movieuniverse.repository.StarRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +30,7 @@ public class StarService {
 
     public Star create(Star star) {
         if (star == null) {
-            throw StarException.createSaveException("Couldn't create star", null);
+            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " star");
         }
         star = starRepository.save(star);
         return star;
@@ -36,7 +39,7 @@ public class StarService {
     public Star update(Star star, Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw StarException.createSelectException("There is no such star to update", null);
+            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " star");
         }
         star.setId(id);
         star = starRepository.save(star);
@@ -50,7 +53,7 @@ public class StarService {
     public Star findById(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw StarException.createSelectException("There is no such star", new Exception());
+            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "star with " + id.toString() + " ID");
         }
         Star star = starOptional.get();
         return star;
@@ -59,7 +62,7 @@ public class StarService {
     public void deleteById(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw StarException.createSelectException("There is no such user to delete", null);
+            throw NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "star with " + id.toString() + " ID");
         }
         starRepository.deleteById(id);
     }
@@ -67,7 +70,7 @@ public class StarService {
     public Star remove(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw StarException.createSelectException("There is no such star to remove", null);
+            throw NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "star with " + id.toString() + " ID");
         }
         Star star = starOptional.get();
         star.setId(id);
@@ -79,7 +82,7 @@ public class StarService {
     public Star makeActive(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw StarException.createSelectException("There is no such star to make active again", null);
+            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "star with " + id.toString() + " ID");
         }
         Star star = starOptional.get();
         star.setId(id);

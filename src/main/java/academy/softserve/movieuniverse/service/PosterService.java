@@ -1,7 +1,9 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Poster;
-import academy.softserve.movieuniverse.exception.PosterException;
+import academy.softserve.movieuniverse.exception.ExceptionType;
+import academy.softserve.movieuniverse.exception.NotFoundException;
+
 import academy.softserve.movieuniverse.repository.PosterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,21 +20,21 @@ public class PosterService {
     public Poster save(Poster poster) {
         poster = posterRepository.save(poster);
         if (poster == null)
-            throw PosterException.createSaveException("couldn't save poster", null);
+            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " poster");
         return poster;
     }
 
     public Poster update(Poster poster) {
         poster = posterRepository.save(poster);
         if (poster == null)
-            throw PosterException.createUpdateException("couldn't update poster", null);
+            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " poster");
         return poster;
-    }
+}
 
     public Poster findById(Long id) {
         Optional<Poster> posterOptional = posterRepository.findById(id);
         if (!posterOptional.isPresent()) {
-            throw PosterException.createSelectException("no such poster", new Exception());
+            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "poster with " + id.toString() + " ID");
         }
         Poster poster = posterOptional.get();
         return poster;
@@ -40,7 +42,7 @@ public class PosterService {
 
     public void deleteById(Long id) {
         if (id == null || findById(id) == null)
-            throw PosterException.createDeleteException("no exist such poster to delete", null);
+            throw NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "poster with " + id.toString() + " ID");
         posterRepository.deleteById(id);
     }
 
@@ -48,7 +50,7 @@ public class PosterService {
     public Poster remove(Long id) {
         Optional<Poster> posterOptional = posterRepository.findById(id);
         if (!posterOptional.isPresent()) {
-            throw PosterException.createSelectException("There is no such poster to remove", null);
+            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "poster with " + id.toString() + " ID");
         }
         Poster poster = posterOptional.get();
         poster.setId(id);

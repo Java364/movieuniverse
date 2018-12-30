@@ -2,7 +2,7 @@ package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.exception.ExceptionType;
-import academy.softserve.movieuniverse.exception.LinkException;
+import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.LinksRepository;
 import academy.softserve.movieuniverse.repository.StarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class LinksService {
 
     public Links saveLinks(Links links) {
         if (links.getLinkName().isEmpty() || links == null)
-            throw LinkException.createSaveException(ExceptionType.SAVE.getMessage() + "Link");
+            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + "Link");
         {
             return linksRepository.save(links);
         }
@@ -34,7 +34,7 @@ public class LinksService {
 
     public void deleteLinks(Long id) {
         if (!linksRepository.findById(id).isPresent())
-            throw LinkException
+            throw NotFoundException
                     .createDeleteException(ExceptionType.DELETE.getMessage() + "link with ID - " + id.toString());
         linksRepository.deleteById(id);
     }
@@ -42,7 +42,7 @@ public class LinksService {
     public Links getOneLinks(Long id) {
         Optional<Links> linksOptional = linksRepository.findById(id);
         if (!linksOptional.isPresent()) {
-            throw LinkException
+            throw NotFoundException
                     .createSelectException(ExceptionType.SELECT.getMessage() + "link with ID - " + id.toString());
         }
         Links links = linksRepository.getOne(id);
@@ -51,7 +51,7 @@ public class LinksService {
 
     public Links updateLinks(Links links) {
         if (links == null || !linksRepository.findById(links.getId()).isPresent())
-            throw LinkException.createUpdateException(ExceptionType.UPDATE.getMessage() + "Link");
+            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + "Link");
         links = linksRepository.save(links);
         return links;
     }

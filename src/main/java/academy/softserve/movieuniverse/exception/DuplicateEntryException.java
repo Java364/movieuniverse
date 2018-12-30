@@ -5,7 +5,5 @@ public class DuplicateEntryException extends CustomValidationException {
         super(message);
     }
 
-    public DuplicateEntryException(String message, ExceptionType exceptionType, Exception ex) {
-        super(message, exceptionType, ex);
-    }
+
 }
