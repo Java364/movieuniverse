@@ -18,7 +18,7 @@ public class ProfessionServise {
 
     public void saveProfession(Profession profession) {
         if (profession.getType().isEmpty() || profession == null)
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + "Profession");
+            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + "Profession");
         {
             professionRepository.save(profession);
         }
@@ -31,14 +31,14 @@ public class ProfessionServise {
     public void deleteProfession(Long id) {
         if (!professionRepository.findById(id).isPresent())
             throw NotFoundException
-                    .createDeleteException(ExceptionType.DELETE.getMessage() + "profession with ID - " + id.toString());
+                    .createNotFoundException(ExceptionType.DELETE.getMessage() + "profession with ID - " + id.toString());
 
         professionRepository.deleteById(id);
     }
 
     public Profession updateProfession(Profession profession) {
         if (profession == null || !professionRepository.findById(profession.getId()).isPresent())
-            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + "Profession");
+            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + "Profession");
 
         profession = professionRepository.save(profession);
         return profession;
@@ -48,7 +48,7 @@ public class ProfessionServise {
         Optional<Profession> profession = professionRepository.findById(id);
         if (!profession.isPresent()) {
             throw NotFoundException
-                    .createSelectException(ExceptionType.SELECT.getMessage() + "profession with ID - " + id.toString());
+                    .createNotFoundException(ExceptionType.SELECT.getMessage() + "profession with ID - " + id.toString());
         }
         Profession profession1 = professionRepository.getOne(id);
         return profession1;

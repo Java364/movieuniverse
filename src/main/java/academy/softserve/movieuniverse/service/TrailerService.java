@@ -24,35 +24,35 @@ public class TrailerService {
 
     public Trailer save(Trailer trailer) {
         if (trailer == null || trailer.getId() != null)
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " trailer");
+            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " trailer");
         trailer = trailerRepository.save(trailer);
         if (trailer == null)
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " trailer");
+            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " trailer");
         return trailer;
     }
 
     public Trailer update(Trailer newTrailer, Long id) {
         if (newTrailer == null) {
-            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " trailer");
+            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " trailer");
         }
         return trailerRepository.findById(id).map(trailer -> {
             trailer.setTrailerUrl(newTrailer.getTrailerUrl());
             trailer.setEntryLastUpdate(new Date());
             return trailerRepository.saveAndFlush(trailer);
-        }).orElseThrow(() -> NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " trailer"));
+        }).orElseThrow(() -> NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " trailer"));
     }
 
     public Trailer findById(Long id) {
         Optional<Trailer> trailerOptional = trailerRepository.findById(id);
         if (!trailerOptional.isPresent()) {
-            throw NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "trailer with " + id.toString() + " ID");
+            throw NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage() + "trailer with " + id.toString() + " ID");
         }
         return trailerOptional.get();
     }
 
     public void deleteById(Long id) {
         if (id == null || !trailerRepository.findById(id).isPresent())
-            throw NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "trailer with " + id.toString() + " ID");
+            throw NotFoundException.createNotFoundException(ExceptionType.DELETE.getMessage() + "trailer with " + id.toString() + " ID");
         trailerRepository.deleteById(id);
     }
 

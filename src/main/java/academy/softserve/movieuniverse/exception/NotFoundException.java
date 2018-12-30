@@ -6,19 +6,7 @@ public class NotFoundException extends CustomValidationException {
         super(customMessage);
     }
 
-    public static NotFoundException createDeleteException(String message) {
-        return new NotFoundException(message);
-    }
-
-    public static NotFoundException createSaveException(String message) {
-        return new NotFoundException(message);
-    }
-
-    public static NotFoundException createSelectException(String message) {
-        return new NotFoundException(message);
-    }
-
-    public static NotFoundException createUpdateException(String message) {
+    public static NotFoundException createNotFoundException(String message) {
         return new NotFoundException(message);
     }
 

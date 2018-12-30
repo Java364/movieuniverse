@@ -26,7 +26,7 @@ public class UserService {
 
     public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> NotFoundException
-                .createSelectException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
+                .createNotFoundException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
     }
 
     public User createUser(User user) {
@@ -35,11 +35,11 @@ public class UserService {
 
     public void deleteById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> NotFoundException
-                .createDeleteException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
+                .createNotFoundException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
         if (user.getIsRemoved()) {
             userRepository.deleteById(id);
         } else {
-            throw NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID");
+            throw NotFoundException.createNotFoundException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID");
         }
     }
 
@@ -47,14 +47,14 @@ public class UserService {
         userRepository.findById(id).map(user -> {
             user.setIsRemoved(true);
             return userRepository.saveAndFlush(user);
-        }).orElseThrow(() -> NotFoundException.createDeleteException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
+        }).orElseThrow(() -> NotFoundException.createNotFoundException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
     }
 
     public void restoreById(Long id) {
         userRepository.findById(id).map(user -> {
             user.setIsRemoved(false);
             return userRepository.saveAndFlush(user);
-        }).orElseThrow(() -> NotFoundException.createSelectException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
+        }).orElseThrow(() -> NotFoundException.createNotFoundException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
     }
 
     public User update(User user, Long id) {
@@ -65,7 +65,7 @@ public class UserService {
             userDB.setLastName(user.getLastName());
             userDB.setBirthday(user.getBirthday());
             return userRepository.saveAndFlush(userDB);
-        }).orElseThrow(() -> NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " user"));
+        }).orElseThrow(() -> NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " user"));
     }
 
     public List<User> findAll() {

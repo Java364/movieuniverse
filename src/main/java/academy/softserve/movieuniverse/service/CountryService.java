@@ -21,7 +21,7 @@ public class CountryService {
     @Transactional
     public Country create(Country country) {
         if (country == null)
-            throw NotFoundException.createSaveException(ExceptionType.SAVE.getMessage() + " country");
+            throw NotFoundException.createNotFoundException(ExceptionType.SAVE.getMessage() + " country");
         return countryRepository.save(country);
     }
 
@@ -29,11 +29,11 @@ public class CountryService {
     public Country update(Country country) {
         Optional<Country> countryOptional = countryRepository.findById(country.getId());
         if (country == null || country.getId() == null || !countryOptional.isPresent()) {
-            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " country");
+            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " country");
         }
         country = countryRepository.save(country);
         if (country == null) {
-            throw NotFoundException.createUpdateException(ExceptionType.UPDATE.getMessage() + " country");
+            throw NotFoundException.createNotFoundException(ExceptionType.UPDATE.getMessage() + " country");
         }
         return country;
     }
@@ -46,7 +46,7 @@ public class CountryService {
         Optional<Country> countryOptional = countryRepository.findById(id);
         if (!countryOptional.isPresent()) {
             throw NotFoundException
-                    .createSelectException(ExceptionType.SELECT.getMessage() + "country with " + id.toString() + " ID");
+                    .createNotFoundException(ExceptionType.SELECT.getMessage() + "country with " + id.toString() + " ID");
         }
         Country country = countryOptional.get();
         return country;
@@ -57,7 +57,7 @@ public class CountryService {
         Optional<Country> countryOptional = countryRepository.findById(id);
         if (id == null || !countryOptional.isPresent()) {
             throw NotFoundException
-                    .createDeleteException(ExceptionType.DELETE.getMessage() + "country with " + id.toString() + " ID");
+                    .createNotFoundException(ExceptionType.DELETE.getMessage() + "country with " + id.toString() + " ID");
         }
         countryRepository.deleteById(id);
     }
