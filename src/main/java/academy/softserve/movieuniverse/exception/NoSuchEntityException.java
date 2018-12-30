@@ -5,7 +5,4 @@ public class NoSuchEntityException extends CustomValidationException {
         super(message);
     }
 
-   /* public NoSuchEntityException(String message, ExceptionType exceptionType, Exception ex) {
-        super(message, exceptionType, ex);
-    }*/
 }
