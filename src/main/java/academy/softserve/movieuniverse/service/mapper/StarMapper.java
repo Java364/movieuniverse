@@ -63,19 +63,17 @@ public class StarMapper {
         star.setCityOfBirth(dto.getCityOfBirth());
         star.setGrowth(dto.getGrowth());
         star.setId(null);
+        star.setFirstName(dto.getLastName());
         star.setLastName(dto.getLastName());
         if (dto.getIsRemoved() == null) {
             star.setIsRemoved(false);
         }
-        Long id = (long) 1;
-        Avatar avatar = avatarService.save(avatarService.findById(id));
-        star.setGallery(galleryService.findById(id));
-        star.setAvatar(avatar);
+        this.mapCreateGalleryAndAvatar(star);
         return star;
     }
     
-    public Star mapUpdateToEntity(StarDTO dto) {
-        Star star = new Star();
+    public Star mapUpdateToEntity(StarDTO dto, Long id) {
+        Star star = starService.findById(id);
         star.setBiography(dto.getBiography());
         star.setBirthday(dto.getBirthday());
         star.setCityOfBirth(dto.getCityOfBirth());
@@ -136,5 +134,12 @@ public class StarMapper {
             stars.add(this.mapListToEntity(t));
         }
         return stars;
+    }
+    
+    private void mapCreateGalleryAndAvatar(Star star){
+        Avatar avatar = avatarService.save(new Avatar());
+        Gallery gallery = galleryService.save();
+        star.setGallery(gallery);
+        star.setAvatar(avatar);
     }
 }

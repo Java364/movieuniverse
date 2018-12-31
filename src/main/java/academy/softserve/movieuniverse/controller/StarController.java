@@ -76,7 +76,7 @@ public class StarController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<StarDTO> update(@RequestBody StarDTO starDTO, @PathVariable Long id) {
-        Star star = mapper.mapUpdateToEntity(starDTO);
+        Star star = mapper.mapUpdateToEntity(starDTO, id);
         starService.update(star, id);
         starDTO = mapper.mapCreateToDto(star);
         return new ResponseEntity<StarDTO>(starDTO, HttpStatus.CREATED);
