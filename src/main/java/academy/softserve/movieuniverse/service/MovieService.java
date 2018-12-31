@@ -1,10 +1,10 @@
 package academy.softserve.movieuniverse.service;
 
+import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.exception.ExceptionType;
-
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,4 +119,10 @@ public class MovieService {
         return gallery;
     }
 
+    public List<Country> saveCountries(Long movieId, List<Country> countries) {
+        Movie movie = this.findMovieById(movieId);
+        movie.setCountries(countries);
+        movieRepository.save(movie);
+        return countries;
+    }
 }
