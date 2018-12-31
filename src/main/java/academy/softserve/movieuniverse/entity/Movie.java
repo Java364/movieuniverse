@@ -27,7 +27,6 @@ public class Movie extends AbstractEntity {
     private List<Genre> genres = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "movies_countries", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "country_id"))
     private List<Country> countries = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie")
