@@ -1,10 +1,12 @@
 package academy.softserve.movieuniverse.service;
 
+import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.entity.StarProfession;
+import academy.softserve.movieuniverse.exception.DuplicateEntryException;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
-
 import academy.softserve.movieuniverse.repository.StarProfessionRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,13 @@ public class StarProfessionService {
         if (starService.findById(starId) == null) {
             throw new  NotFoundException(ExceptionType.SELECT.getMessage() + "StarProfession");
         }
+        Star star = starService.findById(starId);
+        List<StarProfession> starProfessions = star.getProfessions();
+        for (StarProfession i : starProfessions) {
+			if (i.getProfession().getId().equals(starProfession.getProfession().getId())) {
+				throw new DuplicateEntryException("there is such profession in this star");
+			}
+		}
         starProfession.setStar(starService.findById(starId));
         starProfessionRepository.save(starProfession);
     }
