@@ -1,32 +1,29 @@
 package academy.softserve.movieuniverse.entity;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "star_activity")
+@Table(name = "cast_and_crew")
 public class StarActivityInMovies extends AbstractEntity {
-
     @ManyToOne
-    @JoinColumn(name = "star_id")
-    private Star star;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<StarProfession> professions;
+    private StarProfession profession;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    private Movie movie;
+    private Movie          movie;
 
     public StarActivityInMovies() {
     }
 
-    public Star getStar() {
-        return star;
+    public StarProfession getProfession() {
+        return profession;
     }
 
-    public void setStar(Star star) {
-        this.star = star;
+    public void setProfession(StarProfession profession) {
+        this.profession = profession;
     }
 
     public Movie getMovie() {
@@ -35,13 +32,5 @@ public class StarActivityInMovies extends AbstractEntity {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
-    }
-
-    public List<StarProfession> getProfessions() {
-        return professions;
-    }
-
-    public void setProfessions(List<StarProfession> professions) {
-        this.professions = professions;
     }
 }
