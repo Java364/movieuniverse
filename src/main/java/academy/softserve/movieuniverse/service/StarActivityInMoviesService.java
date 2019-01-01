@@ -1,9 +1,8 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.entity.StarActivityInMovies;
+import academy.softserve.movieuniverse.entity.CastAndCrew;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
-
 import academy.softserve.movieuniverse.repository.StarActivityInMoviesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,32 +20,32 @@ public class StarActivityInMoviesService {
         this.starActivityInMoviesRepository = starActivityInMoviesRepository;
     }
 
-    public void createStarActivityInMovies(StarActivityInMovies starActivityInMovies) {
-        if (starActivityInMovies == null) {
-            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " StarActivityInMovies");
+    public void createStarActivityInMovies(CastAndCrew castAndCrew) {
+        if (castAndCrew == null) {
+            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " CastAndCrew");
         }
-        starActivityInMoviesRepository.save(starActivityInMovies);
+        starActivityInMoviesRepository.save(castAndCrew);
     }
 
-    public StarActivityInMovies getStarActivityInMovies(Long id) {
-        Optional<StarActivityInMovies> starActivityInMovies = starActivityInMoviesRepository.findById(id);
+    public CastAndCrew getStarActivityInMovies(Long id) {
+        Optional<CastAndCrew> starActivityInMovies = starActivityInMoviesRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
-            throw new  NotFoundException(ExceptionType.SELECT.getMessage() + "StarActivityInMovies with " + id.toString() + " ID");
+            throw new  NotFoundException(ExceptionType.SELECT.getMessage() + "CastAndCrew with " + id.toString() + " ID");
         }
         return starActivityInMovies.get();
     }
 
     public void deleteStarActivityInMovies(Long id) {
-        Optional<StarActivityInMovies> starActivityInMovies = starActivityInMoviesRepository.findById(id);
+        Optional<CastAndCrew> starActivityInMovies = starActivityInMoviesRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
             throw new
             NotFoundException(
-                    ExceptionType.DELETE.getMessage() + "StarActivityInMovies with " + id.toString() + " ID");
+                    ExceptionType.DELETE.getMessage() + "CastAndCrew with " + id.toString() + " ID");
         }
         starActivityInMoviesRepository.deleteById(id);
     }
 
-    public List<StarActivityInMovies> findAllStarActivityInMovies() {
+    public List<CastAndCrew> findAllStarActivityInMovies() {
         return starActivityInMoviesRepository.findAll();
     }
 }

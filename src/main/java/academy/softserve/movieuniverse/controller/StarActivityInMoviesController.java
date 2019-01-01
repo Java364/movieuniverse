@@ -1,7 +1,7 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
-import academy.softserve.movieuniverse.entity.StarActivityInMovies;
+import academy.softserve.movieuniverse.entity.CastAndCrew;
 import academy.softserve.movieuniverse.service.StarActivityInMoviesService;
 import academy.softserve.movieuniverse.service.mapper.StarActivityInMoviesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ public class StarActivityInMoviesController {
 
     @GetMapping("/starActivityInMovies")
     public List<StarActivityInMoviesDTO> viewAll() {
-        List<StarActivityInMovies> allStarActivityInMovies = starActivityInMoviesService.findAllStarActivityInMovies();
+        List<CastAndCrew> allStarActivityInMovies = starActivityInMoviesService.findAllStarActivityInMovies();
         List<StarActivityInMoviesDTO> allStarActivityInMoviesDTOs = new ArrayList<>();
-        for (StarActivityInMovies starActivityInMovies : allStarActivityInMovies) {
-            StarActivityInMoviesDTO starActivityInMoviesDTO = starActivityInMoviesMapper.mapToDto(starActivityInMovies);
+        for (CastAndCrew castAndCrew : allStarActivityInMovies) {
+            StarActivityInMoviesDTO starActivityInMoviesDTO = starActivityInMoviesMapper.mapToDto(castAndCrew);
             allStarActivityInMoviesDTOs.add(starActivityInMoviesDTO);
         }
         return allStarActivityInMoviesDTOs;
@@ -38,8 +38,8 @@ public class StarActivityInMoviesController {
 
     @GetMapping("/starActivityInMovies/{id}")
     public StarActivityInMoviesDTO getStarActivityInMovies(@PathVariable Long id) {
-        StarActivityInMovies starActivityInMovies = starActivityInMoviesService.getStarActivityInMovies(id);
-        return starActivityInMoviesMapper.mapToDto(starActivityInMovies);
+        CastAndCrew castAndCrew = starActivityInMoviesService.getStarActivityInMovies(id);
+        return starActivityInMoviesMapper.mapToDto(castAndCrew);
     }
 
     @DeleteMapping("/starActivityInMovies")

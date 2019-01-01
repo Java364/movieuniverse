@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cast_and_crew")
-public class StarActivityInMovies extends AbstractEntity {
+public class CastAndCrew extends AbstractEntity {
     @ManyToOne
     private StarProfession profession;
 
@@ -15,7 +15,7 @@ public class StarActivityInMovies extends AbstractEntity {
     @JoinColumn(name = "movie_id")
     private Movie          movie;
 
-    public StarActivityInMovies() {
+    public CastAndCrew() {
     }
 
     public StarProfession getProfession() {
