@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "cast_and_crew")
 public class CastAndCrew extends AbstractEntity {
     @ManyToOne
-    private StarProfession profession;
+    private StarProfession starProfession;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
@@ -18,12 +18,12 @@ public class CastAndCrew extends AbstractEntity {
     public CastAndCrew() {
     }
 
-    public StarProfession getProfession() {
-        return profession;
+    public StarProfession getStarProfession() {
+        return starProfession;
     }
 
-    public void setProfession(StarProfession profession) {
-        this.profession = profession;
+    public void setStarProfession(StarProfession starProfession) {
+        this.starProfession = starProfession;
     }
 
     public Movie getMovie() {
