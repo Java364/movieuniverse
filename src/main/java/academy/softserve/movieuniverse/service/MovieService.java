@@ -1,9 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.entity.Country;
-import academy.softserve.movieuniverse.entity.Gallery;
-import academy.softserve.movieuniverse.entity.Movie;
-import academy.softserve.movieuniverse.entity.MovieMark;
+import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.MovieRepository;
@@ -124,5 +121,12 @@ public class MovieService {
         movie.setCountries(countries);
         movieRepository.save(movie);
         return countries;
+    }
+
+    public List<Genre> saveGenres(Long movieId, List<Genre> genres) {
+        Movie movie = this.findMovieById(movieId);
+        movie.setGenres(genres);
+        movieRepository.save(movie);
+        return genres;
     }
 }
