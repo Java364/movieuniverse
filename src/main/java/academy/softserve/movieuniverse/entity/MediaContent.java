@@ -1,22 +1,19 @@
 package academy.softserve.movieuniverse.entity;
 
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Embeddable
 public class MediaContent {
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "poster_id")
     private Poster poster;
 
     @OneToMany(mappedBy = "movie")
     private List<Trailer> trailers;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gallery_id")
     private Gallery gallery;
 

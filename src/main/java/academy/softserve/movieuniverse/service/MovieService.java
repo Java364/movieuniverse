@@ -1,10 +1,7 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.entity.Gallery;
-import academy.softserve.movieuniverse.entity.Movie;
-import academy.softserve.movieuniverse.entity.MovieMark;
+import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.exception.ExceptionType;
-
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,4 +116,21 @@ public class MovieService {
         return gallery;
     }
 
+    public List<Country> saveCountries(Long movieId, List<Country> countries) {
+        Movie movie = this.findMovieById(movieId);
+        movie.setCountries(countries);
+        movieRepository.save(movie);
+        return countries;
+    }
+
+    public List<Genre> saveGenres(Long movieId, List<Genre> genres) {
+        Movie movie = this.findMovieById(movieId);
+        movie.setGenres(genres);
+        movieRepository.save(movie);
+        return genres;
+    }
+
+    public List<Star> findCreditsByProfession(Long movieId, String profession) {
+        return movieRepository.findCreditsByProfession(movieId, profession);
+    }
 }

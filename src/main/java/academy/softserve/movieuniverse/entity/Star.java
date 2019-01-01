@@ -21,8 +21,8 @@ public class Star extends Person {
     @Column(name = "star_city")
     private String cityOfBirth;
 
-    @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
-    private List<StarActivityInMovies> roles = new ArrayList<StarActivityInMovies>();
+    @OneToMany(mappedBy = "starProfession", cascade = CascadeType.ALL)
+    private List<CastAndCrew> roles = new ArrayList<CastAndCrew>();
 
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<StarProfession> professions = new ArrayList<StarProfession>();
@@ -30,14 +30,10 @@ public class Star extends Person {
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<Links> links = new ArrayList<Links>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "star_movie", joinColumns = @JoinColumn(name = "star_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private List<Movie> movies = new ArrayList<Movie>();
-
     @OneToOne
     @JoinColumn(name = "gallery_id")
     private Gallery gallery;
-    
+
     @OneToOne
     @JoinColumn(name = "avatar_id")
     private Avatar avatar;
@@ -61,11 +57,11 @@ public class Star extends Person {
         this.biography = biography;
     }
 
-    public List<StarActivityInMovies> getRoles() {
+    public List<CastAndCrew> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<StarActivityInMovies> roles) {
+    public void setRoles(List<CastAndCrew> roles) {
         this.roles = roles;
     }
 
@@ -75,14 +71,6 @@ public class Star extends Person {
 
     public void setGrowth(Double growth) {
         this.growth = growth;
-    }
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
     }
 
     public List<Links> getLinks() {

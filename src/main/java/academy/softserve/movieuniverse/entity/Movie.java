@@ -9,39 +9,33 @@ import java.util.List;
 public class Movie extends AbstractEntity {
 
     @Column(name = "movie_name")
-    private String movieName;
+    private String            movieName;
 
-    private Long duration;
+    private Long              duration;
     @Column(columnDefinition = "SMALLINT")
-    private Integer year;
+    private Integer           year;
 
-    private String description;
+    private String            description;
     @Column(name = "age_limitation")
-    private String ageLimitation;
+    private String            ageLimitation;
 
     @Embedded
-    private MediaContent mediaContent;
+    private MediaContent      mediaContent;
 
     @ManyToMany
-    @JoinTable(name = "movies_genres", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private List<Genre> genres = new ArrayList<>();
+    private List<Genre>       genres     = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "movies_countries", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "country_id"))
-    private List<Country> countries = new ArrayList<>();
+    private List<Country>     countries  = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie")
-    private List<StarActivityInMovies> roles = new ArrayList<StarActivityInMovies>();
-
-    @ManyToMany
-    @JoinTable(name = "star_movie", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "star_id"))
-    private List<Star> stars = new ArrayList<>();
+    private List<CastAndCrew> roles      = new ArrayList<CastAndCrew>();
 
     @OneToMany(mappedBy = "commentedMovie", cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comment>     comments   = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<MovieMark> movieMarks = new ArrayList<>();
+    private List<MovieMark>   movieMarks = new ArrayList<>();
 
     public Movie() {
     }
@@ -54,20 +48,12 @@ public class Movie extends AbstractEntity {
         this.movieMarks = movieMarks;
     }
 
-    public List<StarActivityInMovies> getRoles() {
+    public List<CastAndCrew> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<StarActivityInMovies> roles) {
+    public void setRoles(List<CastAndCrew> roles) {
         this.roles = roles;
-    }
-
-    public List<Star> getStars() {
-        return stars;
-    }
-
-    public void setStars(List<Star> stars) {
-        this.stars = stars;
     }
 
     public List<Genre> getGenres() {

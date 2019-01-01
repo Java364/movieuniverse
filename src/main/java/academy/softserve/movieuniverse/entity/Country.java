@@ -11,8 +11,7 @@ public class Country extends AbstractEntity {
     @Column(name = "name_country")
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "movies_countries", joinColumns = @JoinColumn(name = "country_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    @ManyToMany(mappedBy = "countries")
     private List<Movie> movies = new ArrayList<>();
 
     @ManyToMany

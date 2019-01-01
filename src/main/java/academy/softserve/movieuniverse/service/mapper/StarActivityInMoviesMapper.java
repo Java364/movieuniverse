@@ -1,47 +1,37 @@
 package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
-import academy.softserve.movieuniverse.entity.StarActivityInMovies;
-import academy.softserve.movieuniverse.entity.StarProfession;
+import academy.softserve.movieuniverse.entity.CastAndCrew;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class StarActivityInMoviesMapper {
-    public StarActivityInMoviesDTO mapToDto(StarActivityInMovies starActivityInMoviesEntity) {
+    public StarActivityInMoviesDTO mapToDto(CastAndCrew castAndCrewEntity) {
         StarActivityInMoviesDTO starActivityInMoviesDTO = new StarActivityInMoviesDTO();
-        starActivityInMoviesDTO.setId(starActivityInMoviesEntity.getId());
-        starActivityInMoviesDTO.setMovieId(starActivityInMoviesEntity.getMovie().getId());
-        starActivityInMoviesDTO.setMovieName(starActivityInMoviesEntity.getMovie().getMovieName());
-        starActivityInMoviesDTO.setStarId(starActivityInMoviesEntity.getStar().getId());
-        starActivityInMoviesDTO.setStarName(starActivityInMoviesEntity.getStar().getFirstName() + " "
-                + starActivityInMoviesEntity.getStar().getLastName());
+        starActivityInMoviesDTO.setId(castAndCrewEntity.getId());
+        starActivityInMoviesDTO.setMovieId(castAndCrewEntity.getMovie().getId());
+        starActivityInMoviesDTO.setMovieName(castAndCrewEntity.getMovie().getMovieName());
+
 
         List<Long> ids = new ArrayList<>();
-        List<StarProfession> starProfessions = starActivityInMoviesEntity.getProfessions();
-        for (StarProfession profession : starProfessions) {
-            ids.add(profession.getId());
-        }
         return starActivityInMoviesDTO;
     }
 
-    public List<StarActivityInMoviesDTO> mapActivityListsToDto(List<StarActivityInMovies> stars) {
+    public List<StarActivityInMoviesDTO> mapActivityListsToDto(List<CastAndCrew> stars) {
         List<StarActivityInMoviesDTO> starDTOs = new ArrayList<>();
-        for (StarActivityInMovies t : stars) {
+        for (CastAndCrew t : stars) {
             starDTOs.add(this.mapActivityToDto(t));
         }
         return starDTOs;
     }
 
-    public StarActivityInMoviesDTO mapActivityToDto(StarActivityInMovies entity) {
+    public StarActivityInMoviesDTO mapActivityToDto(CastAndCrew entity) {
         StarActivityInMoviesDTO dto = new StarActivityInMoviesDTO();
         dto.setId(entity.getId());
         dto.setMovieId(entity.getMovie().getId());
-        dto.setStarId(entity.getStar().getId());
-        dto.setProfessionIds(entity.getProfessions().stream().map(p -> p.getId()).collect(Collectors.toList()));
         return dto;
     }
 }

@@ -131,12 +131,11 @@ public class MovieController {
     }
 
     @PostMapping("/{id}/countries")
-    public ResponseEntity<List<CountryDTO>> addMovieCountries(@PathVariable Long id,
-            @RequestBody List<CountryDTO> countryDTOS) {
-        Movie movie = movieService.findMovieById(id);
-        List<Country> countries = countryMapper.mapCountriesListToEntity(countryDTOS);
-        movie.setCountries(countries);
-        movieService.updateMovie(movie, id);
-        return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(movie.getCountries()));
+    public ResponseEntity<List<CountryDTO>> addCountries(@PathVariable Long id,
+                                                         @RequestBody List<CountryDTO> countryDTOS) {
+        List<Country> countriesToSave = countryMapper.mapCountriesListToEntity(countryDTOS);
+        List<Country> savedCountries = movieService.saveCountries(id, countriesToSave);
+        List<CountryDTO> countryDTOList = countryMapper.mapListToDto(savedCountries);
+        return ResponseEntity.status(HttpStatus.OK).body(countryDTOList);
     }
 }
