@@ -9,34 +9,34 @@ import java.util.List;
 public class Star extends Person {
 
     @Column(name = "star_biography")
-    private String               biography;
+    private String biography;
 
     @Column(name = "star_growth")
-    private Double               growth;
+    private Double growth;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "star_id"), inverseJoinColumns = @JoinColumn(name = "country_id"))
-    private List<Country>        countries   = new ArrayList<>();
+    private List<Country> countries = new ArrayList<>();
 
     @Column(name = "star_city")
-    private String               cityOfBirth;
+    private String cityOfBirth;
 
-    @OneToMany(mappedBy = "profession", cascade = CascadeType.ALL)
-    private List<CastAndCrew>    roles       = new ArrayList<CastAndCrew>();
+    @OneToMany(mappedBy = "starProfession", cascade = CascadeType.ALL)
+    private List<CastAndCrew> roles = new ArrayList<CastAndCrew>();
 
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<StarProfession> professions = new ArrayList<StarProfession>();
 
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
-    private List<Links>          links       = new ArrayList<Links>();
+    private List<Links> links = new ArrayList<Links>();
 
     @OneToOne
     @JoinColumn(name = "gallery_id")
-    private Gallery              gallery;
-    
+    private Gallery gallery;
+
     @OneToOne
     @JoinColumn(name = "avatar_id")
-    private Avatar               avatar;
+    private Avatar avatar;
 
     public Star() {
     }

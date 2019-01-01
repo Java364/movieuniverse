@@ -13,7 +13,7 @@ public class CastAndCrew extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    private Movie          movie;
+    private Movie movie;
 
     public CastAndCrew() {
     }
