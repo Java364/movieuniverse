@@ -32,10 +32,6 @@ public class Movie extends AbstractEntity {
     @OneToMany(mappedBy = "movie")
     private List<StarActivityInMovies> roles = new ArrayList<StarActivityInMovies>();
 
-    @ManyToMany
-    @JoinTable(name = "star_movie", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "star_id"))
-    private List<Star> stars = new ArrayList<>();
-
     @OneToMany(mappedBy = "commentedMovie", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
@@ -59,14 +55,6 @@ public class Movie extends AbstractEntity {
 
     public void setRoles(List<StarActivityInMovies> roles) {
         this.roles = roles;
-    }
-
-    public List<Star> getStars() {
-        return stars;
-    }
-
-    public void setStars(List<Star> stars) {
-        this.stars = stars;
     }
 
     public List<Genre> getGenres() {

@@ -30,10 +30,6 @@ public class Star extends Person {
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<Links> links = new ArrayList<Links>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "star_movie", joinColumns = @JoinColumn(name = "star_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private List<Movie> movies = new ArrayList<Movie>();
-
     @OneToOne
     @JoinColumn(name = "gallery_id")
     private Gallery gallery;
@@ -75,14 +71,6 @@ public class Star extends Person {
 
     public void setGrowth(Double growth) {
         this.growth = growth;
-    }
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
     }
 
     public List<Links> getLinks() {
