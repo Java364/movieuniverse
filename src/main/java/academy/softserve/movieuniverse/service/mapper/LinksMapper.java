@@ -36,11 +36,11 @@ public class LinksMapper {
         linksDTO.setCreated(links.getEntryCreationDate().getTime());
         linksDTO.setUpdated(links.getEntryLastUpdate().getTime());
         linksDTO.setSelf(linkTo(methodOn(LinksController.class).getOneLink(links.getId())).withSelfRel().getHref());
-        linksDTO.setStar(linkTo(methodOn(StarController.class).showById(links.getStar().getId())).withRel("star").getHref());
+        linksDTO.setStar(
+                linkTo(methodOn(StarController.class).showById(links.getStar().getId())).withRel("star").getHref());
 
         return linksDTO;
     }
-
 
     public List<LinksDTO> mapListToDto(List<Links> links) {
         List<LinksDTO> linksDTOlist = new ArrayList<>();
@@ -53,7 +53,7 @@ public class LinksMapper {
     public List<Links> mapLinksListToEntity(List<LinksDTO> linkDTOs) {
         return linkDTOs.stream().map(this::mapToEntityAndSaveLinks).collect(Collectors.toList());
 
-            }
+    }
 
     public Links mapToEntityForUpdateLinks(LinksDTO dto, Long id) {
         Links links = new Links();

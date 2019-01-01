@@ -15,12 +15,12 @@ import java.util.List;
 @RestController
 public class StarActivityInMoviesController {
 
-    private CastAndCrewService         castAndCrewService;
+    private CastAndCrewService castAndCrewService;
     private StarActivityInMoviesMapper starActivityInMoviesMapper;
 
     @Autowired
     public StarActivityInMoviesController(CastAndCrewService castAndCrewService,
-                                          StarActivityInMoviesMapper starActivityInMoviesMapper) {
+            StarActivityInMoviesMapper starActivityInMoviesMapper) {
         this.castAndCrewService = castAndCrewService;
         this.starActivityInMoviesMapper = starActivityInMoviesMapper;
     }

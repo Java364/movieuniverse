@@ -4,7 +4,6 @@ import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
-
 import academy.softserve.movieuniverse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +24,8 @@ public class UserService {
     }
 
     public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new NotFoundException
-                (ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
+        return userRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
     }
 
     public User createUser(User user) {
@@ -34,12 +33,12 @@ public class UserService {
     }
 
     public void deleteById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() ->new  NotFoundException
-                (ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
         if (user.getIsRemoved()) {
             userRepository.deleteById(id);
         } else {
-            throw new  NotFoundException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID");
+            throw new NotFoundException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID");
         }
     }
 
@@ -47,14 +46,16 @@ public class UserService {
         userRepository.findById(id).map(user -> {
             user.setIsRemoved(true);
             return userRepository.saveAndFlush(user);
-        }).orElseThrow(() -> new NotFoundException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
+        }).orElseThrow(
+                () -> new NotFoundException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
     }
 
     public void restoreById(Long id) {
         userRepository.findById(id).map(user -> {
             user.setIsRemoved(false);
             return userRepository.saveAndFlush(user);
-        }).orElseThrow(() ->new  NotFoundException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
+        }).orElseThrow(
+                () -> new NotFoundException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
     }
 
     public User update(User user, Long id) {
@@ -65,8 +66,7 @@ public class UserService {
             userDB.setLastName(user.getLastName());
             userDB.setBirthday(user.getBirthday());
             return userRepository.saveAndFlush(userDB);
-        }).orElseThrow(() -> new
-                NotFoundException(ExceptionType.UPDATE.getMessage() + " user"));
+        }).orElseThrow(() -> new NotFoundException(ExceptionType.UPDATE.getMessage() + " user"));
     }
 
     public List<User> findAll() {
@@ -77,10 +77,8 @@ public class UserService {
         return userRepository.findAllByIsRemoved(false);
     }
 
-    
     public User findByMovieMarks(MovieMark movieMark) {
-    	return userRepository.findByMovieMarks(movieMark);
-
+        return userRepository.findByMovieMarks(movieMark);
 
     }
 }

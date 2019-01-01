@@ -15,7 +15,6 @@ public class StarActivityInMoviesMapper {
         starActivityInMoviesDTO.setMovieId(castAndCrewEntity.getMovie().getId());
         starActivityInMoviesDTO.setMovieName(castAndCrewEntity.getMovie().getMovieName());
 
-
         List<Long> ids = new ArrayList<>();
         return starActivityInMoviesDTO;
     }

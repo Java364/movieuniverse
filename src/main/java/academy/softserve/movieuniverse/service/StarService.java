@@ -5,9 +5,7 @@ import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
-
 import academy.softserve.movieuniverse.repository.StarRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +28,7 @@ public class StarService {
 
     public Star create(Star star) {
         if (star == null) {
-            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " star");
+            throw new NotFoundException(ExceptionType.SAVE.getMessage() + " star");
         }
         star = starRepository.save(star);
         return star;
@@ -39,7 +37,7 @@ public class StarService {
     public Star update(Star star, Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw new  NotFoundException(ExceptionType.UPDATE.getMessage() + " star");
+            throw new NotFoundException(ExceptionType.UPDATE.getMessage() + " star");
         }
         star.setId(id);
         star = starRepository.save(star);
@@ -70,7 +68,7 @@ public class StarService {
     public Star remove(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw new  NotFoundException(ExceptionType.DELETE.getMessage() + "star with " + id.toString() + " ID");
+            throw new NotFoundException(ExceptionType.DELETE.getMessage() + "star with " + id.toString() + " ID");
         }
         Star star = starOptional.get();
         star.setId(id);
@@ -82,8 +80,7 @@ public class StarService {
     public Star makeActive(Long id) {
         Optional<Star> starOptional = starRepository.findById(id);
         if (!starOptional.isPresent()) {
-            throw new
-            NotFoundException(ExceptionType.SELECT.getMessage() + "star with " + id.toString() + " ID");
+            throw new NotFoundException(ExceptionType.SELECT.getMessage() + "star with " + id.toString() + " ID");
         }
         Star star = starOptional.get();
         star.setId(id);

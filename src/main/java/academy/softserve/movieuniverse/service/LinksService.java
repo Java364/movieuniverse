@@ -41,8 +41,7 @@ public class LinksService {
     public Links getOneLinks(Long id) {
         Optional<Links> linksOptional = linksRepository.findById(id);
         if (!linksOptional.isPresent()) {
-            throw new NotFoundException
-                    (ExceptionType.SELECT.getMessage() + "link with ID - " + id.toString());
+            throw new NotFoundException(ExceptionType.SELECT.getMessage() + "link with ID - " + id.toString());
         }
         Links links = linksRepository.getOne(id);
         return links;

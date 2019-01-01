@@ -33,12 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http     // включаем защиту от CSRF атак
+        http // включаем защиту от CSRF атак
                 .csrf().disable();
-        http    //no session will be created or used by Spring Security
+        http // no session will be created or used by Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http
-                .headers()
-                .cacheControl().disable();
+        http.headers().cacheControl().disable();
     }
 }

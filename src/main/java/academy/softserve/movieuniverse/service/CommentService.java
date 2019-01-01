@@ -25,10 +25,9 @@ public class CommentService {
     }
 
     public Comment findById(Long commentId) {
-        NoSuchEntityException noSuchEntityException = new NoSuchEntityException("Unable to find " + getClass().getName()
-                                                                                + " with id " + commentId);
-        return commentRepository.findById(commentId)
-                .orElseThrow(() -> noSuchEntityException);
+        NoSuchEntityException noSuchEntityException = new NoSuchEntityException(
+                "Unable to find " + getClass().getName() + " with id " + commentId);
+        return commentRepository.findById(commentId).orElseThrow(() -> noSuchEntityException);
     }
 
     public List<Comment> findAll() {
