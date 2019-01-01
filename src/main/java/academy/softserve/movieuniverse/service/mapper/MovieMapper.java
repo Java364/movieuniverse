@@ -1,13 +1,11 @@
 package academy.softserve.movieuniverse.service.mapper;
 
 import academy.softserve.movieuniverse.controller.MovieController;
-import academy.softserve.movieuniverse.controller.StarController;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
-import academy.softserve.movieuniverse.dto.movie.MovieCreateDTO;
 import academy.softserve.movieuniverse.entity.Movie;
+import academy.softserve.movieuniverse.service.CastAndCrewService;
 import academy.softserve.movieuniverse.service.CountryService;
 import academy.softserve.movieuniverse.service.GenreService;
-import academy.softserve.movieuniverse.service.StarActivityInMoviesService;
 import academy.softserve.movieuniverse.service.StarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,25 +20,25 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Service
 public class MovieMapper {
     @Autowired
-    private CountryMapper countryMapper;
+    private CountryMapper      countryMapper;
 
     @Autowired
-    private GenreMapper genreMapper;
+    private GenreMapper        genreMapper;
 
     @Autowired
-    private MovieMarkMapper movieMarkMapper;
+    private MovieMarkMapper    movieMarkMapper;
 
     @Autowired
-    private StarActivityInMoviesService starActivityInMoviesService;
+    private CastAndCrewService castAndCrewService;
 
     @Autowired
-    private StarService starService;
+    private StarService        starService;
 
     @Autowired
-    private CountryService countryService;
+    private CountryService     countryService;
 
     @Autowired
-    private GenreService genreService;
+    private GenreService       genreService;
 
     public Movie mapToEntity(MovieDTO dto) {
         Movie movie = new Movie();

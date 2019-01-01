@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StarActivityInMoviesService {
+public class CastAndCrewService {
 
     private CastAndCrewRepository castAndCrewRepository;
 
     @Autowired
-    public StarActivityInMoviesService(CastAndCrewRepository castAndCrewRepository) {
+    public CastAndCrewService(CastAndCrewRepository castAndCrewRepository) {
         this.castAndCrewRepository = castAndCrewRepository;
     }
 
