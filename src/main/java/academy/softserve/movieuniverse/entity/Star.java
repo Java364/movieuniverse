@@ -21,7 +21,7 @@ public class Star extends Person {
     @Column(name = "star_city")
     private String cityOfBirth;
 
-    @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "profession", cascade = CascadeType.ALL)
     private List<StarActivityInMovies> roles = new ArrayList<StarActivityInMovies>();
 
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
