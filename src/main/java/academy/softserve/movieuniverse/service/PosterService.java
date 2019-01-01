@@ -3,7 +3,6 @@ package academy.softserve.movieuniverse.service;
 import academy.softserve.movieuniverse.entity.Poster;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
-
 import academy.softserve.movieuniverse.repository.PosterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,16 +19,16 @@ public class PosterService {
     public Poster save(Poster poster) {
         poster = posterRepository.save(poster);
         if (poster == null)
-            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " poster");
+            throw new NotFoundException(ExceptionType.SAVE.getMessage() + " poster");
         return poster;
     }
 
     public Poster update(Poster poster) {
         poster = posterRepository.save(poster);
         if (poster == null)
-            throw new  NotFoundException(ExceptionType.UPDATE.getMessage() + " poster");
+            throw new NotFoundException(ExceptionType.UPDATE.getMessage() + " poster");
         return poster;
-}
+    }
 
     public Poster findById(Long id) {
         Optional<Poster> posterOptional = posterRepository.findById(id);
@@ -42,7 +41,7 @@ public class PosterService {
 
     public void deleteById(Long id) {
         if (id == null || findById(id) == null)
-            throw new  NotFoundException(ExceptionType.DELETE.getMessage() + "poster with " + id.toString() + " ID");
+            throw new NotFoundException(ExceptionType.DELETE.getMessage() + "poster with " + id.toString() + " ID");
         posterRepository.deleteById(id);
     }
 
@@ -50,7 +49,7 @@ public class PosterService {
     public Poster remove(Long id) {
         Optional<Poster> posterOptional = posterRepository.findById(id);
         if (!posterOptional.isPresent()) {
-            throw new  NotFoundException(ExceptionType.SELECT.getMessage() + "poster with " + id.toString() + " ID");
+            throw new NotFoundException(ExceptionType.SELECT.getMessage() + "poster with " + id.toString() + " ID");
         }
         Poster poster = posterOptional.get();
         poster.setId(id);

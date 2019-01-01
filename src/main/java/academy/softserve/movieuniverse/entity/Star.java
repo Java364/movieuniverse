@@ -105,11 +105,11 @@ public class Star extends Person {
         this.professions = professions;
     }
 
-	public Avatar getAvatar() {
-		return avatar;
-	}
+    public Avatar getAvatar() {
+        return avatar;
+    }
 
-	public void setAvatar(Avatar avatar) {
-		this.avatar = avatar;
-	}
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
+    }
 }

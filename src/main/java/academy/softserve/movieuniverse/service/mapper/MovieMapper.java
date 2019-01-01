@@ -20,25 +20,25 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Service
 public class MovieMapper {
     @Autowired
-    private CountryMapper      countryMapper;
+    private CountryMapper countryMapper;
 
     @Autowired
-    private GenreMapper        genreMapper;
+    private GenreMapper genreMapper;
 
     @Autowired
-    private MovieMarkMapper    movieMarkMapper;
+    private MovieMarkMapper movieMarkMapper;
 
     @Autowired
     private CastAndCrewService castAndCrewService;
 
     @Autowired
-    private StarService        starService;
+    private StarService starService;
 
     @Autowired
-    private CountryService     countryService;
+    private CountryService countryService;
 
     @Autowired
-    private GenreService       genreService;
+    private GenreService genreService;
 
     public Movie mapToEntity(MovieDTO dto) {
         Movie movie = new Movie();
@@ -52,8 +52,6 @@ public class MovieMapper {
         return movie;
     }
 
-
-
     public MovieDTO mapToDto(Movie entity) {
         MovieDTO dto = new MovieDTO();
         dto.setId(entity.getId());
@@ -63,7 +61,8 @@ public class MovieMapper {
         dto.setYear(entity.getYear());
         dto.setDescription(entity.getDescription());
         dto.setSelf(linkTo(methodOn(MovieController.class).showById(entity.getId())).withSelfRel().getHref());
-        dto.setCountries(linkTo(methodOn(MovieController.class).showMovieCountries(entity.getId())).withRel("countries").getHref());
+        dto.setCountries(linkTo(methodOn(MovieController.class).showMovieCountries(entity.getId())).withRel("countries")
+                .getHref());
         return dto;
     }
 

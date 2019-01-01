@@ -1,14 +1,12 @@
 package academy.softserve.movieuniverse.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ProfessionDTO {
     private Long id;
     private String professionType;
     private String starIds;
     private Boolean isRemoved;
     private String self;
+
     public ProfessionDTO() {
     }
 

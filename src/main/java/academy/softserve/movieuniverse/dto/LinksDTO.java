@@ -1,9 +1,8 @@
 package academy.softserve.movieuniverse.dto;
 
 import academy.softserve.movieuniverse.entity.Links;
-import org.springframework.hateoas.ResourceSupport;
 
-public class LinksDTO  {
+public class LinksDTO {
     private Long id;
     private String linkName;
     private Links.SocialNetworkingSites socialNetworkingSite;
@@ -24,7 +23,6 @@ public class LinksDTO  {
         this.id = id;
     }
 
-
     public String getLinkName() {
         return linkName;
     }
@@ -40,8 +38,6 @@ public class LinksDTO  {
     public void setSocialNetworkingSite(Links.SocialNetworkingSites socialNetworkingSite) {
         this.socialNetworkingSite = socialNetworkingSite;
     }
-
-
 
     public Long getCreated() {
         return created;

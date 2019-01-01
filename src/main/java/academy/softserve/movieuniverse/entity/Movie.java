@@ -9,33 +9,33 @@ import java.util.List;
 public class Movie extends AbstractEntity {
 
     @Column(name = "movie_name")
-    private String            movieName;
+    private String movieName;
 
-    private Long              duration;
+    private Long duration;
     @Column(columnDefinition = "SMALLINT")
-    private Integer           year;
+    private Integer year;
 
-    private String            description;
+    private String description;
     @Column(name = "age_limitation")
-    private String            ageLimitation;
+    private String ageLimitation;
 
     @Embedded
-    private MediaContent      mediaContent;
+    private MediaContent mediaContent;
 
     @ManyToMany
-    private List<Genre>       genres     = new ArrayList<>();
+    private List<Genre> genres = new ArrayList<>();
 
     @ManyToMany
-    private List<Country>     countries  = new ArrayList<>();
+    private List<Country> countries = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie")
-    private List<CastAndCrew> roles      = new ArrayList<CastAndCrew>();
+    private List<CastAndCrew> roles = new ArrayList<CastAndCrew>();
 
     @OneToMany(mappedBy = "commentedMovie", cascade = CascadeType.ALL)
-    private List<Comment>     comments   = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<MovieMark>   movieMarks = new ArrayList<>();
+    private List<MovieMark> movieMarks = new ArrayList<>();
 
     public Movie() {
     }

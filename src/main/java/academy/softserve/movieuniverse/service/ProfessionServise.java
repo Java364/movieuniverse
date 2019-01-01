@@ -3,7 +3,6 @@ package academy.softserve.movieuniverse.service;
 import academy.softserve.movieuniverse.entity.Profession;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
-
 import academy.softserve.movieuniverse.repository.ProfessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +29,7 @@ public class ProfessionServise {
 
     public void deleteProfession(Long id) {
         if (!professionRepository.findById(id).isPresent())
-            throw new NotFoundException
-                    (ExceptionType.DELETE.getMessage() + "profession with ID - " + id.toString());
+            throw new NotFoundException(ExceptionType.DELETE.getMessage() + "profession with ID - " + id.toString());
 
         professionRepository.deleteById(id);
     }
@@ -47,8 +45,7 @@ public class ProfessionServise {
     public Profession getOneProfession(Long id) {
         Optional<Profession> profession = professionRepository.findById(id);
         if (!profession.isPresent()) {
-            throw new  NotFoundException
-                    (ExceptionType.SELECT.getMessage() + "profession with ID - " + id.toString());
+            throw new NotFoundException(ExceptionType.SELECT.getMessage() + "profession with ID - " + id.toString());
         }
         Profession profession1 = professionRepository.getOne(id);
         return profession1;

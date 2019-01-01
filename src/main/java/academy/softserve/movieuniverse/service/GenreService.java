@@ -65,8 +65,8 @@ public class GenreService {
 
     public Genre findById(Long id) {
         Optional<Genre> genre = genreRepository.findById(id);
-        NoSuchEntityException noSuchEntityException = new NoSuchEntityException("Unable to find " + getClass().getName()
-                                                                                + " with id " + id);
+        NoSuchEntityException noSuchEntityException = new NoSuchEntityException(
+                "Unable to find " + getClass().getName() + " with id " + id);
         return genre.orElseThrow(() -> noSuchEntityException);
     }
 }

@@ -1,19 +1,19 @@
 package academy.softserve.movieuniverse.service.mapper;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import academy.softserve.movieuniverse.controller.StarController;
 import academy.softserve.movieuniverse.dto.StarDTO;
 import academy.softserve.movieuniverse.entity.Avatar;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.service.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
 public class StarMapper {
@@ -71,7 +71,7 @@ public class StarMapper {
         this.mapCreateGalleryAndAvatar(star);
         return star;
     }
-    
+
     public Star mapUpdateToEntity(StarDTO dto, Long id) {
         Star star = starService.findById(id);
         star.setBiography(dto.getBiography());
@@ -115,8 +115,10 @@ public class StarMapper {
                 .withRel("professions").getHref());
         dto.setRoles(
                 linkTo(methodOn(StarController.class).showRolesByStarId(entity.getId())).withRel("roles").getHref());
-        dto.setGallery(linkTo(methodOn(StarController.class).showStarGallery(entity.getId())).withRel("gallery").getHref());
-        dto.setAvatar(linkTo(methodOn(StarController.class).showStarAvatar(entity.getId())).withRel("avatar").getHref());
+        dto.setGallery(
+                linkTo(methodOn(StarController.class).showStarGallery(entity.getId())).withRel("gallery").getHref());
+        dto.setAvatar(
+                linkTo(methodOn(StarController.class).showStarAvatar(entity.getId())).withRel("avatar").getHref());
         return dto;
     }
 
@@ -135,8 +137,8 @@ public class StarMapper {
         }
         return stars;
     }
-    
-    private void mapCreateGalleryAndAvatar(Star star){
+
+    private void mapCreateGalleryAndAvatar(Star star) {
         Avatar avatar = avatarService.save(new Avatar());
         Gallery gallery = galleryService.save();
         star.setGallery(gallery);

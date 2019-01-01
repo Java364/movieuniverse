@@ -1,7 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Country;
-
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.CountryRepository;
@@ -21,7 +20,7 @@ public class CountryService {
     @Transactional
     public Country create(Country country) {
         if (country == null)
-            throw new  NotFoundException(ExceptionType.SAVE.getMessage() + " country");
+            throw new NotFoundException(ExceptionType.SAVE.getMessage() + " country");
         return countryRepository.save(country);
     }
 
@@ -45,8 +44,7 @@ public class CountryService {
     public Country findById(Long id) {
         Optional<Country> countryOptional = countryRepository.findById(id);
         if (!countryOptional.isPresent()) {
-            throw new NotFoundException
-                    (ExceptionType.SELECT.getMessage() + "country with " + id.toString() + " ID");
+            throw new NotFoundException(ExceptionType.SELECT.getMessage() + "country with " + id.toString() + " ID");
         }
         Country country = countryOptional.get();
         return country;
@@ -56,8 +54,7 @@ public class CountryService {
     public void delete(Long id) {
         Optional<Country> countryOptional = countryRepository.findById(id);
         if (id == null || !countryOptional.isPresent()) {
-            throw new NotFoundException
-                    (ExceptionType.DELETE.getMessage() + "country with " + id.toString() + " ID");
+            throw new NotFoundException(ExceptionType.DELETE.getMessage() + "country with " + id.toString() + " ID");
         }
         countryRepository.deleteById(id);
     }

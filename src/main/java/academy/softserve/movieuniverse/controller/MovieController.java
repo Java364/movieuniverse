@@ -76,14 +76,14 @@ public class MovieController {
 
     @PutMapping("/{id}")
     public ResponseEntity<MovieDTO> update(@PathVariable Long id, @RequestBody MovieDTO movieDTO) {
-        return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapToDto(
-                movieService.updateMovie(movieMapper.mapToEntity(movieDTO), id)));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(movieMapper.mapToDto(movieService.updateMovie(movieMapper.mapToEntity(movieDTO), id)));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
-            movieService.deleteMovie(id);
-            return ResponseEntity.status(HttpStatus.OK).build();
+        movieService.deleteMovie(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
 
     }
 
@@ -132,7 +132,7 @@ public class MovieController {
 
     @PostMapping("/{id}/countries")
     public ResponseEntity<List<CountryDTO>> addCountries(@PathVariable Long id,
-                                                         @RequestBody List<CountryDTO> countryDTOS) {
+            @RequestBody List<CountryDTO> countryDTOS) {
         List<Country> countriesToSave = countryMapper.mapCountriesListToEntity(countryDTOS);
         List<Country> savedCountries = movieService.saveCountries(id, countriesToSave);
         List<CountryDTO> countryDTOList = countryMapper.mapListToDto(savedCountries);

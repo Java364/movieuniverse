@@ -23,19 +23,12 @@ public class LinksController {
     @Autowired
     private LinksMapper linksMapper = new LinksMapper();
 
+    @PostMapping("/create")
+    public ResponseEntity<LinksDTO> create(@RequestBody LinksDTO linksDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                linksMapper.mapEntityToDto(linksService.saveLinks(linksMapper.mapToEntityAndSaveLinks(linksDTO))));
 
-  @PostMapping("/create")
-  public ResponseEntity<LinksDTO> create(@RequestBody LinksDTO linksDTO) {
-      return ResponseEntity
-              .status(HttpStatus.CREATED)
-              .body(linksMapper.mapEntityToDto(
-                      linksService.saveLinks(linksMapper.mapToEntityAndSaveLinks(linksDTO)
-                              )
-              )
-              );
-
-  }
-
+    }
 
     /*
      * @GetMapping public List<LinksDTO> findAllLinks() { List<Links> linksList = linksService.findAll(); return

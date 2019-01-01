@@ -1,16 +1,11 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.AvatarDTO;
-import academy.softserve.movieuniverse.dto.LinksDTO;
-import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
-import academy.softserve.movieuniverse.dto.StarDTO;
-import academy.softserve.movieuniverse.dto.StarProfessionDTO;
+import academy.softserve.movieuniverse.dto.*;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.service.*;
 import academy.softserve.movieuniverse.service.mapper.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -109,11 +104,11 @@ public class StarController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-//    @GetMapping("/links/{id}")
-//    public StarDTO showAllByLinksId(@PathVariable Long id) {
-//        Links links = linksService.getOneLinks(id);
-//        return mapper.mapProfileToDto(starService.findAllByLinks(links));
-//    }
+    // @GetMapping("/links/{id}")
+    // public StarDTO showAllByLinksId(@PathVariable Long id) {
+    // Links links = linksService.getOneLinks(id);
+    // return mapper.mapProfileToDto(starService.findAllByLinks(links));
+    // }
 
     @GetMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> showStarGallery(@PathVariable Long id) {
@@ -128,7 +123,7 @@ public class StarController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(galleryMapper.mapToDTO(starService.findById(id).getGallery()));
     }
-    
+
     @GetMapping("/{id}/avatar")
     public ResponseEntity<AvatarDTO> showStarAvatar(@PathVariable Long id) {
         Star star = starService.findById(id);
@@ -149,7 +144,7 @@ public class StarController {
         starService.update(star, id);
         return ResponseEntity.status(HttpStatus.OK).body(linksMapper.mapListToDto(star.getLinks()));
     }
-    
+
     @PostMapping("/{id}/new-links")
     public ResponseEntity<LinksDTO> addNewLinkForStar(@PathVariable Long id, @RequestBody LinksDTO linksDTO) {
         Star star = starService.findById(id);
@@ -181,13 +176,13 @@ public class StarController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(starProfessionMapper.mapListEntityToDTO(star.getProfessions()));
     }
-    
+
     @GetMapping("/{id}/roles")
     public ResponseEntity<List<StarActivityInMoviesDTO>> showRolesByStarId(@PathVariable Long id) {
         Star star = starService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(starActivityMapper.mapActivityListsToDto(star.getRoles()));
     }
-    
+
     @GetMapping("/{id}/professionsss")
     public ResponseEntity<List<StarProfessionDTO>> showProfessionsByStarIds(@PathVariable Long id) {
         Profession profession = professionServise.getOneProfession(id);
@@ -195,26 +190,27 @@ public class StarController {
                 .body(starProfessionMapper.mapListEntityToDTO(profession.getStars()));
     }
 
-//    @PostMapping("/{id}/professions")
-//    public ResponseEntity<List<StarProfessionDTO>> addStarProfessions(@PathVariable Long id,
-//            @RequestBody List<StarProfessionDTO> professionsDTOS) {
-//        Star star = starService.findById(id);
-//        List<StarProfession> professions = starProfessionMapper.mapListToEntity(professionsDTOS);
-//        star.setProfessions(professions);
-//        starService.update(star, id);
-//        return ResponseEntity.status(HttpStatus.OK).body(starProfessionMapper.mapListEntityToDTO(professions));
-//    }
+    // @PostMapping("/{id}/professions")
+    // public ResponseEntity<List<StarProfessionDTO>> addStarProfessions(@PathVariable Long id,
+    // @RequestBody List<StarProfessionDTO> professionsDTOS) {
+    // Star star = starService.findById(id);
+    // List<StarProfession> professions = starProfessionMapper.mapListToEntity(professionsDTOS);
+    // star.setProfessions(professions);
+    // starService.update(star, id);
+    // return ResponseEntity.status(HttpStatus.OK).body(starProfessionMapper.mapListEntityToDTO(professions));
+    // }
 
     @GetMapping("/{id}/linkss")
     public ResponseEntity<StarDTO> showById(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(mapper.mapProfileToDto(starService.findById(id)));
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.mapProfileToDto(starService.findById(id)));
     }
+
     @PostMapping("/{id}/addLinks")
     public ResponseEntity<LinksDTO> createLinks(@PathVariable Long id, @RequestBody LinksDTO linksDTO) {
         Links links = linksMapper.mapToEntityAndSaveLinks(linksDTO);
         links.setStar(starService.findById(id));
-        return ResponseEntity.status(HttpStatus.CREATED).body(linksMapper.mapEntityToDto(linksService.saveLinks(links)));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(linksMapper.mapEntityToDto(linksService.saveLinks(links)));
     }
 
 }
