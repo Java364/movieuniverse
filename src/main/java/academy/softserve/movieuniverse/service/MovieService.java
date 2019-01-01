@@ -129,4 +129,8 @@ public class MovieService {
         movieRepository.save(movie);
         return genres;
     }
+
+    public List<Star> findCreditsByProfession(Long movieId, String profession) {
+        return movieRepository.findCreditsByProfession(movieId, profession);
+    }
 }
