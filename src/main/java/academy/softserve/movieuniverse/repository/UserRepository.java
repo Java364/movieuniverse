@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllByIsRemoved(Boolean isRemoved);
 
     User findByMovieMarks(MovieMark movieMark);
+
+    User findByEmail(String email);
 }
