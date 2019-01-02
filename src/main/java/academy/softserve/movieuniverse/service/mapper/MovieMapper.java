@@ -1,11 +1,14 @@
 package academy.softserve.movieuniverse.service.mapper;
 
+import academy.softserve.movieuniverse.controller.CommentController;
+import academy.softserve.movieuniverse.controller.GalleryController;
 import academy.softserve.movieuniverse.controller.MovieController;
 import academy.softserve.movieuniverse.controller.StarController;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieCreateDTO;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.service.CountryService;
+import academy.softserve.movieuniverse.service.GalleryService;
 import academy.softserve.movieuniverse.service.GenreService;
 import academy.softserve.movieuniverse.service.StarActivityInMoviesService;
 import academy.softserve.movieuniverse.service.StarService;
@@ -21,56 +24,66 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
 public class MovieMapper {
-    @Autowired
-    private CountryMapper countryMapper;
+	@Autowired
+	private CountryMapper countryMapper;
 
-    @Autowired
-    private GenreMapper genreMapper;
+	@Autowired
+	private GalleryService galleryService;
 
-    @Autowired
-    private MovieMarkMapper movieMarkMapper;
+	@Autowired
+	private GenreMapper genreMapper;
 
-    @Autowired
-    private StarActivityInMoviesService starActivityInMoviesService;
+	@Autowired
+	private MovieMarkMapper movieMarkMapper;
 
-    @Autowired
-    private StarService starService;
+	@Autowired
+	private StarActivityInMoviesService starActivityInMoviesService;
 
-    @Autowired
-    private CountryService countryService;
+	@Autowired
+	private StarService starService;
 
-    @Autowired
-    private GenreService genreService;
+	@Autowired
+	private CountryService countryService;
 
-    public Movie mapToEntity(MovieDTO dto) {
-        Movie movie = new Movie();
-        movie.setId(dto.getId());
-        movie.setMovieName(dto.getMovieName());
-        movie.setAgeLimitation(dto.getAgeLimitation());
-        movie.setDuration(dto.getDuration());
-        movie.setYear(dto.getYear());
-        movie.setDescription(dto.getDescription());
-        movie.setComments(new ArrayList<>());
-        return movie;
-    }
+	@Autowired
+	private GenreService genreService;
 
+	public Movie mapToEntity(MovieDTO dto) {
+		Movie movie = new Movie();
+		movie.setId(dto.getId());
+		movie.setMovieName(dto.getMovieName());
+		movie.setAgeLimitation(dto.getAgeLimitation());
+		movie.setDuration(dto.getDuration());
+		movie.setYear(dto.getYear());
+		movie.setDescription(dto.getDescription());
+		movie.setComments(new ArrayList<>());
+		return movie;
+	}
 
+	public MovieDTO mapToDto(Movie entity) {
+		MovieDTO dto = new MovieDTO();
+		dto.setId(entity.getId());
+		dto.setMovieName(entity.getMovieName());
+		dto.setAgeLimitation(entity.getAgeLimitation());
+		dto.setDuration(entity.getDuration());
+		dto.setYear(entity.getYear());
+		dto.setDescription(entity.getDescription());
+		dto.setSelf(linkTo(methodOn(MovieController.class).showById(entity.getId())).withSelfRel().getHref());
+		dto.setCountries(linkTo(methodOn(MovieController.class).showMovieCountries(entity.getId())).withRel("countries")
+				.getHref());
+		dto.setComments(linkTo(methodOn(MovieController.class).showMovieComments(entity.getId())).withRel("comments")
+				.getHref());
+		dto.setGallery(
+				linkTo(methodOn(MovieController.class).showMovieGallery(entity.getId())).withRel("gallery").getHref());
+		dto.setTrailers(linkTo(methodOn(MovieController.class).showMovieTrailers(entity.getId())).withRel("trailers")
+				.getHref());
+		dto.setGenres(linkTo(methodOn(MovieController.class).showMovieGenres(entity.getId())).withRel("genres").getHref());
+		return dto;
+	
+	}
 
-    public MovieDTO mapToDto(Movie entity) {
-        MovieDTO dto = new MovieDTO();
-        dto.setId(entity.getId());
-        dto.setMovieName(entity.getMovieName());
-        dto.setAgeLimitation(entity.getAgeLimitation());
-        dto.setDuration(entity.getDuration());
-        dto.setYear(entity.getYear());
-        dto.setDescription(entity.getDescription());
-        dto.setSelf(linkTo(methodOn(MovieController.class).showById(entity.getId())).withSelfRel().getHref());
-        dto.setCountries(linkTo(methodOn(MovieController.class).showMovieCountries(entity.getId())).withRel("countries").getHref());
-        return dto;
-    }
-
-    public List<MovieDTO> mapListToDTO(List<Movie> entities) {
-        return entities.stream().map(movie -> mapToDto(movie)).collect(Collectors.toList());
-    }
+	public List<MovieDTO> mapListToDTO(List<Movie> entities) {
+		return entities.stream().map(movie -> mapToDto(movie)).collect(Collectors.toList());
+	}
 
 }
