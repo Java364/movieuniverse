@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -12,6 +13,8 @@ public class Cast extends AbstractEntity {
 
     @ManyToOne
     private Star star;
+    @Column(name = "character_name")
+    private String character;
 
     public Movie getMovie() {
         return movie;
@@ -28,4 +31,12 @@ public class Cast extends AbstractEntity {
     public void setStar(Star star) {
         this.star = star;
     }
+
+	public String getCharacter() {
+		return character;
+	}
+
+	public void setCharacter(String character) {
+		this.character = character;
+	}
 }

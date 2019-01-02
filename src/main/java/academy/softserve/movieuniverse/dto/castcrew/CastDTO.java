@@ -5,7 +5,7 @@ public class CastDTO {
     private String firstName;
     private String lastName;
     private String self;
-
+    private String character;
     public Long getStarId() {
         return starId;
     }
@@ -37,4 +37,12 @@ public class CastDTO {
     public void setSelf(String self) {
         this.self = self;
     }
+
+	public String getCharacter() {
+		return character;
+	}
+
+	public void setCharacter(String character) {
+		this.character = character;
+	}
 }
