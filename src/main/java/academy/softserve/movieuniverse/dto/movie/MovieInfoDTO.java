@@ -2,23 +2,23 @@ package academy.softserve.movieuniverse.dto.movie;
 
 //@JsonDeserialize(as = MovieDTO.class)
 public interface MovieInfoDTO {
-    public String getMovieName();
+    String getMovieName();
 
-    public void setMovieName(String movieName);
+    void setMovieName(String movieName);
 
-    public String getDescription();
+    String getDescription();
 
-    public void setDescription(String description);
+    void setDescription(String description);
 
-    public int getYear();
+    int getYear();
 
-    public void setYear(int year);
+    void setYear(int year);
 
-    public Long getDuration();
+    Long getDuration();
 
-    public void setDuration(Long duration);
+    void setDuration(Long duration);
 
-    public String getAgeLimitation();
+    String getAgeLimitation();
 
-    public void setAgeLimitation(String ageLimitation);
+    void setAgeLimitation(String ageLimitation);
 }

@@ -4,7 +4,7 @@ import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreRequest;
 import academy.softserve.movieuniverse.entity.Genre;
 import academy.softserve.movieuniverse.service.GenreService;
-import academy.softserve.movieuniverse.service.mapper.GenreMapper;
+import academy.softserve.movieuniverse.mapper.GenreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;

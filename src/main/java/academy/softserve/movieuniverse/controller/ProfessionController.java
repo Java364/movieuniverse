@@ -1,11 +1,10 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.ProfessionDTO;
-import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.entity.Profession;
 import academy.softserve.movieuniverse.service.ProfessionServise;
-import academy.softserve.movieuniverse.service.mapper.ProfessionMapper;
-import academy.softserve.movieuniverse.service.mapper.StarProfessionMapper;
+import academy.softserve.movieuniverse.mapper.ProfessionMapper;
+import academy.softserve.movieuniverse.mapper.StarProfessionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

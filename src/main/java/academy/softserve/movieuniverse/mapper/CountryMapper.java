@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.service.mapper;
+package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.CountryController;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;

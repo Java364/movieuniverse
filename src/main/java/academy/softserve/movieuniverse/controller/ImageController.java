@@ -1,11 +1,10 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.image.ImageCreateInfo;
 import academy.softserve.movieuniverse.dto.image.ImageDTO;
 import academy.softserve.movieuniverse.entity.Image;
 import academy.softserve.movieuniverse.service.GalleryService;
 import academy.softserve.movieuniverse.service.ImageService;
-import academy.softserve.movieuniverse.service.mapper.ImageMapper;
+import academy.softserve.movieuniverse.mapper.ImageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

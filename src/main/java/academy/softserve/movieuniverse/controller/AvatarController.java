@@ -3,7 +3,7 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.AvatarDTO;
 import academy.softserve.movieuniverse.entity.Avatar;
 import academy.softserve.movieuniverse.service.AvatarService;
-import academy.softserve.movieuniverse.service.mapper.AvatarMapper;
+import academy.softserve.movieuniverse.mapper.AvatarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

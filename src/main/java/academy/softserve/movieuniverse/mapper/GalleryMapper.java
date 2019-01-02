@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.service.mapper;
+package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.GalleryController;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;

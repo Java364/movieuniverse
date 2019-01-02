@@ -1,4 +1,4 @@
-package academy.softserve.movieuniverse.service.mapper;
+package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.LikeController;
 import academy.softserve.movieuniverse.dto.like.LikeDTO;

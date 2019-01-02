@@ -132,4 +132,8 @@ public class MovieService {
     public List<Star> findCreditsByProfession(Long movieId, String profession) {
         return movieRepository.findCreditsByProfession(movieId, profession);
     }
+
+    public List<Movie> findAllByName(String name){
+        return movieRepository.findAllByMovieName(name);
+    }
 }

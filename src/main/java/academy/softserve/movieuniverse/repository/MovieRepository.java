@@ -15,4 +15,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query("select sp.star from CastAndCrew cac" + " inner join cac.starProfession sp"
             + " where cac.movie.id = :movieId and sp.profession.professionType = :profession")
     List<Star> findCreditsByProfession(@Param("movieId") Long movieId, @Param("profession") String profession);
+
+    List<Movie> findAllByMovieNameIgnoreCase(String name);
 }

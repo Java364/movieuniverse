@@ -11,7 +11,7 @@ import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.Trailer;
 import academy.softserve.movieuniverse.service.*;
-import academy.softserve.movieuniverse.service.mapper.*;
+import academy.softserve.movieuniverse.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

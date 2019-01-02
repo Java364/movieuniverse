@@ -4,7 +4,7 @@ import academy.softserve.movieuniverse.dto.like.LikeDTO;
 import academy.softserve.movieuniverse.dto.like.LikeFullInfo;
 import academy.softserve.movieuniverse.entity.Like;
 import academy.softserve.movieuniverse.service.LikeService;
-import academy.softserve.movieuniverse.service.mapper.LikeMapper;
+import academy.softserve.movieuniverse.mapper.LikeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;

@@ -3,7 +3,7 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.service.LinksService;
-import academy.softserve.movieuniverse.service.mapper.LinksMapper;
+import academy.softserve.movieuniverse.mapper.LinksMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;

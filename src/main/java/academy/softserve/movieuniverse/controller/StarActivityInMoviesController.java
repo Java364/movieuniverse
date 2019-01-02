@@ -3,7 +3,7 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
 import academy.softserve.movieuniverse.entity.CastAndCrew;
 import academy.softserve.movieuniverse.service.CastAndCrewService;
-import academy.softserve.movieuniverse.service.mapper.StarActivityInMoviesMapper;
+import academy.softserve.movieuniverse.mapper.StarActivityInMoviesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

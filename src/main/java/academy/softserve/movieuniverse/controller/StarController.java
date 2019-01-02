@@ -5,7 +5,7 @@ import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.service.*;
-import academy.softserve.movieuniverse.service.mapper.*;
+import academy.softserve.movieuniverse.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
