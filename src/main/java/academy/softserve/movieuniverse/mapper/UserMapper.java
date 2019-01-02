@@ -31,7 +31,7 @@ public class UserMapper {
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setBirthday(user.getBirthday());
-        userDTO.setRole(Role.ROLE_USER);
+        userDTO.setRole(user.getRole());
         userDTO.setSelf(linkTo(methodOn(UserController.class).showById(user.getId())).withSelfRel().getHref());
         userDTO.setUsers(linkTo(methodOn(UserController.class).showAllNonRemoved()).withRel("users").getHref());
         userDTO.setComments(
@@ -48,7 +48,7 @@ public class UserMapper {
         newUser.setFirstName(user.getFirstName());
         newUser.setLastName(user.getLastName());
         newUser.setBirthday(user.getBirthday());
-        newUser.setRole(Role.ROLE_USER);
+        newUser.setRole(Role.USER);
         return newUser;
     }
 
