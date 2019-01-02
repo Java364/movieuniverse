@@ -11,14 +11,14 @@ public class EntityExistsValidator<T, ID> {
 
     public EntityExistsValidator(JpaRepository<T, ID> jpaRepository, Class entity) {
         this.jpaRepository = jpaRepository;
-        this.className = entity.getSimpleName();
+        this.className = entity.getName();
     }
 
     public void checkIfEntityExists(ID id) throws EntityNotFoundException, NullPointerException {
         Objects.requireNonNull(id, "Entity id must not be null");
         boolean genreNotFound = !jpaRepository.existsById(id);
         if (genreNotFound) {
-            throw new EntityNotFoundException(className + " entity with an id: " + id + " does not exist.");
+            throw new EntityNotFoundException("Unable to find " + className + " with id " + id);
         }
     }
 

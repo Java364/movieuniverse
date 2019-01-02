@@ -3,7 +3,7 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.service.LinksService;
-import academy.softserve.movieuniverse.service.mapper.LinksMapper;
+import academy.softserve.movieuniverse.mapper.LinksMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
@@ -23,20 +23,12 @@ public class LinksController {
     @Autowired
     private LinksMapper linksMapper = new LinksMapper();
 
+    @PostMapping("/create")
+    public ResponseEntity<LinksDTO> create(@RequestBody LinksDTO linksDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                linksMapper.mapEntityToDto(linksService.saveLinks(linksMapper.mapToEntityAndSaveLinks(linksDTO))));
 
-  @PostMapping("/create")
-  public ResponseEntity<LinksDTO> create(@RequestBody LinksDTO linksDTO) {
-      return ResponseEntity
-              .status(HttpStatus.CREATED)
-              .body(linksMapper.mapEntityToDto(
-                      linksService.saveLinks(linksMapper
-                                      .mapToEntityAndSaveLinks(linksDTO)
-                              )
-              )
-              );
-
-  }
-
+    }
 
     /*
      * @GetMapping public List<LinksDTO> findAllLinks() { List<Links> linksList = linksService.findAll(); return

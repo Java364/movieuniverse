@@ -7,7 +7,7 @@ import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.service.MovieMarkService;
 import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.UserService;
-import academy.softserve.movieuniverse.service.mapper.MovieMarkMapper;
+import academy.softserve.movieuniverse.mapper.MovieMarkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

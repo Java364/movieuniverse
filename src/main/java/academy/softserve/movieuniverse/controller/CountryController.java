@@ -3,7 +3,7 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.service.CountryService;
-import academy.softserve.movieuniverse.service.mapper.CountryMapper;
+import academy.softserve.movieuniverse.mapper.CountryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

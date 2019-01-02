@@ -1,14 +1,13 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
-import academy.softserve.movieuniverse.dto.image.ImageCreateInfo;
 import academy.softserve.movieuniverse.dto.image.ImageDTO;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Image;
 import academy.softserve.movieuniverse.service.GalleryService;
 import academy.softserve.movieuniverse.service.ImageService;
-import academy.softserve.movieuniverse.service.mapper.GalleryMapper;
-import academy.softserve.movieuniverse.service.mapper.ImageMapper;
+import academy.softserve.movieuniverse.mapper.GalleryMapper;
+import academy.softserve.movieuniverse.mapper.ImageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +58,7 @@ public class GalleryController {
     }
 
     @PostMapping("/{id}/images")
-       public ResponseEntity<ImageDTO> createImage(@PathVariable Long id, @RequestBody ImageDTO imageDTO) {
+    public ResponseEntity<ImageDTO> createImage(@PathVariable Long id, @RequestBody ImageDTO imageDTO) {
         Image image = imageMapper.mapToEntity(imageDTO);
         image.setGallery(galleryService.findById(id));
         return ResponseEntity.status(HttpStatus.CREATED).body(imageMapper.mapToDTO(imageService.save(image)));

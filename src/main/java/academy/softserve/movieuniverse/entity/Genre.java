@@ -1,6 +1,9 @@
 package academy.softserve.movieuniverse.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +11,10 @@ import java.util.List;
 @Table(name = "genres")
 public class Genre extends AbstractEntity {
 
-    @Column(name = "name_genre", unique = true)
+    @Column(name = "name", unique = true)
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "movies_genres", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    @ManyToMany(mappedBy = "genres")
     private List<Movie> movies = new ArrayList<>();
 
     public Genre() {
