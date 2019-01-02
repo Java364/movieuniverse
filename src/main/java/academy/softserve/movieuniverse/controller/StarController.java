@@ -3,6 +3,7 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.*;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
+import academy.softserve.movieuniverse.dto.star.StarDTO;
 import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.service.*;
 import academy.softserve.movieuniverse.mapper.*;

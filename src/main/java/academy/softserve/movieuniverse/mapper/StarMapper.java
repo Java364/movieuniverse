@@ -1,7 +1,7 @@
 package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.StarController;
-import academy.softserve.movieuniverse.dto.StarDTO;
+import academy.softserve.movieuniverse.dto.star.StarDTO;
 import academy.softserve.movieuniverse.entity.Avatar;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Star;
@@ -65,7 +65,7 @@ public class StarMapper {
         star.setId(null);
         star.setFirstName(dto.getLastName());
         star.setLastName(dto.getLastName());
-        if (dto.getIsRemoved() == null) {
+        if (dto.getRemoved() == null) {
             star.setIsRemoved(false);
         }
         this.mapCreateGalleryAndAvatar(star);
@@ -92,7 +92,7 @@ public class StarMapper {
         dto.setGrowth(entity.getGrowth());
         dto.setId(entity.getId());
         dto.setLastName(entity.getLastName());
-        dto.setIsRemoved(entity.getIsRemoved());
+        dto.setRemoved(entity.getIsRemoved());
         return dto;
     }
 
@@ -105,13 +105,13 @@ public class StarMapper {
         dto.setBirthday(entity.getBirthday());
         dto.setBiography(entity.getBiography());
         dto.setCityOfBirth(entity.getCityOfBirth());
-        dto.setIsRemoved(entity.getIsRemoved());
+        dto.setRemoved(entity.getIsRemoved());
         dto.setSelf(linkTo(methodOn(StarController.class).showOne(entity.getId())).withSelfRel().getHref());
-        dto.setLinksu(
+        dto.setLinks(
                 linkTo(methodOn(StarController.class).showLinksByStarId(entity.getId())).withRel("links").getHref());
-        dto.setCountriesu(linkTo(methodOn(StarController.class).showCountriesByStarId(entity.getId()))
+        dto.setCountries(linkTo(methodOn(StarController.class).showCountriesByStarId(entity.getId()))
                 .withRel("countries").getHref());
-        dto.setProfessionsu(linkTo(methodOn(StarController.class).showProfessionsByStarId(entity.getId()))
+        dto.setProfessions(linkTo(methodOn(StarController.class).showProfessionsByStarId(entity.getId()))
                 .withRel("professions").getHref());
         dto.setRoles(
                 linkTo(methodOn(StarController.class).showRolesByStarId(entity.getId())).withRel("roles").getHref());

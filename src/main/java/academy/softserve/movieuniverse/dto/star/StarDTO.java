@@ -1,6 +1,6 @@
-package academy.softserve.movieuniverse.dto;
+package academy.softserve.movieuniverse.dto.star;
 
-public class StarDTO {
+public class StarDTO implements StarSearchInfo, StarSearchShortInfo {
     private Long id;
     private String firstName;
     private String lastName;
@@ -9,52 +9,61 @@ public class StarDTO {
     private Double growth;
     private String cityOfBirth;
     private Boolean isRemoved;
-
     private String self;
     private String gallery;
     private String avatar;
     private String roles;
-    private String linksu;
-    private String countriesu;
-    private String moviesu;
-    private String professionsu;
+    private String links;
+    private String countries;
+    private String movies;
+    private String professions;
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
+    @Override
     public String getFirstName() {
         return firstName;
     }
 
+    @Override
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    @Override
     public String getLastName() {
         return lastName;
     }
 
+    @Override
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    @Override
     public Long getBirthday() {
         return birthday;
     }
 
+    @Override
     public void setBirthday(Long birthday) {
         this.birthday = birthday;
     }
 
+    @Override
     public String getBiography() {
         return biography;
     }
 
+    @Override
     public void setBiography(String biography) {
         this.biography = biography;
     }
@@ -75,12 +84,12 @@ public class StarDTO {
         this.cityOfBirth = cityOfBirth;
     }
 
-    public Boolean getIsRemoved() {
+    public Boolean getRemoved() {
         return isRemoved;
     }
 
-    public void setIsRemoved(Boolean isRemoved) {
-        this.isRemoved = isRemoved;
+    public void setRemoved(Boolean removed) {
+        isRemoved = removed;
     }
 
     public String getSelf() {
@@ -99,6 +108,16 @@ public class StarDTO {
         this.gallery = gallery;
     }
 
+    @Override
+    public String getAvatar() {
+        return avatar;
+    }
+
+    @Override
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public String getRoles() {
         return roles;
     }
@@ -107,44 +126,37 @@ public class StarDTO {
         this.roles = roles;
     }
 
-    public String getLinksu() {
-        return linksu;
+    public String getLinks() {
+        return links;
     }
 
-    public void setLinksu(String linksu) {
-        this.linksu = linksu;
+    public void setLinks(String links) {
+        this.links = links;
     }
 
-    public String getCountriesu() {
-        return countriesu;
+    public String getCountries() {
+        return countries;
     }
 
-    public void setCountriesu(String countriesu) {
-        this.countriesu = countriesu;
+    public void setCountries(String countries) {
+        this.countries = countries;
     }
 
-    public String getMoviesu() {
-        return moviesu;
+    public String getMovies() {
+        return movies;
     }
 
-    public void setMoviesu(String moviesu) {
-        this.moviesu = moviesu;
+    public void setMovies(String movies) {
+        this.movies = movies;
     }
 
-    public String getProfessionsu() {
-        return professionsu;
+    @Override
+    public String getProfessions() {
+        return professions;
     }
 
-    public void setProfessionsu(String professionsu) {
-        this.professionsu = professionsu;
+    @Override
+    public void setProfessions(String professions) {
+        this.professions = professions;
     }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
 }
