@@ -2,7 +2,7 @@ package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.ProfessionDTO;
 import academy.softserve.movieuniverse.entity.Profession;
-import academy.softserve.movieuniverse.service.ProfessionServise;
+import academy.softserve.movieuniverse.service.ProfessionService;
 import academy.softserve.movieuniverse.mapper.ProfessionMapper;
 import academy.softserve.movieuniverse.mapper.StarProfessionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,47 +17,42 @@ import java.util.List;
 @RequestMapping("/profession")
 public class ProfessionController {
 
-    @Autowired
-    private ProfessionServise professionServise;
-    @Autowired
-    private ProfessionMapper professionMapper = new ProfessionMapper();
-    @Autowired
-    private StarProfessionMapper starProfessionMapper;
+	@Autowired
+	private ProfessionService professionService;
+	@Autowired
+	private ProfessionMapper professionMapper = new ProfessionMapper();
+	@Autowired
+	private StarProfessionMapper starProfessionMapper;
 
-    @PostMapping("/createProfession")
-    ResponseEntity<ProfessionDTO> createProfession(@RequestBody ProfessionDTO professionDTO) {
-        Profession profession = professionMapper.mapProfessionToEntity(professionDTO);
-        professionServise.saveProfession(profession);
-        professionDTO = professionMapper.mapToDto(profession);
-        return new ResponseEntity<ProfessionDTO>(professionDTO, HttpStatus.CREATED);
+	@PostMapping
+	public ResponseEntity<ProfessionDTO> create(@RequestBody ProfessionDTO professionDTO) {
+		Profession profession = professionMapper.mapToEntity(professionDTO);
+		professionService.create(profession);
+		return ResponseEntity.status(HttpStatus.OK).body(professionMapper.mapToDto(profession));
 
-    }
+	}
 
-    @GetMapping("/listAll")
-    public List<ProfessionDTO> findAllProfession() {
-        List<Profession> professionList = professionServise.findAll();
-        return professionMapper.mapListProfessionToDto(professionList);
-    }
+	@GetMapping
+	public ResponseEntity<List<ProfessionDTO>> findAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(professionMapper.mapListToDto(professionService.findAll()));
+	}
 
-    @GetMapping("/profession/{id}")
-    public ResponseEntity<ProfessionDTO> getOneProfession(@PathVariable Long id) {
-        Profession profession = professionServise.getOneProfession(id);
-        return new ResponseEntity<ProfessionDTO>(professionMapper.mapToDto(profession), HttpStatus.OK);
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<ProfessionDTO> showById(@PathVariable Long id) {
+		Profession profession = professionService.findById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(professionMapper.mapToDto(profession));
+	}
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteProfession(@PathVariable Long id) {
-        professionServise.deleteProfession(id);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		professionService.delete(id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 
-    @PutMapping("/profession/{id}")
-    ResponseEntity<ProfessionDTO> updateProfession(@PathVariable("id") Long id,
-            @RequestBody ProfessionDTO professionDTO) {
-        Profession professions = professionMapper.mapToEntityForUpdateProfession(professionDTO, id);
-        professions = professionServise.updateProfession(professions);
-        professionDTO = professionMapper.mapToDto(professions);
-        return new ResponseEntity<ProfessionDTO>(professionDTO, HttpStatus.OK);
-    }
+	@PutMapping("/{id}")
+	public ResponseEntity<ProfessionDTO> update(@PathVariable("id") Long id, @RequestBody ProfessionDTO professionDTO) {
+		return ResponseEntity.status(HttpStatus.OK).body(professionMapper
+				.mapToDto(professionService.update(professionMapper.mapToEntityForUpdate(professionDTO, id))));
+	}
 
 }

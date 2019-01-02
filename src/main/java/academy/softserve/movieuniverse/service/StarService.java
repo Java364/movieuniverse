@@ -104,5 +104,4 @@ public class StarService {
     public List<Star> findAllByName(String name) {
         return starRepository.findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(name, name);
     }
-
 }

@@ -1,52 +1,60 @@
 package academy.softserve.movieuniverse.dto;
 
 public class ProfessionDTO {
-    private Long id;
-    private String professionType;
-    private String starIds;
-    private Boolean isRemoved;
-    private String self;
+	private Long id;
+	private String professionType;
+	private Boolean isRemoved;
+	private String self;
+	private String stars;
 
-    public ProfessionDTO() {
-    }
+	public ProfessionDTO() {
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Boolean getIsRemoved() {
+		return isRemoved;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setIsRemoved(Boolean isRemoved) {
+		this.isRemoved = isRemoved;
+	}
 
-    public String getProfessionType() {
-        return professionType;
-    }
+	public String getStars() {
+		return stars;
+	}
 
-    public void setProfessionType(String professionType) {
-        this.professionType = professionType;
-    }
+	public void setStars(String stars) {
+		this.stars = stars;
+	}
 
-    public String getStarIds() {
-        return starIds;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setStarIds(String starIds) {
-        this.starIds = starIds;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Boolean getRemoved() {
-        return isRemoved;
-    }
+	public String getProfessionType() {
+		return professionType;
+	}
 
-    public void setRemoved(Boolean removed) {
-        isRemoved = removed;
-    }
+	public void setProfessionType(String professionType) {
+		this.professionType = professionType;
+	}
 
-    public String getSelf() {
-        return self;
-    }
+	public Boolean getRemoved() {
+		return isRemoved;
+	}
 
-    public void setSelf(String self) {
-        this.self = self;
-    }
+	public void setRemoved(Boolean removed) {
+		isRemoved = removed;
+	}
+
+	public String getSelf() {
+		return self;
+	}
+
+	public void setSelf(String self) {
+		this.self = self;
+	}
 }
