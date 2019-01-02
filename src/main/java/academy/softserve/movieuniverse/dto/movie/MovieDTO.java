@@ -13,11 +13,20 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO, MovieSearchShortI
     private String gallery;
     private String stars;
     private String roles;
+    private String trailers;
     private String countries;
     private String comments;
     private String movieMarks;
 
-    @Override
+    public String getTrailers() {
+		return trailers;
+	}
+
+	public void setTrailers(String trailers) {
+		this.trailers = trailers;
+	}
+
+	@Override
     public String getGenres() {
         return genres;
     }

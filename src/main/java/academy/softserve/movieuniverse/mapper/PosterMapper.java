@@ -35,7 +35,7 @@ public class PosterMapper {
         return poster;
     }
 
-    public PosterDTO mapToDto(Poster poster) {
+    public PosterDTO mapToDTO(Poster poster) {
         PosterDTO dto = new PosterDTO();
         dto.setId(poster.getId());
         dto.setName(poster.getName());

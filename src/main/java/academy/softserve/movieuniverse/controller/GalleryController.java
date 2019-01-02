@@ -47,7 +47,6 @@ public class GalleryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity completelyDelete(@PathVariable Long id) {
-
         galleryService.deleteById(id);
         return new ResponseEntity<String>(HttpStatus.OK);
     }

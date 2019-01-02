@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(maxAge = 3600)
-@RequestMapping("/posters")
+@RequestMapping("/poster")
 public class PosterController {
 
     @Autowired
@@ -21,12 +21,12 @@ public class PosterController {
     @PutMapping("/{id}")
     public ResponseEntity<PosterDTO> update(@PathVariable("id") Long id, @RequestBody PosterDTO posterDTO) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(posterMapper.mapToDto(posterService.update(posterMapper.mapToEntityForUpdate(posterDTO, id))));
+                .body(posterMapper.mapToDTO(posterService.update(posterMapper.mapToEntityForUpdate(posterDTO, id))));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PosterDTO> showById(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(posterMapper.mapToDto(posterService.findById(id)));
+        return ResponseEntity.status(HttpStatus.OK).body(posterMapper.mapToDTO(posterService.findById(id)));
     }
 
     @DeleteMapping("/{id}")
