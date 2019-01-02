@@ -33,13 +33,9 @@ public class UserService {
     }
 
     public void deleteById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new NotFoundException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID"));
-        if (user.getIsRemoved()) {
-            userRepository.deleteById(id);
-        } else {
-            throw new NotFoundException(ExceptionType.DELETE.getMessage() + "user with " + id.toString() + " ID");
-        }
+        if (!userRepository.findById(id).isPresent())
+            throw new NotFoundException(ExceptionType.DELETE.getMessage() + "user with ID - " + id.toString());
+        userRepository.deleteById(id);
     }
 
     public void removeById(Long id) {
