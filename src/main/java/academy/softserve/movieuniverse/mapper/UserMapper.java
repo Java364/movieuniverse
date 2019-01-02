@@ -5,6 +5,7 @@ import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserDTO;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
 import academy.softserve.movieuniverse.dto.user.UserShortInfo;
+
 import academy.softserve.movieuniverse.entity.Role;
 import academy.softserve.movieuniverse.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class UserMapper {
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setBirthday(user.getBirthday());
-        userDTO.setUserRole(Role.ROLE_USER);
+        userDTO.setRole(Role.ROLE_USER);
         userDTO.setSelf(linkTo(methodOn(UserController.class).showById(user.getId())).withSelfRel().getHref());
         userDTO.setUsers(linkTo(methodOn(UserController.class).showAllNonRemoved()).withRel("users").getHref());
         userDTO.setComments(
@@ -47,7 +48,7 @@ public class UserMapper {
         newUser.setFirstName(user.getFirstName());
         newUser.setLastName(user.getLastName());
         newUser.setBirthday(user.getBirthday());
-        newUser.setUserRole(Role.ROLE_USER);
+        newUser.setRole(Role.ROLE_USER);
         return newUser;
     }
 
@@ -55,7 +56,7 @@ public class UserMapper {
         UserDTO userDTO = copyEntityPropertiesToDTO(user);
         userDTO.setPassword(user.getPassword());
         userDTO.setRemoved(user.getIsRemoved());
-        userDTO.setUserRole(Role.ROLE_USER);
+        userDTO.setRole(user.getRole());
         userDTO.setEntryCreationDate(user.getEntryCreationDate().getTime());
         userDTO.setEntryLastUpdate(user.getEntryLastUpdate().getTime());
         return userDTO;

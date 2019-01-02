@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.dto.user;
 
+
 import academy.softserve.movieuniverse.entity.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -11,7 +12,7 @@ public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, Use
     private String confirmPassword;
     private String firstName;
     private String lastName;
-    private Role userRole;
+    private Role role;
     private Long birthday;
     private Long entryCreationDate;
     private Long entryLastUpdate;
@@ -138,12 +139,12 @@ public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, Use
         this.users = users;
     }
 
-    public Role getUserRole() {
-        return userRole;
+    public Role getRole() {
+        return role;
     }
 
-    public void setUserRole(Role userRole) {
-        this.userRole = userRole;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getComments() {

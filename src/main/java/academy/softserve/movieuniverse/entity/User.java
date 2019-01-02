@@ -13,7 +13,7 @@ public class User extends Person {
     private String password;
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Role userRole;
+    private Role role;
 
     @OneToMany(mappedBy = "commentator", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
@@ -58,12 +58,12 @@ public class User extends Person {
         this.comments = comments;
     }
 
-    public Role getUserRole() {
-        return userRole;
+    public Role getRole() {
+        return role;
     }
 
-    public void setUserRole(Role userRole) {
-        this.userRole = userRole;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
