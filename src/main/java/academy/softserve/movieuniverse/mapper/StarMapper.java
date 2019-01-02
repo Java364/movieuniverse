@@ -2,15 +2,20 @@ package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.StarController;
 import academy.softserve.movieuniverse.dto.star.StarDTO;
+import academy.softserve.movieuniverse.dto.star.StarSearchInfo;
+import academy.softserve.movieuniverse.dto.star.StarSearchShortInfo;
 import academy.softserve.movieuniverse.entity.Avatar;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Star;
-import academy.softserve.movieuniverse.service.*;
+import academy.softserve.movieuniverse.service.AvatarService;
+import academy.softserve.movieuniverse.service.GalleryService;
+import academy.softserve.movieuniverse.service.StarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -18,33 +23,22 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Service
 public class StarMapper {
 
+    private final StarService starService;
+    private final GalleryService galleryService;
+    private final AvatarService avatarService;
+
     @Autowired
-    private StarService starService;
-    @Autowired
-    private CountryService countryService;
-    @Autowired
-    private GalleryService galleryService;
-    @Autowired
-    private LinksService linkService;
-    @Autowired
-    private AvatarService avatarService;
-    @Autowired
-    private StarProfessionService starProfessionService;
-    @Autowired
-    private CountryMapper countryMapper;
-    @Autowired
-    private LinksMapper linksMapper;
-    @Autowired
-    private GalleryMapper galleryMapper;
-    @Autowired
-    private StarProfessionMapper starProfessionMapper;
+    public StarMapper(StarService starService, GalleryService galleryService, AvatarService avatarService) {
+        this.starService = starService;
+        this.galleryService = galleryService;
+        this.avatarService = avatarService;
+    }
 
     public Star mapListToEntity(StarDTO dto) {
         Star star = new Star();
         star.setFirstName(dto.getFirstName());
         star.setLastName(dto.getLastName());
         star.setId(dto.getId());
-        star.setIsRemoved(new Boolean(false));
         return star;
     }
 
@@ -144,4 +138,38 @@ public class StarMapper {
         star.setGallery(gallery);
         star.setAvatar(avatar);
     }
+
+    public StarSearchInfo mapEntityToStarSearchInfo(Star starEntity) {
+        StarSearchInfo starDTO = new StarDTO();
+        starDTO.setFirstName(starEntity.getFirstName());
+        starDTO.setLastName(starEntity.getLastName());
+        starDTO.setId(starEntity.getId());
+        starDTO.setBiography(starEntity.getBiography());
+        starDTO.setBirthday(starEntity.getBirthday());
+        starDTO.setSelf(linkTo(methodOn(StarController.class).showOne(starEntity.getId())).withSelfRel().getHref());
+        starDTO.setProfessions(linkTo(methodOn(StarController.class).showProfessionsByStarId(starEntity.getId()))
+                .withRel("professions").getHref());
+        starDTO.setAvatar(
+                linkTo(methodOn(StarController.class).showStarAvatar(starEntity.getId())).withRel("avatar").getHref());
+        return starDTO;
+    }
+
+    public StarSearchShortInfo mapEntityToStarShortSearchInfo(Star starEntity) {
+        StarSearchShortInfo starDTO = new StarDTO();
+        starDTO.setFirstName(starEntity.getFirstName());
+        starDTO.setLastName(starEntity.getLastName());
+        starDTO.setId(starEntity.getId());
+        starDTO.setBirthday(starEntity.getBirthday());
+        starDTO.setSelf(linkTo(methodOn(StarController.class).showOne(starEntity.getId())).withSelfRel().getHref());
+        return starDTO;
+    }
+
+    public List<StarSearchInfo> mapListEntityToStarSearchInfoList(List<Star> starEntities) {
+        return starEntities.stream().map(this::mapEntityToStarSearchInfo).collect(Collectors.toList());
+    }
+
+    public List<StarSearchShortInfo> mapListEntityToStarSearchShortInfoList(List<Star> starEntities) {
+        return starEntities.stream().map(this::mapEntityToStarShortSearchInfo).collect(Collectors.toList());
+    }
+
 }

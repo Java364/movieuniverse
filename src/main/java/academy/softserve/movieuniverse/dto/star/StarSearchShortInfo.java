@@ -16,4 +16,9 @@ public interface StarSearchShortInfo {
     Long getBirthday();
 
     void setBirthday(Long birthday);
+
+    String getSelf();
+
+    void setSelf(String self);
+
 }

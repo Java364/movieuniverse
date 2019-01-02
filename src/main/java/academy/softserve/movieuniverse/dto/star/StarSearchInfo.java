@@ -28,4 +28,8 @@ public interface StarSearchInfo {
     String getBiography();
 
     void setBiography(String biography);
+
+    String getSelf();
+
+    void setSelf(String self);
 }

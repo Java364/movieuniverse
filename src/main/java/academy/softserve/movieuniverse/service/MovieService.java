@@ -134,6 +134,6 @@ public class MovieService {
     }
 
     public List<Movie> findAllByName(String name) {
-        return movieRepository.findAllByMovieNameIgnoreCase(name);
+        return movieRepository.findAllByMovieNameIgnoreCaseContaining(name);
     }
 }

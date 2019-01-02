@@ -16,5 +16,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             + " where cac.movie.id = :movieId and sp.profession.professionType = :profession")
     List<Star> findCreditsByProfession(@Param("movieId") Long movieId, @Param("profession") String profession);
 
-    List<Movie> findAllByMovieNameIgnoreCase(String name);
+    List<Movie> findAllByMovieNameIgnoreCaseContaining(String name);
 }
