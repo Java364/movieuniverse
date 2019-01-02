@@ -22,7 +22,7 @@ public class CastAndCrewService {
 
     public void createStarActivityInMovies(CastAndCrew castAndCrew) {
         if (castAndCrew == null) {
-            throw new NotFoundException(ExceptionType.SAVE.getMessage() + " CastAndCrew");
+            throw new NotFoundException(ExceptionType.SAVE.getMessage() + " CastAndCrewDTO");
         }
         castAndCrewRepository.save(castAndCrew);
     }
@@ -31,7 +31,7 @@ public class CastAndCrewService {
         Optional<CastAndCrew> starActivityInMovies = castAndCrewRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
             throw new NotFoundException(
-                    ExceptionType.SELECT.getMessage() + "CastAndCrew with " + id.toString() + " ID");
+                    ExceptionType.SELECT.getMessage() + "CastAndCrewDTO with " + id.toString() + " ID");
         }
         return starActivityInMovies.get();
     }
@@ -40,7 +40,7 @@ public class CastAndCrewService {
         Optional<CastAndCrew> starActivityInMovies = castAndCrewRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
             throw new NotFoundException(
-                    ExceptionType.DELETE.getMessage() + "CastAndCrew with " + id.toString() + " ID");
+                    ExceptionType.DELETE.getMessage() + "CastAndCrewDTO with " + id.toString() + " ID");
         }
         castAndCrewRepository.deleteById(id);
     }
