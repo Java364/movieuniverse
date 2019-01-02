@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.repository;
 
 import academy.softserve.movieuniverse.entity.Links;
+import academy.softserve.movieuniverse.entity.Profession;
 import academy.softserve.movieuniverse.entity.Star;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,5 +13,5 @@ public interface StarRepository extends JpaRepository<Star, Long> {
     Star findByLinks(Links links);
 
     List<Star> findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(String firstName, String lastName);
-
+    List<Star> findAllByProfession(Profession profession);
 }

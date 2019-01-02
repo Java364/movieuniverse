@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProfessionServise {
+public class ProfessionService {
     @Autowired
     private ProfessionRepository professionRepository;
 

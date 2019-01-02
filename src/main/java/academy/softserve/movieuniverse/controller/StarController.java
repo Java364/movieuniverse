@@ -31,7 +31,7 @@ public class StarController {
     private final AvatarMapper avatarMapper;
     private final StarActivityInMoviesMapper starActivityMapper;
     @Autowired
-    private ProfessionServise professionServise;
+    private ProfessionService professionService;
 
     @Autowired
     public StarController(StarService starService, StarProfessionService starProfessionService, StarMapper mapper,
@@ -186,7 +186,7 @@ public class StarController {
 
     @GetMapping("/{id}/professionsss")
     public ResponseEntity<List<StarProfessionDTO>> showProfessionsByStarIds(@PathVariable Long id) {
-        Profession profession = professionServise.findById(id);
+        Profession profession = professionService.findById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(starProfessionMapper.mapListEntityToDTO(profession.getStars()));
     }

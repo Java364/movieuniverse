@@ -2,6 +2,7 @@ package academy.softserve.movieuniverse.service;
 
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Links;
+import academy.softserve.movieuniverse.entity.Profession;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
@@ -104,5 +105,8 @@ public class StarService {
     public List<Star> findAllByName(String name) {
         return starRepository.findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(name, name);
     }
-
+    
+    public List<Star> findByProfession(Profession profession) {
+    	return starRepository.findAllByProfession(profession);
+    }
 }

@@ -3,9 +3,6 @@ package academy.softserve.movieuniverse.mapper;
 import academy.softserve.movieuniverse.controller.ProfessionController;
 import academy.softserve.movieuniverse.dto.ProfessionDTO;
 import academy.softserve.movieuniverse.entity.Profession;
-import academy.softserve.movieuniverse.service.ProfessionServise;
-import academy.softserve.movieuniverse.service.StarProfessionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -36,7 +33,7 @@ public class ProfessionMapper {
         professionDTO.setProfessionType(profession.getType());
         professionDTO.setSelf(linkTo(methodOn(ProfessionController.class).showById(profession.getId()))
                 .withSelfRel().getHref());
-//        professionDTO.setStars(linkTo(methodOn(ProfessionController.class).);
+//        professionDTO.setStars(linkTo(methodOn(StarController.class).showProfessionsByStarIds(profession.getStars()));
         professionDTO.setRemoved(profession.getIsRemoved());
         return professionDTO;
     }
