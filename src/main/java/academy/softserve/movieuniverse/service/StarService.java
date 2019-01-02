@@ -101,7 +101,7 @@ public class StarService {
         return gallery;
     }
 
-    public List<Star> findAllByName(String name){
+    public List<Star> findAllByName(String name) {
         return starRepository.findAllByFirstNameOrLastNameAllIgnoreCase(name, name);
     }
 

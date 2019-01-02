@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.dto.movie;
 
-public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
+public class MovieDTO implements MovieInfoDTO, MovieCreateDTO, MovieSearchShortInfo, MovieSearchInfo {
     private Long id;
     private String movieName;
     private int year;
@@ -9,6 +9,7 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
     private String ageLimitation;
     private String self;
     private String genres;
+    private String poster;
     private String gallery;
     private String stars;
     private String roles;
@@ -84,10 +85,22 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO {
         this.ageLimitation = ageLimitation;
     }
 
+    @Override
+    public String getPoster() {
+        return poster;
+    }
+
+    @Override
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    @Override
     public String getSelf() {
         return self;
     }
 
+    @Override
     public void setSelf(String self) {
         this.self = self;
     }

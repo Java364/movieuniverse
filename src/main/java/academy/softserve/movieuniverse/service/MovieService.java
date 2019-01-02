@@ -133,7 +133,7 @@ public class MovieService {
         return movieRepository.findCreditsByProfession(movieId, profession);
     }
 
-    public List<Movie> findAllByName(String name){
-        return movieRepository.findAllByMovieName(name);
+    public List<Movie> findAllByName(String name) {
+        return movieRepository.findAllByMovieNameIgnoreCase(name);
     }
 }
