@@ -12,8 +12,8 @@ import java.util.List;
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     Movie findAllByMovieMarks(MovieMark movieMark);
 
-    @Query("select sp.star from CastAndCrew cac" + " inner join cac.starProfession sp"
-            + " where cac.movie.id = :movieId and sp.profession.professionType = :profession")
+    @Query("select sp.star from Crew cr" + " inner join cr.starProfession sp"
+            + " where cr.movie.id = :movieId and sp.profession.professionType = :profession")
     List<Star> findCreditsByProfession(@Param("movieId") Long movieId, @Param("profession") String profession);
 
     List<Movie> findAllByMovieNameIgnoreCaseContaining(String name);

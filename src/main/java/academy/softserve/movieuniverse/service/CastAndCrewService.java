@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
-import academy.softserve.movieuniverse.entity.CastAndCrew;
+import academy.softserve.movieuniverse.entity.Crew;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.CastAndCrewRepository;
@@ -20,15 +20,15 @@ public class CastAndCrewService {
         this.castAndCrewRepository = castAndCrewRepository;
     }
 
-    public void createStarActivityInMovies(CastAndCrew castAndCrew) {
-        if (castAndCrew == null) {
+    public void createStarActivityInMovies(Crew crew) {
+        if (crew == null) {
             throw new NotFoundException(ExceptionType.SAVE.getMessage() + " CastAndCrewDTO");
         }
-        castAndCrewRepository.save(castAndCrew);
+        castAndCrewRepository.save(crew);
     }
 
-    public CastAndCrew getStarActivityInMovies(Long id) {
-        Optional<CastAndCrew> starActivityInMovies = castAndCrewRepository.findById(id);
+    public Crew getStarActivityInMovies(Long id) {
+        Optional<Crew> starActivityInMovies = castAndCrewRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
             throw new NotFoundException(
                     ExceptionType.SELECT.getMessage() + "CastAndCrewDTO with " + id.toString() + " ID");
@@ -37,7 +37,7 @@ public class CastAndCrewService {
     }
 
     public void deleteStarActivityInMovies(Long id) {
-        Optional<CastAndCrew> starActivityInMovies = castAndCrewRepository.findById(id);
+        Optional<Crew> starActivityInMovies = castAndCrewRepository.findById(id);
         if (!starActivityInMovies.isPresent()) {
             throw new NotFoundException(
                     ExceptionType.DELETE.getMessage() + "CastAndCrewDTO with " + id.toString() + " ID");
@@ -45,7 +45,7 @@ public class CastAndCrewService {
         castAndCrewRepository.deleteById(id);
     }
 
-    public List<CastAndCrew> findAllStarActivityInMovies() {
+    public List<Crew> findAllStarActivityInMovies() {
         return castAndCrewRepository.findAll();
     }
 }

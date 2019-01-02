@@ -1,9 +1,9 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
-import academy.softserve.movieuniverse.entity.CastAndCrew;
-import academy.softserve.movieuniverse.service.CastAndCrewService;
+import academy.softserve.movieuniverse.entity.Crew;
 import academy.softserve.movieuniverse.mapper.StarActivityInMoviesMapper;
+import academy.softserve.movieuniverse.service.CastAndCrewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +27,10 @@ public class StarActivityInMoviesController {
 
     @GetMapping("/starActivityInMovies")
     public List<StarActivityInMoviesDTO> viewAll() {
-        List<CastAndCrew> allStarActivityInMovies = castAndCrewService.findAllStarActivityInMovies();
+        List<Crew> allStarActivityInMovies = castAndCrewService.findAllStarActivityInMovies();
         List<StarActivityInMoviesDTO> allStarActivityInMoviesDTOs = new ArrayList<>();
-        for (CastAndCrew castAndCrew : allStarActivityInMovies) {
-            StarActivityInMoviesDTO starActivityInMoviesDTO = starActivityInMoviesMapper.mapToDto(castAndCrew);
+        for (Crew crew : allStarActivityInMovies) {
+            StarActivityInMoviesDTO starActivityInMoviesDTO = starActivityInMoviesMapper.mapToDto(crew);
             allStarActivityInMoviesDTOs.add(starActivityInMoviesDTO);
         }
         return allStarActivityInMoviesDTOs;
@@ -38,8 +38,8 @@ public class StarActivityInMoviesController {
 
     @GetMapping("/starActivityInMovies/{id}")
     public StarActivityInMoviesDTO getStarActivityInMovies(@PathVariable Long id) {
-        CastAndCrew castAndCrew = castAndCrewService.getStarActivityInMovies(id);
-        return starActivityInMoviesMapper.mapToDto(castAndCrew);
+        Crew crew = castAndCrewService.getStarActivityInMovies(id);
+        return starActivityInMoviesMapper.mapToDto(crew);
     }
 
     @DeleteMapping("/starActivityInMovies")

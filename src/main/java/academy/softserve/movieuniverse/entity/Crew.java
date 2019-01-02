@@ -6,8 +6,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cast_and_crew")
-public class CastAndCrew extends AbstractEntity {
+@Table(name = "crew")
+public class Crew extends AbstractEntity {
     @ManyToOne
     private StarProfession starProfession;
 
@@ -15,7 +15,7 @@ public class CastAndCrew extends AbstractEntity {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
-    public CastAndCrew() {
+    public Crew() {
     }
 
     public StarProfession getStarProfession() {

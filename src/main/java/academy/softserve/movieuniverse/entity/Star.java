@@ -22,7 +22,7 @@ public class Star extends Person {
     private String cityOfBirth;
 
     @OneToMany(mappedBy = "starProfession", cascade = CascadeType.ALL)
-    private List<CastAndCrew> roles = new ArrayList<CastAndCrew>();
+    private List<Crew> roles = new ArrayList<Crew>();
 
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<StarProfession> professions = new ArrayList<StarProfession>();
@@ -57,11 +57,11 @@ public class Star extends Person {
         this.biography = biography;
     }
 
-    public List<CastAndCrew> getRoles() {
+    public List<Crew> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<CastAndCrew> roles) {
+    public void setRoles(List<Crew> roles) {
         this.roles = roles;
     }
 
