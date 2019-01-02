@@ -16,17 +16,12 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
 public class ProfessionMapper {
-    @Autowired
-    private ProfessionServise professionServise;
-    @Autowired
-    private StarProfessionService starProfessionService;
-    @Autowired
-    private StarProfessionMapper starProfessionMapper;
 
-    public Profession mapProfessionToEntity(ProfessionDTO dto) {
+	public Profession mapToEntity(ProfessionDTO dto) {
         Profession profession = new Profession();
         profession.setId(dto.getId());
         profession.setType(dto.getProfessionType());
+        
         /*
          * profession.setStars(dto.getProfessionsIds().stream().map(p ->
          * starProfessionService.getStarProfession(p)).collect(Collectors.toList()));
@@ -39,14 +34,14 @@ public class ProfessionMapper {
         ProfessionDTO professionDTO = new ProfessionDTO();
         professionDTO.setId(profession.getId());
         professionDTO.setProfessionType(profession.getType());
-        professionDTO.setSelf(linkTo(methodOn(ProfessionController.class).getOneProfession(profession.getId()))
+        professionDTO.setSelf(linkTo(methodOn(ProfessionController.class).showById(profession.getId()))
                 .withSelfRel().getHref());
-
+//        professionDTO.setStars(linkTo(methodOn(ProfessionController.class).);
         professionDTO.setRemoved(profession.getIsRemoved());
         return professionDTO;
     }
 
-    public List<ProfessionDTO> mapListProfessionToDto(List<Profession> professionList) {
+    public List<ProfessionDTO> mapListToDto(List<Profession> professionList) {
         List<ProfessionDTO> professionDTOS = new ArrayList<>();
         for (Profession p : professionList) {
             professionDTOS.add(this.mapToDto(p));
@@ -54,7 +49,7 @@ public class ProfessionMapper {
         return professionDTOS;
     }
 
-    public Profession mapToEntityForUpdateProfession(ProfessionDTO dto, Long id) {
+    public Profession mapToEntityForUpdate(ProfessionDTO dto, Long id) {
         Profession profession = new Profession();
         profession.setId(id);
         profession.setType(dto.getProfessionType());

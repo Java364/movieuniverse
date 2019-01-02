@@ -15,7 +15,7 @@ public class ProfessionServise {
     @Autowired
     private ProfessionRepository professionRepository;
 
-    public void save(Profession profession) {
+    public void create(Profession profession) {
         if (profession.getType().isEmpty() || profession == null)
             throw new NotFoundException(ExceptionType.SAVE.getMessage() + "Profession");
         {
