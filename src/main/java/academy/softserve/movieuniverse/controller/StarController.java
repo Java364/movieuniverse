@@ -186,7 +186,7 @@ public class StarController {
 
     @GetMapping("/{id}/professionsss")
     public ResponseEntity<List<StarProfessionDTO>> showProfessionsByStarIds(@PathVariable Long id) {
-        Profession profession = professionServise.getOne(id);
+        Profession profession = professionServise.findById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(starProfessionMapper.mapListEntityToDTO(profession.getStars()));
     }

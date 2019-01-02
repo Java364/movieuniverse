@@ -41,7 +41,7 @@ public class ProfessionController {
 
     @GetMapping("/profession/{id}")
     public ResponseEntity<ProfessionDTO> getOneProfession(@PathVariable Long id) {
-        Profession profession = professionServise.getOne(id);
+        Profession profession = professionServise.findById(id);
         return new ResponseEntity<ProfessionDTO>(professionMapper.mapToDto(profession), HttpStatus.OK);
     }
 

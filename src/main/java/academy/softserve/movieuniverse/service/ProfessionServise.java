@@ -42,7 +42,7 @@ public class ProfessionServise {
         return profession;
     }
 
-    public Profession getOne(Long id) {
+    public Profession findById(Long id) {
         Optional<Profession> profession = professionRepository.findById(id);
         if (!profession.isPresent()) {
             throw new NotFoundException(ExceptionType.SELECT.getMessage() + "profession with ID - " + id.toString());
