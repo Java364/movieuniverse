@@ -102,7 +102,7 @@ public class StarService {
     }
 
     public List<Star> findAllByName(String name) {
-        return starRepository.findAllByFirstNameOrLastNameAllIgnoreCase(name, name);
+        return starRepository.findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(name, name);
     }
 
 }
