@@ -1,5 +1,7 @@
 package academy.softserve.movieuniverse.dto.user;
 
+import academy.softserve.movieuniverse.entity.Role;
+
 public interface UserFullInfo {
 
     String getEmail();
@@ -33,5 +35,9 @@ public interface UserFullInfo {
     Boolean getRemoved();
 
     void setRemoved(Boolean removed);
+
+    Role getRole();
+
+    void setRole(Role role);
 
 }

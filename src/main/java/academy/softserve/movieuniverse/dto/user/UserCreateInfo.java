@@ -13,9 +13,9 @@ public interface UserCreateInfo {
 
     void setPassword(String password);
 
-    String getConfirmPassword();
+    /*String getConfirmPassword();
 
-    void setConfirmPassword(String confirmPassword);
+    void setConfirmPassword(String confirmPassword);*/
 
     String getLastName();
 
@@ -25,7 +25,5 @@ public interface UserCreateInfo {
 
     void setFirstName(String firstName);
 
-    Long getBirthday();
 
-    void setBirthday(Long birthday);
 }

@@ -5,6 +5,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class Person extends AbstractEntity {
+
     @Column(name = "first_name")
     private String firstName;
 

@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
+
 import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
 import academy.softserve.movieuniverse.dto.user.UserShortInfo;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
@@ -95,5 +97,10 @@ public class UserController {
         User user = userService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDTOList(user.getMovieMarks()));
     }
+    /*@PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void registerUser(@Valid @RequestBody RegistrationDTO registrationDTO) {
+        userService.registerUser(registrationDTO);
+    }*/
 
 }

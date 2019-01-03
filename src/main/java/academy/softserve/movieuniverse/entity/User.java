@@ -1,7 +1,9 @@
 package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,8 +11,16 @@ import java.util.Objects;
 @Entity
 @Table(name = "user")
 public class User extends Person {
+
+    @Size(max = 25, message = "Email size < 25")
+    /*@Email*/
+    @Column(name = "email", unique = true, length = 25)
     private String email;
+
+    @Size(max = 60, message = "Password size < 60")
+    @Column(name = "password", length = 60)
     private String password;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -20,6 +30,13 @@ public class User extends Person {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MovieMark> movieMarks = new ArrayList<>();
+
+    public User() {
+    }
+
+    public User(String firstName, String lastName, String email, String password) {
+        super();
+    }
 
     public List<MovieMark> getMovieMarks() {
         return movieMarks;

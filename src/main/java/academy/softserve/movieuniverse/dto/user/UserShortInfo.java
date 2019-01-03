@@ -17,7 +17,9 @@ public interface UserShortInfo {
 
     void setFirstName(String firstName);
 
-    Long getBirthday();
+    String getPassword();
 
-    void setBirthday(Long birthday);
+    void setPassword(String password);
+
+
 }

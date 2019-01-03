@@ -1,11 +1,15 @@
 package academy.softserve.movieuniverse.service;
 
+
+import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.entity.MovieMark;
+import academy.softserve.movieuniverse.entity.Role;
 import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +20,12 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+@Autowired
+private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-
     }
 
     public User findById(Long id) {
@@ -29,7 +34,14 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        return userRepository.saveAndFlush(user);
+        User user1 = new User();
+        user1.setEmail(user.getEmail());
+        user1.setFirstName(user.getFirstName());
+        user1.setLastName(user.getLastName());
+        user1.setRole(Role.USER);
+        user1.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        return userRepository.saveAndFlush(user1);
     }
 
     public void deleteById(Long id) {
@@ -77,4 +89,5 @@ public class UserService {
         return userRepository.findByMovieMarks(movieMark);
 
     }
+
 }
