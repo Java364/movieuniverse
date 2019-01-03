@@ -20,13 +20,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/movies")
 public class MovieController {
-
 
 	private final MovieService movieService;
 
@@ -98,7 +99,7 @@ public class MovieController {
 		MovieMark movieMark = movieMarkService.findById(id);
 		return movieMapper.mapToDto(movieService.findAllByMovieMarks(movieMark));
 	}
-	
+
 	@GetMapping("/{id}/gallery")
 	public ResponseEntity<GalleryDTO> showMovieGallery(@PathVariable Long id) {
 		Movie movie = movieService.findMovieById(id);
@@ -162,5 +163,22 @@ public class MovieController {
 		movie.setCountries(countries);
 		movieService.updateMovie(movie, id);
 		return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(movie.getCountries()));
+	}
+
+	@GetMapping("/{id}/movieMark")
+	public ResponseEntity<Map<Integer, Double>> showMovieMark(@PathVariable Long id) {
+		Movie movie = movieService.findMovieById(id);
+		Map<Integer, Double> map = new HashMap<Integer, Double>();
+		List<MovieMark> marks = movie.getMovieMarks();
+		Double sumOfMarks = 0d;
+		for (MovieMark x : marks) {
+			sumOfMarks = +x.getMark();
+		}
+		if (sumOfMarks == 0) {
+			map.put(movie.getMovieMarks().size(), sumOfMarks);
+		} else {
+			map.put(movie.getMovieMarks().size(), sumOfMarks / movie.getMovieMarks().size());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(map);
 	}
 }
