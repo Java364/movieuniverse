@@ -45,12 +45,12 @@ public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, Use
         this.password = password;
     }
 
-    @Override
+
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
-    @Override
+
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }

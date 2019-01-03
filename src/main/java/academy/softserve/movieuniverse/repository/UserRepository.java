@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.repository;
 
+import academy.softserve.movieuniverse.dto.user.RegistrationDTO;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByMovieMarks(MovieMark movieMark);
 
     User findByEmail(String email);
+
+
 }

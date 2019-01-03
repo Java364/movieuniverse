@@ -1,13 +1,11 @@
 package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.UserController;
-import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
-import academy.softserve.movieuniverse.dto.user.UserDTO;
-import academy.softserve.movieuniverse.dto.user.UserFullInfo;
-import academy.softserve.movieuniverse.dto.user.UserShortInfo;
+import academy.softserve.movieuniverse.dto.user.*;
 
 import academy.softserve.movieuniverse.entity.Role;
 import academy.softserve.movieuniverse.entity.User;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +17,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
 public class UserMapper {
-
+    @Autowired
+    private ModelMapper modelMapper;
     @Autowired
     public UserMapper() {
 
@@ -47,7 +46,7 @@ public class UserMapper {
         newUser.setPassword(user.getPassword());
         newUser.setFirstName(user.getFirstName());
         newUser.setLastName(user.getLastName());
-        newUser.setBirthday(user.getBirthday());
+
         newUser.setRole(Role.USER);
         return newUser;
     }
@@ -78,6 +77,10 @@ public class UserMapper {
 
     public List<UserShortInfo> mapUserEntityListToUserWithShortInfoList(List<User> users) {
         return users.stream().map(this::mapUserEntityToUserDTOWithShortInfo).collect(Collectors.toList());
+    }
+
+    public User mapToEntity(UserShortInfo userShortInfo) {
+        return modelMapper.map(userShortInfo, User.class);
     }
 
 }
