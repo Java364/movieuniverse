@@ -56,7 +56,7 @@ public class MovieMapper {
 				linkTo(methodOn(MovieController.class).showMovieGenres(entity.getId())).withRel("genres").getHref());
 		dto.setPoster(
 				linkTo(methodOn(MovieController.class).showMoviePoster(entity.getId())).withRel("poster").getHref());
-      
+        dto.setMovieMark(linkTo(methodOn(MovieController.class).showMovieMark(entity.getId())).withRel("movieMark").getHref());
 		return dto;
 	}
 

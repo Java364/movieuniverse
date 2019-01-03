@@ -16,7 +16,7 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO, MovieSearchShortI
     private String trailers;
     private String countries;
     private String comments;
-    private String movieMarks;
+    private String movieMark;
 
     public String getTrailers() {
 		return trailers;
@@ -155,11 +155,11 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO, MovieSearchShortI
         this.comments = comments;
     }
 
-    public String getMovieMarks() {
-        return movieMarks;
+    public String getMovieMark() {
+        return movieMark;
     }
 
-    public void setMovieMarks(String movieMarks) {
-        this.movieMarks = movieMarks;
+    public void setMovieMark(String movieMark) {
+        this.movieMark = movieMark;
     }
 }
