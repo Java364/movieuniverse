@@ -5,6 +5,7 @@ import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
+import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
@@ -97,7 +98,7 @@ public class MovieController {
 		MovieMark movieMark = movieMarkService.findById(id);
 		return movieMapper.mapToDto(movieService.findAllByMovieMarks(movieMark));
 	}
-
+	
 	@GetMapping("/{id}/gallery")
 	public ResponseEntity<GalleryDTO> showMovieGallery(@PathVariable Long id) {
 		Movie movie = movieService.findMovieById(id);
