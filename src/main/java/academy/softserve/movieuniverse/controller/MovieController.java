@@ -141,14 +141,14 @@ public class MovieController {
 	}
 
 	@GetMapping("/{id}/genres")
-	public ResponseEntity<List<GenreDTO>> showMovieGenres(@PathVariable Long id) {
+	public ResponseEntity<List<GenreDTO>> showGenres(@PathVariable Long id) {
         List<Genre> foundGenres = movieService.findGenres(id);
         List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(foundGenres, genreMapper::mapToDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(genreDTOS);
 	}
 
 	@GetMapping("/{id}/countries")
-	public ResponseEntity<List<CountryDTO>> showMovieCountries(@PathVariable Long id) {
+	public ResponseEntity<List<CountryDTO>> showCountries(@PathVariable Long id) {
         List<Country> foundCountries = movieService.findCountries(id);
         List<CountryDTO> countryDTOS = countryMapper.mapListToDto(foundCountries);
         return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
