@@ -4,7 +4,6 @@ import academy.softserve.movieuniverse.controller.MovieController;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieSearchShortInfo;
 import academy.softserve.movieuniverse.entity.Movie;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,16 +43,16 @@ public class MovieMapper {
 		dto.setYear(entity.getYear());
 		dto.setDescription(entity.getDescription());
 		dto.setSelf(linkTo(methodOn(MovieController.class).showById(entity.getId())).withSelfRel().getHref());
-		dto.setCountries(linkTo(methodOn(MovieController.class).showMovieCountries(entity.getId())).withRel("countries")
+		dto.setCountries(linkTo(methodOn(MovieController.class).showCountries(entity.getId())).withRel("countries")
 				.getHref());
-		dto.setComments(linkTo(methodOn(MovieController.class).showMovieComments(entity.getId())).withRel("comments")
+		dto.setComments(linkTo(methodOn(MovieController.class).showComments(entity.getId())).withRel("comments")
 				.getHref());
 		dto.setGallery(
 				linkTo(methodOn(MovieController.class).showMovieGallery(entity.getId())).withRel("gallery").getHref());
 		dto.setTrailers(linkTo(methodOn(MovieController.class).showMovieTrailers(entity.getId())).withRel("trailers")
 				.getHref());
 		dto.setGenres(
-				linkTo(methodOn(MovieController.class).showMovieGenres(entity.getId())).withRel("genres").getHref());
+				linkTo(methodOn(MovieController.class).showGenres(entity.getId())).withRel("genres").getHref());
 		dto.setPoster(
 				linkTo(methodOn(MovieController.class).showMoviePoster(entity.getId())).withRel("poster").getHref());
         dto.setMovieMark(linkTo(methodOn(MovieController.class).showMovieMark(entity.getId())).withRel("movieMark").getHref());

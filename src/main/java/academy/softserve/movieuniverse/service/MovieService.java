@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class MovieService {
     private final MovieRepository movieRepository;
     private final GalleryService galleryService;
@@ -115,11 +115,26 @@ public class MovieService {
         return gallery;
     }
 
+    public List<Comment> findComments(Long movieId) {
+        Movie movie = this.findMovieById(movieId);
+        return movie.getComments();
+    }
+
+    public List<Country> findCountries(Long movieId) {
+        Movie movie = this.findMovieById(movieId);
+        return movie.getCountries();
+    }
+
     public List<Country> saveCountries(Long movieId, List<Country> countries) {
         Movie movie = this.findMovieById(movieId);
         movie.setCountries(countries);
         movieRepository.save(movie);
         return countries;
+    }
+
+    public List<Genre> findGenres(Long movieId) {
+        Movie movie = this.findMovieById(movieId);
+        return movie.getGenres();
     }
 
     public List<Genre> saveGenres(Long movieId, List<Genre> genres) {

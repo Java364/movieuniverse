@@ -8,10 +8,7 @@ import academy.softserve.movieuniverse.dto.movie.MovieDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
-import academy.softserve.movieuniverse.entity.Country;
-import academy.softserve.movieuniverse.entity.Movie;
-import academy.softserve.movieuniverse.entity.MovieMark;
-import academy.softserve.movieuniverse.entity.Trailer;
+import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.mapper.*;
 import academy.softserve.movieuniverse.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,33 +134,33 @@ public class MovieController {
 	}
 
 	@GetMapping("/{id}/comments")
-	public ResponseEntity<List<CommentDTO>> showMovieComments(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
-		List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(movie.getComments(), commentMapper::mapToDTO);
+	public ResponseEntity<List<CommentDTO>> showComments(@PathVariable Long id) {
+		List<Comment> foundComments = movieService.findComments(id);
+		List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(foundComments, commentMapper::mapToDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
 	}
 
 	@GetMapping("/{id}/genres")
-	public ResponseEntity<List<GenreDTO>> showMovieGenres(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
-		List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(movie.getGenres(), genreMapper::mapToDTO);
+	public ResponseEntity<List<GenreDTO>> showGenres(@PathVariable Long id) {
+        List<Genre> foundGenres = movieService.findGenres(id);
+        List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(foundGenres, genreMapper::mapToDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(genreDTOS);
 	}
 
 	@GetMapping("/{id}/countries")
-	public ResponseEntity<List<CountryDTO>> showMovieCountries(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(movie.getCountries()));
+	public ResponseEntity<List<CountryDTO>> showCountries(@PathVariable Long id) {
+        List<Country> foundCountries = movieService.findCountries(id);
+        List<CountryDTO> countryDTOS = countryMapper.mapListToDto(foundCountries);
+        return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
 	}
 
 	@PostMapping("/{id}/countries")
-	public ResponseEntity<List<CountryDTO>> addMovieCountries(@PathVariable Long id,
-			@RequestBody List<CountryDTO> countryDTOS) {
-		Movie movie = movieService.findMovieById(id);
-		List<Country> countries = countryMapper.mapCountriesListToEntity(countryDTOS);
-		movie.setCountries(countries);
-		movieService.updateMovie(movie, id);
-		return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(movie.getCountries()));
+	public ResponseEntity<List<CountryDTO>> addCountries(@PathVariable Long id,
+														 @RequestBody List<CountryDTO> selectedCountries) {
+		List<Country> countries = countryMapper.mapCountriesListToEntity(selectedCountries);
+		List<Country> savedCountries = movieService.saveCountries(id, countries);
+		List<CountryDTO> countryDTOS = countryMapper.mapListToDto(savedCountries);
+		return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
 	}
 
 	@GetMapping("/{id}/movieMark")
