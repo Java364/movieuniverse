@@ -140,6 +140,14 @@ public class MovieController {
 		return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
 	}
 
+    @PostMapping("/{id}/genres")
+    public ResponseEntity<List<GenreDTO>> addGenres(@PathVariable Long id, List<GenreDTO> selectedGenres) {
+	    List<Genre> genresToSave = genreMapper.mapToEntityList(selectedGenres, genreMapper::mapToEntity);
+        List<Genre> savedGenres = movieService.saveGenres(id, genresToSave);
+        List<GenreDTO> savedGenreDTOS = genreMapper.mapToDTOList(savedGenres, genreMapper::mapToDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedGenreDTOS);
+    }
+	
 	@GetMapping("/{id}/genres")
 	public ResponseEntity<List<GenreDTO>> showGenres(@PathVariable Long id) {
         List<Genre> foundGenres = movieService.findGenres(id);
@@ -162,7 +170,7 @@ public class MovieController {
 		List<CountryDTO> countryDTOS = countryMapper.mapListToDto(savedCountries);
 		return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
 	}
-
+	
 	@GetMapping("/{id}/movieMark")
 	public ResponseEntity<Map<Integer, Double>> showMovieMark(@PathVariable Long id) {
 		Movie movie = movieService.findMovieById(id);
