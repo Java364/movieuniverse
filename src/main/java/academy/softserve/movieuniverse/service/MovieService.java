@@ -127,6 +127,11 @@ public class MovieService {
         return countries;
     }
 
+    public List<Genre> findGenres(Long movieId) {
+        Movie movie = this.findMovieById(movieId);
+        return movie.getGenres();
+    }
+
     public List<Genre> saveGenres(Long movieId, List<Genre> genres) {
         Movie movie = this.findMovieById(movieId);
         movie.setGenres(genres);
