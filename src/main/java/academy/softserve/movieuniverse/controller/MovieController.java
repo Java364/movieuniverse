@@ -8,10 +8,7 @@ import academy.softserve.movieuniverse.dto.movie.MovieDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
-import academy.softserve.movieuniverse.entity.Country;
-import academy.softserve.movieuniverse.entity.Movie;
-import academy.softserve.movieuniverse.entity.MovieMark;
-import academy.softserve.movieuniverse.entity.Trailer;
+import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.mapper.*;
 import academy.softserve.movieuniverse.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,8 +142,8 @@ public class MovieController {
 
 	@GetMapping("/{id}/genres")
 	public ResponseEntity<List<GenreDTO>> showMovieGenres(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
-		List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(movie.getGenres(), genreMapper::mapToDTO);
+        List<Genre> foundGenres = movieService.findGenres(id);
+        List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(foundGenres, genreMapper::mapToDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(genreDTOS);
 	}
 
