@@ -152,8 +152,9 @@ public class MovieController {
 
 	@GetMapping("/{id}/countries")
 	public ResponseEntity<List<CountryDTO>> showMovieCountries(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(movie.getCountries()));
+        List<Country> foundCountries = movieService.findCountries(id);
+        List<CountryDTO> countryDTOS = countryMapper.mapListToDto(foundCountries);
+        return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
 	}
 
 	@PostMapping("/{id}/countries")
