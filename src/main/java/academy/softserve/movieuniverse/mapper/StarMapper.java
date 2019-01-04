@@ -1,6 +1,7 @@
 package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.StarController;
+import academy.softserve.movieuniverse.dto.star.CreditDTO;
 import academy.softserve.movieuniverse.dto.star.StarDTO;
 import academy.softserve.movieuniverse.dto.star.StarSearchInfo;
 import academy.softserve.movieuniverse.dto.star.StarSearchShortInfo;
@@ -172,4 +173,12 @@ public class StarMapper {
         return starEntities.stream().map(this::mapEntityToStarShortSearchInfo).collect(Collectors.toList());
     }
 
+
+    public static CreditDTO mapToCreditDTO(Star star) {
+        CreditDTO creditDTO = new StarDTO();
+        creditDTO.setId(star.getId());
+        creditDTO.setFirstName(star.getFirstName());
+        creditDTO.setLastName(star.getLastName());
+        return creditDTO;
+    }
 }
