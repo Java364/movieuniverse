@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class MovieService {
     private final MovieRepository movieRepository;
     private final GalleryService galleryService;
@@ -113,6 +113,11 @@ public class MovieService {
         movie.getMediaContent().setGallery(gallery);
         updateMovie(movie, id);
         return gallery;
+    }
+
+    public List<Country> showCountries(Long movieId) {
+        Movie movie = this.findMovieById(movieId);
+        return movie.getCountries();
     }
 
     public List<Country> saveCountries(Long movieId, List<Country> countries) {
