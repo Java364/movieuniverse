@@ -3,8 +3,8 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentRequest;
 import academy.softserve.movieuniverse.entity.Comment;
-import academy.softserve.movieuniverse.service.CommentService;
 import academy.softserve.movieuniverse.mapper.CommentMapper;
+import academy.softserve.movieuniverse.service.CommentService;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class CommentController {
     @GetMapping
     public ResponseEntity<Resources<CommentDTO>> showAll() {
         List<Comment> comments = commentService.findAll();
-        List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(comments);
+        List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(comments, commentMapper::mapToDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(commentDTOS));
     }
 

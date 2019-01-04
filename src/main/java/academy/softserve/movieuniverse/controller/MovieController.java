@@ -5,7 +5,6 @@ import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
-import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
@@ -13,8 +12,8 @@ import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.Trailer;
-import academy.softserve.movieuniverse.service.*;
 import academy.softserve.movieuniverse.mapper.*;
+import academy.softserve.movieuniverse.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -140,13 +139,15 @@ public class MovieController {
 	@GetMapping("/{id}/comments")
 	public ResponseEntity<List<CommentDTO>> showMovieComments(@PathVariable Long id) {
 		Movie movie = movieService.findMovieById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(commentMapper.mapToDTOList(movie.getComments()));
+		List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(movie.getComments(), commentMapper::mapToDTO);
+		return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
 	}
 
 	@GetMapping("/{id}/genres")
 	public ResponseEntity<List<GenreDTO>> showMovieGenres(@PathVariable Long id) {
 		Movie movie = movieService.findMovieById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(genreMapper.mapToDTOList(movie.getGenres()));
+		List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(movie.getGenres(), genreMapper::mapToDTO);
+		return ResponseEntity.status(HttpStatus.OK).body(genreDTOS);
 	}
 
 	@GetMapping("/{id}/countries")
