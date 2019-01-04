@@ -134,9 +134,9 @@ public class MovieController {
 	}
 
 	@GetMapping("/{id}/comments")
-	public ResponseEntity<List<CommentDTO>> showMovieComments(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
-		List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(movie.getComments(), commentMapper::mapToDTO);
+	public ResponseEntity<List<CommentDTO>> showComments(@PathVariable Long id) {
+		List<Comment> foundComments = movieService.findComments(id);
+		List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(foundComments, commentMapper::mapToDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
 	}
 
