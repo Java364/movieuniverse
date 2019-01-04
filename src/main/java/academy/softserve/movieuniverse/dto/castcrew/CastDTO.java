@@ -15,4 +15,12 @@ public class CastDTO {
     public void setCharacter(String character) {
         this.character = character;
     }
+
+    public CreditDTO getCreditDTO() {
+        return creditDTO;
+    }
+
+    public void setCreditDTO(CreditDTO creditDTO) {
+        this.creditDTO = creditDTO;
+    }
 }
