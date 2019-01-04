@@ -1,5 +1,8 @@
 package academy.softserve.movieuniverse.dto.star;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as = StarDTO.class)
 public interface CreditDTO {
     Long getId();
 
