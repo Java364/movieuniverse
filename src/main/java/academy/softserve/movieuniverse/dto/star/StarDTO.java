@@ -1,6 +1,6 @@
 package academy.softserve.movieuniverse.dto.star;
 
-public class StarDTO implements StarSearchInfo, StarSearchShortInfo {
+public class StarDTO implements StarSearchInfo, StarSearchShortInfo, CreditDTO {
     private Long id;
     private String firstName;
     private String lastName;

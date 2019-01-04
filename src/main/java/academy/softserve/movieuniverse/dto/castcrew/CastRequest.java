@@ -1,12 +1,16 @@
 package academy.softserve.movieuniverse.dto.castcrew;
 
-import academy.softserve.movieuniverse.dto.star.CreditDTO;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-public class CastDTO {
-    @JsonProperty("star")
-    private CreditDTO creditDTO;
+public class CastRequest {
+    private Long starId;
     private String character;
+
+    public Long getStarId() {
+        return starId;
+    }
+
+    public void setStarId(Long starId) {
+        this.starId = starId;
+    }
 
     public String getCharacter() {
         return character;
