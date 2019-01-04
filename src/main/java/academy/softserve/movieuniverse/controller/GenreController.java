@@ -3,8 +3,8 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreRequest;
 import academy.softserve.movieuniverse.entity.Genre;
-import academy.softserve.movieuniverse.service.GenreService;
 import academy.softserve.movieuniverse.mapper.GenreMapper;
+import academy.softserve.movieuniverse.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class GenreController {
     @GetMapping
     public ResponseEntity<Resources<GenreDTO>> showAll() {
         List<Genre> genres = genreService.findAll();
-        List<GenreDTO> resources = genreMapper.mapToDTOList(genres);
+        List<GenreDTO> resources = genreMapper.mapToDTOList(genres, genreMapper::mapToDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(resources));
     }
 

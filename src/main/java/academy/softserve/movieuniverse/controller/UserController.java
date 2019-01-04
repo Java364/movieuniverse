@@ -1,22 +1,20 @@
 package academy.softserve.movieuniverse.controller;
 
 import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
-
 import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
 import academy.softserve.movieuniverse.dto.user.UserShortInfo;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
 import academy.softserve.movieuniverse.entity.User;
-import academy.softserve.movieuniverse.service.UserService;
 import academy.softserve.movieuniverse.mapper.CommentMapper;
 import academy.softserve.movieuniverse.mapper.MovieMarkMapper;
 import academy.softserve.movieuniverse.mapper.UserMapper;
+import academy.softserve.movieuniverse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
@@ -89,7 +87,8 @@ public class UserController {
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentDTO>> showUserComments(@PathVariable Long id) {
         User user = userService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(commentMapper.mapToDTOList(user.getComments()));
+        List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(user.getComments(), commentMapper::mapToDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
     }
 
     @GetMapping("/{id}/movie-marks")
