@@ -141,8 +141,8 @@ public class MovieController {
 	}
 
     @PostMapping("/{id}/genres")
-    public ResponseEntity<List<GenreDTO>> addGenres(@PathVariable Long id, List<GenreDTO> selectedGenres) {
-	    List<Genre> genresToSave = genreMapper.mapToEntityList(selectedGenres, genreMapper::mapToEntity);
+    public ResponseEntity<List<GenreDTO>> addGenres(@PathVariable Long id, @RequestBody List<GenreDTO> selectedGenres) {
+	    List<Genre> genresToSave = genreMapper.mapToEntityList(selectedGenres, GenreMapper::mapToEntitySelectedGenre);
         List<Genre> savedGenres = movieService.saveGenres(id, genresToSave);
         List<GenreDTO> savedGenreDTOS = genreMapper.mapToDTOList(savedGenres, genreMapper::mapToDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedGenreDTOS);
