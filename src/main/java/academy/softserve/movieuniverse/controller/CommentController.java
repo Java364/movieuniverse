@@ -27,7 +27,7 @@ public class CommentController {
     @GetMapping
     public ResponseEntity<Resources<CommentDTO>> showAll() {
         List<Comment> comments = commentService.findAll();
-        List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(comments, commentMapper::mapToDTO);
+        List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(comments);
         return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(commentDTOS));
     }
 

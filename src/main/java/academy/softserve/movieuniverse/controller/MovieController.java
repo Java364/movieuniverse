@@ -86,7 +86,7 @@ public class MovieController {
 	@GetMapping("/{id}/comments")
 	public ResponseEntity<List<CommentDTO>> showComments(@PathVariable Long id) {
 		List<Comment> foundComments = movieService.findComments(id);
-		List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(foundComments, commentMapper::mapToDTO);
+		List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(foundComments);
 		return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
 	}
 
@@ -94,7 +94,7 @@ public class MovieController {
 	public ResponseEntity<List<GenreDTO>> showGenres(@PathVariable Long id) {
         List<Genre> foundGenres = movieService.findGenres(id);
 		GenreMapper genreMapper = new GenreMapper();
-		List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(foundGenres, genreMapper::mapToDTO);
+		List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(foundGenres);
 		return ResponseEntity.status(HttpStatus.OK).body(genreDTOS);
 	}
 

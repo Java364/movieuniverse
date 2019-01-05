@@ -66,7 +66,7 @@ public class MovieAdminController {
         GenreMapper genreMapper = new GenreMapper();
         List<Genre> genresToSave = genreMapper.mapToEntityList(selectedGenres, GenreMapper::mapToEntitySelectedGenre);
         List<Genre> savedGenres = movieService.saveGenres(id, genresToSave);
-        List<GenreDTO> savedGenreDTOS = genreMapper.mapToDTOList(savedGenres, genreMapper::mapToDTO);
+        List<GenreDTO> savedGenreDTOS = genreMapper.mapToDTOList(savedGenres);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedGenreDTOS);
     }
 
