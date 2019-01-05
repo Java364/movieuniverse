@@ -87,7 +87,7 @@ public class UserController {
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentDTO>> showUserComments(@PathVariable Long id) {
         User user = userService.findById(id);
-        List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(user.getComments(), commentMapper::mapToDTO);
+        List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(user.getComments());
         return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
     }
 

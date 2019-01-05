@@ -29,7 +29,7 @@ public class GenreController {
     @GetMapping
     public ResponseEntity<Resources<GenreDTO>> showAll() {
         List<Genre> genres = genreService.findAll();
-        List<GenreDTO> resources = genreMapper.mapToDTOList(genres, genreMapper::mapToDTO);
+        List<GenreDTO> resources = genreMapper.mapToDTOList(genres);
         return ResponseEntity.status(HttpStatus.OK).body(new Resources<>(resources));
     }
 
