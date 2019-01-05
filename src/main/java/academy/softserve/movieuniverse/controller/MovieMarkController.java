@@ -4,10 +4,10 @@ import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.User;
+import academy.softserve.movieuniverse.mapper.MovieMarkMapper;
 import academy.softserve.movieuniverse.service.MovieMarkService;
 import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.UserService;
-import academy.softserve.movieuniverse.mapper.MovieMarkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +32,7 @@ public class MovieMarkController {
     @PostMapping
     public ResponseEntity<MovieMarkDTO> create(@RequestBody MovieMarkDTO movieMarkDTO, @PathVariable Long movieId) {
         User user = userService.findById(1L);
-        Movie movie = movieService.findMovieById(movieId);
+        Movie movie = movieService.findById(movieId);
         return ResponseEntity.status(HttpStatus.CREATED).body(movieMarkMapper
                 .mapToDto(movieMarkService.create(movieMarkMapper.mapToEntityForSave(movieMarkDTO, user, movie))));
     }

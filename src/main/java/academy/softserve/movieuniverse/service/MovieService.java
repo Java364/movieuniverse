@@ -24,7 +24,8 @@ public class MovieService {
         this.galleryService = galleryService;
     }
 
-    public Movie create(Movie movie) {
+    @Transactional
+    public Movie save(Movie movie) {
         if (movie == null) {
             throw new NotFoundException(ExceptionType.SAVE.getMessage() + " movie");
         }
@@ -32,19 +33,7 @@ public class MovieService {
         return movie;
     }
 
-    public Movie saveMovie(Movie movie) {
-        if (movie == null) {
-            throw new NotFoundException(ExceptionType.SAVE.getMessage() + " movie");
-        }
-        try {
-            movie = movieRepository.save(movie);
-        } catch (Exception ex) {
-            throw new NotFoundException(ExceptionType.SAVE.getMessage() + " movie");
-        }
-        return movie;
-    }
-
-    public List<Movie> showAllMovies() {
+    public List<Movie> findAll() {
         List<Movie> result = new ArrayList<>();
         try {
             result.addAll(movieRepository.findAll());
@@ -54,7 +43,7 @@ public class MovieService {
         return result;
     }
 
-    public Movie findMovieById(Long id) {
+    public Movie findById(Long id) {
         Optional<Movie> movie = movieRepository.findById(id);
         if (!movie.isPresent()) {
             throw new NotFoundException(ExceptionType.SELECT.getMessage() + "movie with " + id.toString() + " ID");
@@ -62,8 +51,9 @@ public class MovieService {
         return movie.get();
     }
 
-    public Movie updateMovie(Movie movie, Long id) {
-        Movie exist = findMovieById(id);
+    @Transactional
+    public Movie update(Movie movie, Long id) {
+        Movie exist = findById(id);
         try {
             if (isExist(movie.getMovieName()))
                 exist.setMovieName(movie.getMovieName());
@@ -88,9 +78,10 @@ public class MovieService {
         return exist;
     }
 
-    public void deleteMovie(Long id) {
+    @Transactional
+    public void delete(Long id) {
         try {
-            Movie movie = findMovieById(id);
+            Movie movie = findById(id);
             movieRepository.delete(movie);
         } catch (Exception ex) {
             throw new NotFoundException(ExceptionType.DELETE.getMessage() + "movie with " + id.toString() + " ID");
@@ -107,38 +98,41 @@ public class MovieService {
         return movieRepository.findAllByMovieMarks(movieMark);
     }
 
+    @Transactional
     public Gallery addNewGallery(Long id) {
-        Movie movie = findMovieById(id);
+        Movie movie = findById(id);
         Gallery gallery = galleryService.save();
         movie.getMediaContent().setGallery(gallery);
-        updateMovie(movie, id);
+        update(movie, id);
         return gallery;
     }
 
     public List<Comment> findComments(Long movieId) {
-        Movie movie = this.findMovieById(movieId);
+        Movie movie = this.findById(movieId);
         return movie.getComments();
     }
 
     public List<Country> findCountries(Long movieId) {
-        Movie movie = this.findMovieById(movieId);
+        Movie movie = this.findById(movieId);
         return movie.getCountries();
     }
 
+    @Transactional
     public List<Country> saveCountries(Long movieId, List<Country> countries) {
-        Movie movie = this.findMovieById(movieId);
+        Movie movie = this.findById(movieId);
         movie.setCountries(countries);
         movieRepository.save(movie);
         return countries;
     }
 
     public List<Genre> findGenres(Long movieId) {
-        Movie movie = this.findMovieById(movieId);
+        Movie movie = this.findById(movieId);
         return movie.getGenres();
     }
 
+    @Transactional
     public List<Genre> saveGenres(Long movieId, List<Genre> genres) {
-        Movie movie = this.findMovieById(movieId);
+        Movie movie = this.findById(movieId);
         movie.setGenres(genres);
         movieRepository.save(movie);
         return genres;
