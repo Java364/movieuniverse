@@ -1,13 +1,13 @@
 package academy.softserve.movieuniverse.mapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import academy.softserve.movieuniverse.controller.MovieController;
 import academy.softserve.movieuniverse.controller.PosterController;
 import academy.softserve.movieuniverse.dto.PosterDTO;
 import academy.softserve.movieuniverse.entity.Poster;
 import academy.softserve.movieuniverse.service.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -21,7 +21,7 @@ public class PosterMapper {
         poster.setImageUrl(dto.getImageUrl());
         poster.setIsRemoved(new Boolean(false));
         poster.setName(dto.getName());
-        poster.setMovie(movieService.findMovieById(dto.getMovieId()));
+        poster.setMovie(movieService.findById(dto.getMovieId()));
         return poster;
     }
 
@@ -31,7 +31,7 @@ public class PosterMapper {
         poster.setIsRemoved(new Boolean(false));
         poster.setId(posterId);
         poster.setName(dto.getName());
-        poster.setMovie(movieService.findMovieById(dto.getMovieId()));
+        poster.setMovie(movieService.findById(dto.getMovieId()));
         return poster;
     }
 

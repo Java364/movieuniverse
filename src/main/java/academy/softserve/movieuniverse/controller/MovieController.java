@@ -60,12 +60,12 @@ public class MovieController {
 
 	@GetMapping
 	public ResponseEntity<List<MovieDTO>> showAll() {
-		return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapListToDTO(movieService.showAllMovies()));
+		return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapListToDTO(movieService.findAll()));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<MovieDTO> showById(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
+		Movie movie = movieService.findById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapToDto(movie));
 	}
 
@@ -73,19 +73,19 @@ public class MovieController {
 	public ResponseEntity<MovieDTO> create(@RequestBody MovieDTO movieDTO) {
 
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(movieMapper.mapToDto(movieService.create(movieMapper.mapToEntity(movieDTO))));
+				.body(movieMapper.mapToDto(movieService.save(movieMapper.mapToEntity(movieDTO))));
 
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<MovieDTO> update(@PathVariable Long id, @RequestBody MovieDTO movieDTO) {
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(movieMapper.mapToDto(movieService.updateMovie(movieMapper.mapToEntity(movieDTO), id)));
+				.body(movieMapper.mapToDto(movieService.update(movieMapper.mapToEntity(movieDTO), id)));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
-		movieService.deleteMovie(id);
+		movieService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
 
 	}
@@ -98,7 +98,7 @@ public class MovieController {
 
 	@GetMapping("/{id}/gallery")
 	public ResponseEntity<GalleryDTO> showMovieGallery(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
+		Movie movie = movieService.findById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(galleryMapper.mapToDTO(movie.getMediaContent().getGallery()));
 	}
 
@@ -109,7 +109,7 @@ public class MovieController {
 
 	@GetMapping("/{id}/trailers/")
 	public ResponseEntity<List<TrailerDTO>> showMovieTrailers(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
+		Movie movie = movieService.findById(id);
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(trailerMapper.maptoDTOList(movie.getMediaContent().getTrailers()));
 	}
@@ -117,7 +117,7 @@ public class MovieController {
 	@PostMapping("/{id}/trailers/")
 	public ResponseEntity<TrailerDTO> createMovieTrailer(@PathVariable Long id, @RequestBody CreateTrailerInfo dto) {
 		Trailer trailer = trailerMapper.mapToEntity(dto);
-		trailer.setMovie(movieService.findMovieById(id));
+		trailer.setMovie(movieService.findById(id));
 		return ResponseEntity.status(HttpStatus.CREATED).body(trailerMapper.mapToDTO(trailerService.save(trailer)));
 	}
 
@@ -129,7 +129,7 @@ public class MovieController {
 
 	@GetMapping("/{id}/poster")
 	public ResponseEntity<PosterDTO> showMoviePoster(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
+		Movie movie = movieService.findById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(posterMapper.mapToDTO(movie.getMediaContent().getPoster()));
 	}
 
@@ -173,7 +173,7 @@ public class MovieController {
 	
 	@GetMapping("/{id}/movieMark")
 	public ResponseEntity<Map<Integer, Double>> showMovieMark(@PathVariable Long id) {
-		Movie movie = movieService.findMovieById(id);
+		Movie movie = movieService.findById(id);
 		Map<Integer, Double> map = new HashMap<Integer, Double>();
 		List<MovieMark> marks = movie.getMovieMarks();
 		Double sumOfMarks = 0d;

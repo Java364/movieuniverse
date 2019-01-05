@@ -1,12 +1,15 @@
 package academy.softserve.movieuniverse.controller;
 
-import academy.softserve.movieuniverse.dto.*;
+import academy.softserve.movieuniverse.dto.AvatarDTO;
+import academy.softserve.movieuniverse.dto.LinksDTO;
+import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
+import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.star.StarDTO;
 import academy.softserve.movieuniverse.entity.*;
-import academy.softserve.movieuniverse.service.*;
 import academy.softserve.movieuniverse.mapper.*;
+import academy.softserve.movieuniverse.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +65,7 @@ public class StarController {
         return ResponseEntity.status(HttpStatus.OK).body(mapper.mapProfileToDto(star));
     }
 
-    @PostMapping("/create")
+    @PostMapping("/save")
     public ResponseEntity<StarDTO> create(@RequestBody StarDTO starDTO) {
         Star star = mapper.mapCreateToEntity(starDTO);
         starService.create(star);
@@ -78,7 +81,7 @@ public class StarController {
         return new ResponseEntity<StarDTO>(starDTO, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{id}/create-profession")
+    @PostMapping("/{id}/save-profession")
     public ResponseEntity<StarProfessionDTO> createProfession(@RequestBody StarProfessionDTO starProfessionDTO,
             @PathVariable("id") Long starId) {
         StarProfession starProfession = starProfessionMapper.mapToEntity(starProfessionDTO);
