@@ -5,7 +5,6 @@ import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
-import academy.softserve.movieuniverse.dto.movie.MovieSearchRequest;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
 import academy.softserve.movieuniverse.entity.*;
@@ -13,7 +12,6 @@ import academy.softserve.movieuniverse.mapper.*;
 import academy.softserve.movieuniverse.service.MovieMarkService;
 import academy.softserve.movieuniverse.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,11 +48,18 @@ public class MovieController {
     }
 
     @GetMapping
-    public ResponseEntity showAll(MovieSearchRequest movieSearchRequest) {
+    public ResponseEntity<List<MovieDTO>> findAll() {
+        List<Movie> movies = movieService.findAll();
+        List<MovieDTO> movieDTOS = movieMapper.mapListToDTO(movies);
+        return ResponseEntity.status(HttpStatus.OK).body(movieDTOS);
+    }
+
+    /*@GetMapping
+    public ResponseEntity<Page<Movie>> showAll(MovieSearchRequest movieSearchRequest) {
         Page<Movie> all = movieService.findAll(movieSearchRequest);
         return ResponseEntity.status(HttpStatus.OK).body(all);
     }
-
+*/
     @GetMapping("/{id}")
     public ResponseEntity<MovieDTO> showById(@PathVariable Long id) {
         Movie movie = movieService.findById(id);

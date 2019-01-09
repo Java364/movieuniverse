@@ -39,6 +39,10 @@ public class MovieService {
         return movie;
     }
 
+    public List<Movie> findAll() {
+        return movieRepository.findAll();
+    }
+
     public Page<Movie> findAll(MovieSearchRequest movieSearchRequest) {
         Specification<Movie> filter = movieSpecific.filter(movieSearchRequest);
         Page<Movie> all = movieRepository.findAll(filter, PageRequest.of(movieSearchRequest.getPage(), movieSearchRequest.getSize(), movieSearchRequest.getDirection(), movieSearchRequest.getSort().getFieldName()));
