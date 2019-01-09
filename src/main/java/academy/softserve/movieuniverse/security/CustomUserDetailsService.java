@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.security;
 
-
 import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +16,17 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // Let people login with email
         User user = userRepository.findByEmail(email);
-        if (email==null)
-                throw new UsernameNotFoundException("User not found with email : " + email);
+        if (email == null)
+            throw new UsernameNotFoundException("User not found with email : " + email);
         return UserPrincipal.create(user);
     }
 
     @Transactional
     public UserDetails loadUserById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("User not found with" + id));
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with" + id));
         return UserPrincipal.create(user);
     }
 

@@ -21,4 +21,6 @@ public interface MovieSearchInfo {
     int getYear();
 
     void setYear(int year);
+
+
 }

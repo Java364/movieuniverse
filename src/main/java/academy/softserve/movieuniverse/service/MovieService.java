@@ -1,14 +1,18 @@
 package academy.softserve.movieuniverse.service;
 
+import academy.softserve.movieuniverse.dto.movie.MovieSearchRequest;
 import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.MovieRepository;
+import academy.softserve.movieuniverse.service.specific.MovieSpecific;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,11 +21,13 @@ import java.util.Optional;
 public class MovieService {
     private final MovieRepository movieRepository;
     private final GalleryService galleryService;
+    private final MovieSpecific movieSpecific;
 
     @Autowired
-    public MovieService(MovieRepository movieRepository, GalleryService galleryService) {
+    public MovieService(MovieRepository movieRepository, GalleryService galleryService, MovieSpecific movieSpecific) {
         this.movieRepository = movieRepository;
         this.galleryService = galleryService;
+        this.movieSpecific = movieSpecific;
     }
 
     @Transactional
@@ -33,14 +39,10 @@ public class MovieService {
         return movie;
     }
 
-    public List<Movie> findAll() {
-        List<Movie> result = new ArrayList<>();
-        try {
-            result.addAll(movieRepository.findAll());
-        } catch (Exception ex) {
-            throw new NotFoundException(ExceptionType.SELECT.getMessage());
-        }
-        return result;
+    public Page<Movie> findAll(MovieSearchRequest movieSearchRequest) {
+        Specification<Movie> filter = movieSpecific.filter(movieSearchRequest);
+        Page<Movie> all = movieRepository.findAll(filter, PageRequest.of(movieSearchRequest.getPage(), movieSearchRequest.getSize(), movieSearchRequest.getDirection(), movieSearchRequest.getSort().getFieldName()));
+        return all;
     }
 
     public Movie findById(Long id) {

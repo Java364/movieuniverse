@@ -1,7 +1,6 @@
 package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.Objects;
 public class User extends Person {
 
     @Size(max = 25, message = "Email size < 25")
-    /*@Email*/
+    /* @Email */
     @Column(name = "email", unique = true, length = 25)
     private String email;
 
@@ -63,8 +62,7 @@ public class User extends Person {
     }
 
     public String getUsername() {
-        String[] split = this.email.split("@");
-        return split[0];
+        return this.email.substring(0, this.email.indexOf("@"));
     }
 
     public List<Comment> getComments() {

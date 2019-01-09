@@ -14,11 +14,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @Component
 public class ProfessionMapper {
 
-	public Profession mapToEntity(ProfessionDTO dto) {
+    public Profession mapToEntity(ProfessionDTO dto) {
         Profession profession = new Profession();
         profession.setId(dto.getId());
         profession.setType(dto.getProfessionType());
-        
+
         /*
          * profession.setStars(dto.getProfessionsIds().stream().map(p ->
          * starProfessionService.getStarProfession(p)).collect(Collectors.toList()));
@@ -31,9 +31,9 @@ public class ProfessionMapper {
         ProfessionDTO professionDTO = new ProfessionDTO();
         professionDTO.setId(profession.getId());
         professionDTO.setProfessionType(profession.getType());
-        professionDTO.setSelf(linkTo(methodOn(ProfessionController.class).showById(profession.getId()))
-                .withSelfRel().getHref());
-//        professionDTO.setStars(linkTo(methodOn(StarController.class).showProfessionsByStarIds(profession.getStars()));
+        professionDTO.setSelf(
+                linkTo(methodOn(ProfessionController.class).showById(profession.getId())).withSelfRel().getHref());
+        // professionDTO.setStars(linkTo(methodOn(StarController.class).showProfessionsByStarIds(profession.getStars()));
         professionDTO.setRemoved(profession.getIsRemoved());
         return professionDTO;
     }

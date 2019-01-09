@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface StarRepository extends JpaRepository<Star, Long> {
     Star findByLinks(Links links);
+
     List<Star> findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(String firstName, String lastName);
 }

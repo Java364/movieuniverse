@@ -72,14 +72,13 @@ public class MovieAdminController {
 
     @PostMapping("/{id}/countries")
     public ResponseEntity<List<CountryDTO>> addCountries(@PathVariable Long id,
-                                                         @RequestBody List<CountryDTO> selectedCountries) {
+            @RequestBody List<CountryDTO> selectedCountries) {
         CountryMapper countryMapper = new CountryMapper();
         List<Country> countries = countryMapper.mapCountriesListToEntity(selectedCountries);
         List<Country> savedCountries = movieService.saveCountries(id, countries);
         List<CountryDTO> countryDTOS = countryMapper.mapListToDto(savedCountries);
         return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
     }
-
 
     @PostMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> addGallery(@PathVariable Long id) {
@@ -99,7 +98,7 @@ public class MovieAdminController {
     public ResponseEntity<PosterDTO> addPoster(@RequestBody PosterDTO posterDTO) {
         PosterMapper posterMapper = new PosterMapper();
         return ResponseEntity.status(HttpStatus.CREATED)
-                             .body(posterMapper.mapToDTO(posterService.save(posterMapper.mapToEntityForSave(posterDTO))));
+                .body(posterMapper.mapToDTO(posterService.save(posterMapper.mapToEntityForSave(posterDTO))));
     }
 
 }
