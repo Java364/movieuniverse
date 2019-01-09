@@ -48,8 +48,8 @@ public class UserController {
                 .body(userMapper.mapUserEntityListToUserWithShortInfoList(userService.findAllNonRemoved()));
     }
 
-    @PostMapping
-    public ResponseEntity<UserFullInfo> create(@RequestBody UserCreateInfo userDTO) {
+    @PostMapping("/registration")
+    public ResponseEntity<UserFullInfo> registration(@RequestBody UserCreateInfo userDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
                 userService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
     }
