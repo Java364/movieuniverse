@@ -34,6 +34,9 @@ private PasswordEncoder passwordEncoder;
     }
 
     public User createUser(User user) {
+        if (userRepository.existsByEmail(user.getEmail())){
+            System.out.println("eeeeeeee");
+        }else{
         User user1 = new User();
         user1.setEmail(user.getEmail());
         user1.setFirstName(user.getFirstName());
@@ -42,6 +45,8 @@ private PasswordEncoder passwordEncoder;
         user1.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userRepository.saveAndFlush(user1);
+    }
+        return user;
     }
 
     public void deleteById(Long id) {

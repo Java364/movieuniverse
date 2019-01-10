@@ -12,11 +12,13 @@ import java.util.Objects;
 @Table(name = "user")
 public class User extends Person {
 
+    @NotNull
     @Size(max = 25, message = "Email size < 25")
     /*@Email*/
     @Column(name = "email", unique = true, length = 25)
     private String email;
 
+    @NotNull
     @Size(max = 60, message = "Password size < 60")
     @Column(name = "password", length = 60)
     private String password;
