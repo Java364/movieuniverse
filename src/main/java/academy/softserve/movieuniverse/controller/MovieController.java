@@ -93,7 +93,7 @@ public class MovieController {
 
 	@GetMapping("/{id}/genres")
 	public ResponseEntity<List<GenreDTO>> showGenres(@PathVariable Long id) {
-        List<Genre> foundGenres = movieService.findGenres(id);
+        Set<Genre> foundGenres = movieService.findGenres(id);
 		GenreMapper genreMapper = new GenreMapper();
 		List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(foundGenres);
 		return ResponseEntity.status(HttpStatus.OK).body(genreDTOS);

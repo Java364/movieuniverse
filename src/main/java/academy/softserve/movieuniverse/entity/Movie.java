@@ -25,7 +25,7 @@ public class Movie extends AbstractEntity {
     private MediaContent mediaContent;
 
     @ManyToMany
-    private List<Genre> genres = new ArrayList<>();
+    private Set<Genre> genres = new HashSet<>();
 
     @ManyToMany
     private Set<Country> countries = new HashSet<>();
@@ -58,11 +58,11 @@ public class Movie extends AbstractEntity {
         this.roles = roles;
     }
 
-    public List<Genre> getGenres() {
+    public Set<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<Genre> genres) {
+    public void setGenres(Set<Genre> genres) {
         this.genres = genres;
     }
 

@@ -126,15 +126,15 @@ public class MovieService {
         return countries;
     }
 
-    public List<Genre> findGenres(Long movieId) {
+    public Set<Genre> findGenres(Long movieId) {
         Movie movie = this.findById(movieId);
         return movie.getGenres();
     }
 
     @Transactional
-    public List<Genre> saveGenres(Long movieId, List<Genre> genres) {
+    public Set<Genre> saveGenres(Long movieId, Set<Genre> genres) {
         Movie movie = this.findById(movieId);
-        movie.setGenres(genres);
+        movie.getGenres().addAll(genres);
         movieRepository.save(movie);
         return genres;
     }
