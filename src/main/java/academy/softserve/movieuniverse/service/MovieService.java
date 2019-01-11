@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -112,28 +113,28 @@ public class MovieService {
         return movie.getComments();
     }
 
-    public List<Country> findCountries(Long movieId) {
+    public Set<Country> findCountries(Long movieId) {
         Movie movie = this.findById(movieId);
         return movie.getCountries();
     }
 
     @Transactional
-    public List<Country> saveCountries(Long movieId, List<Country> countries) {
+    public Set<Country> saveCountries(Long movieId, Set<Country> countries) {
         Movie movie = this.findById(movieId);
-        movie.setCountries(countries);
+        movie.getCountries().addAll(countries);
         movieRepository.save(movie);
         return countries;
     }
 
-    public List<Genre> findGenres(Long movieId) {
+    public Set<Genre> findGenres(Long movieId) {
         Movie movie = this.findById(movieId);
         return movie.getGenres();
     }
 
     @Transactional
-    public List<Genre> saveGenres(Long movieId, List<Genre> genres) {
+    public Set<Genre> saveGenres(Long movieId, Set<Genre> genres) {
         Movie movie = this.findById(movieId);
-        movie.setGenres(genres);
+        movie.getGenres().addAll(genres);
         movieRepository.save(movie);
         return genres;
     }

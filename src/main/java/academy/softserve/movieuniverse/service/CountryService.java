@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CountryService {
@@ -37,8 +39,9 @@ public class CountryService {
         return country;
     }
 
-    public List<Country> findAll() {
-        return countryRepository.findAll();
+    public Set<Country> findAll() {
+        List<Country> countries = countryRepository.findAll();
+        return new HashSet<>(countries);
     }
 
     public Country findById(Long id) {

@@ -2,7 +2,9 @@ package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "countries")
@@ -12,7 +14,7 @@ public class Country extends AbstractEntity {
     private String name;
 
     @ManyToMany(mappedBy = "countries")
-    private List<Movie> movies = new ArrayList<>();
+    private Set<Movie> movies = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "country_id"), inverseJoinColumns = @JoinColumn(name = "star_id"))
@@ -37,11 +39,11 @@ public class Country extends AbstractEntity {
         this.name = name;
     }
 
-    public List<Movie> getMovies() {
+    public Set<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(Set<Movie> movies) {
         this.movies = movies;
     }
 

@@ -2,7 +2,9 @@ package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "movies")
@@ -23,10 +25,10 @@ public class Movie extends AbstractEntity {
     private MediaContent mediaContent;
 
     @ManyToMany
-    private List<Genre> genres = new ArrayList<>();
+    private Set<Genre> genres = new HashSet<>();
 
     @ManyToMany
-    private List<Country> countries = new ArrayList<>();
+    private Set<Country> countries = new HashSet<>();
 
     @OneToMany(mappedBy = "movie")
     private List<Crew> roles = new ArrayList<Crew>();
@@ -56,11 +58,11 @@ public class Movie extends AbstractEntity {
         this.roles = roles;
     }
 
-    public List<Genre> getGenres() {
+    public Set<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<Genre> genres) {
+    public void setGenres(Set<Genre> genres) {
         this.genres = genres;
     }
 
@@ -104,11 +106,11 @@ public class Movie extends AbstractEntity {
         this.ageLimitation = ageLimitation;
     }
 
-    public List<Country> getCountries() {
+    public Set<Country> getCountries() {
         return countries;
     }
 
-    public void setCountries(List<Country> countries) {
+    public void setCountries(Set<Country> countries) {
         this.countries = countries;
     }
 

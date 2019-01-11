@@ -2,7 +2,9 @@ package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "movie_stars")
@@ -16,7 +18,7 @@ public class Star extends Person {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "stars_countries", joinColumns = @JoinColumn(name = "star_id"), inverseJoinColumns = @JoinColumn(name = "country_id"))
-    private List<Country> countries = new ArrayList<>();
+    private Set<Country> countries = new HashSet<>();
 
     @Column(name = "star_city")
     private String cityOfBirth;
@@ -81,11 +83,11 @@ public class Star extends Person {
         this.links = links;
     }
 
-    public List<Country> getCountries() {
+    public Set<Country> getCountries() {
         return countries;
     }
 
-    public void setCountries(List<Country> countries) {
+    public void setCountries(Set<Country> countries) {
         this.countries = countries;
     }
 

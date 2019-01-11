@@ -22,7 +22,7 @@ public class GenreMapper implements DTOMapper<GenreDTO, GenreRequest, Genre> {
         return genre;
     }
 
-    public static Genre mapToEntitySelectedGenre(GenreDTO genreDTO) {
+    public static Genre mapToEntity(GenreDTO genreDTO) {
         Genre genre = new Genre();
         genre.setId(genreDTO.getId());
         genre.setName(genreDTO.getGenreName());
