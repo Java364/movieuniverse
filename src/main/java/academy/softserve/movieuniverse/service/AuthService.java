@@ -37,10 +37,13 @@ public class AuthService {
     }
 
     public boolean checkCredentials(UserLoginInfo loginDTO) {
+
         if (userRepository.existsByEmail(loginDTO.getEmail()) && passwordEncoder.matches(loginDTO.getPassword(),
                 userRepository.findByEmail(loginDTO.getEmail()).getPassword())) {
+
             return true;
         } else {
+
             return false;
         }
     }
@@ -52,8 +55,10 @@ public class AuthService {
         // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         tokenModel.setAccessToken(jwtTokenProvider.generateAccessToken(userRepository.findByEmail(email).getId(), email,
                 userRepository.findByEmail(email).getRole()));
+
         System.out.println(userRepository.findByEmail(email).getRole());
         tokenModel.setRefreshToken(jwtTokenProvider.generateRefreshToken(loginDTO.getEmail()));
+        System.out.println(tokenModel);
         return tokenModel;
     }
 

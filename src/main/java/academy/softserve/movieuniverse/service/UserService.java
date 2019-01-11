@@ -37,10 +37,7 @@ private JwtTokenProvider jwtTokenProvider;
         return userRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
     }
-
-
-
-    public void deleteById(Long id) {
+  public void deleteById(Long id) {
         if (!userRepository.findById(id).isPresent())
             throw new NotFoundException(ExceptionType.DELETE.getMessage() + "user with ID - " + id.toString());
         userRepository.deleteById(id);

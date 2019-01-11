@@ -20,19 +20,14 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService authService;
     private final UserMapper userMapper;
-    private final CommentMapper commentMapper;
-    private final MovieMarkMapper movieMarkMapper;
 
     @Autowired
-    public AuthController(AuthService authService, UserMapper userMapper, CommentMapper commentMapper,
-                          MovieMarkMapper movieMarkMapper) {
+    public AuthController(AuthService authService, UserMapper userMapper) {
         this.authService = authService;
         this.userMapper = userMapper;
-        this.commentMapper = commentMapper;
-        this.movieMarkMapper = movieMarkMapper;
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/signup")
     public ResponseEntity<UserFullInfo> registration(@RequestBody UserCreateInfo userDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
                 authService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
@@ -40,9 +35,15 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserLoginInfo loginDTO) {
+
         TokenModel token = null;
+        String e = loginDTO.getEmail();
+        String p = loginDTO.getPassword();
+        System.out.println("email -  "+ e +"  password -" +p);
         if (authService.checkCredentials(loginDTO)) {
+
             token = authService.signIn(loginDTO);
+            System.out.println(token);
             return new ResponseEntity<>(token, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
