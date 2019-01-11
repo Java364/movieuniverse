@@ -38,43 +38,7 @@ private JwtTokenProvider jwtTokenProvider;
                 () -> new NotFoundException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
     }
 
-    public User createUser(User user) {
-        if (userRepository.existsByEmail(user.getEmail())){
-            System.out.println("eeeeeeee");
-        }else{
-        User user1 = new User();
-        user1.setEmail(user.getEmail());
-        user1.setFirstName(user.getFirstName());
-        user1.setLastName(user.getLastName());
-        user1.setRole(Role.USER);
-        user1.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        return userRepository.saveAndFlush(user1);
-    }
-        return user;
-    }
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-    public boolean checkCredentials(UserLoginInfo loginDTO) {
-        if (userRepository.existsByEmail(loginDTO.getEmail()) && passwordEncoder.matches(loginDTO.getPassword(),
-                userRepository.findByEmail(loginDTO.getEmail()).getPassword())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public TokenModel signIn(UserLoginInfo loginDTO) {
-        String email = loginDTO.getEmail();
-        //   String password = loginDTO.getPassword();
-        TokenModel tokenModel = new TokenModel();
-        // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-        tokenModel.setAccessToken(jwtTokenProvider.generateAccessToken(userRepository.findByEmail(email).getId(),email,
-                userRepository.findByEmail(email).getRole() ));
-        System.out.println(userRepository.findByEmail(email).getRole());
-        tokenModel.setRefreshToken(jwtTokenProvider.generateRefreshToken(loginDTO.getEmail()));
-        return tokenModel;
-    }
 
     public void deleteById(Long id) {
         if (!userRepository.findById(id).isPresent())
