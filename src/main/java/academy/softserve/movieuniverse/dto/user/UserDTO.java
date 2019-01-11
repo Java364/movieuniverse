@@ -5,7 +5,7 @@ import academy.softserve.movieuniverse.entity.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, UserLoginInfo {
+public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo{
     private Long id;
     private String email;
     private String password;
