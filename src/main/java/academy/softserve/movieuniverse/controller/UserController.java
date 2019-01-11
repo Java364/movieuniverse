@@ -51,26 +51,7 @@ public class UserController {
                 .body(userMapper.mapUserEntityListToUserWithShortInfoList(userService.findAllNonRemoved()));
     }
 
-    @PostMapping("/registration")
-    public ResponseEntity<UserFullInfo> registration(@RequestBody UserCreateInfo userDTO) {
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
-                userService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
-    }
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody UserLoginInfo loginDTO) {
-        TokenModel token = null;
-        if (userService.checkCredentials(loginDTO)) {
-            token = userService.signIn(loginDTO);
-            return new ResponseEntity<>(token, HttpStatus.OK);
-
-        } else {
-
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    @GetMapping("/{id}")
+      @GetMapping("/{id}")
     public ResponseEntity<UserFullInfo> showById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userMapper.mapUserEntityToUserDTOWithFullInfo(userService.findById(id)));
