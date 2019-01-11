@@ -9,10 +9,7 @@ import academy.softserve.movieuniverse.service.StarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -49,7 +46,7 @@ public class CountryMapper {
         return countryDTO;
     }
 
-    public List<CountryDTO> mapListToDto(Set<Country> countries) {
+    public List<CountryDTO> mapListToDto(Collection<Country> countries) {
         List<CountryDTO> countryDTOs = new ArrayList<>();
         for (Country c : countries) {
             countryDTOs.add(this.mapToDto(c));
