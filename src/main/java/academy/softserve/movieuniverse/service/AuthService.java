@@ -47,6 +47,9 @@ public class AuthService {
             return false;
         }
     }
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
     public TokenModel signIn(UserLoginInfo loginDTO) {
         String email = loginDTO.getEmail();

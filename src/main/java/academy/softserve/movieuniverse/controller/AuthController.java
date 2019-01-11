@@ -29,9 +29,24 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<UserFullInfo> registration(@RequestBody UserCreateInfo userDTO) {
+        if (userDTO.getEmail().isEmpty()){
+            System.out.println("solomiya lose");
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        }else {
         return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
                 authService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
-    }
+    }}
+
+   /* @PostMapping("/registrate")
+    public ResponseEntity registrateUser(@RequestBody RegistrationDTO registrationDTO) {
+        if (userService.getUserByEmail(registrationDTO.getEmail()) != null) {
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        } else {
+            userService.registrateUser(registrationDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }*/
+
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserLoginInfo loginDTO) {
