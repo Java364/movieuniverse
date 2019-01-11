@@ -2,8 +2,6 @@ package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.CountryController;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import academy.softserve.movieuniverse.entity.Country;
 import academy.softserve.movieuniverse.service.CountryService;
 import academy.softserve.movieuniverse.service.MovieService;
@@ -12,7 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Service
 public class CountryMapper {
@@ -46,7 +49,7 @@ public class CountryMapper {
         return countryDTO;
     }
 
-    public List<CountryDTO> mapListToDto(List<Country> countries) {
+    public List<CountryDTO> mapListToDto(Set<Country> countries) {
         List<CountryDTO> countryDTOs = new ArrayList<>();
         for (Country c : countries) {
             countryDTOs.add(this.mapToDto(c));
@@ -54,8 +57,8 @@ public class CountryMapper {
         return countryDTOs;
     }
 
-    public List<Country> mapCountriesListToEntity(List<CountryDTO> countryDTOs) {
-        List<Country> countries = new ArrayList<>();
+    public Set<Country> mapCountriesListToEntity(List<CountryDTO> countryDTOs) {
+        Set<Country> countries = new HashSet<>();
         for (CountryDTO c : countryDTOs) {
             countries.add(this.mapToEntityForSave(c));
         }

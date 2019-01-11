@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/admin/movie")
@@ -74,8 +75,8 @@ public class MovieAdminController {
     public ResponseEntity<List<CountryDTO>> addCountries(@PathVariable Long id,
                                                          @RequestBody List<CountryDTO> selectedCountries) {
         CountryMapper countryMapper = new CountryMapper();
-        List<Country> countries = countryMapper.mapCountriesListToEntity(selectedCountries);
-        List<Country> savedCountries = movieService.saveCountries(id, countries);
+        Set<Country> countries = countryMapper.mapCountriesListToEntity(selectedCountries);
+        Set<Country> savedCountries = movieService.saveCountries(id, countries);
         List<CountryDTO> countryDTOS = countryMapper.mapListToDto(savedCountries);
         return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
     }

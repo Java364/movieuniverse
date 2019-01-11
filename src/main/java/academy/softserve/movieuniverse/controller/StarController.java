@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin
@@ -168,7 +169,7 @@ public class StarController {
     public ResponseEntity<List<CountryDTO>> addStarCountries(@PathVariable Long id,
             @RequestBody List<CountryDTO> countryDTOS) {
         Star star = starService.findById(id);
-        List<Country> countries = countryMapper.mapCountriesListToEntity(countryDTOS);
+        Set<Country> countries = countryMapper.mapCountriesListToEntity(countryDTOS);
         star.setCountries(countries);
         starService.update(star, id);
         return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(star.getCountries()));
