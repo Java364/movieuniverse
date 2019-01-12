@@ -1,16 +1,14 @@
 package academy.softserve.movieuniverse.controller.admin;
 
 import academy.softserve.movieuniverse.dto.PosterDTO;
+import academy.softserve.movieuniverse.dto.castcrew.CastRequest;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
-import academy.softserve.movieuniverse.entity.Country;
-import academy.softserve.movieuniverse.entity.Genre;
-import academy.softserve.movieuniverse.entity.Movie;
-import academy.softserve.movieuniverse.entity.Trailer;
+import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.mapper.*;
 import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.PosterService;
@@ -81,6 +79,20 @@ public class MovieAdminController {
         return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
     }
 
+    @PostMapping("{id}/cast")
+    public ResponseEntity addCast(@PathVariable Long id, @RequestBody List<CastRequest> castDTO) {
+        CastMapper castMapper = new CastMapper();
+        List<Cast> castToSave = castMapper.mapToEntityList(castDTO);
+        movieService.saveCast(id, castToSave);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("{movieId}/cast/{castId}")
+    public ResponseEntity deleteCast(@PathVariable Long movieId, @PathVariable Long castId) {
+        movieService.deleteCastById(movieId, castId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+  
     @PostMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> addGallery(@PathVariable Long id) {
         GalleryMapper galleryMapper = new GalleryMapper();

@@ -33,6 +33,9 @@ public class Movie extends AbstractEntity {
     @OneToMany(mappedBy = "movie")
     private List<Crew> roles = new ArrayList<Crew>();
 
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cast> cast = new ArrayList<>();
+
     @OneToMany(mappedBy = "commentedMovie", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
@@ -129,5 +132,14 @@ public class Movie extends AbstractEntity {
     public Movie setComments(List<Comment> comments) {
         this.comments = comments;
         return this;
+    }
+
+    public List<Cast> getCast() {
+        return cast;
+    }
+
+    public void addStarToCast(Cast cast) {
+        this.cast.add(cast);
+        cast.setMovie(this);
     }
 }

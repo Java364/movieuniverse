@@ -152,6 +152,19 @@ public class MovieService {
         return movieRepository.findCreditsByProfession(movieId, profession);
     }
 
+    @Transactional
+    public void saveCast(Long movieId, List<Cast> cast) {
+        Movie movie = movieRepository.getOne(movieId);
+        cast.forEach(movie::addStarToCast);
+    }
+
+    @Transactional
+    public void deleteCastById(Long movieId, Long castId) {
+        Movie movie = this.findById(movieId);
+        Cast cast = movieRepository.findCastById(castId);
+        movie.getCast().remove(cast);
+    }
+
     public List<Movie> findAllByName(String name) {
         return movieRepository.findAllByMovieNameIgnoreCaseContaining(name);
     }
