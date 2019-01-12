@@ -10,18 +10,20 @@ import java.util.List;
 @Table(name = "user")
 public class User extends Person {
 
+    @NotNull
     @Size(max = 25, message = "Email size < 25")
-    /*@Email*/
+    /* @Email */
     @Column(name = "email", unique = true, length = 25)
     private String email;
 
+    @NotNull
     @Size(max = 60, message = "Password size < 60")
     @Column(name = "password", length = 60)
     private String password;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role= Role.USER;
 
     @OneToMany(mappedBy = "commentator", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
@@ -61,8 +63,7 @@ public class User extends Person {
     }
 
     public String getUsername() {
-        String[] split = this.email.split("@");
-        return split[0];
+        return this.email.substring(0, this.email.indexOf("@"));
     }
 
     public List<Comment> getComments() {

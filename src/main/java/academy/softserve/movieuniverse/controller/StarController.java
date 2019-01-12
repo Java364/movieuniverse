@@ -7,6 +7,7 @@ import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.star.StarDTO;
+import academy.softserve.movieuniverse.dto.star.StarSearchRequest;
 import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.mapper.*;
 import academy.softserve.movieuniverse.service.*;
@@ -55,9 +56,14 @@ public class StarController {
         this.avatarMapper = avatarMapper;
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<StarDTO>> showAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll()));
+    // @GetMapping("/list")
+    // public ResponseEntity<List<StarDTO>> showAll() {
+    // return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll()));
+    // }
+
+    @GetMapping("/")
+    public ResponseEntity<List<StarDTO>> showAll(StarSearchRequest starSearchRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll(starSearchRequest)));
     }
 
     @GetMapping("/{id}")

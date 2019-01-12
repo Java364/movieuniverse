@@ -3,19 +3,14 @@ package academy.softserve.movieuniverse.security;
 import academy.softserve.movieuniverse.entity.Role;
 import academy.softserve.movieuniverse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.midi.Soundbank;
 import java.io.IOException;
 
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -29,14 +24,26 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        filterChain.doFilter(request, response);
-    }
+        try {
+            String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
+              /*String refreshToken = jwtTokenProvider.getJwtRefreshFromRequest(request);*/
+            if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
+                Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    private String getJwtFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+            /*} else if (refreshToken != null && jwtTokenProvider.validateToken(refreshToken)
+                    && !jwtTokenProvider.validateToken(accessToken)) {*/
+                // checkExpiration(accessToken)
+               /* String email = jwtTokenProvider.getEmail(refreshToken);*/
+                /// removeAlreadyFiltredAttributes
+               /* Role role = userRepository.findByEmail(email).getRole();
+                Long id = userRepository.findByEmail(email).getId();
+                response.setHeader("Access-token", jwtTokenProvider.generateAccessToken(id, email, role));
+                response.setHeader("Refresh-token", jwtTokenProvider.generateRefreshToken(email));*/
+            }
+        } catch (RuntimeException e) {
+
         }
-        return null;
+        filterChain.doFilter(request, response);
     }
 }

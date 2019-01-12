@@ -20,7 +20,8 @@ public class UserPrincipal implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String firstName, String lastName, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String firstName, String lastName, String email, String password,
+            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,13 +33,8 @@ public class UserPrincipal implements UserDetails {
     public static UserPrincipal create(User user) {
         List<GrantedAuthority> authorities = new LinkedList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().toString()));
-        return new UserPrincipal(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getPassword(),
-                authorities);
+        return new UserPrincipal(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(),
+                user.getPassword(), authorities);
     }
 
     @Override
@@ -118,8 +114,10 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserPrincipal)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof UserPrincipal))
+            return false;
         UserPrincipal that = (UserPrincipal) o;
         return id != null ? id.equals(that.id) : that.id == null;
     }

@@ -1,8 +1,10 @@
 package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.UserController;
-import academy.softserve.movieuniverse.dto.user.*;
-
+import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
+import academy.softserve.movieuniverse.dto.user.UserDTO;
+import academy.softserve.movieuniverse.dto.user.UserFullInfo;
+import academy.softserve.movieuniverse.dto.user.UserShortInfo;
 import academy.softserve.movieuniverse.entity.Role;
 import academy.softserve.movieuniverse.entity.User;
 import org.modelmapper.ModelMapper;
@@ -19,6 +21,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class UserMapper {
     @Autowired
     private ModelMapper modelMapper;
+
     @Autowired
     public UserMapper() {
 
