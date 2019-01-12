@@ -50,8 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http // no session will be created or used by Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().cacheControl().disable();
-        http.authorizeRequests().antMatchers("/users/**").permitAll();
-         http.authorizeRequests().antMatchers( "/admin/star/**").hasRole("USER");
+        http.authorizeRequests().antMatchers("/users*").permitAll();
+        /* http.authorizeRequests().antMatchers( "/stars*//**").hasRole("ADMIN");*/
        /* http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider, userRepository));*/
 
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -60,8 +60,8 @@ public class AuthService {
                 userRepository.findByEmail(email).getRole()));
 
         System.out.println(userRepository.findByEmail(email).getRole());
-        tokenModel.setRefreshToken(jwtTokenProvider.generateRefreshToken(loginDTO.getEmail()));
-        System.out.println(tokenModel);
+        /*tokenModel.setRefreshToken(jwtTokenProvider.generateRefreshToken(loginDTO.getEmail()));*/
+
         return tokenModel;
     }
 

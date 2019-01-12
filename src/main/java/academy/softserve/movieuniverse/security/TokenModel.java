@@ -3,7 +3,7 @@ package academy.softserve.movieuniverse.security;
 
 public class TokenModel {
     private String accessToken;
-    private String refreshToken;
+   /* private String refreshToken;*/
 
     public TokenModel() {
     }
@@ -16,19 +16,18 @@ public class TokenModel {
         this.accessToken = accessToken;
     }
 
-    public String getRefreshToken() {
+   /* public String getRefreshToken() {
         return refreshToken;
     }
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
-    }
+    }*/
 
     @Override
     public String toString() {
         return "TokenModel{" +
-                "accessToken='" + accessToken + '\'' +
-                ", refreshToken='" + refreshToken + '\'' +
+                "accessToken='" + accessToken   +
                 '}';
     }
 }
