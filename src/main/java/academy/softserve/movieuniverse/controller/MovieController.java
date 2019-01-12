@@ -5,6 +5,8 @@ import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
+import academy.softserve.movieuniverse.dto.movie.MovieSearchRequest;
+import academy.softserve.movieuniverse.dto.movie.MovieSearchShortInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
 import academy.softserve.movieuniverse.entity.*;
@@ -12,6 +14,7 @@ import academy.softserve.movieuniverse.mapper.*;
 import academy.softserve.movieuniverse.service.MovieMarkService;
 import academy.softserve.movieuniverse.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,70 +29,80 @@ import java.util.Set;
 @RequestMapping("/movies")
 public class MovieController {
 
-	private final MovieService movieService;
+    private final MovieService movieService;
 
-	private final MovieMapper movieMapper;
-	private final GalleryMapper galleryMapper;
-	private final TrailerMapper trailerMapper;
-	private final CommentMapper commentMapper;
-	private final MovieMarkService movieMarkService;
-	private final PosterMapper posterMapper;
+    private final MovieMapper movieMapper;
+    private final GalleryMapper galleryMapper;
+    private final TrailerMapper trailerMapper;
+    private final CommentMapper commentMapper;
+    private final MovieMarkService movieMarkService;
+    private final PosterMapper posterMapper;
 
-	@Autowired
-	public MovieController(PosterMapper posterMapper, MovieService movieService, MovieMapper movieMapper,
-	                       GalleryMapper galleryMapper, TrailerMapper trailerMapper, CommentMapper commentMapper,
-	                       MovieMarkService movieMarkService) {
-		this.movieService = movieService;
-		this.movieMapper = movieMapper;
-		this.galleryMapper = galleryMapper;
-		this.trailerMapper = trailerMapper;
-		this.commentMapper = commentMapper;
-		this.movieMarkService = movieMarkService;
-		this.posterMapper = posterMapper;
-	}
+    @Autowired
+    public MovieController(PosterMapper posterMapper, MovieService movieService, MovieMapper movieMapper,
+            GalleryMapper galleryMapper, TrailerMapper trailerMapper, CommentMapper commentMapper,
+            MovieMarkService movieMarkService) {
+        this.movieService = movieService;
+        this.movieMapper = movieMapper;
+        this.galleryMapper = galleryMapper;
+        this.trailerMapper = trailerMapper;
+        this.commentMapper = commentMapper;
+        this.movieMarkService = movieMarkService;
+        this.posterMapper = posterMapper;
+    }
 
-	@GetMapping
-	public ResponseEntity<List<MovieDTO>> showAll() {
-		return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapListToDTO(movieService.findAll()));
-	}
+    @GetMapping
+    public ResponseEntity<List<MovieDTO>> findAll() {
+        List<Movie> movies = movieService.findAll();
+        List<MovieDTO> movieDTOS = movieMapper.mapListToDTO(movies);
+        return ResponseEntity.status(HttpStatus.OK).body(movieDTOS);
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<MovieDTO> showById(@PathVariable Long id) {
-		Movie movie = movieService.findById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapToDto(movie));
-	}
+    @GetMapping("/search")
+    public List<MovieSearchShortInfo> showAll(MovieSearchRequest movieSearchRequest) {
+        List<Movie> all = movieService.findAll(movieSearchRequest);
+        List<MovieSearchShortInfo> movieSearchShortInfos = movieMapper.mapListToMovieSearchShortInfoList(all);
+        return movieSearchShortInfos;
+    }
 
-	@GetMapping("/mark/{id}")
-	public MovieDTO showByMovieMark(@PathVariable Long id) {
-		MovieMark movieMark = movieMarkService.findById(id);
-		return movieMapper.mapToDto(movieService.findAllByMovieMarks(movieMark));
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<MovieDTO> showById(@PathVariable Long id) {
+        Movie movie = movieService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapToDto(movie));
+    }
 
-	@GetMapping("/{id}/gallery")
-	public ResponseEntity<GalleryDTO> showMovieGallery(@PathVariable Long id) {
-		Movie movie = movieService.findById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(galleryMapper.mapToDTO(movie.getMediaContent().getGallery()));
-	}
+    @GetMapping("/mark/{id}")
+    public MovieDTO showByMovieMark(@PathVariable Long id) {
+        MovieMark movieMark = movieMarkService.findById(id);
+        return movieMapper.mapToDto(movieService.findAllByMovieMarks(movieMark));
+    }
 
-	@GetMapping("/{id}/trailers/")
-	public ResponseEntity<List<TrailerDTO>> showMovieTrailers(@PathVariable Long id) {
-		Movie movie = movieService.findById(id);
-		return ResponseEntity.status(HttpStatus.OK)
-				.body(trailerMapper.maptoDTOList(movie.getMediaContent().getTrailers()));
-	}
+    @GetMapping("/{id}/gallery")
+    public ResponseEntity<GalleryDTO> showMovieGallery(@PathVariable Long id) {
+        Movie movie = movieService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(galleryMapper.mapToDTO(movie.getMediaContent().getGallery()));
+    }
 
-	@GetMapping("/{id}/poster")
-	public ResponseEntity<PosterDTO> showMoviePoster(@PathVariable Long id) {
-		Movie movie = movieService.findById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(posterMapper.mapToDTO(movie.getMediaContent().getPoster()));
-	}
+    @GetMapping("/{id}/trailers/")
+    public ResponseEntity<List<TrailerDTO>> showMovieTrailers(@PathVariable Long id) {
+        Movie movie = movieService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(trailerMapper.maptoDTOList(movie.getMediaContent().getTrailers()));
+    }
 
-	@GetMapping("/{id}/comments")
-	public ResponseEntity<List<CommentDTO>> showComments(@PathVariable Long id) {
-		List<Comment> foundComments = movieService.findComments(id);
-		List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(foundComments);
-		return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
-	}
+    @GetMapping("/{id}/poster")
+    public ResponseEntity<PosterDTO> showMoviePoster(@PathVariable Long id) {
+        Movie movie = movieService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(posterMapper.mapToDTO(movie.getMediaContent().getPoster()));
+    }
+
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<List<CommentDTO>> showComments(@PathVariable Long id) {
+        List<Comment> foundComments = movieService.findComments(id);
+        List<CommentDTO> commentDTOS = commentMapper.mapToDTOList(foundComments);
+        return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
+    }
+
 
 	@GetMapping("/{id}/genres")
 	public ResponseEntity<List<GenreDTO>> showGenres(@PathVariable Long id) {
@@ -105,22 +118,22 @@ public class MovieController {
         Set<Country> foundCountries = movieService.findCountries(id);
 		List<CountryDTO> countryDTOS = countryMapper.mapListToDto(foundCountries);
         return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
-	}
+    }
 
-	@GetMapping("/{id}/movieMark")
-	public ResponseEntity<Map<Integer, Double>> showMovieMark(@PathVariable Long id) {
-		Movie movie = movieService.findById(id);
-		Map<Integer, Double> map = new HashMap<Integer, Double>();
-		List<MovieMark> marks = movie.getMovieMarks();
-		Double sumOfMarks = 0d;
-		for (MovieMark x : marks) {
-			sumOfMarks = +x.getMark();
-		}
-		if (sumOfMarks == 0) {
-			map.put(movie.getMovieMarks().size(), sumOfMarks);
-		} else {
-			map.put(movie.getMovieMarks().size(), sumOfMarks / movie.getMovieMarks().size());
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(map);
-	}
+    @GetMapping("/{id}/movieMark")
+    public ResponseEntity<Map<Integer, Double>> showMovieMark(@PathVariable Long id) {
+        Movie movie = movieService.findById(id);
+        Map<Integer, Double> map = new HashMap<Integer, Double>();
+        List<MovieMark> marks = movie.getMovieMarks();
+        Double sumOfMarks = 0d;
+        for (MovieMark x : marks) {
+            sumOfMarks = +x.getMark();
+        }
+        if (sumOfMarks == 0) {
+            map.put(movie.getMovieMarks().size(), sumOfMarks);
+        } else {
+            map.put(movie.getMovieMarks().size(), sumOfMarks / movie.getMovieMarks().size());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(map);
+    }
 }

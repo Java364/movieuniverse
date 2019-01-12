@@ -32,11 +32,11 @@ public class Cast extends AbstractEntity {
         this.star = star;
     }
 
-	public String getCharacter() {
-		return character;
-	}
+    public String getCharacter() {
+        return character;
+    }
 
-	public void setCharacter(String character) {
-		this.character = character;
-	}
+    public void setCharacter(String character) {
+        this.character = character;
+    }
 }

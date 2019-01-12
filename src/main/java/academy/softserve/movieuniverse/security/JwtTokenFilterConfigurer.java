@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.security;
 
-
 import academy.softserve.movieuniverse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenFilterConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-   @Autowired
+    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
@@ -21,8 +20,8 @@ public class JwtTokenFilterConfigurer extends SecurityConfigurerAdapter<DefaultS
 
         this.userRepository = userRepository;
     }
-    /*@Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.addFilterAfter(new JwtAuthFilter(jwtTokenProvider, userRepository), BasicAuthenticationFilter.class);
-    }*/
+    /*
+     * @Override public void configure(HttpSecurity http) throws Exception { http.addFilterAfter(new
+     * JwtAuthFilter(jwtTokenProvider, userRepository), BasicAuthenticationFilter.class); }
+     */
 }

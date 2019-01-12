@@ -93,10 +93,11 @@ public class UserController {
         User user = userService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(movieMarkMapper.mapToDTOList(user.getMovieMarks()));
     }
-    /*@PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void registerUser(@Valid @RequestBody RegistrationDTO registrationDTO) {
-        userService.registerUser(registrationDTO);
-    }*/
+    /*
+     * @PostMapping
+     * 
+     * @ResponseStatus(HttpStatus.OK) public void registerUser(@Valid @RequestBody RegistrationDTO registrationDTO) {
+     * userService.registerUser(registrationDTO); }
+     */
 
 }
