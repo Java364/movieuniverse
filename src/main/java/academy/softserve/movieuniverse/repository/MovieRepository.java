@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.repository;
 
+import academy.softserve.movieuniverse.entity.Cast;
 import academy.softserve.movieuniverse.entity.Movie;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.Star;
@@ -17,4 +18,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Star> findCreditsByProfession(@Param("movieId") Long movieId, @Param("profession") String profession);
 
     List<Movie> findAllByMovieNameIgnoreCaseContaining(String name);
+
+    @Query("select c from Cast c where c.id = :castId")
+    Cast findCastById(@Param("castId") Long id);
 }

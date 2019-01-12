@@ -33,7 +33,7 @@ public class Movie extends AbstractEntity {
     @OneToMany(mappedBy = "movie")
     private List<Crew> roles = new ArrayList<Crew>();
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cast> cast = new ArrayList<>();
 
     @OneToMany(mappedBy = "commentedMovie", cascade = CascadeType.ALL)

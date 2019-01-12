@@ -87,6 +87,12 @@ public class MovieAdminController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @DeleteMapping("{movieId}/cast/{castId}")
+    public ResponseEntity deleteCast(@PathVariable Long movieId, @PathVariable Long castId) {
+        movieService.deleteCastById(movieId, castId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
     @PostMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> addGallery(@PathVariable Long id) {
         GalleryMapper galleryMapper = new GalleryMapper();
