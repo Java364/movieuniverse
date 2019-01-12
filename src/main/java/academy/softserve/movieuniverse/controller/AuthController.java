@@ -29,14 +29,13 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<UserFullInfo> registration(@RequestBody UserCreateInfo userDTO) {
-        if (userDTO.getEmail().isEmpty()){
-            System.out.println("solomiya lose");
+        if (authService.validatorRegistration(userDTO)) {
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-        }else {
-            System.out.println("2323232");
-        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
-                authService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
-    }}
+        } else {
+            return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
+                    authService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
+        }
+    }
 
    /* @PostMapping("/registrate")
     public ResponseEntity registrateUser(@RequestBody RegistrationDTO registrationDTO) {
@@ -55,7 +54,7 @@ public class AuthController {
         TokenModel token = null;
         String e = loginDTO.getEmail();
         String p = loginDTO.getPassword();
-        System.out.println("email -  "+ e +"  password -" +p);
+        System.out.println("email -  " + e + "  password -" + p);
         if (authService.checkCredentials(loginDTO)) {
 
             token = authService.signIn(loginDTO);
