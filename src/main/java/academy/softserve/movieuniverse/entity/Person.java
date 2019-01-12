@@ -2,6 +2,8 @@ package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public abstract class Person extends AbstractEntity {

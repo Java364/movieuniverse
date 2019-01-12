@@ -1,11 +1,22 @@
 package academy.softserve.movieuniverse.dto.user;
 
-public interface UserLoginInfo {
-    String getEmail();
+public class UserLoginInfo {
+    private String email;
+    private String password;
 
-    void setEmail(String email);
+    public String getEmail() {
+        return email;
+    }
 
-    String getPassword();
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    void setPassword(String password);
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

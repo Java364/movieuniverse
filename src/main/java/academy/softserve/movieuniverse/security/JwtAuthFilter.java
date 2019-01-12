@@ -26,20 +26,20 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         try {
             String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
-            String refreshToken = jwtTokenProvider.getJwtRefreshFromRequest(request);
-
+              /*String refreshToken = jwtTokenProvider.getJwtRefreshFromRequest(request);*/
             if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
                 Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            } else if (refreshToken != null && jwtTokenProvider.validateToken(refreshToken)
-                    && !jwtTokenProvider.validateToken(accessToken)) {
+
+            /*} else if (refreshToken != null && jwtTokenProvider.validateToken(refreshToken)
+                    && !jwtTokenProvider.validateToken(accessToken)) {*/
                 // checkExpiration(accessToken)
-                String email = jwtTokenProvider.getEmail(refreshToken);
+               /* String email = jwtTokenProvider.getEmail(refreshToken);*/
                 /// removeAlreadyFiltredAttributes
-                Role role = userRepository.findByEmail(email).getRole();
+               /* Role role = userRepository.findByEmail(email).getRole();
                 Long id = userRepository.findByEmail(email).getId();
                 response.setHeader("Access-token", jwtTokenProvider.generateAccessToken(id, email, role));
-                response.setHeader("Refresh-token", jwtTokenProvider.generateRefreshToken(email));
+                response.setHeader("Refresh-token", jwtTokenProvider.generateRefreshToken(email));*/
             }
         } catch (RuntimeException e) {
 

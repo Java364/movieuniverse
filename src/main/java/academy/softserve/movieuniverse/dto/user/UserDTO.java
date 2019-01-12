@@ -1,14 +1,15 @@
 package academy.softserve.movieuniverse.dto.user;
 
+
 import academy.softserve.movieuniverse.entity.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, UserLoginInfo {
+public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo{
     private Long id;
     private String email;
     private String password;
-    private String confirmPassword;
+    /*private String confirmPassword;*/
     private String firstName;
     private String lastName;
     private Role role;
@@ -44,14 +45,16 @@ public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, Use
         this.password = password;
     }
 
-    public String getConfirmPassword() {
+
+    /*public String getConfirmPassword() {
         return confirmPassword;
     }
+
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-
+*/
     @Override
     public String getFirstName() {
         return firstName;
@@ -163,7 +166,7 @@ public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, Use
     @Override
     public String toString() {
         return "UserDTO{" + "id=" + id + ", email='" + email + '\'' + ", password='" + password + '\''
-                + ", confirmPassword='" + confirmPassword + '\'' + ", firstName='" + firstName + '\'' + ", lastName='"
+                + ", confirmPassword='" + '\'' + ", firstName='" + firstName + '\'' + ", lastName='"
                 + lastName + '\'' + ", birthday=" + birthday + ", entryCreationDate=" + entryCreationDate
                 + ", entryLastUpdate=" + entryLastUpdate + ", isRemoved=" + isRemoved + ", self='" + self + '\''
                 + ", users='" + users + '\'' + ", comments='" + comments + '\'' + ", movieMarks='" + movieMarks + '\''

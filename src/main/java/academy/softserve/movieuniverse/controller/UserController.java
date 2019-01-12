@@ -3,18 +3,21 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.moviemark.MovieMarkDTO;
 import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
+import academy.softserve.movieuniverse.dto.user.UserLoginInfo;
 import academy.softserve.movieuniverse.dto.user.UserShortInfo;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
 import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.mapper.CommentMapper;
 import academy.softserve.movieuniverse.mapper.MovieMarkMapper;
 import academy.softserve.movieuniverse.mapper.UserMapper;
+import academy.softserve.movieuniverse.security.TokenModel;
 import academy.softserve.movieuniverse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
@@ -48,13 +51,7 @@ public class UserController {
                 .body(userMapper.mapUserEntityListToUserWithShortInfoList(userService.findAllNonRemoved()));
     }
 
-    @PostMapping("/registration")
-    public ResponseEntity<UserFullInfo> registration(@RequestBody UserCreateInfo userDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
-                userService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
-    }
-
-    @GetMapping("/{id}")
+      @GetMapping("/{id}")
     public ResponseEntity<UserFullInfo> showById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userMapper.mapUserEntityToUserDTOWithFullInfo(userService.findById(id)));

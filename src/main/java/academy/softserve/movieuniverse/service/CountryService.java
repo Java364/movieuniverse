@@ -38,7 +38,8 @@ public class CountryService {
     }
 
     public List<Country> findAll() {
-        return countryRepository.findAll();
+        List<Country> countries = countryRepository.findAll();
+        return countries;
     }
 
     public Country findById(Long id) {
