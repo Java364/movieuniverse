@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.dto.user;
 
-
 import academy.softserve.movieuniverse.entity.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -45,11 +44,9 @@ public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo, Use
         this.password = password;
     }
 
-
     public String getConfirmPassword() {
         return confirmPassword;
     }
-
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;

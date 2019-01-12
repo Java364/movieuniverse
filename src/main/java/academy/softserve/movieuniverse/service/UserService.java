@@ -1,7 +1,5 @@
 package academy.softserve.movieuniverse.service;
 
-
-import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.Role;
 import academy.softserve.movieuniverse.entity.User;
@@ -20,8 +18,8 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-@Autowired
-private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository) {

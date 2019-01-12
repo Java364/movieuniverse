@@ -173,7 +173,6 @@ public class StarMapper {
         return starEntities.stream().map(this::mapEntityToStarShortSearchInfo).collect(Collectors.toList());
     }
 
-
     public static CreditDTO mapToCreditDTO(Star star) {
         CreditDTO creditDTO = new StarDTO();
         creditDTO.setId(star.getId());

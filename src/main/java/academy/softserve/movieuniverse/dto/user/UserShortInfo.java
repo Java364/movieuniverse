@@ -21,5 +21,4 @@ public interface UserShortInfo {
 
     void setPassword(String password);
 
-
 }
