@@ -24,21 +24,29 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        try { String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
-              String refreshToken = jwtTokenProvider.getJwtRefreshFromRequest(request);
 
+        try {  String sss = request.toString();
+            System.out.println(sss);
+            System.out.println("lalalalala");
+
+            String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
+              /*String refreshToken = jwtTokenProvider.getJwtRefreshFromRequest(request);*/
+            System.out.println("nananana");
+            System.out.println(accessToken);
             if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
+                System.out.println("3333");
                 Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            } else if (refreshToken != null && jwtTokenProvider.validateToken(refreshToken)
-                    && !jwtTokenProvider.validateToken(accessToken)) {
+
+            /*} else if (refreshToken != null && jwtTokenProvider.validateToken(refreshToken)
+                    && !jwtTokenProvider.validateToken(accessToken)) {*/
                 // checkExpiration(accessToken)
-                String email = jwtTokenProvider.getEmail(refreshToken);
+               /* String email = jwtTokenProvider.getEmail(refreshToken);*/
                 /// removeAlreadyFiltredAttributes
-                Role role = userRepository.findByEmail(email).getRole();
+               /* Role role = userRepository.findByEmail(email).getRole();
                 Long id = userRepository.findByEmail(email).getId();
                 response.setHeader("Access-token", jwtTokenProvider.generateAccessToken(id, email, role));
-                response.setHeader("Refresh-token", jwtTokenProvider.generateRefreshToken(email));
+                response.setHeader("Refresh-token", jwtTokenProvider.generateRefreshToken(email));*/
             }
         } catch (RuntimeException e) {
 

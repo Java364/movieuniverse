@@ -33,6 +33,7 @@ public class AuthController {
             System.out.println("solomiya lose");
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         }else {
+            System.out.println("2323232");
         return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
                 authService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
     }}
