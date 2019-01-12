@@ -24,17 +24,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-
-        try {  String sss = request.toString();
-            System.out.println(sss);
-            System.out.println("lalalalala");
-
+        try {
             String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
               /*String refreshToken = jwtTokenProvider.getJwtRefreshFromRequest(request);*/
-            System.out.println("nananana");
-            System.out.println(accessToken);
             if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
-                System.out.println("3333");
                 Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -52,4 +45,5 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         }
         filterChain.doFilter(request, response);
-    }}
+    }
+}
