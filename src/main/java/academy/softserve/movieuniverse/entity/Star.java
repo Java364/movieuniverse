@@ -32,11 +32,11 @@ public class Star extends Person {
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<Links> links = new ArrayList<Links>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gallery_id")
     private Gallery gallery;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "avatar_id")
     private Avatar avatar;
 

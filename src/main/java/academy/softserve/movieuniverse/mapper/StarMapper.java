@@ -180,4 +180,16 @@ public class StarMapper {
         creditDTO.setLastName(star.getLastName());
         return creditDTO;
     }
+
+    public static Star mapToEntity(CreditDTO creditDTO) {
+        Star star = new Star();
+        star.setId(creditDTO.getId());
+        star.setFirstName(creditDTO.getFirstName());
+        star.setLastName(creditDTO.getLastName());
+        return star;
+    }
+
+    public static List<Star> mapToEntityList(List<CreditDTO> creditDTO) {
+        return creditDTO.stream().map(StarMapper::mapToEntity).collect(Collectors.toList());
+    }
 }

@@ -1,9 +1,6 @@
 package academy.softserve.movieuniverse.repository;
 
-import academy.softserve.movieuniverse.entity.Cast;
-import academy.softserve.movieuniverse.entity.Movie;
-import academy.softserve.movieuniverse.entity.MovieMark;
-import academy.softserve.movieuniverse.entity.Star;
+import academy.softserve.movieuniverse.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +19,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecific
 
     @Query("select c from Cast c where c.id = :castId")
     Cast findCastById(@Param("castId") Long id);
+
+    @Query("select sp from StarProfession sp join sp.profession p"
+           + " where sp.star.id = :starId and p.professionType = :profession")
+    StarProfession findStarProfession(@Param("starId") Long starId, @Param("profession") String profession);
 }

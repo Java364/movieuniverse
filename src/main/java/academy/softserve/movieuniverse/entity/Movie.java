@@ -30,7 +30,7 @@ public class Movie extends AbstractEntity {
     @ManyToMany
     private Set<Country> countries = new HashSet<>();
 
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Crew> roles = new ArrayList<Crew>();
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)

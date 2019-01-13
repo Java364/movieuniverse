@@ -7,8 +7,6 @@ import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import academy.softserve.movieuniverse.service.specific.MovieSpecific;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 
 @Service
 @Transactional(readOnly = true)
@@ -163,6 +162,23 @@ public class MovieService {
         Movie movie = this.findById(movieId);
         Cast cast = movieRepository.findCastById(castId);
         movie.getCast().remove(cast);
+    }
+
+    @Transactional
+    public void saveCrew(Long movieId, String profession, List<Star> stars) {
+        Movie movie = movieRepository.getOne(movieId);
+        stars.forEach(mapToCrew(profession, movie));
+    }
+
+    private Consumer<Star> mapToCrew(String profession, Movie movie) {
+        List<Crew> crew = movie.getRoles();
+        return s -> {
+            StarProfession starProfession = movieRepository.findStarProfession(s.getId(), profession);
+            Crew credit = new Crew();
+            credit.setMovie(movie);
+            credit.setStarProfession(starProfession);
+            crew.add(credit);
+        };
     }
 
     public List<Movie> findAllByName(String name) {

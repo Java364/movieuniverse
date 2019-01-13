@@ -6,6 +6,7 @@ import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
+import academy.softserve.movieuniverse.dto.star.CreditDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.entity.*;
@@ -92,7 +93,15 @@ public class MovieAdminController {
         movieService.deleteCastById(movieId, castId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-  
+
+    @PostMapping("/{id}/crew")
+    public ResponseEntity addCrew(@PathVariable Long id, @RequestParam String profession,
+                                  @RequestBody List<CreditDTO> creditDTO) {
+        List<Star> crewToAdd = StarMapper.mapToEntityList(creditDTO);
+        movieService.saveCrew(id, profession, crewToAdd);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     @PostMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> addGallery(@PathVariable Long id) {
         GalleryMapper galleryMapper = new GalleryMapper();
