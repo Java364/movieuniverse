@@ -38,10 +38,10 @@ public class AuthService {
     public boolean validatorRegistration (UserCreateInfo userDTO){
         if((userDTO.getEmail().isEmpty())
                 || (!userDTO.getEmail().contains("@"))
-                || ((userDTO.getFirstName().length()> 10) || userDTO.getFirstName().contains(" "))
+                || ((userDTO.getFirstName().length()> 15) || userDTO.getFirstName().contains(" "))
                 || ((userDTO.getLastName().length()> 15) || userDTO.getLastName().contains(" "))
                 || (userDTO.getPassword().isEmpty())
-                || ((userDTO.getPassword().length()> 16) || userDTO.getPassword().contains(" "))
+                || ((userDTO.getPassword().length()> 20) || userDTO.getPassword().contains(" "))
                 || (userDTO.getPassword().length()< 6 )
                 )return true;
         else return false;
