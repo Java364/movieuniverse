@@ -5,6 +5,7 @@ import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
+import academy.softserve.movieuniverse.dto.movie.MovieFullInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
 import academy.softserve.movieuniverse.entity.*;
@@ -22,7 +23,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/movies")
+@RequestMapping(value = "/movies", produces = "application/hal+json")
 public class MovieController {
 
 	private final MovieService movieService;
@@ -36,8 +37,8 @@ public class MovieController {
 
 	@Autowired
 	public MovieController(PosterMapper posterMapper, MovieService movieService, MovieMapper movieMapper,
-	                       GalleryMapper galleryMapper, TrailerMapper trailerMapper, CommentMapper commentMapper,
-	                       MovieMarkService movieMarkService) {
+			GalleryMapper galleryMapper, TrailerMapper trailerMapper, CommentMapper commentMapper,
+			MovieMarkService movieMarkService) {
 		this.movieService = movieService;
 		this.movieMapper = movieMapper;
 		this.galleryMapper = galleryMapper;
@@ -49,7 +50,7 @@ public class MovieController {
 
 	@GetMapping
 	public ResponseEntity<List<MovieDTO>> showAll() {
-		return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapListToDTO(movieService.findAll()));
+		return ResponseEntity.status(HttpStatus.OK).body(movieMapper.mapListToMovieDTO(movieService.findAll()));
 	}
 
 	@GetMapping("/{id}")
@@ -92,7 +93,7 @@ public class MovieController {
 
 	@GetMapping("/{id}/genres")
 	public ResponseEntity<List<GenreDTO>> showGenres(@PathVariable Long id) {
-        List<Genre> foundGenres = movieService.findGenres(id);
+		List<Genre> foundGenres = movieService.findGenres(id);
 		GenreMapper genreMapper = new GenreMapper();
 		List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(foundGenres);
 		return ResponseEntity.status(HttpStatus.OK).body(genreDTOS);
@@ -101,9 +102,9 @@ public class MovieController {
 	@GetMapping("/{id}/countries")
 	public ResponseEntity<List<CountryDTO>> showCountries(@PathVariable Long id) {
 		CountryMapper countryMapper = new CountryMapper();
-        List<Country> foundCountries = movieService.findCountries(id);
+		List<Country> foundCountries = movieService.findCountries(id);
 		List<CountryDTO> countryDTOS = countryMapper.mapListToDto(foundCountries);
-        return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
+		return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
 	}
 
 	@GetMapping("/{id}/movieMark")

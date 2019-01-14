@@ -1,6 +1,9 @@
 package academy.softserve.movieuniverse.dto.movie;
 
-public class MovieDTO implements MovieInfoDTO, MovieCreateDTO, MovieSearchShortInfo, MovieSearchInfo {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class MovieDTO implements MovieInfoDTO, MovieCreateDTO, MovieSearchShortInfo, MovieSearchInfo,MovieFullInfo {
     private Long id;
     private String movieName;
     private int year;

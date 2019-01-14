@@ -48,6 +48,7 @@ public class MovieService {
         if (!movie.isPresent()) {
             throw new NotFoundException(ExceptionType.SELECT.getMessage() + "movie with " + id.toString() + " ID");
         }
+        
         return movie.get();
     }
 
