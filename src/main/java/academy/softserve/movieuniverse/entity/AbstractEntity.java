@@ -2,6 +2,7 @@ package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
@@ -69,5 +70,18 @@ public abstract class AbstractEntity {
     public String toString() {
         return "AbstractEntity{" + "id=" + id + ", entryCreationDate=" + entryCreationDate + ", entryLastUpdate="
                 + entryLastUpdate + ", isRemoved=" + isRemoved + '}';
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractEntity)) return false;
+        AbstractEntity that = (AbstractEntity) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

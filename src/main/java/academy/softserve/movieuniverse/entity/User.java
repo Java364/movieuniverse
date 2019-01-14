@@ -1,29 +1,29 @@
 package academy.softserve.movieuniverse.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "user")
 public class User extends Person {
 
+    @NotNull
     @Size(max = 25, message = "Email size < 25")
-    /*@Email*/
+    /* @Email */
     @Column(name = "email", unique = true, length = 25)
     private String email;
 
+    @NotNull
     @Size(max = 60, message = "Password size < 60")
     @Column(name = "password", length = 60)
     private String password;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role= Role.USER;
 
     @OneToMany(mappedBy = "commentator", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
@@ -63,8 +63,7 @@ public class User extends Person {
     }
 
     public String getUsername() {
-        String[] split = this.email.split("@");
-        return split[0];
+        return this.email.substring(0, this.email.indexOf("@"));
     }
 
     public List<Comment> getComments() {
@@ -81,22 +80,6 @@ public class User extends Person {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        User user = (User) o;
-        return Objects.equals(email, user.email) && Objects.equals(password, user.password)
-                && Objects.equals(comments, user.comments) && Objects.equals(movieMarks, user.movieMarks);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(email, password, comments, movieMarks);
     }
 
     @Override

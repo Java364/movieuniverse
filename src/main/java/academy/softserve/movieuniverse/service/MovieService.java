@@ -1,27 +1,34 @@
 package academy.softserve.movieuniverse.service;
 
+import academy.softserve.movieuniverse.dto.movie.MovieSearchRequest;
 import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.MovieRepository;
+import academy.softserve.movieuniverse.service.specific.MovieSpecific;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
 public class MovieService {
     private final MovieRepository movieRepository;
     private final GalleryService galleryService;
+    private final MovieSpecific movieSpecific;
 
     @Autowired
-    public MovieService(MovieRepository movieRepository, GalleryService galleryService) {
+    public MovieService(MovieRepository movieRepository, GalleryService galleryService, MovieSpecific movieSpecific) {
         this.movieRepository = movieRepository;
         this.galleryService = galleryService;
+        this.movieSpecific = movieSpecific;
     }
 
     @Transactional
@@ -34,13 +41,16 @@ public class MovieService {
     }
 
     public List<Movie> findAll() {
-        List<Movie> result = new ArrayList<>();
-        try {
-            result.addAll(movieRepository.findAll());
-        } catch (Exception ex) {
-            throw new NotFoundException(ExceptionType.SELECT.getMessage());
-        }
-        return result;
+        return movieRepository.findAll();
+    }
+
+    public List<Movie> findAll(MovieSearchRequest movieSearchRequest) {
+        Specification<Movie> filter = movieSpecific.filter(movieSearchRequest);
+        List<Movie> all = movieRepository.findAll(filter);
+        // Page<Movie> all = movieRepository.findAll(filter, PageRequest.of(movieSearchRequest.getPage(),
+        // movieSearchRequest.getSize(), movieSearchRequest.getDirection(),
+        // movieSearchRequest.getSort().getFieldName()));
+        return all;
     }
 
     public Movie findById(Long id) {
@@ -48,6 +58,7 @@ public class MovieService {
         if (!movie.isPresent()) {
             throw new NotFoundException(ExceptionType.SELECT.getMessage() + "movie with " + id.toString() + " ID");
         }
+        
         return movie.get();
     }
 
@@ -112,34 +123,47 @@ public class MovieService {
         return movie.getComments();
     }
 
-    public List<Country> findCountries(Long movieId) {
+    public Set<Country> findCountries(Long movieId) {
         Movie movie = this.findById(movieId);
         return movie.getCountries();
     }
 
     @Transactional
-    public List<Country> saveCountries(Long movieId, List<Country> countries) {
+    public Set<Country> saveCountries(Long movieId, Set<Country> countries) {
         Movie movie = this.findById(movieId);
-        movie.setCountries(countries);
+        movie.getCountries().addAll(countries);
         movieRepository.save(movie);
         return countries;
     }
 
-    public List<Genre> findGenres(Long movieId) {
+    public Set<Genre> findGenres(Long movieId) {
         Movie movie = this.findById(movieId);
         return movie.getGenres();
     }
 
     @Transactional
-    public List<Genre> saveGenres(Long movieId, List<Genre> genres) {
+    public Set<Genre> saveGenres(Long movieId, Set<Genre> genres) {
         Movie movie = this.findById(movieId);
-        movie.setGenres(genres);
+        movie.getGenres().addAll(genres);
         movieRepository.save(movie);
         return genres;
     }
 
     public List<Star> findCreditsByProfession(Long movieId, String profession) {
         return movieRepository.findCreditsByProfession(movieId, profession);
+    }
+
+    @Transactional
+    public void saveCast(Long movieId, List<Cast> cast) {
+        Movie movie = movieRepository.getOne(movieId);
+        cast.forEach(movie::addStarToCast);
+    }
+
+    @Transactional
+    public void deleteCastById(Long movieId, Long castId) {
+        Movie movie = this.findById(movieId);
+        Cast cast = movieRepository.findCastById(castId);
+        movie.getCast().remove(cast);
     }
 
     public List<Movie> findAllByName(String name) {
