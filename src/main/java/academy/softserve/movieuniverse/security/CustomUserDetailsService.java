@@ -16,8 +16,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // Let people login with email
         final User user = userRepository.findByEmail(email);
         if (email == null)
@@ -25,13 +24,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         return org.springframework.security.core.userdetails.User.withUsername(email).password(user.getPassword())
                 .authorities(user.getRole()).accountExpired(false).accountLocked(false).credentialsExpired(false)
                 .disabled(false).build();
+
     }
 
-    /*@Transactional
-    public UserDetails loadUserById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("User not found with" + id));
-        return UserPrincipal.create(user);
-    }*/
+    /*
+     * @Transactional public UserDetails loadUserById(Long id) { User user = userRepository.findById(id).orElseThrow(()
+     * -> new RuntimeException("User not found with" + id)); return UserPrincipal.create(user); }
+     */
 
 }

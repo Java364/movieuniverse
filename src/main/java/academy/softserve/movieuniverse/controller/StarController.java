@@ -7,6 +7,7 @@ import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.star.StarDTO;
+import academy.softserve.movieuniverse.dto.star.StarSearchRequest;
 import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.mapper.*;
 import academy.softserve.movieuniverse.service.*;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin
@@ -54,9 +56,14 @@ public class StarController {
         this.avatarMapper = avatarMapper;
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<StarDTO>> showAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll()));
+    // @GetMapping("/list")
+    // public ResponseEntity<List<StarDTO>> showAll() {
+    // return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll()));
+    // }
+
+    @GetMapping("/")
+    public ResponseEntity<List<StarDTO>> showAll(StarSearchRequest starSearchRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll(starSearchRequest)));
     }
 
     @GetMapping("/{id}")
@@ -168,7 +175,7 @@ public class StarController {
     public ResponseEntity<List<CountryDTO>> addStarCountries(@PathVariable Long id,
             @RequestBody List<CountryDTO> countryDTOS) {
         Star star = starService.findById(id);
-        List<Country> countries = countryMapper.mapCountriesListToEntity(countryDTOS);
+        Set<Country> countries = countryMapper.mapCountriesListToEntity(countryDTOS);
         star.setCountries(countries);
         starService.update(star, id);
         return ResponseEntity.status(HttpStatus.OK).body(countryMapper.mapListToDto(star.getCountries()));

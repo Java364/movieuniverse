@@ -4,7 +4,6 @@ import academy.softserve.movieuniverse.entity.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.SignatureException;
 import java.util.Date;
 
 @Component
@@ -39,7 +39,9 @@ public class JwtTokenProvider {
     }
 
     public String getJwtAccessFromRequest(HttpServletRequest req) {
+
         String bearerToken = req.getHeader("Authorization");
+        System.out.println(bearerToken);
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7, bearerToken.length());
         }
@@ -48,7 +50,8 @@ public class JwtTokenProvider {
 
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(getEmail(token));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, "",
+                userDetails.getAuthorities());
         return authentication;
     }
 
@@ -60,49 +63,32 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(email);
         Date expiryDate = new Date();
         Date validity = new Date(expiryDate.getTime() + jwtExpiration);
-        return Jwts
-                .builder()
-                .setClaims(claims)
-                .setIssuedAt(expiryDate)
-                .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, jwtSecret)
-                .compact();
+        return Jwts.builder().setClaims(claims).setIssuedAt(expiryDate).setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret).compact();
     }
 
-    /*public String refreshToken(String token) {
-        final Date createdDate = clock.now();
-        final Date expirationDate = calculateExpirationDate(createdDate);
-
-        final Claims claims = getAllClaimsFromToken(token);
-        claims.setIssuedAt(createdDate);
-        claims.setExpiration(expirationDate);
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, secret)
-                .compact();
-    }*/
+    /*
+     * public String refreshToken(String token) { final Date createdDate = clock.now(); final Date expirationDate =
+     * calculateExpirationDate(createdDate);
+     * 
+     * final Claims claims = getAllClaimsFromToken(token); claims.setIssuedAt(createdDate);
+     * claims.setExpiration(expirationDate);
+     * 
+     * return Jwts.builder() .setClaims(claims) .signWith(SignatureAlgorithm.HS512, secret) .compact(); }
+     */
 
     public String getJwtRefreshFromRequest(HttpServletRequest req) {
         return req.getHeader("Refresh-token");
     }
 
-
     public Long getUserIdFromJWT(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
         return Long.parseLong(claims.getSubject());
     }
 
     public boolean validateToken(String authToken) {
-        try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-            return true;
-        } catch (SignatureException ex) {
-            return false;
-        }
+        Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+        return true;
 
     }
 }

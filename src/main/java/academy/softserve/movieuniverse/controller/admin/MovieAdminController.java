@@ -1,16 +1,14 @@
 package academy.softserve.movieuniverse.controller.admin;
 
 import academy.softserve.movieuniverse.dto.PosterDTO;
+import academy.softserve.movieuniverse.dto.castcrew.CastRequest;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
 import academy.softserve.movieuniverse.dto.trailer.CreateTrailerInfo;
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
-import academy.softserve.movieuniverse.entity.Country;
-import academy.softserve.movieuniverse.entity.Genre;
-import academy.softserve.movieuniverse.entity.Movie;
-import academy.softserve.movieuniverse.entity.Trailer;
+import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.mapper.*;
 import academy.softserve.movieuniverse.service.MovieService;
 import academy.softserve.movieuniverse.service.PosterService;
@@ -21,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/admin/movie")
@@ -64,23 +63,36 @@ public class MovieAdminController {
     @PostMapping("/{id}/genres")
     public ResponseEntity<List<GenreDTO>> addGenres(@PathVariable Long id, @RequestBody List<GenreDTO> selectedGenres) {
         GenreMapper genreMapper = new GenreMapper();
-        List<Genre> genresToSave = genreMapper.mapToEntityList(selectedGenres, GenreMapper::mapToEntitySelectedGenre);
-        List<Genre> savedGenres = movieService.saveGenres(id, genresToSave);
+        Set<Genre> genresToSave = genreMapper.mapToEntitySet(selectedGenres, GenreMapper::mapToEntity);
+        Set<Genre> savedGenres = movieService.saveGenres(id, genresToSave);
         List<GenreDTO> savedGenreDTOS = genreMapper.mapToDTOList(savedGenres);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedGenreDTOS);
     }
 
     @PostMapping("/{id}/countries")
     public ResponseEntity<List<CountryDTO>> addCountries(@PathVariable Long id,
-                                                         @RequestBody List<CountryDTO> selectedCountries) {
+            @RequestBody List<CountryDTO> selectedCountries) {
         CountryMapper countryMapper = new CountryMapper();
-        List<Country> countries = countryMapper.mapCountriesListToEntity(selectedCountries);
-        List<Country> savedCountries = movieService.saveCountries(id, countries);
+        Set<Country> countries = countryMapper.mapCountriesListToEntity(selectedCountries);
+        Set<Country> savedCountries = movieService.saveCountries(id, countries);
         List<CountryDTO> countryDTOS = countryMapper.mapListToDto(savedCountries);
         return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
     }
 
+    @PostMapping("{id}/cast")
+    public ResponseEntity addCast(@PathVariable Long id, @RequestBody List<CastRequest> castDTO) {
+        CastMapper castMapper = new CastMapper();
+        List<Cast> castToSave = castMapper.mapToEntityList(castDTO);
+        movieService.saveCast(id, castToSave);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 
+    @DeleteMapping("{movieId}/cast/{castId}")
+    public ResponseEntity deleteCast(@PathVariable Long movieId, @PathVariable Long castId) {
+        movieService.deleteCastById(movieId, castId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+  
     @PostMapping("/{id}/gallery")
     public ResponseEntity<GalleryDTO> addGallery(@PathVariable Long id) {
         GalleryMapper galleryMapper = new GalleryMapper();
@@ -99,7 +111,7 @@ public class MovieAdminController {
     public ResponseEntity<PosterDTO> addPoster(@RequestBody PosterDTO posterDTO) {
         PosterMapper posterMapper = new PosterMapper();
         return ResponseEntity.status(HttpStatus.CREATED)
-                             .body(posterMapper.mapToDTO(posterService.save(posterMapper.mapToEntityForSave(posterDTO))));
+                .body(posterMapper.mapToDTO(posterService.save(posterMapper.mapToEntityForSave(posterDTO))));
     }
 
 }

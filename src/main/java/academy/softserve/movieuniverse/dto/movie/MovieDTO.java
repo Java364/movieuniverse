@@ -2,8 +2,12 @@ package academy.softserve.movieuniverse.dto.movie;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MovieDTO implements MovieInfoDTO, MovieCreateDTO, MovieSearchShortInfo, MovieSearchInfo,MovieFullInfo {
+
     private Long id;
     private String movieName;
     private int year;
@@ -22,14 +26,14 @@ public class MovieDTO implements MovieInfoDTO, MovieCreateDTO, MovieSearchShortI
     private String movieMark;
 
     public String getTrailers() {
-		return trailers;
-	}
+        return trailers;
+    }
 
-	public void setTrailers(String trailers) {
-		this.trailers = trailers;
-	}
+    public void setTrailers(String trailers) {
+        this.trailers = trailers;
+    }
 
-	@Override
+    @Override
     public String getGenres() {
         return genres;
     }

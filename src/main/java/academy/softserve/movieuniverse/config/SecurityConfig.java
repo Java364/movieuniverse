@@ -14,15 +14,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    /*@Autowired
-    private JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    private UserRepository userRepository;*/
+
     @Bean
     public JwtAuthFilter jwtAuthFilter(){
         return new JwtAuthFilter();
@@ -30,6 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
     @Autowired
@@ -49,9 +51,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http // no session will be created or used by Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().cacheControl().disable();
-        http.authorizeRequests().antMatchers("/users/**").permitAll();
+        http.authorizeRequests().antMatchers("/users*").permitAll();
+         http.authorizeRequests().antMatchers( "/stars/**").hasRole("ADMIN");
        /* http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider, userRepository));*/
 
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
+
+
 }

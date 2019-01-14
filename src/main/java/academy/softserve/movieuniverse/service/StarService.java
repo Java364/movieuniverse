@@ -1,11 +1,13 @@
 package academy.softserve.movieuniverse.service;
 
+import academy.softserve.movieuniverse.dto.star.StarSearchRequest;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Links;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.StarRepository;
+import academy.softserve.movieuniverse.service.specific.StarSpecific;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +21,13 @@ public class StarService {
 
     private final StarRepository starRepository;
     private final GalleryService galleryService;
+    private final StarSpecific starSpecific;
 
     @Autowired
-    public StarService(StarRepository starRepository, GalleryService galleryService) {
+    public StarService(StarRepository starRepository, GalleryService galleryService, StarSpecific starSpecific) {
         this.starRepository = starRepository;
         this.galleryService = galleryService;
+        this.starSpecific = starSpecific;
     }
 
     public Star create(Star star) {
@@ -42,6 +46,10 @@ public class StarService {
         star.setId(id);
         star = starRepository.save(star);
         return star;
+    }
+
+    public List<Star> showAll(StarSearchRequest starSearchRequest) {
+        return starRepository.findAll(starSpecific.filter(starSearchRequest));
     }
 
     public List<Star> showAll() {
