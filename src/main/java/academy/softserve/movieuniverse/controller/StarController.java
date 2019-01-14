@@ -65,7 +65,7 @@ public class StarController {
         return ResponseEntity.status(HttpStatus.OK).body(mapper.mapProfileToDto(star));
     }
 
-    @PostMapping("/save")
+    @PostMapping("/create")
     public ResponseEntity<StarDTO> create(@RequestBody StarDTO starDTO) {
         Star star = mapper.mapCreateToEntity(starDTO);
         starService.create(star);
@@ -81,7 +81,7 @@ public class StarController {
         return new ResponseEntity<StarDTO>(starDTO, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{id}/save-profession")
+    @PostMapping("/{id}/professions")
     public ResponseEntity<StarProfessionDTO> createProfession(@RequestBody StarProfessionDTO starProfessionDTO,
             @PathVariable("id") Long starId) {
         StarProfession starProfession = starProfessionMapper.mapToEntity(starProfessionDTO);
