@@ -35,15 +35,16 @@ public class AuthService {
         }
         return user;
     }
-    public boolean validatorRegistration (UserCreateInfo userDTO){
-        if((userDTO.getEmail().isEmpty())
+
+    public boolean validatorRegistration(UserCreateInfo userDTO) {
+        if ((userDTO.getEmail().isEmpty())
                 || (!userDTO.getEmail().contains("@"))
-                || ((userDTO.getFirstName().length()> 15) || userDTO.getFirstName().contains(" "))
-                || ((userDTO.getLastName().length()> 15) || userDTO.getLastName().contains(" "))
+                || ((userDTO.getFirstName().length() > 15) || userDTO.getFirstName().contains(" "))
+                || ((userDTO.getLastName().length() > 15) || userDTO.getLastName().contains(" "))
                 || (userDTO.getPassword().isEmpty())
-                || ((userDTO.getPassword().length()> 20) || userDTO.getPassword().contains(" "))
-                || (userDTO.getPassword().length()< 6 )
-                )return true;
+                || ((userDTO.getPassword().length() > 20) || userDTO.getPassword().contains(" "))
+                || (userDTO.getPassword().length() < 6)
+                ) return true;
         else return false;
     }
 
@@ -69,7 +70,6 @@ public class AuthService {
                 userRepository.findByEmail(email).getRole()));
         System.out.println(userRepository.findByEmail(email).getRole());
         /*tokenModel.setRefreshToken(jwtTokenProvider.generateRefreshToken(loginDTO.getEmail()));*/
-
         return tokenModel;
     }
 

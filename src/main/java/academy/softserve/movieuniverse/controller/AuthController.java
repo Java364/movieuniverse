@@ -35,11 +35,10 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         } else {
             System.out.println("2323232");
-            ResponseEntity responseEntity =ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
+            ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserEntityToUserDTOWithFullInfo(
                     authService.createUser(userMapper.mapUserShortInfoWithPasswordToEntity(userDTO))));
-                emailService.welcomeEmail(userDTO.getEmail(), userDTO.getFirstName());
+            emailService.welcomeEmail(userDTO.getEmail(), userDTO.getFirstName());
             return responseEntity;
-
         }
     }
 
