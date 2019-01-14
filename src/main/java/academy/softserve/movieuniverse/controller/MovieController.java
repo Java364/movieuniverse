@@ -5,8 +5,12 @@ import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
 import academy.softserve.movieuniverse.dto.genre.GenreDTO;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
+
+
+
 import academy.softserve.movieuniverse.dto.movie.MovieSearchRequest;
 import academy.softserve.movieuniverse.dto.movie.MovieSearchShortInfo;
+
 import academy.softserve.movieuniverse.dto.trailer.TrailerDTO;
 import academy.softserve.movieuniverse.dto.userreview.CommentDTO;
 import academy.softserve.movieuniverse.entity.*;
@@ -26,8 +30,9 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/movies")
+@RequestMapping(value = "/movies", produces = "application/hal+json")
 public class MovieController {
+
 
     private final MovieService movieService;
 
@@ -115,6 +120,7 @@ public class MovieController {
 	@GetMapping("/{id}/countries")
 	public ResponseEntity<List<CountryDTO>> showCountries(@PathVariable Long id) {
 		CountryMapper countryMapper = new CountryMapper();
+
         Set<Country> foundCountries = movieService.findCountries(id);
 		List<CountryDTO> countryDTOS = countryMapper.mapListToDto(foundCountries);
         return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
@@ -136,4 +142,5 @@ public class MovieController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(map);
     }
+
 }
