@@ -56,10 +56,10 @@ public class StarController {
         this.avatarMapper = avatarMapper;
     }
 
-    // @GetMapping("/list")
-    // public ResponseEntity<List<StarDTO>> showAll() {
-    // return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll()));
-    // }
+     @GetMapping("/list")
+     public ResponseEntity<List<StarDTO>> showAll() {
+     return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll()));
+    }
 
     @GetMapping("/")
     public ResponseEntity<List<StarDTO>> showAll(StarSearchRequest starSearchRequest) {

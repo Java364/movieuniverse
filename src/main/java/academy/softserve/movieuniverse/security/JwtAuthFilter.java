@@ -25,7 +25,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         try {
-            System.out.println(request.getAuthType());
+            /*System.out.println(request.getAuthType());*/
             String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
               /*String refreshToken = jwtTokenProvider.getJwtRefreshFromRequest(request);*/
             if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
