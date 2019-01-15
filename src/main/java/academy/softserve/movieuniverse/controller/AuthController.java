@@ -3,8 +3,6 @@ package academy.softserve.movieuniverse.controller;
 import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserFullInfo;
 import academy.softserve.movieuniverse.dto.user.UserLoginInfo;
-import academy.softserve.movieuniverse.mapper.CommentMapper;
-import academy.softserve.movieuniverse.mapper.MovieMarkMapper;
 import academy.softserve.movieuniverse.mapper.UserMapper;
 import academy.softserve.movieuniverse.security.TokenModel;
 import academy.softserve.movieuniverse.service.AuthService;
@@ -37,16 +35,12 @@ public class AuthController {
         }
     }
 
-   /* @PostMapping("/registrate")
-    public ResponseEntity registrateUser(@RequestBody RegistrationDTO registrationDTO) {
-        if (userService.getUserByEmail(registrationDTO.getEmail()) != null) {
-            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-        } else {
-            userService.registrateUser(registrationDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-    }*/
-
+    /*
+     * @PostMapping("/registrate") public ResponseEntity registrateUser(@RequestBody RegistrationDTO registrationDTO) {
+     * if (userService.getUserByEmail(registrationDTO.getEmail()) != null) { return new
+     * ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT); } else { userService.registrateUser(registrationDTO); return new
+     * ResponseEntity<>(HttpStatus.OK); } }
+     */
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserLoginInfo loginDTO) {

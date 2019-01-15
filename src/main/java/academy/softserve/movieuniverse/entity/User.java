@@ -23,7 +23,7 @@ public class User extends Person {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Role role= Role.USER;
+    private Role role = Role.USER;
 
     @OneToMany(mappedBy = "commentator", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();

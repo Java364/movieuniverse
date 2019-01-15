@@ -14,7 +14,6 @@ import academy.softserve.movieuniverse.mapper.*;
 import academy.softserve.movieuniverse.service.MovieMarkService;
 import academy.softserve.movieuniverse.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -103,20 +102,19 @@ public class MovieController {
         return ResponseEntity.status(HttpStatus.OK).body(commentDTOS);
     }
 
-
-	@GetMapping("/{id}/genres")
-	public ResponseEntity<List<GenreDTO>> showGenres(@PathVariable Long id) {
+    @GetMapping("/{id}/genres")
+    public ResponseEntity<List<GenreDTO>> showGenres(@PathVariable Long id) {
         Set<Genre> foundGenres = movieService.findGenres(id);
-		GenreMapper genreMapper = new GenreMapper();
-		List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(foundGenres);
-		return ResponseEntity.status(HttpStatus.OK).body(genreDTOS);
-	}
+        GenreMapper genreMapper = new GenreMapper();
+        List<GenreDTO> genreDTOS = genreMapper.mapToDTOList(foundGenres);
+        return ResponseEntity.status(HttpStatus.OK).body(genreDTOS);
+    }
 
-	@GetMapping("/{id}/countries")
-	public ResponseEntity<List<CountryDTO>> showCountries(@PathVariable Long id) {
-		CountryMapper countryMapper = new CountryMapper();
+    @GetMapping("/{id}/countries")
+    public ResponseEntity<List<CountryDTO>> showCountries(@PathVariable Long id) {
+        CountryMapper countryMapper = new CountryMapper();
         Set<Country> foundCountries = movieService.findCountries(id);
-		List<CountryDTO> countryDTOS = countryMapper.mapListToDto(foundCountries);
+        List<CountryDTO> countryDTOS = countryMapper.mapListToDto(foundCountries);
         return ResponseEntity.status(HttpStatus.OK).body(countryDTOS);
     }
 
