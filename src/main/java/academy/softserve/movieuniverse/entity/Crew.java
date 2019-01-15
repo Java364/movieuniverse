@@ -8,6 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "crew")
 public class Crew extends AbstractEntity {
+
     @ManyToOne
     private StarProfession starProfession;
 
@@ -33,4 +34,5 @@ public class Crew extends AbstractEntity {
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
+
 }

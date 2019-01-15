@@ -34,7 +34,7 @@ public class StarService {
         if (star == null) {
             throw new NotFoundException(ExceptionType.SAVE.getMessage() + " star");
         }
-        star = starRepository.save(star);
+        star = starRepository.saveAndFlush(star);
         return star;
     }
 
@@ -110,6 +110,13 @@ public class StarService {
     }
 
     public List<Star> findAllByName(String name) {
-        return starRepository.findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(name, name);
+        try {
+            String[] split = name.split("/w");
+            String firstName = split[0];
+            String lastName = split[1];
+            return starRepository.findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(firstName, lastName);
+        } catch (Exception e) {
+            return starRepository.findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(name, name);
+        }
     }
 }

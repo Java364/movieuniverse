@@ -1,6 +1,9 @@
 package academy.softserve.movieuniverse.dto.star;
 
-public class StarDTO implements StarSearchInfo, StarSearchShortInfo, CreditDTO {
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class StarDTO implements StarCreateInfo, StarSearchInfo, StarSearchShortInfo, CreditDTO {
     private Long id;
     private String firstName;
     private String lastName;
@@ -92,10 +95,12 @@ public class StarDTO implements StarSearchInfo, StarSearchShortInfo, CreditDTO {
         isRemoved = removed;
     }
 
+    @Override
     public String getSelf() {
         return self;
     }
 
+    @Override
     public void setSelf(String self) {
         this.self = self;
     }
@@ -158,5 +163,15 @@ public class StarDTO implements StarSearchInfo, StarSearchShortInfo, CreditDTO {
     @Override
     public void setProfessions(String professions) {
         this.professions = professions;
+    }
+
+    @Override
+    public String toString() {
+        return "StarDTO{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''
+                + ", birthday=" + birthday + ", biography='" + biography + '\'' + ", growth=" + growth
+                + ", cityOfBirth='" + cityOfBirth + '\'' + ", isRemoved=" + isRemoved + ", self='" + self + '\''
+                + ", gallery='" + gallery + '\'' + ", avatar='" + avatar + '\'' + ", roles='" + roles + '\''
+                + ", links='" + links + '\'' + ", countries='" + countries + '\'' + ", movies='" + movies + '\''
+                + ", professions='" + professions + '\'' + '}';
     }
 }

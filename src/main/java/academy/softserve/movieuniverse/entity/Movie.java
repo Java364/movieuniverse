@@ -10,20 +10,19 @@ import java.util.Set;
 @Table(name = "movies")
 public class Movie extends AbstractEntity {
 
-	@Column(name = "movie_name")
-	private String movieName;
+    @Column(name = "movie_name")
+    private String movieName;
 
-	private Long duration;
-	@Column(columnDefinition = "SMALLINT")
-	private Integer year;
+    private Long duration;
+    @Column(columnDefinition = "SMALLINT")
+    private Integer year;
 
-	private String description;
-	@Column(name = "age_limitation")
-	private String ageLimitation;
+    private String description;
+    @Column(name = "age_limitation")
+    private String ageLimitation;
 
-	@Embedded
-	private MediaContent mediaContent;
-
+    @Embedded
+    private MediaContent mediaContent;
 
     @ManyToMany
     private Set<Genre> genres = new HashSet<>();
@@ -31,9 +30,8 @@ public class Movie extends AbstractEntity {
     @ManyToMany
     private Set<Country> countries = new HashSet<>();
 
-	@OneToMany(mappedBy = "movie")
-	private List<Crew> roles = new ArrayList<Crew>();
-
+    @OneToMany(mappedBy = "movie")
+    private List<Crew> roles = new ArrayList<Crew>();
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cast> cast = new ArrayList<>();
@@ -41,32 +39,30 @@ public class Movie extends AbstractEntity {
     @OneToMany(mappedBy = "commentedMovie", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<MovieMark> movieMarks = new ArrayList<>();
 
-	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-	private List<MovieMark> movieMarks = new ArrayList<>();
+    @OneToOne(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Poster poster;
 
-	@OneToOne(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Poster poster;
+    public Movie() {
+    }
 
-	public Movie() {
-	}
+    public Poster getPoster() {
+        return poster;
+    }
 
-	public Poster getPoster() {
-		return poster;
-	}
+    public void setPoster(Poster poster) {
+        this.poster = poster;
+    }
 
-	public void setPoster(Poster poster) {
-		this.poster = poster;
-	}
+    public List<MovieMark> getMovieMarks() {
+        return movieMarks;
+    }
 
-	public List<MovieMark> getMovieMarks() {
-		return movieMarks;
-	}
-
-
-	public List<Crew> getRoles() {
-		return roles;
-	}
+    public List<Crew> getRoles() {
+        return roles;
+    }
 
     public Set<Genre> getGenres() {
         return genres;
@@ -76,49 +72,45 @@ public class Movie extends AbstractEntity {
         this.genres = genres;
     }
 
+    public void setRoles(List<Crew> roles) {
+        this.roles = roles;
+    }
 
-	public void setRoles(List<Crew> roles) {
-		this.roles = roles;
-	}
+    public String getMovieName() {
+        return movieName;
+    }
 
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
 
-	
-	public String getMovieName() {
-		return movieName;
-	}
+    public Long getDuration() {
+        return duration;
+    }
 
-	public void setMovieName(String movieName) {
-		this.movieName = movieName;
-	}
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
 
-	public Long getDuration() {
-		return duration;
-	}
+    public Integer getYear() {
+        return year;
+    }
 
-	public void setDuration(Long duration) {
-		this.duration = duration;
-	}
+    public void setYear(int year) {
+        this.year = year;
+    }
 
-	public Integer getYear() {
-		return year;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setYear(int year) {
-		this.year = year;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getDescription() {
-		return description;
-	}
-
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getAgeLimitation() {
-		return ageLimitation;
-	}
+    public String getAgeLimitation() {
+        return ageLimitation;
+    }
 
     public Set<Country> getCountries() {
         return countries;
@@ -128,27 +120,21 @@ public class Movie extends AbstractEntity {
         this.countries = countries;
     }
 
+    public void setAgeLimitation(String ageLimitation) {
+        this.ageLimitation = ageLimitation;
+    }
 
-	public void setAgeLimitation(String ageLimitation) {
-		this.ageLimitation = ageLimitation;
-	}
+    public MediaContent getMediaContent() {
+        return mediaContent;
+    }
 
-	
+    public void setMediaContent(MediaContent mediaContent) {
+        this.mediaContent = mediaContent;
+    }
 
-	
-
-
-	public MediaContent getMediaContent() {
-		return mediaContent;
-	}
-
-	public void setMediaContent(MediaContent mediaContent) {
-		this.mediaContent = mediaContent;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
+    public List<Comment> getComments() {
+        return comments;
+    }
 
     public Movie setComments(List<Comment> comments) {
         this.comments = comments;

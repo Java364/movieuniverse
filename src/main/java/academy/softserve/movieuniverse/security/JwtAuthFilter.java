@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.security;
 
-import academy.softserve.movieuniverse.entity.Role;
 import academy.softserve.movieuniverse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,14 +24,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         try {
-            String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
+               String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
                 if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
-                    System.out.println("vvvvv");
-                Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+                  Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                    System.out.println("eeeeeee");
-
-
 
             }
         } catch (RuntimeException e) {
@@ -40,10 +35,5 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
-
-
-
-
-
 
 }
