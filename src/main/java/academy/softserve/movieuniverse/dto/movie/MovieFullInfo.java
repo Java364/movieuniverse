@@ -5,67 +5,67 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonSerialize(as = MovieDTO.class)
 public interface MovieFullInfo {
 
-	public String getTrailers();
+    public String getTrailers();
 
-	public void setTrailers(String trailers);
+    public void setTrailers(String trailers);
 
-	public String getGenres();
+    public String getGenres();
 
-	public void setGenres(String genres);
+    public void setGenres(String genres);
 
-	public Long getId();
+    public Long getId();
 
-	public void setId(Long id);
+    public void setId(Long id);
 
-	public String getMovieName();
+    public String getMovieName();
 
-	public void setMovieName(String movieName);
+    public void setMovieName(String movieName);
 
-	public int getYear();
+    public int getYear();
 
-	public void setYear(int year);
+    public void setYear(int year);
 
-	public String getDescription();
+    public String getDescription();
 
-	public void setDescription(String description);
+    public void setDescription(String description);
 
-	public Long getDuration();
+    public Long getDuration();
 
-	public void setDuration(Long duration);
+    public void setDuration(Long duration);
 
-	public String getAgeLimitation();
+    public String getAgeLimitation();
 
-	public void setAgeLimitation(String ageLimitation);
+    public void setAgeLimitation(String ageLimitation);
 
-	public String getPoster();
+    public String getPoster();
 
-	public void setPoster(String poster);
+    public void setPoster(String poster);
 
-	public String getSelf();
+    public String getSelf();
 
-	public void setSelf(String self);
+    public void setSelf(String self);
 
-	public String getGallery();
+    public String getGallery();
 
-	public void setGallery(String gallery);
+    public void setGallery(String gallery);
 
-	public String getStars();
+    public String getStars();
 
-	public void setStars(String stars);
+    public void setStars(String stars);
 
-	public String getRoles();
+    public String getRoles();
 
-	public void setRoles(String roles);
+    public void setRoles(String roles);
 
-	public String getCountries();
+    public String getCountries();
 
-	public void setCountries(String countries);
+    public void setCountries(String countries);
 
-	public String getComments();
+    public String getComments();
 
-	public void setComments(String comments);
+    public void setComments(String comments);
 
-	public String getMovieMark();
+    public String getMovieMark();
 
-	public void setMovieMark(String movieMark);
+    public void setMovieMark(String movieMark);
 }

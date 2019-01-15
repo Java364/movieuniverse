@@ -1,7 +1,8 @@
 package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.MovieController;
-import academy.softserve.movieuniverse.dto.movie.MovieDTO;import academy.softserve.movieuniverse.dto.movie.MovieFullInfo;
+import academy.softserve.movieuniverse.dto.movie.MovieDTO;
+import academy.softserve.movieuniverse.dto.movie.MovieFullInfo;
 import academy.softserve.movieuniverse.dto.movie.MovieSearchShortInfo;
 import academy.softserve.movieuniverse.entity.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,6 @@ public class MovieMapper {
     public List<MovieSearchShortInfo> mapListToMovieSearchShortInfoList(List<Movie> movieEntities) {
         return movieEntities.stream().map(this::mapEntityToMovieSearchShortInfo).collect(Collectors.toList());
     }
-
 
     public List<MovieDTO> mapListToDTO(List<Movie> entities) {
         return entities.stream().map(this::mapToDto).collect(Collectors.toList());

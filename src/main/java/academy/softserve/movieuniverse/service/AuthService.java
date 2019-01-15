@@ -37,15 +37,15 @@ public class AuthService {
     }
 
     public boolean validatorRegistration(UserCreateInfo userDTO) {
-        if ((userDTO.getEmail().isEmpty())
-                || (!userDTO.getEmail().contains("@"))
+        if ((userDTO.getEmail().isEmpty()) || (!userDTO.getEmail().contains("@"))
                 || ((userDTO.getFirstName().length() > 15) || userDTO.getFirstName().contains(" "))
                 || ((userDTO.getLastName().length() > 15) || userDTO.getLastName().contains(" "))
                 || (userDTO.getPassword().isEmpty())
                 || ((userDTO.getPassword().length() > 20) || userDTO.getPassword().contains(" "))
-                || (userDTO.getPassword().length() < 6)
-                ) return true;
-        else return false;
+                || (userDTO.getPassword().length() < 6))
+            return true;
+        else
+            return false;
     }
 
     public boolean checkCredentials(UserLoginInfo loginDTO) {
@@ -63,15 +63,14 @@ public class AuthService {
 
     public TokenModel signIn(UserLoginInfo loginDTO) {
         String email = loginDTO.getEmail();
-        //   String password = loginDTO.getPassword();
+        // String password = loginDTO.getPassword();
         TokenModel tokenModel = new TokenModel();
         // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         tokenModel.setAccessToken(jwtTokenProvider.generateAccessToken(userRepository.findByEmail(email).getId(), email,
                 userRepository.findByEmail(email).getRole()));
         System.out.println(userRepository.findByEmail(email).getRole());
-        /*tokenModel.setRefreshToken(jwtTokenProvider.generateRefreshToken(loginDTO.getEmail()));*/
+        /* tokenModel.setRefreshToken(jwtTokenProvider.generateRefreshToken(loginDTO.getEmail())); */
         return tokenModel;
     }
-
 
 }

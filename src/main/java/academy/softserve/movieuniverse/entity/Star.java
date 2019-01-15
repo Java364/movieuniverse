@@ -27,6 +27,9 @@ public class Star extends Person {
     private List<Crew> roles = new ArrayList<Crew>();
 
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
+    private List<Cast> casts;
+
+    @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
     private List<StarProfession> professions = new ArrayList<StarProfession>();
 
     @OneToMany(mappedBy = "star", cascade = CascadeType.ALL)
@@ -113,5 +116,13 @@ public class Star extends Person {
 
     public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
+    }
+
+    public List<Cast> getCasts() {
+        return casts;
+    }
+
+    public void setCasts(List<Cast> casts) {
+        this.casts = casts;
     }
 }

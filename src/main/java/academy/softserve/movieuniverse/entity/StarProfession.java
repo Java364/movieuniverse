@@ -1,13 +1,14 @@
 package academy.softserve.movieuniverse.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "star_profession")
 public class StarProfession extends AbstractEntity {
+
+    @OneToMany(mappedBy = "starProfession")
+    List<Crew> crew;
 
     @ManyToOne
     @JoinColumn(name = "star_id")

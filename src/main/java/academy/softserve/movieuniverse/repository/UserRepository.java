@@ -1,6 +1,5 @@
 package academy.softserve.movieuniverse.repository;
 
-
 import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.entity.MovieMark;
 import academy.softserve.movieuniverse.entity.User;
@@ -15,8 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-
     boolean existsByEmail(String email);
-
 
 }

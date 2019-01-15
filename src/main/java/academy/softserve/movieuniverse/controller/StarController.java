@@ -35,14 +35,14 @@ public class StarController {
     private final CountryMapper countryMapper;
     private final AvatarMapper avatarMapper;
     private final StarActivityInMoviesMapper starActivityMapper;
-    @Autowired
-    private ProfessionService professionService;
+    private final ProfessionService professionService;
 
     @Autowired
     public StarController(StarService starService, StarProfessionService starProfessionService, StarMapper mapper,
             StarProfessionMapper starProfessionMapper, LinksMapper linksMapper, LinksService linksService,
             GalleryService galleryService, GalleryMapper galleryMapper, CountryMapper countryMapper,
-            StarActivityInMoviesMapper starActivityMapper, AvatarMapper avatarMapper) {
+            StarActivityInMoviesMapper starActivityMapper, AvatarMapper avatarMapper,
+            ProfessionService professionService) {
         this.starService = starService;
         this.starProfessionService = starProfessionService;
         this.mapper = mapper;
@@ -54,14 +54,15 @@ public class StarController {
         this.countryMapper = countryMapper;
         this.starActivityMapper = starActivityMapper;
         this.avatarMapper = avatarMapper;
+        this.professionService = professionService;
     }
 
-     @GetMapping("/list")
-     public ResponseEntity<List<StarDTO>> showAll() {
-     return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll()));
+    @GetMapping("/list")
+    public ResponseEntity<List<StarDTO>> showAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll()));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<StarDTO>> showAll(StarSearchRequest starSearchRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll(starSearchRequest)));
     }

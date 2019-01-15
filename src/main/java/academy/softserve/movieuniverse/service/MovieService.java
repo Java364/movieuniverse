@@ -7,8 +7,6 @@ import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.MovieRepository;
 import academy.softserve.movieuniverse.service.specific.MovieSpecific;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +56,7 @@ public class MovieService {
         if (!movie.isPresent()) {
             throw new NotFoundException(ExceptionType.SELECT.getMessage() + "movie with " + id.toString() + " ID");
         }
-        
+
         return movie.get();
     }
 
