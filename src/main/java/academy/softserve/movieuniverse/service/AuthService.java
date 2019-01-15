@@ -63,13 +63,11 @@ public class AuthService {
 
     public TokenModel signIn(UserLoginInfo loginDTO) {
         String email = loginDTO.getEmail();
-        //   String password = loginDTO.getPassword();
-        TokenModel tokenModel = new TokenModel();
-        // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-        tokenModel.setAccessToken(jwtTokenProvider.generateAccessToken(userRepository.findByEmail(email).getId(), email,
+               TokenModel tokenModel = new TokenModel();
+                tokenModel.setAccessToken(jwtTokenProvider.generateAccessToken(userRepository.findByEmail(email).getId(), email,
                 userRepository.findByEmail(email).getRole()));
         System.out.println(userRepository.findByEmail(email).getRole());
-        /*tokenModel.setRefreshToken(jwtTokenProvider.generateRefreshToken(loginDTO.getEmail()));*/
+
         return tokenModel;
     }
 

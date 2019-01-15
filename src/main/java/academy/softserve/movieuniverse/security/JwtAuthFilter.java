@@ -25,12 +25,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         try {
-            /*System.out.println(request.getAuthType());*/
+            System.out.println("11111");
+            System.out.println(request);
             String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
+            System.out.println("2222");
               /*String refreshToken = jwtTokenProvider.getJwtRefreshFromRequest(request);*/
             if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
+                System.out.println("333333");
                 Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                System.out.println("alalalalal" );
 
             /*} else if (refreshToken != null && jwtTokenProvider.validateToken(refreshToken)
                     && !jwtTokenProvider.validateToken(accessToken)) {*/
