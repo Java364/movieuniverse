@@ -59,13 +59,11 @@ public class StarController {
         this.professionService = professionService;
     }
 
-
     @GetMapping
     public ResponseEntity<List<StarSearchInfo>> showAll(StarSearchRequest starSearchRequest) {
         List<StarSearchInfo> dto = mapper.mapListEntityToStarSearchInfoList(starService.showAll(starSearchRequest));
         dto.forEach(System.out::println);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(dto);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
     @GetMapping("/{id}")

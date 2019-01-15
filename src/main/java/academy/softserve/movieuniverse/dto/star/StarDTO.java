@@ -167,23 +167,11 @@ public class StarDTO implements StarCreateInfo, StarSearchInfo, StarSearchShortI
 
     @Override
     public String toString() {
-        return "StarDTO{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthday=" + birthday +
-                ", biography='" + biography + '\'' +
-                ", growth=" + growth +
-                ", cityOfBirth='" + cityOfBirth + '\'' +
-                ", isRemoved=" + isRemoved +
-                ", self='" + self + '\'' +
-                ", gallery='" + gallery + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", roles='" + roles + '\'' +
-                ", links='" + links + '\'' +
-                ", countries='" + countries + '\'' +
-                ", movies='" + movies + '\'' +
-                ", professions='" + professions + '\'' +
-                '}';
+        return "StarDTO{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''
+                + ", birthday=" + birthday + ", biography='" + biography + '\'' + ", growth=" + growth
+                + ", cityOfBirth='" + cityOfBirth + '\'' + ", isRemoved=" + isRemoved + ", self='" + self + '\''
+                + ", gallery='" + gallery + '\'' + ", avatar='" + avatar + '\'' + ", roles='" + roles + '\''
+                + ", links='" + links + '\'' + ", countries='" + countries + '\'' + ", movies='" + movies + '\''
+                + ", professions='" + professions + '\'' + '}';
     }
 }
