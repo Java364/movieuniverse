@@ -31,7 +31,6 @@ public class StarMapper {
         this.avatarService = avatarService;
     }
 
-
     public Star mapCreateToEntity(StarCreateInfo dto) {
         Star star = new Star();
         star.setBiography(dto.getBiography());
@@ -40,7 +39,7 @@ public class StarMapper {
         star.setGrowth(dto.getGrowth());
         star.setFirstName(dto.getFirstName());
         star.setLastName(dto.getLastName());
-        this.mapCreateGalleryAndAvatar(star);
+        mapCreateGalleryAndAvatar(star);
         return star;
     }
 
@@ -93,8 +92,6 @@ public class StarMapper {
                 linkTo(methodOn(StarController.class).showStarAvatar(entity.getId())).withRel("avatar").getHref());
         return dto;
     }
-
-
 
     private void mapCreateGalleryAndAvatar(Star star) {
         Avatar avatar = avatarService.save(new Avatar());
