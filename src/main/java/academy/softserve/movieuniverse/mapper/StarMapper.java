@@ -58,7 +58,7 @@ public class StarMapper {
         star.setCityOfBirth(dto.getCityOfBirth());
         star.setGrowth(dto.getGrowth());
         star.setId(null);
-        star.setFirstName(dto.getLastName());
+        star.setFirstName(dto.getFirstName());
         star.setLastName(dto.getLastName());
         if (dto.getRemoved() == null) {
             star.setIsRemoved(false);
@@ -173,11 +173,11 @@ public class StarMapper {
         return starEntities.stream().map(this::mapEntityToStarShortSearchInfo).collect(Collectors.toList());
     }
 
-    public static CreditDTO mapToCreditDTO(Star star) {
-        CreditDTO creditDTO = new StarDTO();
-        creditDTO.setId(star.getId());
-        creditDTO.setFirstName(star.getFirstName());
-        creditDTO.setLastName(star.getLastName());
-        return creditDTO;
-    }
+//    public static CreditDTO mapToCreditDTO(Star star) {
+//        CreditDTO creditDTO = new StarDTO();
+//        creditDTO.setId(star.getId());
+//        creditDTO.setFirstName(star.getFirstName());
+//        creditDTO.setLastName(star.getLastName());
+//        return creditDTO;
+//    }
 }

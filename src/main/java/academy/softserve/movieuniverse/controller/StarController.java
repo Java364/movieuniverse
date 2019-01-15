@@ -56,10 +56,11 @@ public class StarController {
         this.avatarMapper = avatarMapper;
     }
 
-    // @GetMapping("/list")
-    // public ResponseEntity<List<StarDTO>> showAll() {
-    // return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll()));
-    // }
+	@GetMapping("/list")
+	public ResponseEntity<List<StarDTO>> showAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(
+				mapper.mapListsToDto(starService.showAll()));
+	}
 
     @GetMapping("/")
     public ResponseEntity<List<StarDTO>> showAll(StarSearchRequest starSearchRequest) {
@@ -74,6 +75,9 @@ public class StarController {
 
     @PostMapping("/create")
     public ResponseEntity<StarDTO> create(@RequestBody StarDTO starDTO) {
+    	if (starService.validatorCreationAndEditStar(starDTO)) {
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+    	}
         Star star = mapper.mapCreateToEntity(starDTO);
         starService.create(star);
         starDTO = mapper.mapCreateToDto(star);
@@ -82,6 +86,9 @@ public class StarController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<StarDTO> update(@RequestBody StarDTO starDTO, @PathVariable Long id) {
+    	if (starService.validatorCreationAndEditStar(starDTO)) {
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+    	}
         Star star = mapper.mapUpdateToEntity(starDTO, id);
         starService.update(star, id);
         starDTO = mapper.mapCreateToDto(star);
@@ -148,15 +155,6 @@ public class StarController {
     }
 
     @PostMapping("/{id}/links")
-    public ResponseEntity<List<LinksDTO>> addStarLinks(@PathVariable Long id, @RequestBody List<LinksDTO> linksDTOS) {
-        Star star = starService.findById(id);
-        List<Links> links = linksMapper.mapLinksListToEntity(linksDTOS);
-        star.setLinks(links);
-        starService.update(star, id);
-        return ResponseEntity.status(HttpStatus.OK).body(linksMapper.mapListToDto(star.getLinks()));
-    }
-
-    @PostMapping("/{id}/new-links")
     public ResponseEntity<LinksDTO> addNewLinkForStar(@PathVariable Long id, @RequestBody LinksDTO linksDTO) {
         Star star = starService.findById(id);
         Links link = linksMapper.mapToEntityAndSaveLinks(linksDTO);

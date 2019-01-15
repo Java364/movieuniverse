@@ -4,7 +4,9 @@ import academy.softserve.movieuniverse.controller.LinksController;
 import academy.softserve.movieuniverse.controller.StarController;
 import academy.softserve.movieuniverse.dto.LinksDTO;
 import academy.softserve.movieuniverse.entity.Links;
+import academy.softserve.movieuniverse.service.LinksService;
 import academy.softserve.movieuniverse.service.StarService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class LinksMapper {
     @Autowired
     private StarService starService;
+    @Autowired
+    private LinksService linksService;
 
     public Links mapToEntityAndSaveLinks(LinksDTO dto) {
         Links links = new Links();
@@ -32,12 +36,13 @@ public class LinksMapper {
         LinksDTO linksDTO = new LinksDTO();
         linksDTO.setLinkName(links.getLinkName());
         linksDTO.setSocialNetworkingSite(links.getSocialNetworkingSite());
+        linksDTO.setId(links.getId());
 
         linksDTO.setCreated(links.getEntryCreationDate().getTime());
         linksDTO.setUpdated(links.getEntryLastUpdate().getTime());
         linksDTO.setSelf(linkTo(methodOn(LinksController.class).getOneLink(links.getId())).withSelfRel().getHref());
-        linksDTO.setStar(
-                linkTo(methodOn(StarController.class).showById(links.getStar().getId())).withRel("star").getHref());
+        //linksDTO.setStar(
+               // linkTo(methodOn(StarController.class).showById(links.getStar().getId())).withRel("star").getHref());
 
         return linksDTO;
     }
@@ -56,8 +61,7 @@ public class LinksMapper {
     }
 
     public Links mapToEntityForUpdateLinks(LinksDTO dto, Long id) {
-        Links links = new Links();
-        links.setId(id);
+        Links links = linksService.getOneLinks(id);
         links.setLinkName(dto.getLinkName());
         links.setSocialNetworkingSite(dto.getSocialNetworkingSite());
 
