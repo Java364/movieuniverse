@@ -25,26 +25,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         try {
-            System.out.println("11111");
-            System.out.println(request);
             String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
-            System.out.println("2222");
-              /*String refreshToken = jwtTokenProvider.getJwtRefreshFromRequest(request);*/
-            if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
-                System.out.println("333333");
+                if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
+                    System.out.println("vvvvv");
                 Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                System.out.println("alalalalal" );
+                    System.out.println("eeeeeee");
 
-            /*} else if (refreshToken != null && jwtTokenProvider.validateToken(refreshToken)
-                    && !jwtTokenProvider.validateToken(accessToken)) {*/
-                // checkExpiration(accessToken)
-               /* String email = jwtTokenProvider.getEmail(refreshToken);*/
-                /// removeAlreadyFiltredAttributes
-               /* Role role = userRepository.findByEmail(email).getRole();
-                Long id = userRepository.findByEmail(email).getId();
-                response.setHeader("Access-token", jwtTokenProvider.generateAccessToken(id, email, role));
-                response.setHeader("Refresh-token", jwtTokenProvider.generateRefreshToken(email));*/
+
+
             }
         } catch (RuntimeException e) {
 

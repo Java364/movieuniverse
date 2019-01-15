@@ -39,11 +39,9 @@ public class JwtTokenProvider {
     }
 
     public String getJwtAccessFromRequest(HttpServletRequest req) {
-        System.out.println("44444");
         String bearerToken = req.getHeader("Authorization");
-        System.out.println("55555");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            System.out.println("66666");
+            System.out.println("sssss");
             return bearerToken.substring(7, bearerToken.length());
         }
         return null;
@@ -71,10 +69,10 @@ public class JwtTokenProvider {
     /*
      * public String refreshToken(String token) { final Date createdDate = clock.now(); final Date expirationDate =
      * calculateExpirationDate(createdDate);
-     * 
+     *
      * final Claims claims = getAllClaimsFromToken(token); claims.setIssuedAt(createdDate);
      * claims.setExpiration(expirationDate);
-     * 
+     *
      * return Jwts.builder() .setClaims(claims) .signWith(SignatureAlgorithm.HS512, secret) .compact(); }
      */
 
