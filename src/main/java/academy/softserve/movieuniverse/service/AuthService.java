@@ -63,6 +63,7 @@ public class AuthService {
 
     public TokenModel signIn(UserLoginInfo loginDTO) {
         String email = loginDTO.getEmail();
+
         // String password = loginDTO.getPassword();
         TokenModel tokenModel = new TokenModel();
         // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
@@ -70,6 +71,7 @@ public class AuthService {
                 userRepository.findByEmail(email).getRole()));
         System.out.println(userRepository.findByEmail(email).getRole());
         /* tokenModel.setRefreshToken(jwtTokenProvider.generateRefreshToken(loginDTO.getEmail())); */
+
         return tokenModel;
     }
 
