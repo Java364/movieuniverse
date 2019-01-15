@@ -34,7 +34,7 @@ public class StarService {
         if (star == null) {
             throw new NotFoundException(ExceptionType.SAVE.getMessage() + " star");
         }
-        star = starRepository.save(star);
+        star = starRepository.saveAndFlush(star);
         return star;
     }
 
