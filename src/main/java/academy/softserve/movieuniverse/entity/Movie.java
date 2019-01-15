@@ -33,29 +33,35 @@ public class Movie extends AbstractEntity {
     @OneToMany(mappedBy = "movie")
     private List<Crew> roles = new ArrayList<Crew>();
 
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cast> cast = new ArrayList<>();
+
     @OneToMany(mappedBy = "commentedMovie", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<MovieMark> movieMarks = new ArrayList<>();
 
+    @OneToOne(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Poster poster;
+
     public Movie() {
+    }
+
+    public Poster getPoster() {
+        return poster;
+    }
+
+    public void setPoster(Poster poster) {
+        this.poster = poster;
     }
 
     public List<MovieMark> getMovieMarks() {
         return movieMarks;
     }
 
-    public void setMovieMarks(List<MovieMark> movieMarks) {
-        this.movieMarks = movieMarks;
-    }
-
     public List<Crew> getRoles() {
         return roles;
-    }
-
-    public void setRoles(List<Crew> roles) {
-        this.roles = roles;
     }
 
     public Set<Genre> getGenres() {
@@ -64,6 +70,10 @@ public class Movie extends AbstractEntity {
 
     public void setGenres(Set<Genre> genres) {
         this.genres = genres;
+    }
+
+    public void setRoles(List<Crew> roles) {
+        this.roles = roles;
     }
 
     public String getMovieName() {
@@ -102,16 +112,16 @@ public class Movie extends AbstractEntity {
         return ageLimitation;
     }
 
-    public void setAgeLimitation(String ageLimitation) {
-        this.ageLimitation = ageLimitation;
-    }
-
     public Set<Country> getCountries() {
         return countries;
     }
 
     public void setCountries(Set<Country> countries) {
         this.countries = countries;
+    }
+
+    public void setAgeLimitation(String ageLimitation) {
+        this.ageLimitation = ageLimitation;
     }
 
     public MediaContent getMediaContent() {
@@ -130,4 +140,14 @@ public class Movie extends AbstractEntity {
         this.comments = comments;
         return this;
     }
+
+    public List<Cast> getCast() {
+        return cast;
+    }
+
+    public void addStarToCast(Cast cast) {
+        this.cast.add(cast);
+        cast.setMovie(this);
+    }
+
 }

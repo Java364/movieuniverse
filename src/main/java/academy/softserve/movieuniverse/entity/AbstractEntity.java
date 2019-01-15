@@ -76,7 +76,7 @@ public abstract class AbstractEntity {
     public final boolean equals(Object o) {
         if (this == o)
             return true;
-        if ((o instanceof AbstractEntity))
+        if (!(o instanceof AbstractEntity))
             return false;
         AbstractEntity that = (AbstractEntity) o;
         return id.equals(that.id);

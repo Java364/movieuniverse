@@ -58,7 +58,7 @@ public class StarMapper {
         star.setCityOfBirth(dto.getCityOfBirth());
         star.setGrowth(dto.getGrowth());
         star.setId(null);
-        star.setFirstName(dto.getLastName());
+        star.setFirstName(dto.getFirstName());
         star.setLastName(dto.getLastName());
         if (dto.getRemoved() == null) {
             star.setIsRemoved(false);

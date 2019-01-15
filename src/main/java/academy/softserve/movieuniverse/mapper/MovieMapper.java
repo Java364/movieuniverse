@@ -2,6 +2,7 @@ package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.MovieController;
 import academy.softserve.movieuniverse.dto.movie.MovieDTO;
+import academy.softserve.movieuniverse.dto.movie.MovieFullInfo;
 import academy.softserve.movieuniverse.dto.movie.MovieSearchShortInfo;
 import academy.softserve.movieuniverse.entity.Movie;
 import org.springframework.beans.factory.annotation.Autowired;

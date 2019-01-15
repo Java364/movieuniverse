@@ -2,7 +2,6 @@ package academy.softserve.movieuniverse.dto.movie;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonSerialize(as = MovieSearchShortInfo.class)
 public interface MovieSearchShortInfo {
 
     Long getId();

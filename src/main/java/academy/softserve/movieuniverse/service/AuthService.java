@@ -37,17 +37,24 @@ public class AuthService {
     }
 
     public boolean validatorRegistration(UserCreateInfo userDTO) {
-        return (userDTO.getEmail().isEmpty()) || (!userDTO.getEmail().contains("@"))
-                || ((userDTO.getFirstName().length() > 10) || userDTO.getFirstName().contains(" "))
+        if ((userDTO.getEmail().isEmpty()) || (!userDTO.getEmail().contains("@"))
+                || ((userDTO.getFirstName().length() > 15) || userDTO.getFirstName().contains(" "))
                 || ((userDTO.getLastName().length() > 15) || userDTO.getLastName().contains(" "))
                 || (userDTO.getPassword().isEmpty())
-                || ((userDTO.getPassword().length() > 16) || userDTO.getPassword().contains(" "))
-                || (userDTO.getPassword().length() < 6);
+                || ((userDTO.getPassword().length() > 20) || userDTO.getPassword().contains(" "))
+                || (userDTO.getPassword().length() < 6))
+            return true;
+        else
+            return false;
     }
 
     public boolean checkCredentials(UserLoginInfo loginDTO) {
-        return userRepository.existsByEmail(loginDTO.getEmail()) && passwordEncoder.matches(loginDTO.getPassword(),
-                userRepository.findByEmail(loginDTO.getEmail()).getPassword());
+        if (userRepository.existsByEmail(loginDTO.getEmail()) && passwordEncoder.matches(loginDTO.getPassword(),
+                userRepository.findByEmail(loginDTO.getEmail()).getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public User getUserByEmail(String email) {
@@ -63,7 +70,6 @@ public class AuthService {
                 userRepository.findByEmail(email).getRole()));
         System.out.println(userRepository.findByEmail(email).getRole());
         /* tokenModel.setRefreshToken(jwtTokenProvider.generateRefreshToken(loginDTO.getEmail())); */
-
         return tokenModel;
     }
 
