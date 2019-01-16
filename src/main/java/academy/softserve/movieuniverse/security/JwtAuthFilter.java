@@ -24,10 +24,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         try {
+            
                String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
                 if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
+
                   Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
 
             }
         } catch (RuntimeException e) {

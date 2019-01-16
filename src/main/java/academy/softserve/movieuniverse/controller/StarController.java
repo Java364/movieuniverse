@@ -79,7 +79,7 @@ public class StarController {
         return ResponseEntity.status(HttpStatus.OK).body(mapper.mapProfileToDto(star));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<StarDTO> create(@RequestBody StarCreateInfo starCreateInfo) {
 //	if (starService.validatorCreationAndEditStar(starDTO)) {
 //        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
