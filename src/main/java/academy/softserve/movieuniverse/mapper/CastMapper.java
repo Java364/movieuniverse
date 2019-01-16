@@ -23,8 +23,8 @@ public class CastMapper implements DTOMapper<CastDTO, CastRequest, Cast> {
     @Override
     public CastDTO mapToDTO(Cast entity) {
         CastDTO castDTO = new CastDTO();
-        CreditDTO creditDTO = StarMapper.mapToCreditDTO(entity.getStar());
-        castDTO.setCreditDTO(creditDTO);
+        //CreditDTO creditDTO = StarMapper.mapToCreditDTO(entity.getStar());
+        //castDTO.setCreditDTO(creditDTO);
         castDTO.setCharacter(entity.getCharacter());
         return castDTO;
     }

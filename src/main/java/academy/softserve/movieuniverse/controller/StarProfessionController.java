@@ -4,6 +4,7 @@ import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.entity.StarProfession;
 import academy.softserve.movieuniverse.service.StarProfessionService;
 import academy.softserve.movieuniverse.mapper.StarProfessionMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class StarProfessionController {
 
     private StarProfessionService starProfessionService;
@@ -44,8 +46,8 @@ public class StarProfessionController {
         return starProfessionDTO;
     }
 
-    @DeleteMapping("/starProfession")
-    public ResponseEntity deleteStarProfession(@RequestParam Long id) {
+    @DeleteMapping("/starProfession/{id}")
+    public ResponseEntity deleteStarProfession(@PathVariable Long id) {
         starProfessionService.deleteStarProfession(id);
         return new ResponseEntity(HttpStatus.OK);
     }

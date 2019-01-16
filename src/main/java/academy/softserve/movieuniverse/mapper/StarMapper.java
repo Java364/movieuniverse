@@ -8,9 +8,11 @@ import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.service.AvatarService;
 import academy.softserve.movieuniverse.service.GalleryService;
 import academy.softserve.movieuniverse.service.StarService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -133,12 +135,20 @@ public class StarMapper {
     public List<StarSearchShortInfo> mapListEntityToStarSearchShortInfoList(List<Star> starEntities) {
         return starEntities.stream().map(this::mapEntityToStarShortSearchInfo).collect(Collectors.toList());
     }
-
-    public static CreditDTO mapToCreditDTO(Star star) {
-        CreditDTO creditDTO = new StarDTO();
-        creditDTO.setId(star.getId());
-        creditDTO.setFirstName(star.getFirstName());
-        creditDTO.setLastName(star.getLastName());
-        return creditDTO;
+    
+    public List<StarDTO> mapListToDto(List<Star> stars) {
+        List<StarDTO> starDTOs = new ArrayList<>();
+        for (Star c : stars) {
+            starDTOs.add(this.mapCreateToDto(c));
+        }
+        return starDTOs;
     }
+
+//    public static CreditDTO mapToCreditDTO(Star star) {
+//        CreditDTO creditDTO = new StarDTO();
+//        creditDTO.setId(star.getId());
+//        creditDTO.setFirstName(star.getFirstName());
+//        creditDTO.setLastName(star.getLastName());
+//        return creditDTO;
+//    }
 }

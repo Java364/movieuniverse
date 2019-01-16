@@ -1,5 +1,7 @@
 package academy.softserve.movieuniverse.service;
 
+import academy.softserve.movieuniverse.dto.star.StarCreateInfo;
+import academy.softserve.movieuniverse.dto.star.StarDTO;
 import academy.softserve.movieuniverse.dto.star.StarSearchRequest;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Links;
@@ -8,6 +10,7 @@ import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.StarRepository;
 import academy.softserve.movieuniverse.service.specific.StarSpecific;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -119,4 +122,20 @@ public class StarService {
             return starRepository.findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(name, name);
         }
     }
+    
+    public boolean validatorCreationAndEditStar(StarCreateInfo dto) {
+		if ((dto.getFirstName() == null) 
+				|| (dto.getLastName() == null)
+				|| (dto.getBiography() == null)
+				|| (dto.getCityOfBirth() == null)
+				|| (dto.getBirthday() == null)
+				|| (dto.getGrowth() == null)
+				|| (dto.getFirstName().isEmpty()) 
+				|| (dto.getLastName().isEmpty())
+				|| (dto.getBiography().isEmpty())
+				|| (dto.getCityOfBirth().isEmpty()))
+			return true;
+		else
+			return false;
+	}
 }
