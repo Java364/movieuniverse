@@ -6,7 +6,9 @@ import academy.softserve.movieuniverse.dto.StarActivityInMoviesDTO;
 import academy.softserve.movieuniverse.dto.StarProfessionDTO;
 import academy.softserve.movieuniverse.dto.country.CountryDTO;
 import academy.softserve.movieuniverse.dto.gallery.GalleryDTO;
+import academy.softserve.movieuniverse.dto.star.StarCreateInfo;
 import academy.softserve.movieuniverse.dto.star.StarDTO;
+import academy.softserve.movieuniverse.dto.star.StarSearchInfo;
 import academy.softserve.movieuniverse.dto.star.StarSearchRequest;
 import academy.softserve.movieuniverse.entity.*;
 import academy.softserve.movieuniverse.mapper.*;
@@ -21,7 +23,7 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/stars", produces = "application/hal+json")
+@RequestMapping("/stars")
 public class StarController {
 
     private final StarService starService;
@@ -35,14 +37,14 @@ public class StarController {
     private final CountryMapper countryMapper;
     private final AvatarMapper avatarMapper;
     private final StarActivityInMoviesMapper starActivityMapper;
-    @Autowired
-    private ProfessionService professionService;
+    private final ProfessionService professionService;
 
     @Autowired
     public StarController(StarService starService, StarProfessionService starProfessionService, StarMapper mapper,
             StarProfessionMapper starProfessionMapper, LinksMapper linksMapper, LinksService linksService,
             GalleryService galleryService, GalleryMapper galleryMapper, CountryMapper countryMapper,
-            StarActivityInMoviesMapper starActivityMapper, AvatarMapper avatarMapper) {
+            StarActivityInMoviesMapper starActivityMapper, AvatarMapper avatarMapper,
+            ProfessionService professionService) {
         this.starService = starService;
         this.starProfessionService = starProfessionService;
         this.mapper = mapper;
@@ -54,17 +56,21 @@ public class StarController {
         this.countryMapper = countryMapper;
         this.starActivityMapper = starActivityMapper;
         this.avatarMapper = avatarMapper;
+        this.professionService = professionService;
     }
 
-	@GetMapping("/list")
+
+	@GetMapping
 	public ResponseEntity<List<StarDTO>> showAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(
-				mapper.mapListsToDto(starService.showAll()));
+				mapper.mapListToDto(starService.showAll()));
 	}
 
-    @GetMapping("/")
-    public ResponseEntity<List<StarDTO>> showAll(StarSearchRequest starSearchRequest) {
-        return ResponseEntity.status(HttpStatus.OK).body(mapper.mapListsToDto(starService.showAll(starSearchRequest)));
+    @GetMapping("/list")
+    public ResponseEntity<List<StarSearchInfo>> showAll(StarSearchRequest starSearchRequest) {
+        List<StarSearchInfo> dto = mapper.mapListEntityToStarSearchInfoList(starService.showAll(starSearchRequest));
+        dto.forEach(System.out::println);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
     @GetMapping("/{id}")
@@ -73,14 +79,15 @@ public class StarController {
         return ResponseEntity.status(HttpStatus.OK).body(mapper.mapProfileToDto(star));
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<StarDTO> create(@RequestBody StarDTO starDTO) {
-    	if (starService.validatorCreationAndEditStar(starDTO)) {
-            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-    	}
-        Star star = mapper.mapCreateToEntity(starDTO);
-        starService.create(star);
-        starDTO = mapper.mapCreateToDto(star);
+    @PostMapping
+    public ResponseEntity<StarDTO> create(@RequestBody StarCreateInfo starCreateInfo) {
+//	if (starService.validatorCreationAndEditStar(starDTO)) {
+//        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+//	}
+
+        Star star = mapper.mapCreateToEntity(starCreateInfo);
+        Star starNew = starService.create(star);
+        StarDTO starDTO = mapper.mapProfileToDto(starNew);
         return new ResponseEntity<StarDTO>(starDTO, HttpStatus.CREATED);
     }
 

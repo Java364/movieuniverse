@@ -41,9 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -54,11 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().cacheControl().disable();
         http.authorizeRequests().antMatchers("/users*").permitAll();
-        /*http.authorizeRequests().antMatchers("/stars*//**").hasRole("ADMIN");*/
-       /* http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider, userRepository));*/
+
+       /* http.authorizeRequests().antMatchers("/stars*//*").hasRole("USER");*/
 
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
 
 }

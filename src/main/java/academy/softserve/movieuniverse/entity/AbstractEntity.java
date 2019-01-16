@@ -74,8 +74,10 @@ public abstract class AbstractEntity {
 
     @Override
     public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AbstractEntity)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof AbstractEntity))
+            return false;
         AbstractEntity that = (AbstractEntity) o;
         return id.equals(that.id);
     }

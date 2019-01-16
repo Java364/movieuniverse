@@ -1,16 +1,11 @@
 package academy.softserve.movieuniverse.service;
 
-
-import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
-import academy.softserve.movieuniverse.dto.user.UserLoginInfo;
 import academy.softserve.movieuniverse.entity.MovieMark;
-import academy.softserve.movieuniverse.entity.Role;
 import academy.softserve.movieuniverse.entity.User;
 import academy.softserve.movieuniverse.exception.ExceptionType;
 import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.UserRepository;
 import academy.softserve.movieuniverse.security.JwtTokenProvider;
-import academy.softserve.movieuniverse.security.TokenModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,10 +18,10 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-@Autowired
-private PasswordEncoder passwordEncoder;
-@Autowired
-private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -37,7 +32,8 @@ private JwtTokenProvider jwtTokenProvider;
         return userRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(ExceptionType.SELECT.getMessage() + "user with " + id.toString() + " ID"));
     }
-  public void deleteById(Long id) {
+
+    public void deleteById(Long id) {
         if (!userRepository.findById(id).isPresent())
             throw new NotFoundException(ExceptionType.DELETE.getMessage() + "user with ID - " + id.toString());
         userRepository.deleteById(id);

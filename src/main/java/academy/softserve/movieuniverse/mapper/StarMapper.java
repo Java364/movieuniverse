@@ -1,16 +1,14 @@
 package academy.softserve.movieuniverse.mapper;
 
 import academy.softserve.movieuniverse.controller.StarController;
-import academy.softserve.movieuniverse.dto.star.CreditDTO;
-import academy.softserve.movieuniverse.dto.star.StarDTO;
-import academy.softserve.movieuniverse.dto.star.StarSearchInfo;
-import academy.softserve.movieuniverse.dto.star.StarSearchShortInfo;
+import academy.softserve.movieuniverse.dto.star.*;
 import academy.softserve.movieuniverse.entity.Avatar;
 import academy.softserve.movieuniverse.entity.Gallery;
 import academy.softserve.movieuniverse.entity.Star;
 import academy.softserve.movieuniverse.service.AvatarService;
 import academy.softserve.movieuniverse.service.GalleryService;
 import academy.softserve.movieuniverse.service.StarService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,35 +33,15 @@ public class StarMapper {
         this.avatarService = avatarService;
     }
 
-    public Star mapListToEntity(StarDTO dto) {
-        Star star = new Star();
-        star.setFirstName(dto.getFirstName());
-        star.setLastName(dto.getLastName());
-        star.setId(dto.getId());
-        return star;
-    }
-
-    public StarDTO mapListToDto(Star entity) {
-        StarDTO dto = new StarDTO();
-        dto.setFirstName(entity.getFirstName());
-        dto.setLastName(entity.getLastName());
-        dto.setId(entity.getId());
-        return dto;
-    }
-
-    public Star mapCreateToEntity(StarDTO dto) {
+    public Star mapCreateToEntity(StarCreateInfo dto) {
         Star star = new Star();
         star.setBiography(dto.getBiography());
         star.setBirthday(dto.getBirthday());
         star.setCityOfBirth(dto.getCityOfBirth());
         star.setGrowth(dto.getGrowth());
-        star.setId(null);
         star.setFirstName(dto.getFirstName());
         star.setLastName(dto.getLastName());
-        if (dto.getRemoved() == null) {
-            star.setIsRemoved(false);
-        }
-        this.mapCreateGalleryAndAvatar(star);
+        mapCreateGalleryAndAvatar(star);
         return star;
     }
 
@@ -117,22 +95,6 @@ public class StarMapper {
         return dto;
     }
 
-    public List<StarDTO> mapListsToDto(List<Star> stars) {
-        List<StarDTO> starDTOs = new ArrayList<>();
-        for (Star t : stars) {
-            starDTOs.add(this.mapListToDto(t));
-        }
-        return starDTOs;
-    }
-
-    public List<Star> mapListsToEntity(List<StarDTO> starsDTOs) {
-        List<Star> stars = new ArrayList<>();
-        for (StarDTO t : starsDTOs) {
-            stars.add(this.mapListToEntity(t));
-        }
-        return stars;
-    }
-
     private void mapCreateGalleryAndAvatar(Star star) {
         Avatar avatar = avatarService.save(new Avatar());
         Gallery gallery = galleryService.save();
@@ -152,6 +114,7 @@ public class StarMapper {
                 .withRel("professions").getHref());
         starDTO.setAvatar(
                 linkTo(methodOn(StarController.class).showStarAvatar(starEntity.getId())).withRel("avatar").getHref());
+        System.out.println(starDTO);
         return starDTO;
     }
 
@@ -171,6 +134,14 @@ public class StarMapper {
 
     public List<StarSearchShortInfo> mapListEntityToStarSearchShortInfoList(List<Star> starEntities) {
         return starEntities.stream().map(this::mapEntityToStarShortSearchInfo).collect(Collectors.toList());
+    }
+    
+    public List<StarDTO> mapListToDto(List<Star> stars) {
+        List<StarDTO> starDTOs = new ArrayList<>();
+        for (Star c : stars) {
+            starDTOs.add(this.mapCreateToDto(c));
+        }
+        return starDTOs;
     }
 
 //    public static CreditDTO mapToCreditDTO(Star star) {

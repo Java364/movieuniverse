@@ -1,5 +1,6 @@
 package academy.softserve.movieuniverse.service;
 
+import academy.softserve.movieuniverse.dto.star.StarCreateInfo;
 import academy.softserve.movieuniverse.dto.star.StarDTO;
 import academy.softserve.movieuniverse.dto.star.StarSearchRequest;
 import academy.softserve.movieuniverse.entity.Gallery;
@@ -21,110 +22,108 @@ import java.util.Optional;
 @Transactional
 public class StarService {
 
-	private final StarRepository starRepository;
-	private final GalleryService galleryService;
-	private final StarSpecific starSpecific;
+    private final StarRepository starRepository;
+    private final GalleryService galleryService;
+    private final StarSpecific starSpecific;
 
-	@Autowired
-	public StarService(StarRepository starRepository,
-			GalleryService galleryService, StarSpecific starSpecific) {
-		this.starRepository = starRepository;
-		this.galleryService = galleryService;
-		this.starSpecific = starSpecific;
-	}
+    @Autowired
+    public StarService(StarRepository starRepository, GalleryService galleryService, StarSpecific starSpecific) {
+        this.starRepository = starRepository;
+        this.galleryService = galleryService;
+        this.starSpecific = starSpecific;
+    }
 
-	public Star create(Star star) {
-		if (star == null) {
-			throw new NotFoundException(ExceptionType.SAVE.getMessage()
-					+ " star");
-		}
-		star = starRepository.save(star);
-		return star;
-	}
+    public Star create(Star star) {
+        if (star == null) {
+            throw new NotFoundException(ExceptionType.SAVE.getMessage() + " star");
+        }
+        star = starRepository.saveAndFlush(star);
+        return star;
+    }
 
-	public Star update(Star star, Long id) {
-		Optional<Star> starOptional = starRepository.findById(id);
-		if (!starOptional.isPresent()) {
-			throw new NotFoundException(ExceptionType.UPDATE.getMessage()
-					+ " star");
-		}
-		star.setId(id);
-		star = starRepository.save(star);
-		return star;
-	}
+    public Star update(Star star, Long id) {
+        Optional<Star> starOptional = starRepository.findById(id);
+        if (!starOptional.isPresent()) {
+            throw new NotFoundException(ExceptionType.UPDATE.getMessage() + " star");
+        }
+        star.setId(id);
+        star = starRepository.save(star);
+        return star;
+    }
 
-	public List<Star> showAll(StarSearchRequest starSearchRequest) {
-		return starRepository.findAll(starSpecific.filter(starSearchRequest));
-	}
+    public List<Star> showAll(StarSearchRequest starSearchRequest) {
+        return starRepository.findAll(starSpecific.filter(starSearchRequest));
+    }
 
-	public List<Star> showAll() {
-		return starRepository.findAll();
-	}
+    public List<Star> showAll() {
+        return starRepository.findAll();
+    }
 
-	public Star findById(Long id) {
-		Optional<Star> starOptional = starRepository.findById(id);
-		if (!starOptional.isPresent()) {
-			throw new NotFoundException(ExceptionType.SELECT.getMessage()
-					+ "star with " + id.toString() + " ID");
-		}
-		Star star = starOptional.get();
-		return star;
-	}
+    public Star findById(Long id) {
+        Optional<Star> starOptional = starRepository.findById(id);
+        if (!starOptional.isPresent()) {
+            throw new NotFoundException(ExceptionType.SELECT.getMessage() + "star with " + id.toString() + " ID");
+        }
+        Star star = starOptional.get();
+        return star;
+    }
 
-	public void deleteById(Long id) {
-		Optional<Star> starOptional = starRepository.findById(id);
-		if (!starOptional.isPresent()) {
-			throw new NotFoundException(ExceptionType.DELETE.getMessage()
-					+ "star with " + id.toString() + " ID");
-		}
-		starRepository.deleteById(id);
-	}
+    public void deleteById(Long id) {
+        Optional<Star> starOptional = starRepository.findById(id);
+        if (!starOptional.isPresent()) {
+            throw new NotFoundException(ExceptionType.DELETE.getMessage() + "star with " + id.toString() + " ID");
+        }
+        starRepository.deleteById(id);
+    }
 
-	public Star remove(Long id) {
-		Optional<Star> starOptional = starRepository.findById(id);
-		if (!starOptional.isPresent()) {
-			throw new NotFoundException(ExceptionType.DELETE.getMessage()
-					+ "star with " + id.toString() + " ID");
-		}
-		Star star = starOptional.get();
-		star.setId(id);
-		star.setIsRemoved(true);
-		star = starRepository.save(star);
-		return star;
-	}
+    public Star remove(Long id) {
+        Optional<Star> starOptional = starRepository.findById(id);
+        if (!starOptional.isPresent()) {
+            throw new NotFoundException(ExceptionType.DELETE.getMessage() + "star with " + id.toString() + " ID");
+        }
+        Star star = starOptional.get();
+        star.setId(id);
+        star.setIsRemoved(true);
+        star = starRepository.save(star);
+        return star;
+    }
 
-	public Star makeActive(Long id) {
-		Optional<Star> starOptional = starRepository.findById(id);
-		if (!starOptional.isPresent()) {
-			throw new NotFoundException(ExceptionType.SELECT.getMessage()
-					+ "star with " + id.toString() + " ID");
-		}
-		Star star = starOptional.get();
-		star.setId(id);
-		star.setIsRemoved(false);
-		star = starRepository.save(star);
-		return star;
-	}
+    public Star makeActive(Long id) {
+        Optional<Star> starOptional = starRepository.findById(id);
+        if (!starOptional.isPresent()) {
+            throw new NotFoundException(ExceptionType.SELECT.getMessage() + "star with " + id.toString() + " ID");
+        }
+        Star star = starOptional.get();
+        star.setId(id);
+        star.setIsRemoved(false);
+        star = starRepository.save(star);
+        return star;
+    }
 
-	public Star findAllByLinks(Links links) {
-		return starRepository.findByLinks(links);
-	}
+    public Star findAllByLinks(Links links) {
+        return starRepository.findByLinks(links);
+    }
 
-	public Gallery addNewGallery(Long starId) {
-		Star star = findById(starId);
-		Gallery gallery = galleryService.save();
-		star.setGallery(gallery);
-		update(star, starId);
-		return gallery;
-	}
+    public Gallery addNewGallery(Long starId) {
+        Star star = findById(starId);
+        Gallery gallery = galleryService.save();
+        star.setGallery(gallery);
+        update(star, starId);
+        return gallery;
+    }
 
-	public List<Star> findAllByName(String name) {
-		return starRepository
-				.findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(
-						name, name);
-	}
-
-	public boolean validatorCreationAndEditStar(StarDTO dto) {
+    public List<Star> findAllByName(String name) {
+        try {
+            String[] split = name.split("/w");
+            String firstName = split[0];
+            String lastName = split[1];
+            return starRepository.findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(firstName, lastName);
+        } catch (Exception e) {
+            return starRepository.findAllByFirstNameContainingOrLastNameContainingAllIgnoreCase(name, name);
+        }
+    }
+    
+    public boolean validatorCreationAndEditStar(StarCreateInfo dto) {
 		if ((dto.getFirstName() == null) 
 				|| (dto.getLastName() == null)
 				|| (dto.getBiography() == null)

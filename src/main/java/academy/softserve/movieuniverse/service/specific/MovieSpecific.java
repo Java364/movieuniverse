@@ -57,6 +57,7 @@ public class MovieSpecific {
     private Specification<Movie> containsGenres(List<String> genres) {
         List<String> lowercaseGenres = genres.stream().map(String::toLowerCase).collect(Collectors.toList());
         return (root, query, criteriaBuilder) -> {
+            query.distinct(true);
             ListJoin<Movie, Genre> joinList = root.joinList("genres", JoinType.INNER);
             return (criteriaBuilder.lower(joinList.get("name")).in(lowercaseGenres));
         };
@@ -65,6 +66,7 @@ public class MovieSpecific {
     private Specification<Movie> containsCountries(List<String> countries) {
         List<String> lowercaseCountries = countries.stream().map(String::toLowerCase).collect(Collectors.toList());
         return (root, query, criteriaBuilder) -> {
+            query.distinct(true);
             ListJoin<Movie, Country> joinList = root.joinList("countries", JoinType.INNER);
             return (criteriaBuilder.lower(joinList.get("name")).in(lowercaseCountries));
         };

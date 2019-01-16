@@ -1,15 +1,14 @@
 package academy.softserve.movieuniverse.dto.user;
 
-
 import academy.softserve.movieuniverse.entity.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo{
+public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo {
     private Long id;
     private String email;
     private String password;
-    /*private String confirmPassword;*/
+    /* private String confirmPassword; */
     private String firstName;
     private String lastName;
     private Role role;
@@ -45,16 +44,12 @@ public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo{
         this.password = password;
     }
 
-
-    /*public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-*/
+    /*
+     * public String getConfirmPassword() { return confirmPassword; }
+     * 
+     * 
+     * public void setConfirmPassword(String confirmPassword) { this.confirmPassword = confirmPassword; }
+     */
     @Override
     public String getFirstName() {
         return firstName;
@@ -166,10 +161,9 @@ public class UserDTO implements UserShortInfo, UserCreateInfo, UserFullInfo{
     @Override
     public String toString() {
         return "UserDTO{" + "id=" + id + ", email='" + email + '\'' + ", password='" + password + '\''
-                + ", confirmPassword='" + '\'' + ", firstName='" + firstName + '\'' + ", lastName='"
-                + lastName + '\'' + ", birthday=" + birthday + ", entryCreationDate=" + entryCreationDate
-                + ", entryLastUpdate=" + entryLastUpdate + ", isRemoved=" + isRemoved + ", self='" + self + '\''
-                + ", users='" + users + '\'' + ", comments='" + comments + '\'' + ", movieMarks='" + movieMarks + '\''
-                + '}';
+                + ", confirmPassword='" + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''
+                + ", birthday=" + birthday + ", entryCreationDate=" + entryCreationDate + ", entryLastUpdate="
+                + entryLastUpdate + ", isRemoved=" + isRemoved + ", self='" + self + '\'' + ", users='" + users + '\''
+                + ", comments='" + comments + '\'' + ", movieMarks='" + movieMarks + '\'' + '}';
     }
 }

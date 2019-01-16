@@ -7,8 +7,8 @@ import academy.softserve.movieuniverse.entity.Star;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.ListJoin;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,9 +46,11 @@ public class StarSpecific {
     }
 
     private Specification<Star> containsAnyProfessionFromList(List<String> professions) {
+
         List<String> lowercaseProfessions = professions.stream().map(String::toLowerCase).collect(Collectors.toList());
         return (root, query, criteriaBuilder) -> {
-            ListJoin<Star, Profession> joinList = root.joinList("professions", JoinType.INNER).joinList("profession",
+            query.distinct(true);
+            Join<Star, Profession> joinList = root.join("professions", JoinType.INNER).join("profession",
                     JoinType.INNER);
             return (criteriaBuilder.lower(joinList.get("professionType")).in(lowercaseProfessions));
         };
@@ -56,7 +58,8 @@ public class StarSpecific {
 
     private Specification<Star> containsMovie(String movieName) {
         return (root, query, criteriaBuilder) -> {
-            ListJoin<Star, Movie> joinList = root.joinList("roles", JoinType.INNER).joinList("movie", JoinType.INNER);
+            query.distinct(true);
+            Join<Star, Movie> joinList = root.join("casts", JoinType.INNER).join("movie", JoinType.INNER);
             return criteriaBuilder.equal(criteriaBuilder.lower(joinList.get("movieName")), movieName.toLowerCase());
         };
     }
