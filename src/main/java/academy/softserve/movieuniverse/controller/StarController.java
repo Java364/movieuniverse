@@ -55,14 +55,7 @@ public class StarController {
         this.avatarMapper = avatarMapper;
     }
 
-
 	@GetMapping
-	public ResponseEntity<List<StarDTO>> showAll() {
-		return ResponseEntity.status(HttpStatus.OK).body(
-				mapper.mapListToDto(starService.showAll()));
-	}
-
-    @GetMapping("/list")
     public ResponseEntity<List<StarSearchInfo>> showAll(StarSearchRequest starSearchRequest) {
         List<StarSearchInfo> dto = mapper.mapListEntityToStarSearchInfoList(starService.showAll(starSearchRequest));
         dto.forEach(System.out::println);
