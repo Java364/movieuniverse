@@ -24,14 +24,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         try {
+            System.out.println("в");
                String accessToken = jwtTokenProvider.getJwtAccessFromRequest(request);
                 if (accessToken != null && jwtTokenProvider.validateToken(accessToken)) {
+                    System.out.println("е");
                   Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                    System.out.println(")))))))");
 
             }
         } catch (RuntimeException e) {
-
+            System.out.println("(((((((");
         }
         filterChain.doFilter(request, response);
     }

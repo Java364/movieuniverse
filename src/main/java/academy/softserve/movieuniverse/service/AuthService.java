@@ -4,6 +4,8 @@ import academy.softserve.movieuniverse.dto.user.UserCreateInfo;
 import academy.softserve.movieuniverse.dto.user.UserLoginInfo;
 import academy.softserve.movieuniverse.entity.Role;
 import academy.softserve.movieuniverse.entity.User;
+import academy.softserve.movieuniverse.exception.ExceptionType;
+import academy.softserve.movieuniverse.exception.NotFoundException;
 import academy.softserve.movieuniverse.repository.UserRepository;
 import academy.softserve.movieuniverse.security.JwtTokenProvider;
 import academy.softserve.movieuniverse.security.TokenModel;
@@ -24,6 +26,7 @@ public class AuthService {
 
     public User createUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
+            throw new NotFoundException(ExceptionType.SAVE.getMessage() + "User");
         } else {
             User registration = new User();
             registration.setEmail(user.getEmail());
@@ -33,7 +36,7 @@ public class AuthService {
             registration.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(registration);
         }
-        return user;
+        /*return user;*/
     }
 
     public boolean validatorRegistration(UserCreateInfo userDTO) {
@@ -61,9 +64,9 @@ public class AuthService {
         return userRepository.findByEmail(email);
     }
 
+
     public TokenModel signIn(UserLoginInfo loginDTO) {
         String email = loginDTO.getEmail();
-
         // String password = loginDTO.getPassword();
         TokenModel tokenModel = new TokenModel();
         // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
