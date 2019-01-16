@@ -88,7 +88,7 @@ public class StarController {
         Star star = mapper.mapCreateToEntity(starCreateInfo);
         Star starNew = starService.create(star);
         StarDTO starDTO = mapper.mapProfileToDto(starNew);
-        return new ResponseEntity<StarDTO>(starDTO, HttpStatus.CREATED);
+        return new ResponseEntity<StarDTO>(starDTO, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
