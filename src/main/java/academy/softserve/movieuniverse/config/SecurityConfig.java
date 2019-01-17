@@ -5,6 +5,7 @@ import academy.softserve.movieuniverse.security.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -51,9 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http // no session will be created or used by Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().cacheControl().disable();
-        http.authorizeRequests().antMatchers("/users*").permitAll();
-
-        /*http.authorizeRequests().antMatchers("/stars*//*").hasRole("USER");*/
+       /* http.authorizeRequests().antMatchers("/users*").permitAll();*/
+        http.authorizeRequests().antMatchers("/stars/*").hasRole("USER");
 
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
     }
