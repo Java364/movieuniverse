@@ -47,14 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http // включаем защиту от CSRF атак
-                .csrf().disable();
-        http // no session will be created or used by Spring Security
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.headers().cacheControl().disable();
-       /* http.authorizeRequests().antMatchers("/users*").permitAll();*/
-        http.authorizeRequests().antMatchers("/stars/*").hasRole("USER");
-
+        http.csrf().disable();
+        http.authorizeRequests().antMatchers("/*").permitAll();
+        /*http.authorizeRequests().antMatchers("/stars*//**").hasAuthority("USER");*/
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
